@@ -6,22 +6,6 @@ export type Item = {
 
 export const demos: { name: string; items: Item[] }[] = [
   {
-    name: 'Project Stuff',
-    items: [
-      {
-        name: 'Login',
-        slug: 'login',
-        description:
-          'Login, Signup & Forgot password screen based on Route Groups Layout',
-      },
-      {
-        name: 'Settings',
-        slug: 'settings',
-        description: 'Settings screen for user information',
-      },
-    ],
-  },
-  {
     name: 'Layouts',
     items: [
       {
