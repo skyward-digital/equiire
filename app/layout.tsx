@@ -44,7 +44,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Sidebar />
 
-          <main className="flex min-h-screen w-full flex-col pl-72">
+          <main className="mt-4 flex min-h-screen w-full flex-col pl-72">
             {children}
           </main>
         </ThemeProvider>
