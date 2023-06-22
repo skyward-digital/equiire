@@ -26,7 +26,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     type="search"
                     name="search"
                     id="search"
-                    className="focus:border-vercel-pink focus:ring-vercel-pink block w-full rounded-full border-none bg-gray-600 pl-10 font-medium text-gray-200 focus:ring-2"
+                    className="focus:border-pink-600 focus:ring-pink-600 block w-full rounded-full border-none bg-gray-600 pl-10 font-medium text-gray-200 focus:ring-2"
                     autoComplete="off"
                   />
                 </div>
@@ -35,7 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <div className="flex shrink-0 space-x-3">
                 <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-600 text-white">
                   <ShoppingCartIcon className="w-6 text-white" />
-                  <div className="bg-vercel-pink absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-sm font-bold text-white">
+                  <div className="bg-pink-600 absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-sm font-bold text-white">
                     0
                   </div>
                 </div>

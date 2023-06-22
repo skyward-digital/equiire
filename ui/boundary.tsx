@@ -14,11 +14,11 @@ const Label = ({
     <div
       className={clsx('rounded-full px-1.5 shadow-[0_0_1px_3px_black]', {
         'bg-gray-800 text-gray-300': color === 'default',
-        'bg-vercel-pink text-white': color === 'pink',
-        'bg-vercel-blue text-white': color === 'blue',
-        'bg-vercel-cyan text-white': color === 'cyan',
-        'bg-vercel-violet text-violet-100': color === 'violet',
-        'bg-vercel-orange text-white': color === 'orange',
+        'bg-pink-600 text-white': color === 'pink',
+        'bg-blue-600 text-white': color === 'blue',
+        'bg-cyan-600 text-white': color === 'cyan',
+        'bg-violet-600 text-violet-100': color === 'violet',
+        'bg-orange-600 text-white': color === 'orange',
         'animate-[highlight_1s_ease-in-out_1]': animateRerendering,
       })}
     >
@@ -45,12 +45,12 @@ export const Boundary = ({
         'p-3 lg:p-5': size === 'small',
         'p-4 lg:p-9': size === 'default',
         'border-gray-700': color === 'default',
-        'border-vercel-pink': color === 'pink',
-        'border-vercel-blue': color === 'blue',
-        'border-vercel-cyan': color === 'cyan',
-        'border-vercel-violet': color === 'violet',
-        'border-vercel-orange': color === 'orange',
-        'text-vercel-pink animate-[rerender_1s_ease-in-out_1]':
+        'border-pink-600': color === 'pink',
+        'border-blue-600': color === 'blue',
+        'border-cyan-600': color === 'cyan',
+        'border-violet-600': color === 'violet',
+        'border-orange-600': color === 'orange',
+        'text-pink-600 animate-[rerender_1s_ease-in-out_1]':
           animateRerendering,
       })}
     >
