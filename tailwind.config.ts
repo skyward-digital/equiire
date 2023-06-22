@@ -1,4 +1,5 @@
 import colors from 'tailwindcss/colors';
+import { fontFamily } from 'tailwindcss/defaultTheme';
 import { Config } from 'tailwindcss';
 
 export default {
@@ -19,6 +20,7 @@ export default {
     extend: {
       // As we get further into the project we will add the colours directly into the theme, for now we'll extend
       colors: {
+        black: '#26272B',
         gray: {
           ...colors.gray,
           100: '#F3F4F6',
@@ -43,6 +45,9 @@ export default {
       }),
       boxShadow: {
         xs: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
+      },
+      fontFamily: {
+        sans:['var(--font-mazzard)', ...fontFamily.sans]
       },
       screens: {
         '2xl': '1440px',
