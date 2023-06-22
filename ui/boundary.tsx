@@ -50,8 +50,7 @@ export const Boundary = ({
         'border-cyan-600': color === 'cyan',
         'border-violet-600': color === 'violet',
         'border-orange-600': color === 'orange',
-        'text-pink-600 animate-[rerender_1s_ease-in-out_1]':
-          animateRerendering,
+        'animate-[rerender_1s_ease-in-out_1] text-pink-600': animateRerendering,
       })}
     >
       <div
