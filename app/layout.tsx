@@ -22,15 +22,15 @@ const inter = Inter({
 const mazzard = localFont({
   src: [
     {
-      path: '../public/fonts/MazzardH-Bold.otf',
+      path: './fonts/MazzardH-Bold.otf',
       weight: '700',
     },
     {
-      path: '../public/fonts/MazzardH-SemiBold.otf',
+      path: './fonts/MazzardH-SemiBold.otf',
       weight: '600',
     },
     {
-      path: '../public/fonts/MazzardH-Regular.otf',
+      path: './fonts/MazzardH-Regular.otf',
       weight: '400',
     },
   ],
