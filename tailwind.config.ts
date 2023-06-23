@@ -1,4 +1,5 @@
 import colors from 'tailwindcss/colors';
+import { fontFamily } from 'tailwindcss/defaultTheme';
 import { Config } from 'tailwindcss';
 
 export default {
@@ -17,17 +18,24 @@ export default {
       padding: '1rem',
     },
     extend: {
-      // https://vercel.com/design/color
+      // As we get further into the project we will add the colours directly into the theme, for now we'll extend
       colors: {
-        gray: colors.zinc,
+        black: '#26272B',
+        gray: {
+          ...colors.gray,
+          100: '#F3F4F6',
+          200: '#E5E7EB',
+          300: '#D2D6DB',
+          400: '#A0A0AB',
+          500: '#6C737F',
+          600: '#475467',
+        },
         'gray-1000': 'rgb(17,17,19)',
         'gray-1100': 'rgb(10,10,11)',
-        vercel: {
-          pink: '#FF0080',
-          blue: '#0070F3',
-          cyan: '#50E3C2',
-          orange: '#F5A623',
-          violet: '#7928CA',
+        brand: {
+          primary: '#FF8622',
+          secondary: '#898989',
+          accent: '#FF9E4E',
         },
       },
       backgroundImage: ({ theme }) => ({
@@ -35,6 +43,18 @@ export default {
           'colors.gray.500',
         )}, 50px, ${theme('colors.gray.800')} 50%)`,
       }),
+      boxShadow: {
+        xs: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
+      },
+      fontFamily: {
+        sans: ['var(--font-mazzard)', ...fontFamily.sans],
+      },
+      screens: {
+        '2xl': '1440px',
+      },
+      zIndex: {
+        '-10': '-10',
+      },
       keyframes: ({ theme }) => ({
         rerender: {
           '0%': {

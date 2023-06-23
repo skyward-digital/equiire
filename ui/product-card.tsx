@@ -38,7 +38,7 @@ export const ProductCard = ({
           />
         </div>
 
-        <div className="group-hover:text-vercel-cyan truncate text-sm font-medium text-white">
+        <div className="truncate text-sm font-medium text-white group-hover:text-cyan-600">
           {product.name}
         </div>
 
