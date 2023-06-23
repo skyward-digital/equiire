@@ -26,6 +26,10 @@ const mazzard = localFont({
       weight: '700',
     },
     {
+      path: './fonts/MazzardH-SemiBold.otf',
+      weight: '600',
+    },
+    {
       path: './fonts/MazzardH-Regular.otf',
       weight: '400',
     },
