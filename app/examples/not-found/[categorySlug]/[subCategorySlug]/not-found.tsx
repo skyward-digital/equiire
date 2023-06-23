@@ -6,7 +6,7 @@ export default function NotFound() {
       labels={['./[categorySlug]/[subCategorySlug]/not-found.tsx']}
       color="pink"
     >
-      <div className="text-pink-600 space-y-3">
+      <div className="space-y-3 text-pink-600">
         <h2 className="text-lg font-bold">Sub Category Not Found</h2>
 
         <p className="text-sm">Could not find requested resource</p>

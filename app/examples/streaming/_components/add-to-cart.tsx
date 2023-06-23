@@ -37,7 +37,7 @@ export function AddToCart({ initialCartCount }: { initialCartCount: number }) {
 
   return (
     <button
-      className="bg-blue-600 hover:bg-blue-600/90 relative w-full items-center space-x-2 rounded-lg px-3  py-1 text-sm font-medium text-white disabled:text-white/70"
+      className="relative w-full items-center space-x-2 rounded-lg bg-blue-600 px-3 py-1  text-sm font-medium text-white hover:bg-blue-600/90 disabled:text-white/70"
       onClick={addToCart}
       disabled={isPending}
     >

@@ -14,7 +14,7 @@ export function Sidebar() {
   const close = () => setIsOpen(false);
 
   return (
-    <div className="fixed top-0 z-10 flex max-h-screen w-full flex-col border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-1100 lg:bottom-0 lg:z-auto lg:w-72 lg:border-b-0 lg:border-r lg:border-gray-800">
+    <div className="dark:bg-gray-1100 fixed top-0 z-10 flex max-h-screen w-full flex-col border-b border-gray-200 bg-white dark:border-gray-800 lg:bottom-0 lg:z-auto lg:w-72 lg:border-b-0 lg:border-r lg:border-gray-800">
       <div className="flex h-14 items-center px-4 py-4 lg:h-auto">
         <Link
           href="/"

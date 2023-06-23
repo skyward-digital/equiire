@@ -23,7 +23,7 @@ export function Header() {
             type="search"
             name="search"
             id="search"
-            className="focus:border-pink-600 focus:ring-pink-600 block w-full rounded-full border-none bg-gray-600 pl-10 font-medium text-gray-200 focus:ring-2"
+            className="block w-full rounded-full border-none bg-gray-600 pl-10 font-medium text-gray-200 focus:border-pink-600 focus:ring-2 focus:ring-pink-600"
             autoComplete="off"
           />
         </div>
@@ -32,7 +32,7 @@ export function Header() {
       <div className="flex shrink-0 gap-x-3">
         <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-600 text-white">
           <ShoppingCartIcon className="w-6 text-white" />
-          <div className="bg-cyan-600 absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-sm font-bold text-cyan-800">
+          <div className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-cyan-600 text-sm font-bold text-cyan-800">
             <CartCount />
           </div>
         </div>
