@@ -48,7 +48,7 @@ type InputProps = {
   pattern?: string | { value: string | RegExp; message: string };
   error?: any;
   hint?: string;
-  forgetPassword?: boolean;
+  forgotPassword?: boolean;
 };
 
 type LabelProps = {
@@ -86,7 +86,7 @@ export const Input = ({
   pattern,
   error,
   hint,
-  forgetPassword,
+  forgotPassword,
 }: InputProps) => {
   const Icon = iconMap[type];
 
@@ -94,7 +94,7 @@ export const Input = ({
     ? register(id, { required, validate, pattern })
     : undefined;
 
-  const labelSection = forgetPassword ? (
+  const labelSection = forgotPassword ? (
     <div className="flex justify-between">
       <Label id={id} label={label} />
       <Link
