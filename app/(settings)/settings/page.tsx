@@ -1,6 +1,6 @@
 'use client';
 import { useForm } from 'react-hook-form';
-import { Input } from '#/ui/components/Input';
+import { Input } from '#/ui/components/Form/Input';
 
 export default function SettingsPage() {
   const {
