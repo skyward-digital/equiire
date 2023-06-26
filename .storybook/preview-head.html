@@ -1,15 +1,49 @@
-<!-- <link
+<link
   rel="preload"
-  href="/fonts/OnestLight1602-hint.woff"
+  href="/fonts/MazzardH-Bold.otf"
   as="font"
   crossorigin=""
-  type="font/woff2"
-/> -->
-<link href="/tailwind.css" rel="stylesheet" />
+  type="font/otf"
+/>
+<link
+  rel="preload"
+  href="/fonts/MazzardH-SemiBold.otf"
+  as="font"
+  crossorigin=""
+  type="font/otf"
+/>
+<link
+  rel="preload"
+  href="/fonts/MazzardH-Regular.otf"
+  as="font"
+  crossorigin=""
+  type="font/otf"
+/>
 
 <!-- Temporary fix for 7.0 beta -->
 <style>
-  html {
-    background-color: white;
+  @font-face {
+    font-family: Mazzard;
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/MazzardH-Regular.otf');
+  }
+
+  @font-face {
+    font-family: Mazzard;
+    font-style: normal;
+    font-weight: 600;
+    src: url('/fonts/MazzardH-SemiBold.otf');
+  }
+
+  @font-face {
+    font-family: Mazzard;
+    font-style: normal;
+    font-weight: 700;
+    src: url('/fonts/MazzardH-Bold.otf');
+  }
+
+  :root {
+    --font-mazzard: Mazzard;
   }
 </style>
