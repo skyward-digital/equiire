@@ -20,7 +20,7 @@ type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {
-    children: 'Log in',
+    children: 'Loading',
     style: 'primary',
     arrow: true,
   },
@@ -28,7 +28,7 @@ export const Primary: Story = {
 
 export const Link: Story = {
   args: {
-    children: 'Log in',
+    children: 'Loading',
     style: 'link',
     arrow: true,
   },

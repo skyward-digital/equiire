@@ -22,8 +22,28 @@
 
 <!-- Temporary fix for 7.0 beta -->
 <style>
-  html {
-    /* TODO: our primary font is actually inter, with mazzard only being used in specific circumstances */
-    font-family: 'Mazzard', sans-serif !important;
+  @font-face {
+    font-family: Mazzard;
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/MazzardH-Regular.otf');
+  }
+
+  @font-face {
+    font-family: Mazzard;
+    font-style: normal;
+    font-weight: 600;
+    src: url('/fonts/MazzardH-SemiBold.otf');
+  }
+
+  @font-face {
+    font-family: Mazzard;
+    font-style: normal;
+    font-weight: 700;
+    src: url('/fonts/MazzardH-Bold.otf');
+  }
+
+  :root {
+    --font-mazzard: Mazzard;
   }
 </style>
