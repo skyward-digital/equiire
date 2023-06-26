@@ -1,6 +1,6 @@
 'use client';
 
-import { MenuAlt2Icon, XIcon } from '@heroicons/react/solid';
+// import { MenuAlt2Icon, XIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import React from 'react';
 
@@ -44,11 +44,11 @@ export function MobileNavToggle({ children }: { children: React.ReactNode }) {
         <div className="font-medium text-gray-100 group-hover:text-gray-400">
           Menu
         </div>
-        {isOpen ? (
+        {/* {isOpen ? (
           <XIcon className="block w-6 text-gray-300" />
         ) : (
           <MenuAlt2Icon className="block w-6 text-gray-300" />
-        )}
+        )} */}
       </button>
 
       <div

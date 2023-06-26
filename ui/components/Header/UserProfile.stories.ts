@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { UserProfile } from './UserProfile';
 
 const meta: Meta<typeof UserProfile> = {
-  title: 'Components/Sidebar/UserProfile',
+  title: 'Components/Header/UserProfile',
   component: UserProfile,
   parameters: {
     docs: {

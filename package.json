@@ -15,7 +15,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@heroicons/react": "1.0.6",
+    "@heroicons/react": "2.0.18",
+    "clsx": "1.2.1",
     "date-fns": "2.29.3",
     "dinero.js": "2.0.0-alpha.8",
     "ms": "3.0.0-canary.1",

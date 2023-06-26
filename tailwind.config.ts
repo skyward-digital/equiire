@@ -57,6 +57,11 @@ export default {
       zIndex: {
         '-10': '-10',
       },
+      strokeWidth: {
+        0.5: '0.5',
+        1.5: '1.5',
+        2.5: '2.5',
+      },
       keyframes: ({ theme }) => ({
         rerender: {
           '0%': {
