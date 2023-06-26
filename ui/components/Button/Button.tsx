@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import clsx from 'clsx';
-import { ArrowRightIcon } from '@heroicons/react/solid';
+import { ArrowRightIcon } from '@heroicons/react/24/solid';
 
 export interface ButtonLinkProps {
   href: string;

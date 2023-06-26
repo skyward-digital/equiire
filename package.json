@@ -10,7 +10,6 @@
     "prettier:check": "prettier --check --ignore-unknown './**/*.{js,ts,tsx,json,md}'",
     "start": "next start",
     "format": "pnpm prettier:check && pnpm lint:check",
-    "//": "New scripts to run and build Storybook with Tailwind",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
