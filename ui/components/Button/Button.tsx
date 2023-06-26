@@ -15,7 +15,6 @@ export interface ButtonProps {
   className?: string;
   arrow?: boolean;
   children: React.ReactNode;
-  type?: 'submit';
 }
 
 const classes = {
