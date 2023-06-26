@@ -48,6 +48,7 @@ export default {
       },
       fontFamily: {
         sans: ['var(--font-mazzard)', ...fontFamily.sans],
+        mazzard: ['var(--font-mazzard)', ...fontFamily.sans],
       },
       screens: {
         '2xl': '1440px',

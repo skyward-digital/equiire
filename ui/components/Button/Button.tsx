@@ -43,7 +43,7 @@ export const Button = ({
       )}
       {...props}
     >
-      {children}
+      <span className="-mb-1.5 -mt-1">{children}</span>
       {arrow ? <ArrowRightIcon className="h-5 w-5" /> : null}
     </button>
   );
@@ -66,7 +66,7 @@ export const ButtonLink = ({
         style === 'link' && classes.link,
       )}
     >
-      {children}
+      <span className="-mb-1.5 -mt-1">{children}</span>
       {arrow ? <ArrowRightIcon className="h-5 w-5" /> : null}
     </Link>
   );
