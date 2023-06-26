@@ -1,3 +1,7 @@
+import Link from 'next/link';
+import clsx from 'clsx';
+import { KeyIcon, MailIcon } from '@heroicons/react/outline';
+
 type InputProps = {
   id: string;
   type?: 'text' | 'email' | 'tel' | 'password';
@@ -38,11 +42,19 @@ type InputProps = {
     | 'cc-csc'
     | 'cc-type';
   className?: string;
-  register: any;
+  register?: any;
   required?: string;
   validate?: any;
   pattern?: string | { value: string | RegExp; message: string };
   error?: any;
+  hint?: string;
+};
+
+const iconMap = {
+  text: null,
+  tel: null,
+  email: MailIcon,
+  password: KeyIcon,
 };
 
 export const Input = ({
@@ -58,25 +70,42 @@ export const Input = ({
   validate,
   pattern,
   error,
+  hint,
 }: InputProps) => {
+  const Icon = iconMap[type];
+
+  const hookFormRegister = register
+    ? register(id, { required, validate, pattern })
+    : undefined;
+
   return (
     <div className={className}>
-      <label htmlFor={id} className="mb-1 block">
+      <label
+        htmlFor={id}
+        className="dark:text-brand-secondary mb-2 block text-base text-gray-600"
+      >
         {label}
       </label>
-      <input
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        size={size}
-        autoComplete={autocomplete}
-        className="inline-flex w-full gap-x-2 rounded px-3 py-1 text-sm font-medium no-underline dark:bg-gray-700 dark:text-gray-100"
-        {...register(id, {
-          required,
-          validate,
-          pattern,
-        })}
-      />
+      <div className="relative">
+        <input
+          id={id}
+          type={type}
+          placeholder={placeholder}
+          size={size}
+          autoComplete={autocomplete}
+          className={clsx(
+            'shadow-xs dark:border-brand-secondary inline-flex w-full gap-x-2 rounded-lg border border-gray-300 py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-400',
+            Icon ? 'pl-10' : 'pl-3',
+          )}
+          {...hookFormRegister}
+        />
+        {Icon && (
+          <Icon className="absolute top-3 ml-3 h-[20px] w-[20px] text-gray-600 dark:text-gray-100" />
+        )}
+      </div>
+      <div className="dark:text-brand-secondary mt-2 text-sm text-gray-600">
+        {hint && hint}
+      </div>
       {error && <span>{error.message}</span>}
     </div>
   );
