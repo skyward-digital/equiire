@@ -7,7 +7,7 @@ const meta: Meta<typeof Switch> = {
   parameters: {
     docs: {
       description: {
-        component: 'Switch allows a user to log in with email and password.',
+        component: 'Switch component',
       },
     },
   },

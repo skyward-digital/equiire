@@ -7,8 +7,7 @@ const meta: Meta<typeof UserProfile> = {
   parameters: {
     docs: {
       description: {
-        component:
-          'UserProfile allows a user to log in with email and password.',
+        component: 'User profile component',
       },
     },
   },
