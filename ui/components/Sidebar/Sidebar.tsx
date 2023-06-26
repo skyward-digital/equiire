@@ -5,32 +5,13 @@ import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { MenuAlt2Icon, XIcon } from '@heroicons/react/solid';
 import { navigation, type Item } from '#/lib/navigation';
-import { NextLogo } from '#/ui/next-logo';
-import { UserProfile } from './UserProfile';
-import { DarkModeToggle } from './DarkModeToggle';
 
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
 
   return (
-    <div className="dark:bg-gray-1100 fixed top-0 z-10 flex max-h-screen w-full flex-col border-b border-gray-200 bg-white dark:border-gray-800 lg:bottom-0 lg:z-auto lg:w-72 lg:border-b-0 lg:border-r lg:border-gray-800">
-      <div className="flex h-14 items-center px-4 py-4 lg:h-auto">
-        <Link
-          href="/"
-          className="group flex w-full items-center gap-x-2.5"
-          onClick={close}
-        >
-          <div className="h-7 w-7 rounded-full border border-white/30 group-hover:border-white/50">
-            <NextLogo />
-          </div>
-
-          <h3 className="font-semibold tracking-wide text-gray-700 group-hover:text-gray-50 dark:text-gray-400">
-            Global Sidebar
-          </h3>
-        </Link>
-      </div>
-
+    <div className="dark:bg-gray-1100 top-0 z-10 flex max-h-screen w-full flex-col border-b border-gray-200 bg-white dark:border-gray-800 lg:bottom-0 lg:z-auto lg:w-72 lg:border-b-0 lg:border-r lg:border-gray-200">
       <button
         type="button"
         className="group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4 lg:hidden"
@@ -80,12 +61,6 @@ export function Sidebar() {
             </div>
           </div>
         </nav>
-        <div className="absolute bottom-3 w-full space-y-2 px-2">
-          <div className="px-2">
-            <DarkModeToggle />
-          </div>
-          <UserProfile className="hidden sm:block" />
-        </div>
       </div>
     </div>
   );

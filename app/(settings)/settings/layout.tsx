@@ -1,7 +1,6 @@
 import React from 'react';
-import { Boundary } from '#/ui/boundary';
-import { ClickCounter } from '#/ui/click-counter';
 import { Header } from '#/ui/components/Header/Header';
+import { Sidebar } from '#/ui/components/Sidebar/Sidebar';
 
 export const metadata = {
   title: 'Settings',
@@ -13,22 +12,16 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="relative">
       <Header title="Settings" />
 
-      <div className="container flex flex-1 flex-col items-center justify-center py-2">
-        <Boundary
-          labels={['Settings layout']}
-          color="blue"
-          animateRerendering={false}
-        >
-          <div className="space-y-9">
-            <ClickCounter />
+      <div className="flex overflow-y-scroll">
+        <Sidebar />
 
-            <div>{children}</div>
-          </div>
-        </Boundary>
+        <main className="mt-4 flex min-h-screen w-full flex-col pl-72">
+          {children}
+        </main>
       </div>
-    </>
+    </div>
   );
 }

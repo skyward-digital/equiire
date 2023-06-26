@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { Switch } from '#/ui/components/Switch';
 
-export const DarkModeToggle = () => {
+export const DarkModeToggle = ({ className }: { className: string }) => {
   const [mounted, setMounted] = useState(false);
   const { systemTheme, theme, setTheme } = useTheme();
 
@@ -18,13 +18,16 @@ export const DarkModeToggle = () => {
   const currentTheme = theme === 'system' ? systemTheme : theme;
 
   return (
-    <Switch
-      label="Dark Mode"
-      size="sm"
-      checked={currentTheme === 'dark'}
-      onChange={() => {
-        setTheme(currentTheme === 'light' ? 'dark' : 'light');
-      }}
-    />
+    <div className={className}>
+      <Switch
+        label="Dark Mode"
+        reversed={true}
+        size="sm"
+        checked={currentTheme === 'dark'}
+        onChange={() => {
+          setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        }}
+      />
+    </div>
   );
 };
