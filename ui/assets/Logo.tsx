@@ -1,12 +1,9 @@
 export function Logo(props: React.SVGProps<SVGSVGElement>) {
   const fill = props.fill || props.className?.includes('fill-');
-  const width = props.width || '119';
-  const height = props.height || '32';
-
   return (
     <svg
-      width={width}
-      height={height}
+      width="119"
+      height="32"
       viewBox="0 0 119 32"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
