@@ -1,7 +1,4 @@
-import type {
-  Meta,
-  // StoryObj
-} from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Sidebar } from '.';
 
 const meta: Meta<typeof Sidebar> = {
@@ -10,7 +7,8 @@ const meta: Meta<typeof Sidebar> = {
   parameters: {
     docs: {
       description: {
-        component: 'Sidebar allows a user to log in with email and password.',
+        component:
+          'Sidebar is a global component that shows up on the left side of the screen, allowing users to navigate through the app.',
       },
     },
   },
@@ -19,6 +17,6 @@ const meta: Meta<typeof Sidebar> = {
 
 export default meta;
 
-// type Story = StoryObj<typeof Sidebar>;
+type Story = StoryObj<typeof Sidebar>;
 
-// export const Default: Story = {};
+export const Default: Story = {};
