@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
+import { Button, ButtonLink } from '#/ui/components/Button';
 
 export function LoginForm() {
   const {
@@ -18,12 +19,12 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-10">
       <Input
         id="email"
         type="email"
         label="Email"
-        placeholder="test@test.com"
+        placeholder="youremail@example.com"
         register={register}
         required="Email is required"
         pattern={{
@@ -33,25 +34,31 @@ export function LoginForm() {
         error={errors.email}
         className="w-full"
       />
-
-      <Input
-        id="password"
-        type="password"
-        label="Password"
-        placeholder="New Password"
-        register={register}
-        required="Password is required"
-        error={errors.password}
-      />
-
-      <div className="flex w-full justify-between">
-        <button
-          className="inline-flex gap-x-2 rounded-lg bg-gray-700 px-3 py-1 text-sm font-medium text-gray-100 no-underline hover:bg-gray-500 hover:text-white"
-          type="submit"
+      <div className="relative">
+        <Link
+          className="font-sm dark:text-brand-primary hover:text-brand-primary hover:dark:text-brand-secondary absolute right-0 top-[3px] text-sm font-semibold text-gray-600 no-underline"
+          href="/forgot-password"
         >
-          Login
-        </button>
-        <Link href="forgot-password">Forgot password</Link>
+          Forgot Password?
+        </Link>
+        <Input
+          id="password"
+          type="password"
+          label="Password"
+          placeholder="Your password"
+          register={register}
+          required="Password is required"
+          error={errors.password}
+          hint="Password must have at least 8 characters"
+        />
+      </div>
+      <div className="mb-16 mt-10 flex w-full flex-col gap-5">
+        <Button style="primary" type="submit" arrow>
+          Log In
+        </Button>
+        <ButtonLink href="/sign-up" style="link">
+          Sign Up
+        </ButtonLink>
       </div>
     </form>
   );

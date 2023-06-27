@@ -93,18 +93,21 @@ export const Input = ({
           size={size}
           autoComplete={autocomplete}
           className={clsx(
-            'shadow-xs dark:border-brand-secondary inline-flex w-full gap-x-2 rounded-lg border border-gray-300 py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-400',
+            'shadow-xs  inline-flex w-full gap-x-2 rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-600',
             Icon ? 'pl-10' : 'pl-3',
           )}
           {...hookFormRegister}
         />
         {Icon && (
-          <Icon className="absolute top-3 ml-3 h-[20px] w-[20px] text-gray-600 dark:text-gray-100" />
+          <Icon className="absolute top-3 ml-3 h-[20px] w-[20px] text-gray-500 dark:text-gray-400" />
         )}
       </div>
-      <div className="dark:text-brand-secondary mt-2 text-sm text-gray-600">
-        {hint && hint}
-      </div>
+      {hint && (
+        <div className="dark:text-brand-secondary mt-2 text-sm text-gray-600">
+          {hint}
+        </div>
+      )}
+
       {error && <span>{error.message}</span>}
     </div>
   );
