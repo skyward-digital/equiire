@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button, ButtonLink } from '#/ui/components/Button';
 
-export function LoginForm() {
+export function LoginForm({ className }: { className?: string }) {
   const {
     register,
     handleSubmit,
@@ -19,7 +19,10 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-10">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={`grid gap-10 ${className}`}
+    >
       <Input
         id="email"
         type="email"
