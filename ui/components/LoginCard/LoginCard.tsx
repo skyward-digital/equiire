@@ -1,4 +1,5 @@
 import { LoginForm } from '../LoginForm';
+import { LoginLogo } from '#/ui/assets/LoginLogo';
 
 export function LoginCard() {
   return (
@@ -7,6 +8,7 @@ export function LoginCard() {
         Smart and Flexible <span className="text-brand-secondary">Loans</span>
       </h1>
       <LoginForm className="px-3" />
+      <LoginLogo className="mx-auto mt-16" />
     </section>
   );
 }

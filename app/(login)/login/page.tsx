@@ -1,4 +1,3 @@
-import { LoginForm } from '#/ui/components/LoginForm';
 import { LoginCard } from '#/ui/components/LoginCard/LoginCard';
 
 export default function Page() {

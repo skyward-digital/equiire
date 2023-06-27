@@ -55,7 +55,7 @@ export function LoginForm({ className }: { className?: string }) {
           hint="Password must have at least 8 characters"
         />
       </div>
-      <div className="mb-16 mt-10 flex w-full flex-col gap-5">
+      <div className="mt-10 flex w-full flex-col gap-5">
         <Button style="primary" type="submit" arrow>
           Log In
         </Button>
