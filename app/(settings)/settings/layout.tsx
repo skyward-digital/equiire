@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header } from '#/ui/components/Header';
-import Sidebar from '#/ui/components/Sidebar/Sidebar';
+import Sidebar from '#/ui/components/Sidebar';
 
 export const metadata = {
   title: 'Settings',

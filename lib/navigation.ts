@@ -63,7 +63,7 @@ export const navigation: { name?: string; items: Item[] }[] = [
       {
         name: 'Logout',
         icon: ArrowLeftIcon,
-        slug: '/logout',
+        slug: 'logout',
       },
     ],
   },
