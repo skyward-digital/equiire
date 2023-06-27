@@ -1,45 +1,69 @@
+import {
+  HomeIcon,
+  NoSymbolIcon,
+  CreditCardIcon,
+  Cog8ToothIcon,
+  ArrowLeftIcon,
+  // @ts-ignore
+} from '@heroicons/react/24/outline';
+
 export type Item = {
   name: string;
   slug: string;
   description?: string;
+  icon?: any;
 };
 
-export const navigation: { name: string; items: Item[] }[] = [
+export const navigation: { name?: string; items: Item[] }[] = [
   {
-    name: 'Logged out Pages',
+    // name: '',
     items: [
       {
-        name: 'Login',
-        slug: 'login',
-      },
-      {
-        name: 'Sign Up',
-        slug: 'sign-up',
-      },
-      {
-        name: 'Loan Application',
-        slug: '#',
-      },
-    ],
-  },
-  {
-    name: 'Authenticated/Logged in Pages',
-    items: [
-      {
-        name: 'Dashboard',
+        name: 'Home',
+        icon: HomeIcon,
         slug: '',
       },
       {
         name: 'Loans',
-        slug: '#',
+        icon: NoSymbolIcon,
+        slug: 'loans',
       },
       {
-        name: 'Payments',
+        name: 'Payment',
+        icon: CreditCardIcon,
         slug: 'history',
       },
       {
         name: 'Settings',
+        icon: Cog8ToothIcon,
         slug: 'settings',
+      },
+    ],
+  },
+  // {
+  //   name: 'Logged out Pages',
+  //   items: [
+  //     {
+  //       name: 'Login',
+  //       slug: 'login',
+  //     },
+  //     {
+  //       name: 'Sign Up',
+  //       slug: 'sign-up',
+  //     },
+  //     {
+  //       name: 'Loan Application',
+  //       slug: '#',
+  //     },
+  //   ],
+  // },
+  {
+    // name: '',
+    items: [
+      {
+        name: 'Logout',
+        icon: ArrowLeftIcon,
+        slug: 'logout',
       },
     ],
   },

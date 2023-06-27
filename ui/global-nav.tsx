@@ -4,7 +4,7 @@ import { demos, type Item } from '#/lib/demos';
 import { NextLogo } from '#/ui/next-logo';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { MenuAlt2Icon, XIcon } from '@heroicons/react/solid';
+// import { MenuAlt2Icon, XIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useState } from 'react';
 import Byline from './byline';
@@ -39,11 +39,11 @@ export function GlobalNav() {
         <div className="font-medium text-gray-100 group-hover:text-gray-400">
           Menu
         </div>
-        {isOpen ? (
+        {/* {isOpen ? (
           <XIcon className="block w-6 text-gray-400" />
         ) : (
           <MenuAlt2Icon className="block w-6 text-gray-400" />
-        )}
+        )} */}
       </button>
 
       <div

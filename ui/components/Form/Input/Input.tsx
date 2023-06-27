@@ -1,6 +1,5 @@
-import Link from 'next/link';
 import clsx from 'clsx';
-import { KeyIcon, MailIcon } from '@heroicons/react/outline';
+import { KeyIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 
 type InputProps = {
   id: string;
@@ -53,7 +52,7 @@ type InputProps = {
 const iconMap = {
   text: null,
   tel: null,
-  email: MailIcon,
+  email: EnvelopeIcon,
   password: KeyIcon,
 };
 

@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from '@heroicons/react/outline';
+// import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
 export const ExternalLink = ({
   children,
@@ -14,7 +14,7 @@ export const ExternalLink = ({
     >
       <div>{children}</div>
 
-      <ArrowRightIcon className="block w-4" />
+      {/* <ArrowRightIcon className="block w-4" /> */}
     </a>
   );
 };
