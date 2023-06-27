@@ -19,7 +19,7 @@ export interface ButtonProps {
 
 const classes = {
   generic:
-    'inline-flex items-center justify-center gap-2 px-6 py-3 font-sans text-base font-semibold no-underline outline-none transition duration-200 ease-in-out focus:ring-2 focus:ring-gray-600 focus:ring-offset-2',
+    'inline-flex items-center justify-center gap-2 px-6 py-3 font-brand text-base font-semibold no-underline outline-none transition duration-200 ease-in-out focus:ring-2 focus:ring-gray-600 focus:ring-offset-2',
   primary:
     'bg-brand-primary shadow-xs hover:bg-brand-secondary rounded-full text-white dark:text-black',
   link: 'text-brand-primary hover:text-gray-500',

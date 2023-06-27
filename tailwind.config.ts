@@ -48,8 +48,7 @@ export default {
         xs: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
       },
       fontFamily: {
-        sans: ['var(--font-mazzard)', ...fontFamily.sans],
-        mazzard: ['var(--font-mazzard)', ...fontFamily.sans],
+        brand: ['var(--font-mazzard)', ...fontFamily.sans],
       },
       screens: {
         '2xl': '1440px',

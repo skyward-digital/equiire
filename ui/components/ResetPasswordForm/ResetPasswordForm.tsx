@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { Input } from '#/ui/components/Input';
+import { Input } from '#/ui/components/Form/Input';
 
 export function ResetPasswordForm() {
   const {
