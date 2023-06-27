@@ -1,6 +1,8 @@
 'use client';
 import { useForm } from 'react-hook-form';
+import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
 import { Input } from '#/ui/components/Form/Input';
+import { SettingsCard } from '#/ui/components/SettingsCard';
 
 export default function SettingsPage() {
   const {
@@ -22,18 +24,27 @@ export default function SettingsPage() {
   return (
     <div className="prose prose-sm dark:prose-invert max-w-none">
       {/* user details form */}
-      <div className="grid gap-8">
-        <h2 className="text-base">Details</h2>
+      <div className="mx-auto grid max-w-2xl gap-8">
+        <h2 className="font-brand text-2xl">Company Details</h2>
+
+        {/* Edit card collapsed */}
+        <SettingsCard
+          title="Company"
+          // detail="This is the company name"
+          placeholder="Acme Inc."
+          Icon={BuildingOffice2Icon}
+        >
+          <Input
+            id="company"
+            label="Company Name"
+            register={register}
+            required="Company is required"
+            error={errors.company}
+            autocomplete="organization"
+          />
+        </SettingsCard>
 
         {/* Company */}
-        <Input
-          id="company"
-          label="Company Name"
-          register={register}
-          required="Company is required"
-          error={errors.company}
-          autocomplete="organization"
-        />
 
         <div className="mb-2 grid grid-cols-2 gap-4">
           {/* Contact Details */}

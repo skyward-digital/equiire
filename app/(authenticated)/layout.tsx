@@ -13,12 +13,12 @@ export default async function Layout({
 }) {
   return (
     <div className="relative">
-      <div className="fixed flex h-full w-full flex-col">
+      <div className="z-10 flex w-full flex-col">
         <Header title="Settings" />
         <Sidebar />
       </div>
 
-      <div className="flex overflow-y-scroll">
+      <div className="flex overflow-y-scroll pt-20">
         <main className="mt-4 flex min-h-screen w-full flex-col pl-72">
           {children}
         </main>

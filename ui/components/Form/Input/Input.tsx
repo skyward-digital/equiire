@@ -81,7 +81,7 @@ export const Input = ({
     <div className={className}>
       <label
         htmlFor={id}
-        className="dark:text-brand-secondary mb-2 block text-base text-gray-600"
+        className="dark:text-brand-secondary mb-2 block text-gray-600"
       >
         {label}
       </label>

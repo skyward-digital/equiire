@@ -11,7 +11,7 @@ export function Sidebar({ segment }: { segment?: string | null }) {
   const close = () => setIsOpen(false);
 
   return (
-    <div className="top-0 z-10 flex h-full w-full flex-col border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-black lg:bottom-0 lg:z-auto lg:w-56 lg:border-b-0 lg:border-r lg:border-gray-300">
+    <div className="fixed top-0 z-10 flex h-full w-full flex-col border-b border-gray-200 bg-white pt-20 dark:border-gray-700 dark:bg-black lg:bottom-0 lg:z-auto lg:w-56 lg:border-b-0 lg:border-r lg:border-gray-300">
       <button
         type="button"
         className="group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4 lg:hidden"
