@@ -10,7 +10,7 @@ export function LoginCard({ className }: { className: string }) {
         Smart and Flexible <span className="text-brand-secondary">Loans</span>
       </h1>
       <LoginForm className="px-3" />
-      <Logo className="mx-auto mt-16 w-[288px]" width="288" height="74" />
+      <Logo className="mx-auto mt-16" width="288" height="74" />
     </section>
   );
 }
