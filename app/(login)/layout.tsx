@@ -1,7 +1,6 @@
-import { Boundary } from '#/ui/boundary';
-import { ClickCounter } from '#/ui/click-counter';
-import { TabGroup } from '#/ui/tab-group';
 import React from 'react';
+import { DarkModeToggle } from '#/ui/components/Header/DarkModeToggle';
+import { BgVector } from '#/ui/assets/BgVector';
 
 export const metadata = {
   title: 'Login',
@@ -10,27 +9,10 @@ export const metadata = {
 // This layout should be different from the main app layout which can be achieved by turning this into a root layout (and removing the layout at app/layout.tsx)
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <Boundary labels={['Login layout']} color="blue" animateRerendering={false}>
-      <div className="space-y-9">
-        <div className="flex w-96 max-w-full justify-between">
-          <TabGroup
-            path=""
-            items={[
-              {
-                text: 'Log in',
-                slug: 'login',
-              },
-              { text: 'Sign Up', slug: 'sign-up' },
-            ]}
-          />
-
-          <div className="self-start">
-            <ClickCounter />
-          </div>
-        </div>
-
-        <div>{children}</div>
-      </div>
-    </Boundary>
+    <>
+      <BgVector className="absolute top-0 -z-10 h-screen w-full max-w-full overflow-auto" />
+      <DarkModeToggle className="absolute right-0 top-0" />
+      <div>{children}</div>
+    </>
   );
 }
