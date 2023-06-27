@@ -4,6 +4,7 @@ import clsx from 'clsx';
 export type SwitchProps = {
   label: string;
   hideLabel?: boolean;
+  reversed?: boolean;
   size?: 'sm' | 'md' | 'lg';
   checked?: boolean;
   disabled?: boolean;
@@ -13,6 +14,7 @@ export type SwitchProps = {
 export const Switch = ({
   label,
   hideLabel = false,
+  reversed,
   size = 'md',
   checked = false,
   disabled = false,
@@ -27,18 +29,23 @@ export const Switch = ({
   };
 
   return (
-    <div className="flex items-center space-x-2">
-      <button
+    <button
+      className={clsx(
+        'flex items-center gap-2 rounded-lg p-2.5',
+        reversed && 'flex-row-reverse',
+      )}
+      onClick={handleChange}
+    >
+      <span
         className={clsx(
-          enabled ? 'bg-indigo-600' : 'bg-gray-200',
-          'relative inline-flex flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2',
+          enabled ? 'bg-brand-primary' : 'bg-gray-200',
+          'focus:ring-brand-primary relative inline-flex flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-black',
           {
             'h-4 w-8': size === 'sm',
             'h-6 w-11': size === 'md',
             'h-8 w-14': size === 'lg',
           },
         )}
-        onClick={handleChange}
       >
         {hideLabel ? <span className="sr-only">{label}</span> : null}
         <span
@@ -58,12 +65,8 @@ export const Switch = ({
             'pointer-events-none inline-block transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
           )}
         />
-      </button>
-      {!hideLabel ? (
-        <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
-          {label}
-        </span>
-      ) : null}
-    </div>
+      </span>
+      {!hideLabel ? <span>{label}</span> : null}
+    </button>
   );
 };

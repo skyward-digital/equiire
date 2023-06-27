@@ -22,20 +22,21 @@ export default {
       colors: {
         black: '#26272B',
         gray: {
-          ...colors.gray,
           100: '#F3F4F6',
           200: '#E5E7EB',
           300: '#D2D6DB',
           400: '#A0A0AB',
           500: '#6C737F',
           600: '#475467',
+          700: '#3A4452',
+          800: '#343B46',
+          900: '#22272F',
         },
-        'gray-1000': 'rgb(17,17,19)',
-        'gray-1100': 'rgb(10,10,11)',
         brand: {
           primary: '#FF8622',
           secondary: '#898989',
           accent: '#FF9E4E',
+          black: '#26272B',
         },
       },
       backgroundImage: ({ theme }) => ({

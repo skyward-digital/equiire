@@ -2,7 +2,6 @@ import '#/styles/globals.css';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
-import { Sidebar } from '#/ui/components/Sidebar/Sidebar';
 import ThemeProvider from './ThemeProvider';
 
 export const metadata: Metadata = {
@@ -44,14 +43,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${mazzard.variable} ${inter.className}`}>
-      <body className="flex overflow-y-scroll bg-white dark:bg-black">
-        <ThemeProvider>
-          <Sidebar />
-
-          <main className="mt-4 flex min-h-screen w-full flex-col pl-72">
-            {children}
-          </main>
-        </ThemeProvider>
+      <body className="bg-white dark:bg-black">
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
