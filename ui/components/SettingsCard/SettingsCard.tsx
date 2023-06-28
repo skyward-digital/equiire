@@ -7,6 +7,8 @@ type SettingsCardProps = {
   detail?: string;
   placeholder: string;
   Icon?: any;
+  onSave: any;
+  errors: any;
   children: React.ReactNode;
 };
 
@@ -15,17 +17,24 @@ export const SettingsCard = ({
   detail,
   placeholder,
   Icon,
+  onSave,
+  errors,
   children,
 }: SettingsCardProps) => {
   const [expanded, setExpanded] = useState(false);
 
-  const handleSave = () => {
-    console.log('save');
+  const handleSave = (e: any) => {
+    if (errors) return;
+
+    onSave(e);
     setExpanded(false);
   };
 
   return (
-    <div className="dark:border-brand-secondary rounded-xl border border-gray-300 bg-white px-4 py-2 dark:bg-black">
+    <form
+      // onSubmit={handleSave}
+      className="dark:border-brand-secondary rounded-xl border border-gray-300 bg-white px-4 py-2 dark:bg-black"
+    >
       {/* Title area */}
       <div className="flex h-16 items-center justify-between gap-4">
         <div className="flex items-center gap-4 text-gray-600 dark:text-gray-300">
@@ -43,12 +52,15 @@ export const SettingsCard = ({
         {expanded ? (
           <div className="flex gap-4">
             <button
+              type="button"
               className="text-sm text-gray-600 hover:text-gray-800"
               onClick={() => setExpanded(false)}
             >
               Cancel
             </button>
+            {/* Setting this as a submit button causes a weird refresh issue - needs debugging */}
             <button
+              type="button"
               className="text-sm text-gray-600 hover:text-gray-800"
               onClick={handleSave}
             >
@@ -69,6 +81,7 @@ export const SettingsCard = ({
               </p>
             )}
             <button
+              type="button"
               className="text-sm text-gray-600 hover:text-gray-800"
               onClick={() => setExpanded(true)}
             >
@@ -84,6 +97,6 @@ export const SettingsCard = ({
           {children}
         </div>
       )}
-    </div>
+    </form>
   );
 };

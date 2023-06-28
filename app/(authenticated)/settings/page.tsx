@@ -1,6 +1,13 @@
 'use client';
 import { useForm } from 'react-hook-form';
-import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
+import {
+  BuildingOffice2Icon,
+  UserIcon,
+  EnvelopeIcon,
+  MapPinIcon,
+  PhoneIcon,
+  KeyIcon,
+} from '@heroicons/react/24/outline';
 import { Input } from '#/ui/components/Form/Input';
 import { SettingsCard } from '#/ui/components/SettingsCard';
 
@@ -12,10 +19,11 @@ export default function SettingsPage() {
     watch,
   } = useForm();
 
+  // Despite all the forms, we only capture data once so there's only one submit handler. We save every time a user closes a card.
   const onSubmit = (data: any) => {
-    console.log(data);
+    console.log({ data });
     // Here you would typically send the data to your server
-    // to create a new user account.
+    // to update the user account.
   };
 
   const password: string = watch('password');
@@ -25,7 +33,7 @@ export default function SettingsPage() {
     <div className="prose prose-sm dark:prose-invert mb-16 max-w-none">
       {/* user details form */}
       <div className="mx-auto grid max-w-2xl gap-8">
-        <h2 className="font-brand text-2xl">Company Details</h2>
+        <h2 className="font-brand text-2xl font-semibold">Company Details</h2>
 
         {/* Edit card collapsed */}
         <SettingsCard
@@ -33,6 +41,8 @@ export default function SettingsPage() {
           // detail="This is the company name"
           placeholder="Acme Inc."
           Icon={BuildingOffice2Icon}
+          onSave={handleSubmit(onSubmit)}
+          errors={errors.company}
         >
           <Input
             id="company"
@@ -48,7 +58,9 @@ export default function SettingsPage() {
           title="Contact"
           // detail="This is the company name"
           placeholder="Jane Doe"
-          Icon={BuildingOffice2Icon}
+          Icon={UserIcon}
+          onSave={handleSubmit(onSubmit)}
+          errors={errors.firstname || errors.lastname}
         >
           <Input
             id="firstname"
@@ -73,7 +85,9 @@ export default function SettingsPage() {
           title="Email"
           // detail="This is the company name"
           placeholder="jane.doe@acme.inc"
-          Icon={BuildingOffice2Icon}
+          Icon={EnvelopeIcon}
+          onSave={handleSubmit(onSubmit)}
+          errors={errors.email}
         >
           <Input
             id="email"
@@ -94,7 +108,9 @@ export default function SettingsPage() {
           title="Address"
           // detail="This is the company name"
           placeholder="Acme Inc., 123 Main St, New York, NY 10001"
-          Icon={BuildingOffice2Icon}
+          Icon={MapPinIcon}
+          onSave={handleSubmit(onSubmit)}
+          errors={errors.address1 || errors.city || errors.state || errors.zip}
         >
           {/* TODO: Question - Should we implement an address lookup here? */}
           <Input
@@ -157,7 +173,9 @@ export default function SettingsPage() {
           title="Phone Number"
           // detail="This is the company name"
           placeholder="+1 (555) 555-5555"
-          Icon={BuildingOffice2Icon}
+          Icon={PhoneIcon}
+          onSave={handleSubmit(onSubmit)}
+          errors={errors.phone}
         >
           <Input
             id="phone"
@@ -174,13 +192,17 @@ export default function SettingsPage() {
 
       {/* Password reset form */}
       <div className="mx-auto mt-8 grid max-w-2xl gap-8">
-        <h2 className="font-brand text-2xl">Security</h2>
+        <h2 className="font-brand text-2xl font-semibold">Security</h2>
 
         <SettingsCard
           title="Password"
           // detail="This is the company name"
           placeholder="*****"
-          Icon={BuildingOffice2Icon}
+          Icon={KeyIcon}
+          onSave={handleSubmit(onSubmit)}
+          errors={
+            errors.password || errors.confirmPassword || errors.currentPassword
+          }
         >
           <div className="mb-2 grid grid-cols-2 gap-4">
             <Input

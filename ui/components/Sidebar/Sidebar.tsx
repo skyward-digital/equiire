@@ -1,10 +1,10 @@
 'use client';
 import { useState } from 'react';
 import clsx from 'clsx';
-import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
-import { navigation, type Item } from '#/lib/navigation';
+import { navigation } from '#/lib/navigation';
+import { SidebarLink } from './SidebarLink';
 
 export function Sidebar({ segment }: { segment?: string | null }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +42,7 @@ export function Sidebar({ segment }: { segment?: string | null }) {
               >
                 <div className="space-y-2">
                   {section.items.map((item) => (
-                    <GlobalNavItem
+                    <SidebarLink
                       key={item.slug}
                       item={item}
                       isActive={item.slug === segment}
@@ -56,36 +56,6 @@ export function Sidebar({ segment }: { segment?: string | null }) {
         </nav>
       </div>
     </div>
-  );
-}
-
-function GlobalNavItem({
-  item,
-  isActive,
-  close,
-}: {
-  item: Item;
-  isActive: boolean;
-  close: () => false | void;
-}) {
-  const Icon = item.icon;
-
-  return (
-    <Link
-      onClick={close}
-      href={`/${item.slug}`}
-      className={clsx(
-        'flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium hover:text-gray-800 dark:hover:text-gray-300',
-        {
-          'text-black hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800':
-            !isActive,
-          'text-brand-primary': isActive,
-        },
-      )}
-    >
-      <Icon className="stroke-1.5 w-5" />
-      {item.name}
-    </Link>
   );
 }
 
