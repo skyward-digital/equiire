@@ -1,11 +1,13 @@
 'use client';
 import { useState } from 'react';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import { Badge } from '../Badge';
 
 type SettingsCardProps = {
   title: string;
   detail?: string;
   placeholder: string;
+  expanded?: boolean;
   Icon?: any;
   onSave: any;
   errors: any;
@@ -16,12 +18,13 @@ export const SettingsCard = ({
   title,
   detail,
   placeholder,
+  expanded: expandedDefault,
   Icon,
   onSave,
   errors,
   children,
 }: SettingsCardProps) => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(expandedDefault || false);
 
   const handleSave = (e: any) => {
     if (errors) return;
@@ -70,15 +73,9 @@ export const SettingsCard = ({
         ) : (
           <div className="flex gap-4">
             {!detail && (
-              <p className="flex items-center gap-1 rounded-lg border border-orange-200 bg-orange-50 px-2 py-0.5 ">
-                <ExclamationCircleIcon
-                  className="h-5 w-5 text-orange-600"
-                  strokeWidth={1.5}
-                />
-                <span className="font-semibold text-orange-700">
-                  Missing Info
-                </span>
-              </p>
+              <Badge type="warning" Icon={ExclamationCircleIcon}>
+                Missing Info
+              </Badge>
             )}
             <button
               type="button"
