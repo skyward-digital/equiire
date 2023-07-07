@@ -1,5 +1,11 @@
+import { useState } from 'react';
 import clsx from 'clsx';
-import { KeyIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import {
+  KeyIcon,
+  EnvelopeIcon,
+  EyeIcon,
+  EyeSlashIcon,
+} from '@heroicons/react/24/outline';
 
 type InputProps = {
   id: string;
@@ -56,6 +62,26 @@ const iconMap = {
   password: KeyIcon,
 };
 
+const PasswordVisibilityToggle = ({
+  passwordIsVisible,
+  onClick,
+}: {
+  passwordIsVisible: boolean;
+  onClick: () => void;
+}) => {
+  const Icon = passwordIsVisible ? EyeIcon : EyeSlashIcon;
+  return (
+    <button
+      className="absolute inset-y-0 right-0 flex items-center pr-3"
+      onClick={onClick}
+      aria-label={passwordIsVisible ? 'Hide password' : 'Show password'}
+      type="button"
+    >
+      <Icon className="h-4 w-4 cursor-pointer text-gray-600 dark:text-gray-400" />
+    </button>
+  );
+};
+
 export const Input = ({
   id,
   type = 'text',
@@ -71,6 +97,10 @@ export const Input = ({
   error,
   hint,
 }: InputProps) => {
+  const [passwordShown, setPasswordShown] = useState(false);
+  const inputType =
+    type === 'password' ? (passwordShown ? 'text' : 'password') : type;
+
   const Icon = iconMap[type];
 
   const hookFormRegister = register
@@ -88,18 +118,25 @@ export const Input = ({
       <div className="relative">
         <input
           id={id}
-          type={type}
+          type={inputType}
           placeholder={placeholder}
           size={size}
           autoComplete={autocomplete}
           className={clsx(
             'shadow-xs  inline-flex w-full gap-x-2 rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-600',
             Icon ? 'pl-10' : 'pl-3',
+            type === 'password' ? 'pr-10' : 'pr-3',
           )}
           {...hookFormRegister}
         />
         {Icon && (
-          <Icon className="absolute top-3 ml-3 h-[20px] w-[20px] text-gray-500 dark:text-gray-400" />
+          <Icon className="absolute top-3 ml-3 h-5 w-5 text-gray-500 dark:text-gray-400" />
+        )}
+        {type === 'password' && (
+          <PasswordVisibilityToggle
+            passwordIsVisible={passwordShown}
+            onClick={() => setPasswordShown(!passwordShown)}
+          />
         )}
       </div>
       {hint && (
@@ -107,7 +144,6 @@ export const Input = ({
           {hint}
         </div>
       )}
-
       {error && <span>{error.message}</span>}
     </div>
   );
