@@ -1,5 +1,6 @@
 export function Logo(props: React.SVGProps<SVGSVGElement>) {
   const fill = props.fill || props.className?.includes('fill-');
+
   return (
     <svg
       width="119"
