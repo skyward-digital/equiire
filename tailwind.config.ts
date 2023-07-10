@@ -49,6 +49,7 @@ export default {
       }),
       boxShadow: {
         xs: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
+        sm: '0px 1px 2px 0px rgba(16, 24, 40, 0.06), 0px 1px 3px 0px rgba(16, 24, 40, 0.10)',
       },
       fontFamily: {
         brand: ['var(--font-mazzard)', ...fontFamily.sans],
