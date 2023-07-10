@@ -105,7 +105,7 @@ export const Input = ({
   const LeftIcon = iconMap[type];
 
   const RightIcon = error ? (
-    <InformationCircleIcon className="text-semantic-error absolute right-3 top-3 h-5 w-5" />
+    <InformationCircleIcon className="text-semantic-error absolute right-3 top-3 -mt-px h-5 w-5" />
   ) : type === 'password' ? (
     <PasswordVisibilityToggle
       passwordIsVisible={passwordShown}
@@ -141,7 +141,7 @@ export const Input = ({
           {...hookFormRegister}
         />
         {LeftIcon && (
-          <LeftIcon className="absolute top-3 ml-3 h-5 w-5 text-gray-500 dark:text-gray-400" />
+          <LeftIcon className="absolute top-3 -mt-px ml-3 h-5 w-5  text-gray-500 dark:text-gray-400" />
         )}
         {RightIcon && RightIcon}
       </div>
