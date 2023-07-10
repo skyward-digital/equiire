@@ -38,6 +38,9 @@ export default {
           accent: '#FF9E4E',
           black: '#26272B',
         },
+        semantic: {
+          error: '#F04438',
+        },
       },
       backgroundImage: ({ theme }) => ({
         'vc-border-gradient': `radial-gradient(at left top, ${theme(
