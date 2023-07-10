@@ -73,7 +73,7 @@ const PasswordVisibilityToggle = ({
   const Icon = passwordIsVisible ? EyeIcon : EyeSlashIcon;
   return (
     <button
-      className="absolute inset-y-0 right-0 flex items-center pr-3"
+      className="absolute right-0 top-1/2 mr-3 -translate-y-1/2"
       onClick={onClick}
       aria-label={passwordIsVisible ? 'Hide password' : 'Show password'}
       type="button"
@@ -105,7 +105,7 @@ export const Input = ({
   const LeftIcon = iconMap[type];
 
   const RightIcon = error ? (
-    <InformationCircleIcon className="text-semantic-error absolute right-3 top-3 -mt-px h-5 w-5" />
+    <InformationCircleIcon className="text-semantic-error absolute right-0 top-1/2 mr-3 h-5 w-5 -translate-y-1/2" />
   ) : type === 'password' ? (
     <PasswordVisibilityToggle
       passwordIsVisible={passwordShown}
@@ -141,7 +141,7 @@ export const Input = ({
           {...hookFormRegister}
         />
         {LeftIcon && (
-          <LeftIcon className="absolute top-3 -mt-px ml-3 h-5 w-5  text-gray-500 dark:text-gray-400" />
+          <LeftIcon className="absolute top-1/2 ml-3 h-5 w-5 -translate-y-1/2  text-gray-500 dark:text-gray-400" />
         )}
         {RightIcon && RightIcon}
       </div>
