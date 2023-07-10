@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button, ButtonLink } from '#/ui/components/Button';
@@ -21,7 +22,7 @@ export function LoginForm({ className }: { className?: string }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={`grid gap-8 ${className}`}
+      className={clsx(className, 'grid gap-8')}
     >
       <Input
         id="email"

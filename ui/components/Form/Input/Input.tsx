@@ -118,7 +118,7 @@ export const Input = ({
     : undefined;
 
   return (
-    <div className={`${className} relative mb-6`}>
+    <div className={clsx(className, 'relative mb-6')}>
       <label
         htmlFor={id}
         className="dark:text-brand-secondary mb-2 block text-base font-semibold text-gray-600"
