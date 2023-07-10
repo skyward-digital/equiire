@@ -21,7 +21,7 @@ export function LoginForm({ className }: { className?: string }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={`grid gap-10 ${className}`}
+      className={`grid gap-8 ${className}`}
     >
       <Input
         id="email"
