@@ -153,7 +153,7 @@ export const Input = ({
           !hint && !error && 'h-5',
         )}
       >
-        {error ? error.message : hint}
+        {error?.message ?? hint ?? ' '}
       </p>
     </div>
   );
