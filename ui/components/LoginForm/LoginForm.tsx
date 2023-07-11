@@ -22,7 +22,7 @@ export function LoginForm({ className }: { className?: string }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={clsx(className, 'grid gap-8')}
+      className={clsx(className, 'grid max-w-2xl gap-8')}
     >
       <Input
         id="email"

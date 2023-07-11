@@ -17,7 +17,7 @@ export function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid max-w-2xl gap-2">
       <Input
         id="email"
         type="email"

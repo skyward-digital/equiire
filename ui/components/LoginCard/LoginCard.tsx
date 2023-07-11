@@ -7,7 +7,7 @@ export function LoginCard({ className }: { className: string }) {
     <section
       className={clsx(
         className,
-        'shadow-xs mx-auto max-w-[557px] rounded-lg border border-gray-100 bg-white px-1 pb-16 pt-20 dark:border-gray-600 dark:bg-black sm:px-24',
+        'mx-auto max-w-xl rounded-lg border border-gray-100 bg-white px-1 pb-16 pt-20 shadow-sm dark:border-gray-600 dark:bg-black sm:px-24',
       )}
     >
       <h1 className="text-brand-primary font-brand mb-10 text-center text-3xl font-bold sm:text-left">
