@@ -1,5 +1,12 @@
+import { useState } from 'react';
 import clsx from 'clsx';
-import { KeyIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import {
+  KeyIcon,
+  EnvelopeIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  InformationCircleIcon,
+} from '@heroicons/react/24/outline';
 
 type InputProps = {
   id: string;
@@ -56,6 +63,26 @@ const iconMap = {
   password: KeyIcon,
 };
 
+const PasswordVisibilityToggle = ({
+  passwordIsVisible,
+  onClick,
+}: {
+  passwordIsVisible: boolean;
+  onClick: () => void;
+}) => {
+  const Icon = passwordIsVisible ? EyeIcon : EyeSlashIcon;
+  return (
+    <button
+      className="absolute right-0 top-1/2 mr-3 -translate-y-1/2"
+      onClick={onClick}
+      aria-label={passwordIsVisible ? 'Hide password' : 'Show password'}
+      type="button"
+    >
+      <Icon className="h-4 w-4 cursor-pointer text-gray-600 dark:text-gray-400" />
+    </button>
+  );
+};
+
 export const Input = ({
   id,
   type = 'text',
@@ -71,41 +98,64 @@ export const Input = ({
   error,
   hint,
 }: InputProps) => {
-  const Icon = iconMap[type];
+  const [passwordShown, setPasswordShown] = useState(false);
+  const inputType =
+    type === 'password' ? (passwordShown ? 'text' : 'password') : type;
+
+  const LeftIcon = iconMap[type];
+
+  const RightIcon = error ? (
+    <InformationCircleIcon className="text-semantic-error absolute right-0 top-1/2 mr-3 h-5 w-5 -translate-y-1/2" />
+  ) : type === 'password' ? (
+    <PasswordVisibilityToggle
+      passwordIsVisible={passwordShown}
+      onClick={() => setPasswordShown(!passwordShown)}
+    />
+  ) : null;
 
   const hookFormRegister = register
     ? register(id, { required, validate, pattern })
     : undefined;
 
   return (
-    <div className={className}>
+    <div className={clsx(className, 'relative mb-6')}>
       <label
         htmlFor={id}
-        className="dark:text-brand-secondary mb-2 block text-base text-gray-600"
+        className="dark:text-brand-secondary mb-2 block text-base font-semibold text-gray-600"
       >
         {label}
       </label>
       <div className="relative">
         <input
           id={id}
-          type={type}
+          type={inputType}
           placeholder={placeholder}
           size={size}
           autoComplete={autocomplete}
           className={clsx(
-            'shadow-xs dark:border-brand-secondary inline-flex w-full gap-x-2 rounded-lg border border-gray-300 py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-400',
-            Icon ? 'pl-10' : 'pl-3',
+            'shadow-xs  inline-flex w-full gap-x-2 rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-600',
+            LeftIcon ? 'pl-10' : 'pl-3',
+            RightIcon ? 'pr-10' : 'pr-3',
+            error && 'border-semantic-error',
           )}
           {...hookFormRegister}
         />
-        {Icon && (
-          <Icon className="absolute top-3 ml-3 h-[20px] w-[20px] text-gray-600 dark:text-gray-100" />
+        {LeftIcon && (
+          <LeftIcon className="absolute top-1/2 ml-3 h-5 w-5 -translate-y-1/2  text-gray-500 dark:text-gray-400" />
         )}
+        {RightIcon && RightIcon}
       </div>
-      <div className="dark:text-brand-secondary mt-2 text-sm text-gray-600">
-        {hint && hint}
-      </div>
-      {error && <span>{error.message}</span>}
+      {(error || hint) && (
+        <span
+          className={clsx(
+            'absolute -bottom-6 text-sm',
+            error && 'text-semantic-error',
+            hint && !error && 'dark:text-brand-secondary',
+          )}
+        >
+          {error ? error.message : hint}
+        </span>
+      )}
     </div>
   );
 };

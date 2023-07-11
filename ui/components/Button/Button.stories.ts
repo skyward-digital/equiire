@@ -26,6 +26,14 @@ export const Primary: Story = {
   },
 };
 
+export const PrimaryDisabled: Story = {
+  args: {
+    children: 'Log In',
+    style: 'primary',
+    disabled: true,
+  },
+};
+
 export const Link: Story = {
   args: {
     children: 'Loading',
