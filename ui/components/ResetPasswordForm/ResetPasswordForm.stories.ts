@@ -8,7 +8,7 @@ const meta: Meta<typeof ResetPasswordForm> = {
     docs: {
       description: {
         component:
-          'ResetPasswordForm allows a user to log in with email and password.',
+          'ResetPasswordForm allows a user to reset their password after receiving an email.',
       },
     },
   },
