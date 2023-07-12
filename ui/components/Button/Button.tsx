@@ -43,7 +43,7 @@ export const Button = ({
       {...props}
     >
       <span>{children}</span>
-      {arrow ? <ArrowRightIcon className="mt-0.5 h-5 w-5" /> : null}
+      {arrow ? <ArrowRightIcon className="h-5 w-5" /> : null}
     </button>
   );
 };
