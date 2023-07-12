@@ -38,6 +38,9 @@ export default {
           accent: '#FF9E4E',
           black: '#26272B',
         },
+        semantic: {
+          error: '#F04438',
+        },
       },
       backgroundImage: ({ theme }) => ({
         'vc-border-gradient': `radial-gradient(at left top, ${theme(
@@ -46,6 +49,7 @@ export default {
       }),
       boxShadow: {
         xs: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
+        sm: '0px 1px 2px 0px rgba(16, 24, 40, 0.06), 0px 1px 3px 0px rgba(16, 24, 40, 0.10)',
       },
       fontFamily: {
         brand: ['var(--font-mazzard)', ...fontFamily.sans],

@@ -27,6 +27,16 @@ export const Default: Story = {
   },
 };
 
+export const Error: Story = {
+  args: {
+    id: 'text',
+    type: 'text',
+    label: 'First name',
+    placeholder: 'Your first name',
+    error: { message: 'First name is required' },
+  },
+};
+
 export const Email: Story = {
   args: {
     id: 'email',
