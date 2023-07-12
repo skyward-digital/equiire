@@ -65,7 +65,7 @@ export const ButtonLink = ({
         style === 'link' && classes.link,
       )}
     >
-      <span className="-mb-1.5 -mt-1">{children}</span>
+      <span>{children}</span>
       {arrow ? <ArrowRightIcon className="h-5 w-5" /> : null}
     </Link>
   );
