@@ -8,13 +8,13 @@ export function SignupCard({ className }: { className?: string }) {
     <section
       className={clsx(
         className,
-        'mx-auto max-w-screen-sm rounded-lg border border-gray-300 bg-white px-7 py-12 shadow-sm dark:border-gray-600 dark:bg-black sm:pl-14 sm:pr-24',
+        'mx-auto max-w-screen-sm rounded-lg border border-gray-300 bg-white px-7 py-12 shadow-sm dark:border-gray-600 dark:bg-black sm:pl-14 sm:pr-20',
       )}
     >
       <div className="flex flex-col items-start sm:flex-row sm:gap-3">
         <BackButton />
-        <div>
-          <h1 className="text-brand-secondary font-brand mb-10 text-center text-3xl font-bold">
+        <div className="mt-8">
+          <h1 className="text-brand-secondary font-brand mb-10 mt-5 text-center text-3xl font-bold dark:text-gray-300">
             Complete your loan application
           </h1>
           <SignupForm />
