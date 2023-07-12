@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { PencilIcon, UserIcon } from '@heroicons/react/24/outline';
 import { Button } from '#/ui/components/Button';
+import { Select } from '#/ui/components/Form/Select';
 
 const FORM_CLASSNAME = 'grid max-w-2xl gap-6';
 const BUTTON_CLASSNAME = 'mt-3 w-full max-w-xs justify-self-center';
@@ -115,15 +116,20 @@ const AdditionalDetailsForm = ({
           register={register}
           required="City is required"
           error={errors.city}
+          className="w-2/5"
         />
-        <Input
+        <Select
           id="state"
-          type="text"
           label="State"
-          placeholder="Alabama"
+          options={[
+            { label: 'Alabama', value: 'alabama' },
+            { label: 'Alaska', value: 'alaska' },
+            { label: 'Arizona', value: 'arizona' },
+          ]}
           register={register}
           required="State is required"
-          error={errors.state}
+          error={errors.select}
+          className="w-2/5"
         />
         <Input
           id="zipcode"
@@ -133,6 +139,7 @@ const AdditionalDetailsForm = ({
           register={register}
           required="Zip Code is required"
           error={errors.zipcode}
+          className="w-1/5"
         />
       </div>
       <Input
