@@ -1,10 +1,5 @@
-import { SignupForm } from '#/ui/components/SignupForm';
+import { SignupCard } from '#/ui/components/SignupCard';
 
 export default function Page() {
-  return (
-    <div className="prose prose-sm max-w-none">
-      <h1 className="text-xl font-bold">Signup</h1>
-      <SignupForm />
-    </div>
-  );
+  return <SignupCard className="mt-20" />;
 }
