@@ -15,10 +15,10 @@ export function ResetPasswordForm({
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
     setFormSubmitted(true);
     // Typically, you would send a request to your server here
     // to initiate the password reset process.
@@ -47,6 +47,9 @@ export function ResetPasswordForm({
         register={register}
         required="Repeat new password is required"
         error={errors.confirm_password}
+        validate={(value: string) =>
+          value === getValues('password') || 'Passwords do not match'
+        }
       />
       <Button
         className="w-full max-w-sm justify-self-center"
