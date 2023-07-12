@@ -19,7 +19,7 @@ export interface ButtonProps {
 
 const classes = {
   generic:
-    'inline-flex items-center justify-center gap-2 px-6 font-brand text-base font-semibold no-underline outline-none transition duration-200 ease-in-out focus:ring-2 focus:ring-gray-600 focus:ring-offset-2',
+    'inline-flex items-center justify-center gap-2 px-6 text-base font-semibold no-underline outline-none transition duration-200 ease-in-out focus:ring-2 focus:ring-gray-600 focus:ring-offset-2',
   primary:
     'bg-brand-primary shadow-xs hover:text-white hover:bg-brand-secondary rounded-full disabled:text-white disabled:dark:text-gray-500 text-black py-3 disabled:bg-gray-200 dark:disabled:bg-gray-800 dark:disabled:text-gray-500',
   link: 'text-brand-primary hover:text-gray-500 py-2',
@@ -42,7 +42,7 @@ export const Button = ({
       )}
       {...props}
     >
-      <span className="-mb-1.5 -mt-1">{children}</span>
+      <span>{children}</span>
       {arrow ? <ArrowRightIcon className="h-5 w-5" /> : null}
     </button>
   );
@@ -65,7 +65,7 @@ export const ButtonLink = ({
         style === 'link' && classes.link,
       )}
     >
-      <span className="-mb-1.5 -mt-1">{children}</span>
+      <span>{children}</span>
       {arrow ? <ArrowRightIcon className="h-5 w-5" /> : null}
     </Link>
   );

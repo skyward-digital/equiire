@@ -118,10 +118,10 @@ export const Input = ({
     : undefined;
 
   return (
-    <div className={clsx(className, 'relative mb-6')}>
+    <div className={clsx(className)}>
       <label
         htmlFor={id}
-        className="dark:text-brand-secondary mb-2 block text-base font-semibold text-gray-600"
+        className="mb-2 block text-base font-semibold text-gray-600 dark:text-gray-400"
       >
         {label}
       </label>
@@ -143,19 +143,18 @@ export const Input = ({
         {LeftIcon && (
           <LeftIcon className="absolute top-1/2 ml-3 h-5 w-5 -translate-y-1/2  text-gray-500 dark:text-gray-400" />
         )}
-        {RightIcon && RightIcon}
+        {RightIcon}
       </div>
-      {(error || hint) && (
-        <span
-          className={clsx(
-            'absolute -bottom-6 text-sm',
-            error && 'text-semantic-error',
-            hint && !error && 'dark:text-brand-secondary',
-          )}
-        >
-          {error ? error.message : hint}
-        </span>
-      )}
+      <p
+        className={clsx(
+          'mt-2 text-sm',
+          error && 'text-semantic-error',
+          hint && !error && 'dark:text-brand-secondary text-gray-600',
+          !hint && !error && 'h-5',
+        )}
+      >
+        {error?.message ?? hint ?? ' '}
+      </p>
     </div>
   );
 };
