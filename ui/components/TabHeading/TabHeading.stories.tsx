@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TabHeading, TabLink } from '.';
 
 const meta: Meta<typeof TabHeading> = {
-  title: 'Components/TabHeading',
+  title: 'Components/TabHeading/TabHeading',
   component: TabHeading,
   parameters: {
     docs: {
