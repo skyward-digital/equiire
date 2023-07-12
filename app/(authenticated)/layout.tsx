@@ -12,17 +12,15 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative">
+    <>
       <div className="z-10 flex w-full flex-col">
         <Header title="Settings" />
         <Sidebar />
       </div>
 
-      <div className="flex overflow-y-scroll pt-20">
-        <main className="mt-4 flex min-h-screen w-full flex-col pl-72">
-          {children}
-        </main>
-      </div>
-    </div>
+      <main className="flex h-screen w-full flex-col overflow-auto pl-56 pt-20">
+        {children}
+      </main>
+    </>
   );
 }
