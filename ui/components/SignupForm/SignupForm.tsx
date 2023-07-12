@@ -5,6 +5,9 @@ import { Input } from '#/ui/components/Form/Input';
 import { PencilIcon, UserIcon } from '@heroicons/react/24/outline';
 import { Button } from '#/ui/components/Button';
 
+const FORM_CLASSNAME = 'grid max-w-2xl gap-6';
+const BUTTON_CLASSNAME = 'mt-3 w-full max-w-xs justify-self-center';
+
 const PersonalInformationForm = ({
   setStep,
 }: {
@@ -24,7 +27,7 @@ const PersonalInformationForm = ({
     // to create a new user account.
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid max-w-2xl gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className={FORM_CLASSNAME}>
       <Input
         id="name"
         type="text"
@@ -58,7 +61,7 @@ const PersonalInformationForm = ({
         error={errors.company}
         icon={PencilIcon}
       />
-      <Button style="primary" className="w-full max-w-xs justify-self-center">
+      <Button style="primary" className={BUTTON_CLASSNAME}>
         Next
       </Button>
     </form>
@@ -85,7 +88,7 @@ const AdditionalDetailsForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid max-w-2xl gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className={FORM_CLASSNAME}>
       <Input
         id="address1"
         type="text"
@@ -141,7 +144,7 @@ const AdditionalDetailsForm = ({
         required="Phone Number is required"
         error={errors.telephone}
       />
-      <Button style="primary" className="w-full max-w-xs justify-self-center">
+      <Button style="primary" className={BUTTON_CLASSNAME}>
         Next
       </Button>
     </form>
@@ -164,7 +167,7 @@ const PasswordForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid max-w-2xl gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className={FORM_CLASSNAME}>
       <Input
         id="password"
         type="password"
@@ -187,7 +190,7 @@ const PasswordForm = () => {
           value === getValues('password') || 'Passwords do not match'
         }
       />
-      <Button style="primary" className="w-full max-w-xs justify-self-center">
+      <Button style="primary" className={BUTTON_CLASSNAME}>
         Next
       </Button>
     </form>
