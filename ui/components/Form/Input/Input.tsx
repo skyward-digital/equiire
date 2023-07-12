@@ -7,6 +7,7 @@ type InputProps = {
   label: string;
   placeholder?: string;
   size?: number;
+  maxLength?: number;
   autocomplete?: // https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
   | 'off'
     | 'on'
@@ -38,8 +39,9 @@ type InputProps = {
     | 'cc-exp'
     | 'cc-exp-month'
     | 'cc-exp-year'
-    | 'cc-csc'
+    | 'cc-csc' // card security code, aka cvc
     | 'cc-type';
+  inputMode?: 'text' | 'none' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal';
   className?: string;
   register?: any;
   required?: string;
@@ -63,6 +65,8 @@ export const Input = ({
   placeholder,
   size,
   autocomplete,
+  inputMode,
+  maxLength,
   className,
   register,
   required,
@@ -91,6 +95,8 @@ export const Input = ({
           type={type}
           placeholder={placeholder}
           size={size}
+          inputMode={inputMode}
+          maxLength={maxLength}
           autoComplete={autocomplete}
           className={clsx(
             'shadow-xs dark:border-brand-secondary inline-flex w-full gap-x-2 rounded-lg border border-gray-300 py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-400',

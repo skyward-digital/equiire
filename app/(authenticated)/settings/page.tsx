@@ -7,8 +7,10 @@ import {
   MapPinIcon,
   PhoneIcon,
   KeyIcon,
+  CreditCardIcon,
+  BuildingLibraryIcon,
 } from '@heroicons/react/24/outline';
-import { Input } from '#/ui/components/Form/Input';
+import { Input, Checkbox } from '#/ui/components/Form';
 import { SettingsCard } from '#/ui/components/SettingsCard';
 
 export default function SettingsPage() {
@@ -240,6 +242,128 @@ export default function SettingsPage() {
               error={errors.currentPassword}
             />
           ) : null}
+        </SettingsCard>
+      </div>
+
+      {/* Payment details */}
+      <div className="mx-auto mt-8 grid max-w-2xl gap-8">
+        <h2 className="font-brand text-2xl font-semibold">Cards/Banks</h2>
+
+        <h3 className="mb-0 text-base font-semibold text-gray-400">
+          Preferred
+        </h3>
+        {/* Credit Card example */}
+        <SettingsCard
+          title="Mastercard"
+          detail="•••• 4756"
+          placeholder="4242 4242 4242 4242"
+          Icon={CreditCardIcon}
+          onSave={handleSubmit(onSubmit)}
+          errors={errors.cc_fullname || errors.cc_number}
+        >
+          <Input
+            id="cc_fullname"
+            label="Full Name"
+            register={register}
+            required="Name is required"
+            error={errors.cc_fullname}
+            autocomplete="cc-given-name"
+          />
+
+          <Input
+            id="cc_number"
+            label="Card Number"
+            register={register}
+            required="Name is required"
+            placeholder="4242 4242 4242 4242"
+            inputMode="numeric"
+            pattern="[0-9\s]{13,19}"
+            maxLength={19}
+            error={errors.cc_number}
+            autocomplete="cc-number"
+          />
+
+          <div className="mb-2 grid grid-cols-2 gap-4">
+            <Input
+              id="cc_expiry"
+              type="text"
+              label="Expiry"
+              placeholder="mm/yy"
+              pattern="[0-9\/]{5}"
+              maxLength={5}
+              inputMode="numeric"
+              register={register}
+              required="Expiry date is required"
+              error={errors.cc_expiry}
+              autocomplete="cc-exp"
+            />
+
+            <Input
+              id="cc_cvc"
+              type="password"
+              label="CVC"
+              placeholder="123"
+              pattern="[0-9]{3}"
+              maxLength={3}
+              inputMode="numeric"
+              register={register}
+              required="CVC is required"
+              error={errors.cc_cvc}
+              autocomplete="cc-csc"
+            />
+          </div>
+
+          <Checkbox
+            id="cc_default"
+            label="Default payment method"
+            register={register}
+            error={errors.cc_default}
+            checked
+          />
+        </SettingsCard>
+
+        <h3 className="mb-0 text-base font-semibold text-gray-400">
+          Linked Cards/Banks
+        </h3>
+
+        <SettingsCard
+          title="Luna Smith"
+          detail="•••• 4756"
+          placeholder="1234 5678"
+          Icon={BuildingLibraryIcon}
+          onSave={handleSubmit(onSubmit)}
+          errors={
+            errors.bank_fullname ||
+            errors.bank_acc_number ||
+            errors.currentPassword
+          }
+        >
+          <Input
+            id="bank_fullname"
+            label="Name on Account"
+            register={register}
+            required="Name is required"
+            error={errors.bank_fullname}
+          />
+
+          <Input
+            id="account_number"
+            label="Account Number"
+            register={register}
+            required="Account Number is required"
+            placeholder="4242 4242"
+            inputMode="numeric"
+            pattern="[0-9\s]{8}"
+            maxLength={8}
+            error={errors.account_number}
+          />
+
+          <Checkbox
+            id="cc_default"
+            label="Set as default payment method"
+            register={register}
+            error={errors.cc_default}
+          />
         </SettingsCard>
       </div>
     </div>
