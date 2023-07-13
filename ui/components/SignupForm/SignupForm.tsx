@@ -32,7 +32,7 @@ const PersonalInformationForm = ({
       <Input
         id="name"
         type="text"
-        icon={UserIcon}
+        Icon={UserIcon}
         label="Contact Name"
         placeholder="Your name"
         register={register}
@@ -60,7 +60,7 @@ const PersonalInformationForm = ({
         register={register}
         required="Company is required"
         error={errors.company}
-        icon={PencilIcon}
+        Icon={PencilIcon}
       />
       <Button style="primary" className={BUTTON_CLASSNAME}>
         Next
