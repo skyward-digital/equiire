@@ -79,7 +79,7 @@ function GlobalNavItem({
         {
           'text-black hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800':
             !isActive,
-          'text-brand-primary': isActive,
+          'text-brand': isActive,
         },
       )}
     >
