@@ -107,7 +107,7 @@ const AdditionalDetailsForm = ({
         register={register}
         error={errors.address2}
       />
-      <div className="flex gap-2">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
         <Input
           id="city"
           type="text"
@@ -116,7 +116,7 @@ const AdditionalDetailsForm = ({
           register={register}
           required="City is required"
           error={errors.city}
-          className="w-2/5"
+          className="col-span-2 sm:col-span-2"
         />
         <Select
           id="state"
@@ -129,7 +129,7 @@ const AdditionalDetailsForm = ({
           register={register}
           required="State is required"
           error={errors.select}
-          className="w-2/5"
+          className="col-span-1 sm:col-span-2"
         />
         <Input
           id="zipcode"
@@ -139,7 +139,7 @@ const AdditionalDetailsForm = ({
           register={register}
           required="Zip Code is required"
           error={errors.zipcode}
-          className="w-1/5"
+          className="col-span-1 sm:col-span-1"
         />
       </div>
       <Input
