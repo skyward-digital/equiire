@@ -33,12 +33,23 @@ export default {
           900: '#22272F',
         },
         brand: {
-          primary: '#FF8622',
-          secondary: '#898989',
-          accent: '#FF9E4E',
-          black: '#26272B',
+          DEFAULT: '#FF9E4E', //400
+          25: '#FFF9F5',
+          50: '#FFEEE0',
+          100: '#FFD8B8',
+          200: '#FFC799',
+          300: '#FFB170',
+          400: '#FF9E4E',
+          500: '#FF8C0A',
+          600: '#EB6A00',
+          700: '#CC5302',
+          800: '#A1400B',
+          900: '#82370C',
+          950: '#461904',
+          secondary: '#898989', // This doesn't match the other patterns
         },
         error: {
+          DEFAULT: '#F04438', //500
           25: '#FFFBFA',
           50: '#FEF3F2',
           100: '#FEE4E2',
@@ -53,6 +64,7 @@ export default {
           950: '#55160C',
         },
         warning: {
+          DEFAULT: '#F79009', //500
           25: '#FFFCF5',
           50: '#FFFAEB',
           100: '#FEF0C7',
@@ -67,6 +79,7 @@ export default {
           950: '#4E1D09',
         },
         success: {
+          DEFAULT: '#17B26A', //500
           25: '#F6FEF9',
           50: '#ECFDF3',
           100: '#DCFAE6',
