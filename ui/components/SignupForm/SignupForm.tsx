@@ -1,10 +1,11 @@
 'use client';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Input } from '#/ui/components/Form/Input';
 import { PencilIcon, UserIcon } from '@heroicons/react/24/outline';
+import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 import { Select } from '#/ui/components/Form/Select';
+import { Stepper } from '#/ui/components/Stepper';
 
 const FORM_CLASSNAME = 'grid max-w-2xl gap-6';
 const BUTTON_CLASSNAME = 'mt-3 w-full max-w-xs justify-self-center';
@@ -217,6 +218,11 @@ export function SignupForm() {
 
   return (
     <>
+      <Stepper
+        className="mb-10"
+        totalSteps={FORM_STEPS.length}
+        currentStep={step}
+      />
       <h2 className="text-brand-primary mb-10 text-center font-semibold">
         {title}
       </h2>
