@@ -33,10 +33,20 @@ export default {
           900: '#22272F',
         },
         brand: {
-          primary: '#FF8622',
+          DEFAULT: '#FF9E4E', //400
+          25: '#FFF9F5',
+          50: '#FFEEE0',
+          100: '#FFD8B8',
+          200: '#FFC799',
+          300: '#FFB170',
+          400: '#FF9E4E',
+          500: '#FF8C0A',
+          600: '#EB6A00',
+          700: '#CC5302',
+          800: '#A1400B',
+          900: '#82370C',
+          950: '#461904',
           secondary: '#898989',
-          accent: '#FF9E4E',
-          black: '#26272B',
         },
         semantic: {
           error: '#F04438',
