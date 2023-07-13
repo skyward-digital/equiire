@@ -235,37 +235,42 @@ export default function SettingsPage() {
             // detail="This is the company name"
             placeholder="*****"
             Icon={KeyIcon}
-            onSave={handleSubmit(onSubmit)}
+            onSave={() => {
+              console.log(
+                errors.password,
+                errors.confirmPassword,
+                errors.currentPassword,
+              );
+              handleSubmit(onSubmit);
+            }}
             errors={
               errors.password ||
               errors.confirmPassword ||
               errors.currentPassword
             }
           >
-            <div className="mb-2 grid grid-cols-2 gap-4">
-              <Input
-                id="password"
-                type="password"
-                label="Password"
-                placeholder="New Password"
-                register={register}
-                required="Password is required"
-                error={errors.password}
-              />
+            <Input
+              id="password"
+              type="password"
+              label="Password"
+              placeholder="New Password"
+              register={register}
+              required="Password is required"
+              error={errors.password}
+            />
 
-              <Input
-                id="confirmPassword"
-                type="password"
-                label="Confirm Password"
-                placeholder="New Password"
-                register={register}
-                required="Password is required"
-                validate={(value: string) =>
-                  value === password || 'The passwords do not match'
-                }
-                error={errors.confirmPassword}
-              />
-            </div>
+            <Input
+              id="confirmPassword"
+              type="password"
+              label="Confirm Password"
+              placeholder="New Password"
+              register={register}
+              required="Password confirmation is required"
+              validate={(value: string) =>
+                value === password || 'The passwords do not match'
+              }
+              error={errors.confirmPassword}
+            />
 
             {password && password === confirmPassword ? (
               <Input

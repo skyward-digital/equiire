@@ -90,7 +90,7 @@ export const SettingsCard = ({
 
       {/* Editable area */}
       {expanded && (
-        <div className="mb-8 mt-4 grid gap-2 border-t border-gray-200 px-10 pt-6 text-sm">
+        <div className="mb-4 mt-2 grid gap-2 border-t border-gray-200 px-10 pt-6 text-sm dark:border-gray-500">
           {children}
         </div>
       )}
