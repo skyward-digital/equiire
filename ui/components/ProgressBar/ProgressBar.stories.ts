@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Stepper } from '.';
+import { ProgressBar } from '.';
 
-const meta: Meta<typeof Stepper> = {
-  title: 'Components/Stepper',
-  component: Stepper,
+const meta: Meta<typeof ProgressBar> = {
+  title: 'Components/ProgressBar',
+  component: ProgressBar,
   parameters: {
     docs: {
       description: {
-        component: 'Stepper component i',
+        component: 'ProgressBar component shows the progress of a form',
       },
     },
   },
@@ -16,7 +16,7 @@ const meta: Meta<typeof Stepper> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Stepper>;
+type Story = StoryObj<typeof ProgressBar>;
 
 export const Default: Story = {
   args: {
