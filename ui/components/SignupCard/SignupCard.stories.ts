@@ -7,7 +7,7 @@ const meta: Meta<typeof SignupCard> = {
   parameters: {
     docs: {
       description: {
-        component: 'SignupCard holds the SignupForm component',
+        component: 'SignupCard is the wrapper component for SignupForm',
       },
     },
   },
@@ -19,3 +19,10 @@ export default meta;
 type Story = StoryObj<typeof SignupCard>;
 
 export const Default: Story = {};
+
+export const WithBackButton: Story = {
+  args: {
+    back: () => console.log('back'),
+    step: 2,
+  },
+};
