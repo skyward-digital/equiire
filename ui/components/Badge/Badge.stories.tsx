@@ -20,7 +20,15 @@ export default meta;
 
 type Story = StoryObj<typeof Badge>;
 
-export const Info: Story = {
+export const Dot: Story = {
+  args: {
+    type: 'info',
+    dot: true,
+    children: 'Missing information',
+  },
+};
+
+export const Icon: Story = {
   args: {
     type: 'info',
     Icon: ExclamationTriangleIcon,
@@ -28,10 +36,16 @@ export const Info: Story = {
   },
 };
 
+export const Info: Story = {
+  args: {
+    type: 'info',
+    children: 'Missing information',
+  },
+};
+
 export const Warning: Story = {
   args: {
     type: 'warning',
-    Icon: ExclamationTriangleIcon,
     children: 'Missing information',
   },
 };
@@ -39,7 +53,13 @@ export const Warning: Story = {
 export const Error: Story = {
   args: {
     type: 'error',
-    Icon: ExclamationTriangleIcon,
+    children: 'Missing information',
+  },
+};
+
+export const Success: Story = {
+  args: {
+    type: 'success',
     children: 'Missing information',
   },
 };
