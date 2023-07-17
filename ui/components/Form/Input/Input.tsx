@@ -109,7 +109,7 @@ export const Input = ({
   const LeftIcon = iconMap[type];
 
   const RightIcon = error ? (
-    <InformationCircleIcon className="text-semantic-error absolute right-0 top-1/2 mr-3 h-5 w-5 -translate-y-1/2" />
+    <InformationCircleIcon className="text-error absolute right-0 top-1/2 mr-3 h-5 w-5 -translate-y-1/2" />
   ) : type === 'password' ? (
     <PasswordVisibilityToggle
       passwordIsVisible={passwordShown}
@@ -139,10 +139,10 @@ export const Input = ({
           maxLength={maxLength}
           autoComplete={autocomplete}
           className={clsx(
-            'shadow-xs  inline-flex w-full gap-x-2 rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-600',
+            'shadow-xs  inline-flex w-full gap-x-2 rounded-lg border bg-white py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-600',
             LeftIcon ? 'pl-10' : 'pl-3',
             RightIcon ? 'pr-10' : 'pr-3',
-            error && 'border-semantic-error',
+            error ? 'border-error' : 'border-gray-300',
           )}
           {...hookFormRegister}
         />
@@ -154,7 +154,7 @@ export const Input = ({
       <p
         className={clsx(
           'mt-2 text-sm',
-          error && 'text-semantic-error',
+          error && 'text-error',
           hint && !error && 'dark:text-brand-secondary text-gray-600',
           !hint && !error && 'h-5',
         )}

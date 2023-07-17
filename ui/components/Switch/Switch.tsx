@@ -38,8 +38,8 @@ export const Switch = ({
     >
       <span
         className={clsx(
-          enabled ? 'bg-brand-primary' : 'bg-gray-200',
-          'focus:ring-brand-primary relative inline-flex flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-black',
+          enabled ? 'bg-brand' : 'bg-gray-200',
+          'focus:ring-brand relative inline-flex flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-black',
           {
             'h-4 w-8': size === 'sm',
             'h-6 w-11': size === 'md',

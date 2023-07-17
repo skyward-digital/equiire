@@ -40,7 +40,7 @@ export function LoginForm({ className }: { className?: string }) {
       />
       <div className="relative">
         <Link
-          className="font-sm dark:text-brand-primary hover:text-brand-primary hover:dark:text-brand-secondary absolute right-0 top-[3px] text-sm font-semibold text-gray-600 no-underline"
+          className="font-sm dark:text-brand hover:text-brand hover:dark:text-brand-secondary absolute right-0 top-[3px] text-sm font-semibold text-gray-600 no-underline"
           href="/forgot-password"
         >
           Forgot Password?
