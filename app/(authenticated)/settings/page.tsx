@@ -63,7 +63,10 @@ export default function SettingsPage() {
       <div className="prose prose-sm dark:prose-invert mb-16 max-w-none">
         {/* user details form */}
         <div className="mx-auto grid max-w-2xl gap-8">
-          <h2 id="details" className="font-brand text-2xl font-semibold">
+          <h2
+            id="details"
+            className="font-brand scroll-mt-40 text-2xl font-semibold"
+          >
             Company Details
           </h2>
 
@@ -226,7 +229,10 @@ export default function SettingsPage() {
 
         {/* Password reset form */}
         <div className="mx-auto mt-8 grid max-w-2xl gap-8">
-          <h2 id="security" className="font-brand text-2xl font-semibold">
+          <h2
+            id="security"
+            className="font-brand scroll-mt-40 text-2xl font-semibold"
+          >
             Security
           </h2>
 
@@ -235,37 +241,37 @@ export default function SettingsPage() {
             // detail="This is the company name"
             placeholder="*****"
             Icon={KeyIcon}
-            onSave={handleSubmit(onSubmit)}
+            onSave={() => {
+              handleSubmit(onSubmit);
+            }}
             errors={
               errors.password ||
               errors.confirmPassword ||
               errors.currentPassword
             }
           >
-            <div className="mb-2 grid grid-cols-2 gap-4">
-              <Input
-                id="password"
-                type="password"
-                label="Password"
-                placeholder="New Password"
-                register={register}
-                required="Password is required"
-                error={errors.password}
-              />
+            <Input
+              id="password"
+              type="password"
+              label="Password"
+              placeholder="New Password"
+              register={register}
+              required="Password is required"
+              error={errors.password}
+            />
 
-              <Input
-                id="confirmPassword"
-                type="password"
-                label="Confirm Password"
-                placeholder="New Password"
-                register={register}
-                required="Password is required"
-                validate={(value: string) =>
-                  value === password || 'The passwords do not match'
-                }
-                error={errors.confirmPassword}
-              />
-            </div>
+            <Input
+              id="confirmPassword"
+              type="password"
+              label="Confirm Password"
+              placeholder="New Password"
+              register={register}
+              required="Password confirmation is required"
+              validate={(value: string) =>
+                value === password || 'The passwords do not match'
+              }
+              error={errors.confirmPassword}
+            />
 
             {password && password === confirmPassword ? (
               <Input
@@ -283,7 +289,10 @@ export default function SettingsPage() {
 
         {/* Payment details */}
         <div className="mx-auto mt-8 grid max-w-2xl gap-8">
-          <h2 id="payment" className="font-brand text-2xl font-semibold">
+          <h2
+            id="payment"
+            className="font-brand scroll-mt-40 text-2xl font-semibold"
+          >
             Cards/Banks
           </h2>
 

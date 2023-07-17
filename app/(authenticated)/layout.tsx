@@ -14,7 +14,7 @@ export default async function Layout({
   return (
     <>
       <div className="z-10 flex w-full flex-col">
-        <Header title="Settings" />
+        <Header />
         <Sidebar />
       </div>
 

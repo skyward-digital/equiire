@@ -17,11 +17,9 @@ export const SidebarLink = ({ item, isActive, close }: SidebarLinkProps) => {
       href={`/${item.slug}`}
       className={clsx(
         'flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium hover:text-gray-800 dark:hover:text-gray-300',
-        {
-          'text-black hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800':
-            !isActive,
-          'text-brand-primary': isActive,
-        },
+        isActive
+          ? 'text-brand'
+          : 'text-black hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800',
       )}
     >
       <Icon className="stroke-1.5 w-5" />
