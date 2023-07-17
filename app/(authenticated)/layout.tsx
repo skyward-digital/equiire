@@ -14,11 +14,11 @@ export default async function Layout({
   return (
     <>
       <div className="z-10 flex w-full flex-col">
-        <Header title="Settings" />
+        <Header />
         <Sidebar />
       </div>
 
-      <main className="flex max-h-screen w-full flex-col overflow-auto pl-56 pt-20">
+      <main className="flex h-screen w-full flex-col overflow-auto pl-56 pt-20">
         {children}
       </main>
     </>

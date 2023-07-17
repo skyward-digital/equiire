@@ -23,44 +23,36 @@ type Story = StoryObj<typeof NotificationBanner>;
 
 export const Success: Story = {
   args: {
-    type: 'success',
-    children: (
-      <div>
-        Text for the notification banner <a href="#">link goes here</a>
-      </div>
-    ),
+    message: 'You still need to complete your account setup',
+    status: 'success',
+    link: '#',
+    linkLabel: 'Complete setup',
   },
 };
 
 export const Warning: Story = {
   args: {
-    type: 'warning',
-    children: (
-      <div>
-        Text for the notification banner <a href="#">link goes here</a>
-      </div>
-    ),
+    message: 'You still need to complete your account setup',
+    status: 'warning',
+    link: '#',
+    linkLabel: 'Complete setup',
   },
 };
 
 export const Error: Story = {
   args: {
-    type: 'error',
-    children: (
-      <div>
-        Text for the notification banner <a href="#">link goes here</a>
-      </div>
-    ),
+    message: 'You still need to complete your account setup',
+    status: 'error',
+    link: '#',
+    linkLabel: 'Complete setup',
   },
 };
 
 export const Info: Story = {
   args: {
-    type: 'info',
-    children: (
-      <div>
-        Text for the notification banner <a href="#">link goes here</a>
-      </div>
-    ),
+    message: 'You still need to complete your account setup',
+    status: 'info',
+    link: '#',
+    linkLabel: 'Complete setup',
   },
 };

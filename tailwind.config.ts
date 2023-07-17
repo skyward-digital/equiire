@@ -1,4 +1,3 @@
-import colors from 'tailwindcss/colors';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 import { Config } from 'tailwindcss';
 

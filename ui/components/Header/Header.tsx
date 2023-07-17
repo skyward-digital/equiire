@@ -3,11 +3,7 @@ import { Logo } from '#/ui/assets/Logo';
 import { DarkModeToggle } from './DarkModeToggle';
 import { UserProfile } from './UserProfile';
 
-export type HeaderProps = {
-  title: string;
-};
-
-export const Header = ({ title }: HeaderProps) => {
+export const Header = () => {
   return (
     <header className="bg-brand border-brand fixed top-0 z-10 flex max-h-20 w-full items-center justify-between border-b px-6 py-2 dark:border-gray-600 dark:bg-black">
       <div className="flex h-14 items-center px-4 py-4 lg:h-auto">
