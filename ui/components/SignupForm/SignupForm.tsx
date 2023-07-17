@@ -17,11 +17,7 @@ export function SignupForm() {
   const { component: CurrentFormComponent, title } = FORM_STEPS[step];
 
   return (
-    <SignupCard
-      className="sm:mt-20"
-      backButtonOnClick={() => setStep(step - 1)}
-      step={step}
-    >
+    <SignupCard className="sm:mt-20" back={() => setStep(step - 1)} step={step}>
       <Stepper
         className="mb-10"
         totalSteps={FORM_STEPS.length}

@@ -40,7 +40,7 @@ export function ForgotPasswordCard({
       )}
     >
       <div className="flex flex-col items-start sm:flex-row sm:gap-3">
-        <BackButton />
+        <BackButton back="/login" />
         <div className="mx-auto">
           <h1 className="text-brand-secondary font-brand my-6 text-center text-3xl font-bold dark:text-gray-300">
             Password Reset

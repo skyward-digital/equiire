@@ -5,12 +5,12 @@ import { BackButton } from '#/ui/components/BackButton';
 export function SignupCard({
   className,
   children,
-  backButtonOnClick,
+  back,
   step,
 }: {
   className?: string;
   children?: React.ReactNode;
-  backButtonOnClick?: any;
+  back: any;
   step: number;
 }) {
   return (
@@ -21,11 +21,7 @@ export function SignupCard({
       )}
     >
       <div className="flex flex-col sm:flex-row sm:items-start sm:gap-4">
-        {step > 0 ? (
-          <BackButton onClick={backButtonOnClick} />
-        ) : (
-          <p className="h-9 w-9"></p>
-        )}
+        {step > 0 ? <BackButton back={back} /> : <p className="h-9 w-9"></p>}
         <div className="mt-8 max-w-md">
           <h1 className="text-brand-secondary font-brand mb-10 mt-5 text-center text-3xl font-bold dark:text-gray-300">
             Complete your loan application
