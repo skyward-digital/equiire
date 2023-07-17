@@ -1,13 +1,18 @@
-'use client';
-import { useState } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { BackButton } from '#/ui/components/BackButton';
-import { SignupWizard } from '#/ui/components/SignupWizard';
 
-export function SignupCard({ className }: { className?: string }) {
-  const [step, setStep] = useState<number>(0);
-
+export function SignupCard({
+  className,
+  children,
+  backButtonOnClick,
+  step,
+}: {
+  className?: string;
+  children?: React.ReactNode;
+  backButtonOnClick?: any;
+  step: number;
+}) {
   return (
     <section
       className={clsx(
@@ -17,7 +22,7 @@ export function SignupCard({ className }: { className?: string }) {
     >
       <div className="flex flex-col sm:flex-row sm:items-start sm:gap-4">
         {step > 0 ? (
-          <BackButton onClick={() => setStep(step - 1)} />
+          <BackButton onClick={backButtonOnClick} />
         ) : (
           <p className="h-9 w-9"></p>
         )}
@@ -25,7 +30,7 @@ export function SignupCard({ className }: { className?: string }) {
           <h1 className="text-brand-secondary font-brand mb-10 mt-5 text-center text-3xl font-bold dark:text-gray-300">
             Complete your loan application
           </h1>
-          <SignupWizard step={step} setStep={setStep} />
+          {children}
           <p className="mt-10 text-center text-sm text-gray-600 dark:text-gray-300">
             By signing up, you agree to our{' '}
             <Link href="/" className="text-brand-primary underline">

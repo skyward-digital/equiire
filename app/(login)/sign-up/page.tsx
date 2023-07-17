@@ -1,5 +1,5 @@
-import { SignupCard } from '#/ui/components/SignupCard';
+import { SignupForm } from '#/ui/components/SignupForm';
 
 export default function Page() {
-  return <SignupCard className="sm:mt-20" />;
+  return <SignupForm />;
 }

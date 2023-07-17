@@ -1,4 +1,7 @@
+'use client';
+import { useState } from 'react';
 import { Stepper } from '#/ui/components/Stepper';
+import { SignupCard } from '#/ui/components/SignupCard';
 import { PersonalInformationForm } from './PersonalInformationForm';
 import { AdditionalDetailsForm } from './AdditionalDetailsForm';
 import { PasswordForm } from './PasswordForm';
@@ -9,17 +12,16 @@ const FORM_STEPS = [
   { title: 'Password', component: PasswordForm },
 ];
 
-export function SignupWizard({
-  step,
-  setStep,
-}: {
-  step: number;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-}) {
+export function SignupForm() {
+  const [step, setStep] = useState<number>(0);
   const { component: CurrentFormComponent, title } = FORM_STEPS[step];
 
   return (
-    <>
+    <SignupCard
+      className="sm:mt-20"
+      backButtonOnClick={() => setStep(step - 1)}
+      step={step}
+    >
       <Stepper
         className="mb-10"
         totalSteps={FORM_STEPS.length}
@@ -29,6 +31,6 @@ export function SignupWizard({
         {title}
       </h2>
       <CurrentFormComponent setStep={setStep} />
-    </>
+    </SignupCard>
   );
 }
