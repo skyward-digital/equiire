@@ -4,7 +4,7 @@ import { NotificationBanner } from '#/ui/components/NotificationBanner/Notificat
 export default function Page() {
   return (
     <>
-      <Header title="Dashboard" />
+      <Header />
 
       <div className="container flex flex-1 flex-col items-center justify-center gap-8 py-4 pt-24">
         <NotificationBanner
