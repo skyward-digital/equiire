@@ -14,16 +14,13 @@ export const TabLink = ({ title, href, Icon, active }: TabLinkProps) => {
       className={clsx(
         '-mb-px flex items-center gap-2 px-3 pb-1.5 font-semibold',
         active
-          ? '!text-brand-primary border-brand-primary border-b-[3px]'
+          ? '!text-brand border-brand border-b-[3px]'
           : 'text-gray-600 dark:text-gray-400',
       )}
     >
       {Icon ? (
         <Icon
-          className={clsx(
-            'h-5 w-5',
-            active ? 'text-brand-primary' : 'text-gray-500',
-          )}
+          className={clsx('h-5 w-5', active ? 'text-brand' : 'text-gray-500')}
         />
       ) : null}
       {title}
