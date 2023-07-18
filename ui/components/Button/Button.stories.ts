@@ -57,7 +57,7 @@ export const Icon: Story = {
 export const IconOnly: Story = {
   args: {
     Icon: ShoppingCartIcon,
-    ariaLabel: 'Add to cart',
+    'aria-label': 'Add to cart',
   },
 };
 

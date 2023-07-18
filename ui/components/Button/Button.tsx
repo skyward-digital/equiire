@@ -16,7 +16,9 @@ export interface ButtonLinkProps extends ButtonBaseProps, LinkProps {
 
 export interface ButtonElementProps
   extends ButtonBaseProps,
-    React.ButtonHTMLAttributes<HTMLButtonElement> {}
+    React.ButtonHTMLAttributes<HTMLButtonElement> {
+  href?: never;
+}
 
 export type ButtonProps = ButtonLinkProps | ButtonElementProps;
 
@@ -30,6 +32,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const { href } = props as ButtonLinkProps;
+  const { type, disabled } = props as ButtonElementProps;
   const Component = href ? Link : 'button';
 
   return (
@@ -50,7 +53,8 @@ export const Button = ({
         size === 'lg' && 'px-9 py-3 text-lg',
         className,
       )}
-      {...props}
+      type={type}
+      disabled={disabled}
     >
       {Icon && <Icon className="h-5 w-5" />}
       {children}
