@@ -1,10 +1,10 @@
 'use client';
-import Link from 'next/link';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { ForgotPasswordForm } from '#/ui/components/ForgotPasswordForm';
 import { ResetPasswordForm } from '#/ui/components/ResetPasswordForm';
-import { ArrowLeftIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { BackButton } from '#/ui/components/BackButton';
 
 const DESCRIPTION_TEXTS = {
   initial:
@@ -12,16 +12,6 @@ const DESCRIPTION_TEXTS = {
   submitted:
     'We have sent you an email. Please follow the instructions to reset your password.',
   submitted_token: 'Your new password has now been set.',
-};
-
-const BackButton = () => {
-  return (
-    <Link href="/login" aria-label="Back to login">
-      <div className="flex items-center justify-center rounded-full bg-gray-100 p-2 dark:bg-gray-800">
-        <ArrowLeftIcon className="h-5 w-5 text-gray-400 dark:text-gray-300" />
-      </div>
-    </Link>
-  );
 };
 
 export function ForgotPasswordCard({
@@ -50,7 +40,7 @@ export function ForgotPasswordCard({
       )}
     >
       <div className="flex flex-col items-start sm:flex-row sm:gap-3">
-        <BackButton />
+        <BackButton back="/login" />
         <div className="mx-auto">
           <h1 className="text-brand-secondary font-brand my-6 text-center text-3xl font-bold dark:text-gray-300">
             Password Reset

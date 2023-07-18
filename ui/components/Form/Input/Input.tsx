@@ -56,6 +56,7 @@ type InputProps = {
   pattern?: string | { value: string | RegExp; message: string };
   error?: any;
   hint?: string;
+  Icon?: any;
 };
 
 const iconMap = {
@@ -101,12 +102,13 @@ export const Input = ({
   pattern,
   error,
   hint,
+  Icon,
 }: InputProps) => {
   const [passwordShown, setPasswordShown] = useState(false);
   const inputType =
     type === 'password' ? (passwordShown ? 'text' : 'password') : type;
 
-  const LeftIcon = iconMap[type];
+  const LeftIcon = Icon ? Icon : iconMap[type];
 
   const RightIcon = error ? (
     <InformationCircleIcon className="text-error absolute right-0 top-1/2 mr-3 h-5 w-5 -translate-y-1/2" />

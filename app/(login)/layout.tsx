@@ -10,7 +10,7 @@ export const metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <BgVector className="absolute top-0 -z-10 h-screen w-full max-w-full overflow-auto" />
+      <BgVector className="fixed top-0 -z-10 h-screen w-full max-w-full overflow-auto" />
       <DarkModeToggle className="absolute right-0 top-0" />
       <div>{children}</div>
     </>

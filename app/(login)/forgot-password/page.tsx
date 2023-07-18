@@ -2,7 +2,7 @@ import { ForgotPasswordCard } from '#/ui/components/ForgotPasswordCard';
 
 export default async function Page() {
   return (
-    <div className="mt-10 sm:mt-40">
+    <div className="sm:mt-40">
       <ForgotPasswordCard />
     </div>
   );

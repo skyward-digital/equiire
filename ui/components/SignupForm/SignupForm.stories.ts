@@ -7,8 +7,7 @@ const meta: Meta<typeof SignupForm> = {
   parameters: {
     docs: {
       description: {
-        component:
-          'SignupForm allows a user to log in with email and password.',
+        component: 'SignupForm allows a user to create a new account.',
       },
     },
   },

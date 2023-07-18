@@ -1,55 +1,32 @@
 'use client';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Input } from '#/ui/components/Form/Input';
+import { useState } from 'react';
+import { ProgressBar } from '#/ui/components/ProgressBar';
+import { SignupCard } from '#/ui/components/SignupCard';
+import { PersonalInformationForm } from './PersonalInformationForm';
+import { AdditionalDetailsForm } from './AdditionalDetailsForm';
+import { PasswordForm } from './PasswordForm';
+
+const FORM_STEPS = [
+  { title: 'Personal Information', component: PersonalInformationForm },
+  { title: 'Additional Information', component: AdditionalDetailsForm },
+  { title: 'Password', component: PasswordForm },
+];
 
 export function SignupForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data: any) => {
-    console.log(data);
-    // Here you would typically send the data to your server
-    // to create a new user account.
-  };
+  const [step, setStep] = useState<number>(0);
+  const { component: CurrentFormComponent, title } = FORM_STEPS[step];
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid max-w-2xl gap-2">
-      <Input
-        id="email"
-        type="email"
-        label="Email"
-        placeholder="test@test.com"
-        register={register}
-        required="Email is required"
-        pattern={{
-          value: /^\S+@\S+$/i,
-          message: 'Invalid email address',
-        }}
-        error={errors.email}
+    <SignupCard className="sm:mt-20" back={() => setStep(step - 1)} step={step}>
+      <ProgressBar
+        className="mb-10"
+        totalSteps={FORM_STEPS.length}
+        currentStep={step}
       />
-
-      <Input
-        id="password"
-        type="password"
-        label="Password"
-        placeholder="New Password"
-        register={register}
-        required="Password is required"
-        error={errors.password}
-      />
-
-      <div>
-        <button
-          className="inline-flex gap-x-2 rounded-lg bg-gray-700 px-3 py-1 text-sm font-medium text-gray-100 no-underline hover:bg-gray-500 hover:text-white"
-          type="submit"
-        >
-          Sign Up
-        </button>
-      </div>
-    </form>
+      <h2 className="text-brand-primary mb-10 text-center font-semibold">
+        {title}
+      </h2>
+      <CurrentFormComponent setStep={setStep} />
+    </SignupCard>
   );
 }
