@@ -8,6 +8,7 @@ import {
 import { LoanProps } from './LoanStatusCard';
 
 export const LoanSteps = ({ steps }: { steps: LoanProps['steps'] }) => {
+  if (!steps) return null;
   const { loan, account, payment, signature } = steps;
 
   return (
@@ -52,7 +53,7 @@ const Step = ({ completed, href, children }: StepProps) => {
       ) : (
         <XCircleIcon className="h-8 w-8" strokeWidth={1.25} />
       )}
-      <p className="font-brand -mb-1">{children}</p>
+      <span className="font-brand -mb-1">{children}</span>
       {!completed && (
         <ArrowLongRightIcon
           className="h-8 w-8 text-gray-400 duration-200 group-hover:translate-x-1 group-focus:translate-x-1"
