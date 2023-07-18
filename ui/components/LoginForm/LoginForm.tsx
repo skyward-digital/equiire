@@ -4,7 +4,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
-import { Button, ButtonLink } from '#/ui/components/Button';
+import { Button } from '#/ui/components/Button';
 
 export function LoginForm({ className }: { className?: string }) {
   const {
@@ -57,12 +57,12 @@ export function LoginForm({ className }: { className?: string }) {
         />
       </div>
       <div className="mt-10 flex w-full flex-col gap-5">
-        <Button style="primary" type="submit" arrow>
+        <Button variant="primary" type="submit" arrow>
           Log In
         </Button>
-        <ButtonLink href="/sign-up" style="link">
+        <Button href="/sign-up" variant="link">
           Sign Up
-        </ButtonLink>
+        </Button>
       </div>
     </form>
   );
