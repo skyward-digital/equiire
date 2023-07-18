@@ -1,72 +1,60 @@
-import Link from 'next/link';
+import Link, { LinkProps } from 'next/link';
 import clsx from 'clsx';
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
 
-export interface ButtonLinkProps {
-  href: string;
-  style: 'primary' | 'link';
+export interface ButtonBaseProps {
+  variant?: 'primary' | 'secondary' | 'link';
+  size?: 'sm' | 'md' | 'lg';
+  Icon?: React.ElementType;
   arrow?: boolean;
-  children: React.ReactNode;
   className?: string;
 }
 
-export interface ButtonProps {
-  style: 'primary' | 'link';
-  className?: string;
-  arrow?: boolean;
-  children: React.ReactNode;
+export interface ButtonLinkProps extends ButtonBaseProps, LinkProps {
+  children: string;
 }
 
-const classes = {
-  generic:
-    'inline-flex items-center justify-center gap-2 px-6 text-base font-semibold no-underline outline-none transition duration-200 ease-in-out focus:ring-2 focus:ring-gray-600 focus:ring-offset-2',
-  primary:
-    'bg-brand shadow-xs hover:text-white hover:bg-brand-secondary rounded-full disabled:text-white disabled:dark:text-gray-500 text-black py-3 disabled:bg-gray-200 dark:disabled:bg-gray-800 dark:disabled:text-gray-500',
-  link: 'text-brand hover:text-gray-500 py-2',
-};
+export interface ButtonElementProps
+  extends ButtonBaseProps,
+    React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
+export type ButtonProps = ButtonLinkProps | ButtonElementProps;
 
 export const Button = ({
-  style,
+  variant = 'primary',
+  size = 'md',
+  Icon,
   arrow,
   className,
   children,
   ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & ButtonProps) => {
+}: ButtonProps) => {
+  const { href } = props as ButtonLinkProps;
+  const Component = href ? Link : 'button';
+
   return (
-    <button
+    <Component
+      href={href}
       className={clsx(
+        'inline-flex items-center justify-center gap-2 rounded-full font-semibold no-underline outline-none transition duration-200 ease-in-out focus:ring-2 focus:ring-gray-600 focus:ring-offset-2',
+        // Style
+        variant === 'primary' &&
+          'bg-brand shadow-xs hover:bg-brand-600 text-white hover:text-white disabled:bg-gray-200 disabled:text-white dark:disabled:bg-gray-800 dark:disabled:text-gray-500',
+        variant === 'secondary' &&
+          'shadow-xs border border-gray-300 text-gray-600 hover:bg-gray-100 hover:text-black disabled:bg-gray-100 disabled:text-gray-400 dark:hover:border-white dark:hover:bg-transparent dark:hover:text-white dark:disabled:bg-gray-800',
+        variant === 'link' &&
+          'text-brand hover:text-brand-600 py-2 disabled:text-gray-400',
+        // Size
+        size === 'sm' && 'px-2 py-1 text-sm',
+        size === 'md' && 'px-6 py-3 text-base',
+        size === 'lg' && 'px-9 py-3 text-lg',
         className,
-        classes.generic,
-        style === 'primary' && classes.primary,
-        style === 'link' && classes.link,
       )}
       {...props}
     >
-      <span>{children}</span>
+      {Icon && <Icon className="h-5 w-5" />}
+      {children}
       {arrow ? <ArrowRightIcon className="h-5 w-5" /> : null}
-    </button>
-  );
-};
-
-export const ButtonLink = ({
-  href,
-  style,
-  arrow,
-  className,
-  children,
-}: ButtonLinkProps) => {
-  return (
-    <Link
-      href={href}
-      className={clsx(
-        className,
-        classes.generic,
-        style === 'primary' && classes.primary,
-        style === 'link' && classes.link,
-      )}
-    >
-      <span>{children}</span>
-      {arrow ? <ArrowRightIcon className="h-5 w-5" /> : null}
-    </Link>
+    </Component>
   );
 };

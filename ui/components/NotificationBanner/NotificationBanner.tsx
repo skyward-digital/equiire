@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
-import { ButtonLink } from '#/ui/components/Button';
+import { Button } from '#/ui/components/Button';
 
 export type NotificationBannerProps = {
   message: string;
@@ -54,9 +54,9 @@ export const NotificationBanner = ({
         <p className="font-brand -mb-1 text-2xl font-semibold">{message}</p>
 
         {link ? (
-          <ButtonLink href={link} style="primary">
+          <Button href={link} variant="primary">
             {linkLabel}
-          </ButtonLink>
+          </Button>
         ) : null}
       </div>
     </div>

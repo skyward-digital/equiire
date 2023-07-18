@@ -49,7 +49,7 @@ export function ForgotPasswordForm({
       />
       <Button
         className="w-full max-w-sm justify-self-center"
-        style="primary"
+        variant="primary"
         type="submit"
         disabled={!emailCompleted}
       >
