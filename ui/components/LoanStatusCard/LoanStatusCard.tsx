@@ -29,7 +29,7 @@ export const LoanStatusCard = ({ loan }: { loan: LoanProps }) => {
     pending: 'warning',
     processing: 'info',
     approved: 'success',
-    rejected: 'danger',
+    rejected: 'error',
   }[status] as BadgeProps['type'];
 
   return (
