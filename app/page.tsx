@@ -1,9 +1,43 @@
-import Image from 'next/image';
-import { Badge } from '#/ui/components/Badge';
-import { ButtonLink } from '#/ui/components/Button';
 import { Header } from '#/ui/components/Header/Header';
 import { NotificationBanner } from '#/ui/components/NotificationBanner/NotificationBanner';
-import ClockImage from './images/clock.png';
+import { LoanStatusCard } from '#/ui/components/LoanStatusCard';
+
+const loansData = [
+  {
+    id: '123450',
+    status: 'pending',
+    value: 100000,
+    startDate: '2021-01-01',
+    steps: {
+      loan: true,
+      account: true,
+      payment: false,
+      signature: false,
+    },
+  },
+  {
+    id: '123456',
+    status: 'processing',
+    value: 85000,
+    startDate: '2021-01-01',
+  },
+  {
+    id: '123457',
+    status: 'approved',
+    value: 150000,
+    startDate: '2021-01-01',
+  },
+  {
+    id: '123458',
+    status: 'completed',
+    value: 50000,
+    startDate: '2021-01-01',
+  },
+];
+
+const activeLoans = loansData.filter(
+  (loan) => loan.status !== 'completed' && loan.status !== 'rejected',
+);
 
 export default function Page() {
   return (
@@ -18,56 +52,9 @@ export default function Page() {
           linkLabel="Complete setup"
         />
 
-        {/* Loan Card */}
-        <div className="w-full rounded-xl border shadow-sm dark:border-gray-600">
-          {/* Header can be its own component - ID, Status, children */}
-          <div className="flex w-full justify-between gap-4 border-b px-8 py-4 dark:border-gray-600">
-            <div className="flex items-center gap-4">
-              <p className="font-brand -mb-1 text-xl font-semibold text-gray-400 dark:text-gray-200">
-                #7389142
-              </p>
-              <Badge type="info" dot>
-                Processing
-              </Badge>
-            </div>
-
-            {/* Buttons need refactoring */}
-            <div className="flex items-center gap-4">
-              <ButtonLink href="#" style="secondary" size="sm">
-                View loan details
-              </ButtonLink>
-              <ButtonLink href="#" style="primary" size="sm">
-                Make early payment
-              </ButtonLink>
-            </div>
-          </div>
-
-          <div className="flex justify-between gap-8 p-8">
-            <div className="w-1/2">
-              <h2 className="font-brand text-7xl">
-                Loan of <strong className="text-brand">$85,000</strong>
-                <br />
-                in <strong className="text-brand">October 2023</strong>
-              </h2>
-            </div>
-            <div className="w-2/5 space-y-4">
-              <p className="text-success-600 text-xl font-semibold">
-                Add loan details
-              </p>
-              <p className="text-xl font-semibold text-gray-600">
-                Complete account setup
-              </p>
-              <p className="text-xl font-semibold text-gray-300">
-                Add payment information
-              </p>
-              <p className="text-xl font-semibold text-gray-300">
-                Sign loan agreement
-              </p>
-              {/* OR */}
-              <Image src={ClockImage} alt="clock" width={448} height={289} />
-            </div>
-          </div>
-        </div>
+        {activeLoans.map((loan) => (
+          <LoanStatusCard key={loan.id} loan={loan} />
+        ))}
       </div>
     </>
   );
