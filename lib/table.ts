@@ -5,7 +5,6 @@ type TableProps = {
   id: string;
   name: string;
   value: number;
-  remaining: number;
   status: string;
   owner: {
     id: string;
