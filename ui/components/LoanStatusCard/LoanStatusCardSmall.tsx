@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Badge, BadgeProps } from '#/ui/components/Badge';
+import { Badge } from '#/ui/components/Badge';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { LoanStatusCardProps } from './LoanStatusCard';
 
