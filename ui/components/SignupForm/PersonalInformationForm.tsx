@@ -57,7 +57,7 @@ export function PersonalInformationForm({
         Icon={PencilIcon}
       />
       <Button
-        style="primary"
+        variant="primary"
         className="mt-3 w-full max-w-xs justify-self-center"
       >
         Next

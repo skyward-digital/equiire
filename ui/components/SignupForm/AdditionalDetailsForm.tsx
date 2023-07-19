@@ -85,7 +85,7 @@ export function AdditionalDetailsForm({
         pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
       />
       <Button
-        style="primary"
+        variant="primary"
         className="mt-3 w-full max-w-xs justify-self-center"
       >
         Next
