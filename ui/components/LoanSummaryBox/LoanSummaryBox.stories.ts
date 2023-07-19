@@ -22,11 +22,27 @@ type Story = StoryObj<typeof LoanSummaryBox>;
 export const Large: Story = {
   args: {
     size: 'lg',
+    type: 'credit-builder',
+  },
+};
+
+export const LargeStandard: Story = {
+  args: {
+    size: 'lg',
+    type: 'standard',
   },
 };
 
 export const Small: Story = {
   args: {
     size: 'sm',
+    type: 'credit-builder',
+  },
+};
+
+export const SmallStandard: Story = {
+  args: {
+    size: 'sm',
+    type: 'standard',
   },
 };
