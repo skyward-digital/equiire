@@ -1,6 +1,5 @@
-import React from 'react';
 import { DarkModeToggle } from '#/ui/components/Header/DarkModeToggle';
-import { BgVector } from '#/ui/assets/BgVector';
+import { VectorLogoE } from '#/ui/assets/VectorLogoE';
 
 export const metadata = {
   title: 'Login',
@@ -10,7 +9,7 @@ export const metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <BgVector className="fixed top-0 -z-10 h-screen w-full max-w-full overflow-auto" />
+      <VectorLogoE className="fixed top-0 -z-10 h-screen w-full max-w-full overflow-auto" />
       <DarkModeToggle className="absolute right-0 top-0" />
       <div>{children}</div>
     </>

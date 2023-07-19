@@ -12,7 +12,7 @@ export const LoanStatusCardSmall = ({
   badgeStatus,
 }: LoanStatusCardProps) => {
   return (
-    <div className="w-full rounded-xl border shadow-sm dark:border-gray-600">
+    <div className="w-full rounded-xl border bg-white shadow-sm dark:border-gray-600 dark:bg-black">
       <div className="flex w-full justify-between gap-4 border-b px-8 py-4 dark:border-gray-600">
         <div className="flex items-center gap-4">
           <Link href={`/loans/${id}`}>
