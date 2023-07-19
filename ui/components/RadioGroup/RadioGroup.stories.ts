@@ -24,7 +24,7 @@ const args = {
     value: 'credit-builder',
   },
   right: {
-    label: 'Standard loan',
+    label: 'Standard Loan',
     value: 'standard',
   },
   defaultValue: 'credit-builder',
