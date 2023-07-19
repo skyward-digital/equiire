@@ -31,26 +31,10 @@ export const Large: Story = {
   },
 };
 
-export const LargeStandard: Story = {
-  args: {
-    size: 'lg',
-    type: 'standard',
-    ...args,
-  },
-};
-
 export const Small: Story = {
   args: {
     size: 'sm',
     type: 'credit-builder',
-    ...args,
-  },
-};
-
-export const SmallStandard: Story = {
-  args: {
-    size: 'sm',
-    type: 'standard',
     ...args,
   },
 };
