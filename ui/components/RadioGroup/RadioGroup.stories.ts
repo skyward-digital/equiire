@@ -18,4 +18,19 @@ export default meta;
 
 type Story = StoryObj<typeof RadioGroup>;
 
-export const Default: Story = {};
+const args = {
+  left: {
+    label: 'Credit Builder',
+    value: 'credit-builder',
+  },
+  right: {
+    label: 'Standard loan',
+    value: 'standard',
+  },
+  defaultValue: 'credit-builder',
+  ariaLabel: 'Choose your loan',
+};
+
+export const Default: Story = {
+  args,
+};
