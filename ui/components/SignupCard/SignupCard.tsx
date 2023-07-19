@@ -29,7 +29,7 @@ export function SignupCard({
           {children}
           <p className="mt-10 text-center text-sm text-gray-600 dark:text-gray-300">
             By signing up, you agree to our{' '}
-            <Link href="/" className="text-brand-primary underline">
+            <Link href="/" className="text-brand underline">
               Terms & Privacy Statement
             </Link>
           </p>
