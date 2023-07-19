@@ -23,9 +23,7 @@ export function SignupForm() {
         totalSteps={FORM_STEPS.length}
         currentStep={step}
       />
-      <h2 className="text-brand-primary mb-10 text-center font-semibold">
-        {title}
-      </h2>
+      <h2 className="text-brand mb-10 text-center font-semibold">{title}</h2>
       <CurrentFormComponent setStep={setStep} />
     </SignupCard>
   );
