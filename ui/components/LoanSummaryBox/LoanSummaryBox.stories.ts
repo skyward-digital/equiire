@@ -19,10 +19,15 @@ export default meta;
 
 type Story = StoryObj<typeof LoanSummaryBox>;
 
+const args = {
+  value: 10000,
+};
+
 export const Large: Story = {
   args: {
     size: 'lg',
     type: 'credit-builder',
+    ...args,
   },
 };
 
@@ -30,6 +35,7 @@ export const LargeStandard: Story = {
   args: {
     size: 'lg',
     type: 'standard',
+    ...args,
   },
 };
 
@@ -37,6 +43,7 @@ export const Small: Story = {
   args: {
     size: 'sm',
     type: 'credit-builder',
+    ...args,
   },
 };
 
@@ -44,5 +51,6 @@ export const SmallStandard: Story = {
   args: {
     size: 'sm',
     type: 'standard',
+    ...args,
   },
 };

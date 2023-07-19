@@ -15,7 +15,7 @@ import { Divider } from './Divider';
 
 type SummaryBoxProps = {
   size: 'sm' | 'lg';
-  value: string;
+  value: number;
   type: 'credit-builder' | 'standard';
 };
 
@@ -134,7 +134,14 @@ export function LoanSummaryBox({ size, value, type }: SummaryBoxProps) {
             </>
           )}
           {/* Loan Basic Details */}
-          <SummaryBoxLine Icon={WalletIcon} value="$10,000">
+          <SummaryBoxLine
+            Icon={WalletIcon}
+            value={value.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              maximumFractionDigits: 0,
+            })}
+          >
             Loan Amount
           </SummaryBoxLine>
           <SummaryBoxLine value="22 Months" Icon={CalendarIcon}>
