@@ -30,11 +30,11 @@ export const LoanStatusCardLarge = ({
 
         <div className="flex items-center gap-4">
           <Button href={`/loans/${id}`} variant="secondary" size="sm">
-            View loan details
+            View Loan Details
           </Button>
           {status !== 'rejected' && status !== 'pending' ? (
             <Button href="#" variant="primary" size="sm">
-              Make early payment
+              Make Payment Early
             </Button>
           ) : null}
         </div>
