@@ -14,11 +14,11 @@ export const Badge = ({ as, type, Icon, dot, children }: BadgeProps) => {
   return (
     <Component
       className={clsx(
-        'inline-flex items-center gap-1 rounded border px-2 py-0.5',
+        'inline-flex items-center gap-1 rounded border px-2 py-0.5 capitalize',
         {
           'border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-900 dark:bg-blue-800 dark:text-blue-200':
             type === 'info',
-          'border-warning-400 bg-warning-50 text-warning-700 dark:border-warning-500 dark:bg-warning-500 dark:text-warning-950':
+          'border-warning-200 bg-warning-50 text-warning-700 dark:border-warning-500 dark:bg-warning-500 dark:text-warning-950':
             type === 'warning',
           'border-error-200 bg-error-50 text-error-700 dark:border-error-900 dark:bg-error-800 dark:text-error-200':
             type === 'error',
@@ -29,7 +29,7 @@ export const Badge = ({ as, type, Icon, dot, children }: BadgeProps) => {
     >
       {Icon && <Icon className="h-5 w-5 opacity-90" strokeWidth={1.5} />}
       {!Icon && dot ? (
-        <span className="mr-0.5 h-1.5 w-1.5 rounded-full bg-current" />
+        <span className="mr-0.5 h-1.5 w-1.5 rounded-full bg-current opacity-60" />
       ) : null}
       <span className="font-semibold">{children}</span>
     </Component>
