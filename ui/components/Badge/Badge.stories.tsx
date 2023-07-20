@@ -36,6 +36,14 @@ export const Icon: Story = {
   },
 };
 
+export const Small: Story = {
+  args: {
+    type: 'info',
+    size: 'sm',
+    children: 'Missing information',
+  },
+};
+
 export const Info: Story = {
   args: {
     type: 'info',
