@@ -11,7 +11,7 @@ export const SelectItem = React.forwardRef<
     {...props}
     className={clsx(
       className,
-      'relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-2.5 outline-none hover:bg-gray-50 data-[disabled]:pointer-events-none data-[state=checked]:bg-gray-50 data-[disabled]:opacity-50',
+      'relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-2.5 outline-none hover:bg-gray-50 data-[disabled]:pointer-events-none data-[state=checked]:bg-gray-50 data-[disabled]:opacity-50 dark:text-gray-200 dark:hover:bg-gray-800 dark:data-[state=checked]:bg-gray-800',
     )}
   >
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
