@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Select, SelectItem } from '#/ui/components/Select';
 import { Slider } from './Slider';
+import { Label } from '#/ui/components/Label';
 
 type LabelForSliderProps = {
   type: 'min' | 'max';
@@ -40,12 +41,14 @@ export function SliderGroup({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        {/* Todo: change to label for select */}
-        <p className="font-brand  text-gray-600 dark:text-white">{label}</p>
+        <Label htmlFor="slider" className="text-gray-600 dark:text-white">
+          {label}
+        </Label>
         <Select
           defaultValue={value}
           className="max-w-xs"
           onValueChange={setValue}
+          id="slider"
         >
           {options.map((option, index) => (
             <SelectItem key={index} value={option.value}>
