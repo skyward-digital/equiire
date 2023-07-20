@@ -1,17 +1,32 @@
 import React from 'react';
+import clsx from 'clsx';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 export function Select({
   placeholder,
   children,
+  className,
+  defaultValue,
+  onValueChange,
 }: {
-  placeholder: string;
   children: React.ReactNode;
+  className: string;
+  placeholder?: string;
+  defaultValue?: string;
+  onValueChange?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }) {
   return (
-    <SelectPrimitive.Root>
-      <SelectPrimitive.Trigger className="border-input ring-offset-background data-[state=open]:border-brand-300 focus:border-brand-300 shadow-xs flex h-9 w-full items-center justify-between rounded-md border bg-transparent px-3 py-3 text-gray-600 placeholder:text-gray-600 focus:outline-none focus:ring-4 focus:ring-[#FFE3CC] disabled:cursor-not-allowed disabled:opacity-50 data-[state=open]:outline-none data-[state=open]:ring-4 data-[state=open]:ring-[#FFE3CC]">
+    <SelectPrimitive.Root
+      defaultValue={defaultValue}
+      onValueChange={onValueChange}
+    >
+      <SelectPrimitive.Trigger
+        className={clsx(
+          className,
+          'border-input ring-offset-background data-[state=open]:border-brand-300 focus:border-brand-300 shadow-xs flex h-9 w-full items-center justify-between rounded-md border bg-transparent px-3 py-3 text-gray-600 placeholder:text-gray-600 focus:outline-none focus:ring-4 focus:ring-[#FFE3CC] disabled:cursor-not-allowed disabled:opacity-50 data-[state=open]:outline-none data-[state=open]:ring-4 data-[state=open]:ring-[#FFE3CC]',
+        )}
+      >
         <SelectPrimitive.Value placeholder={placeholder} />
         <SelectPrimitive.Icon asChild>
           <ChevronDownIcon className="h-4 w-4" />
