@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
+  variable: '--font-inter',
 });
 
 const mazzard = localFont({
@@ -42,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${mazzard.variable} ${inter.className}`}>
+    <html lang="en" className={`${mazzard.variable} ${inter.variable}`}>
       <body className="bg-white dark:bg-black">
         <ThemeProvider>{children}</ThemeProvider>
       </body>

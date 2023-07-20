@@ -21,7 +21,7 @@ export const navigation: { name?: string; items: Item[] }[] = [
       {
         name: 'Home',
         icon: HomeIcon,
-        slug: '',
+        slug: 'overview',
       },
       {
         name: 'Loans',

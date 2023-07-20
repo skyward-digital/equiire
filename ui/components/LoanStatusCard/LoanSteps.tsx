@@ -45,7 +45,7 @@ const Step = ({ completed, href, children }: StepProps) => {
         'group flex items-center gap-2 text-xl font-semibold',
         completed
           ? 'text-success'
-          : 'hover:text-brand-600 dark:hover:text-brand text-gray-600 duration-200 dark:text-gray-200',
+          : 'text-gray-600 duration-200 hover:text-black focus:text-black dark:text-gray-200 dark:hover:text-gray-200 dark:focus:text-gray-200',
       )}
     >
       {completed ? (
@@ -53,10 +53,12 @@ const Step = ({ completed, href, children }: StepProps) => {
       ) : (
         <XCircleIcon className="h-8 w-8" strokeWidth={1.25} />
       )}
-      <span className="font-brand -mb-1">{children}</span>
+      <span className="font-brand -mb-1 group-hover:underline group-focus:underline">
+        {children}
+      </span>
       {!completed && (
         <ArrowLongRightIcon
-          className="h-8 w-8 text-gray-400 duration-200 group-hover:translate-x-1 group-focus:translate-x-1"
+          className="h-8 w-8 text-gray-400 duration-200 group-hover:translate-x-1 group-hover:text-black group-focus:translate-x-1 group-focus:text-black"
           strokeWidth={1}
         />
       )}
