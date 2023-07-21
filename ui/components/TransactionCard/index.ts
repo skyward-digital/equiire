@@ -1,1 +1,5 @@
-export { TransactionCard } from './TransactionCard';
+export {
+  TransactionCard,
+  type TransactionProps,
+  type TransactionCardProps,
+} from './TransactionCard';
