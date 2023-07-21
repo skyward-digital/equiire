@@ -32,6 +32,8 @@ export const Badge = ({
           'border-error-200 bg-error-50 text-error-700 dark:border-error-900 dark:bg-error-800 dark:text-error-200',
         type === 'success' &&
           'border-success-200 bg-success-50 text-success-700 dark:border-success-900 dark:bg-success-800 dark:text-success-200',
+        !type &&
+          'border-gray-200 bg-gray-50 text-gray-700 dark:border-gray-900 dark:bg-gray-800 dark:text-gray-200',
         // Size
         size === 'sm' && 'px-1 py-0 text-xs',
         size === 'md' && 'px-2 py-0.5 text-sm',
