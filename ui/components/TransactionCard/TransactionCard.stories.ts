@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TransactionCard } from '.';
-import { UserCircleIcon } from '@heroicons/react/24/outline';
+import { TransactionProps } from './TransactionCard';
 
 const meta: Meta<typeof TransactionCard> = {
   title: 'Components/TransactionCard',
@@ -20,38 +20,63 @@ export default meta;
 
 type Story = StoryObj<typeof TransactionCard>;
 
+const transaction = {
+  id: 4235324986234986,
+  title: 'Transaction Card',
+  value: 500,
+  status: 'paid',
+  scheduledDate: '2021-01-01',
+  paymentDate: '2021-01-01',
+  paymentMethod: 'Credit Card',
+  transactionCount: 5,
+  transactionTotal: 48,
+} as TransactionProps;
+
+export const Default: Story = {
+  args: {
+    transaction,
+  },
+};
+
+export const Expanded: Story = {
+  args: {
+    transaction,
+    expandedDefault: true,
+  },
+};
+
 export const Paid: Story = {
   args: {
-    title: 'Transaction Card',
-    value: 500,
-    status: 'paid',
-    date: '2021-01-01',
+    transaction: {
+      ...transaction,
+      status: 'paid',
+    },
   },
 };
 
 export const Upcoming: Story = {
   args: {
-    title: 'Transaction Card',
-    value: 500,
-    status: 'upcoming',
-    date: '2021-01-01',
+    transaction: {
+      ...transaction,
+      status: 'upcoming',
+    },
   },
 };
 
 export const Scheduled: Story = {
   args: {
-    title: 'Transaction Card',
-    value: 500,
-    status: 'scheduled',
-    date: '2021-01-01',
+    transaction: {
+      ...transaction,
+      status: 'scheduled',
+    },
   },
 };
 
 export const Overdue: Story = {
   args: {
-    title: 'Transaction Card',
-    value: 500,
-    status: 'overdue',
-    date: '2021-01-01',
+    transaction: {
+      ...transaction,
+      status: 'overdue',
+    },
   },
 };
