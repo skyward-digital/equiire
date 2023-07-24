@@ -1,5 +1,6 @@
 import { Badge } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
+import { LoanSteps } from '#/ui/components/LoanSteps';
 import { ProgressCircle } from '#/ui/components/ProgressCircle';
 import { TabHeading, TabLink } from '#/ui/components/TabHeading';
 import { TransactionAccordion } from '#/ui/components/TransactionAccordion';
@@ -29,6 +30,7 @@ export default function Page() {
     startDate,
     endDate,
     transactions,
+    steps,
   } = loan;
 
   const badgeStatus = {
@@ -185,29 +187,38 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div className="col-span-3 flex flex-col gap-6">
-          <TransactionCard transaction={transactions[0]} />
-          <TransactionAccordion
-            transactions={paidTransactions.slice(1, paidTransactions.length)}
-          />
-          <TransactionCard
-            transaction={transactions.filter((t) => t.status === 'overdue')[0]}
-          />
-          <TransactionCard
-            transaction={
-              transactions.filter((t) => t.status === 'scheduled')[0]
-            }
-          />
-          <TransactionAccordion
-            transactions={scheduledTransactions.slice(
-              0,
-              scheduledTransactions.length - 1,
-            )}
-          />
-          <TransactionCard
-            transaction={transactions[transactions.length - 1]}
-          />
-        </div>
+
+        {transactions.length ? (
+          <div className="col-span-3 flex flex-col gap-6">
+            <TransactionCard transaction={transactions[0]} />
+            <TransactionAccordion
+              transactions={paidTransactions.slice(1, paidTransactions.length)}
+            />
+            <TransactionCard
+              transaction={
+                transactions.filter((t) => t.status === 'overdue')[0]
+              }
+            />
+            <TransactionCard
+              transaction={
+                transactions.filter((t) => t.status === 'scheduled')[0]
+              }
+            />
+            <TransactionAccordion
+              transactions={scheduledTransactions.slice(
+                0,
+                scheduledTransactions.length - 1,
+              )}
+            />
+            <TransactionCard
+              transaction={transactions[transactions.length - 1]}
+            />
+          </div>
+        ) : (
+          <div className="col-span-3 flex flex-col gap-6">
+            <LoanSteps steps={steps} variant="card" />
+          </div>
+        )}
       </div>
     </>
   );
