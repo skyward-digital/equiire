@@ -1,9 +1,9 @@
 import {
   HomeIcon,
-  NoSymbolIcon,
   CreditCardIcon,
   Cog8ToothIcon,
   ArrowLeftIcon,
+  BanknotesIcon,
   // @ts-ignore
 } from '@heroicons/react/24/outline';
 
@@ -25,7 +25,7 @@ export const navigation: { name?: string; items: Item[] }[] = [
       },
       {
         name: 'Loans',
-        icon: NoSymbolIcon,
+        icon: BanknotesIcon,
         slug: 'loans',
       },
       {
