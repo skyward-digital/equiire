@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
-import { LoanSteps } from './LoanSteps';
+import { LoanSteps } from '../LoanSteps';
 import { LoanStatusCardProps } from './LoanStatusCard';
 import ClockImage from '../../../public/images/clock.png';
 
@@ -63,7 +63,7 @@ export const LoanStatusCardLarge = ({
 
         {/* if account details aren't completed */}
         <div className="w-2/5 space-y-4">
-          {status === 'pending' && <LoanSteps steps={steps} />}
+          {status === 'pending' && <LoanSteps steps={steps} variant="link" />}
           {status === 'processing' && (
             <Image src={ClockImage} alt="clock" width={448} height={289} />
           )}
