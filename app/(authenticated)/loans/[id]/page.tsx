@@ -1,4 +1,4 @@
-import { Badge } from '#/ui/components/Badge';
+import { Badge, BadgeProps } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
 import { LoanSteps } from '#/ui/components/LoanSteps';
 import { ProgressCircle } from '#/ui/components/ProgressCircle';
@@ -190,28 +190,32 @@ export default function Page() {
 
         {transactions.length ? (
           <div className="col-span-3 flex flex-col gap-6">
-            <TransactionCard transaction={transactions[0]} />
+            <TransactionCard transaction={transactions[0] as any} />
             <TransactionAccordion
-              transactions={paidTransactions.slice(1, paidTransactions.length)}
-            />
-            <TransactionCard
-              transaction={
-                transactions.filter((t) => t.status === 'overdue')[0]
+              transactions={
+                paidTransactions.slice(1, paidTransactions.length) as any
               }
             />
             <TransactionCard
               transaction={
-                transactions.filter((t) => t.status === 'scheduled')[0]
+                transactions.filter((t) => t.status === 'overdue')[0] as any
+              }
+            />
+            <TransactionCard
+              transaction={
+                transactions.filter((t) => t.status === 'scheduled')[0] as any
               }
             />
             <TransactionAccordion
-              transactions={scheduledTransactions.slice(
-                0,
-                scheduledTransactions.length - 1,
-              )}
+              transactions={
+                scheduledTransactions.slice(
+                  0,
+                  scheduledTransactions.length - 1,
+                ) as any
+              }
             />
             <TransactionCard
-              transaction={transactions[transactions.length - 1]}
+              transaction={transactions[transactions.length - 1] as any}
             />
           </div>
         ) : (
@@ -257,12 +261,12 @@ const loan = {
   apr: 8.95,
   startDate: '2021-01-01',
   endDate: '2023-01-01',
-  //   steps: {
-  //     loan: true,
-  //     account: true,
-  //     payment: false,
-  //     signature: false,
-  //   },
+  steps: {
+    loan: true,
+    account: true,
+    payment: false,
+    signature: false,
+  },
   transactions: [
     {
       id: 4235324986234986,
