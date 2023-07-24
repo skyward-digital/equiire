@@ -1,4 +1,5 @@
 export const ProgressCircle = ({ progress = 0, width = 100 }) => {
+  if (progress > 100) progress = 100;
   const strokeWidth = 10;
 
   return (
