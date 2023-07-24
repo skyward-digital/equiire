@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { StepLink } from './StepLink';
+import { StepCard } from './StepCard';
 
-const meta: Meta<typeof StepLink> = {
+const meta: Meta<typeof StepCard> = {
   title: 'Components/LoanSteps/StepCard',
-  component: StepLink,
+  component: StepCard,
   parameters: {
     docs: {
       description: {
@@ -16,7 +16,7 @@ const meta: Meta<typeof StepLink> = {
 
 export default meta;
 
-type Story = StoryObj<typeof StepLink>;
+type Story = StoryObj<typeof StepCard>;
 
 export const Completed: Story = {
   args: {
