@@ -26,9 +26,8 @@ export function DatePicker({ className, defaultOpen }: DatePickerProps) {
           </div>
         </PopoverPrimitive.Trigger>
         <PopoverPrimitive.Portal>
-          <PopoverPrimitive.Content className="z-50 w-auto rounded-md border bg-white p-4 outline-none">
+          <PopoverPrimitive.Content className="z-50 w-auto rounded-md border bg-white p-4 outline-none dark:bg-black">
             <Calendar
-              //initialFocus
               mode="single"
               selected={date}
               onSelect={(date) => {
