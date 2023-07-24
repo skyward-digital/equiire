@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import clsx from 'clsx';
-import * as RadioGroupRadix from '@radix-ui/react-radio-group';
+import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
 
 type RadioGroupProps = {
   left: {
@@ -27,44 +27,40 @@ export function RadioGroup({
   const { label: rightLabel, value: rightValue } = right;
 
   return (
-    <RadioGroupRadix.Root
+    <RadioGroupPrimitive.Root
       defaultValue={defaultValue || leftValue}
       aria-label={ariaLabel}
       onValueChange={setValue}
       className="flex"
     >
-      <div
+      <RadioGroupPrimitive.Item
+        value={leftValue}
+        id="left"
         className={clsx(
-          'flex items-center py-2',
+          'flex items-center py-2 focus:outline-none ',
           value === leftValue
-            ? 'bg-brand z-10 rounded-full px-7 text-white'
+            ? 'bg-brand focus:ring-brand-100 focus:border-brand-300 z-10 rounded-full px-7 text-white focus:ring-2 focus:ring-offset-2'
             : 'z-0 rounded-l-full bg-gray-100 pl-7 pr-14 text-gray-400 dark:bg-gray-700 dark:text-gray-500',
         )}
       >
-        <RadioGroupRadix.Item
-          value={leftValue}
-          id="left"
-        ></RadioGroupRadix.Item>
         <label htmlFor="left" className="font-semibold">
           {leftLabel}
         </label>
-      </div>
-      <div
+      </RadioGroupPrimitive.Item>
+      <RadioGroupPrimitive.Item
+        value={rightValue}
+        id="right"
         className={clsx(
-          '-ml-7 flex items-center py-2',
+          '-ml-7 flex items-center py-2 focus:outline-none ',
           value === rightValue
-            ? 'bg-brand z-10 rounded-full px-7 text-white'
+            ? 'bg-brand focus:ring-brand-100 focus:border-brand-300 z-10 rounded-full px-7 text-white focus:ring-2 focus:ring-offset-2'
             : 'z-0 rounded-r-full bg-gray-100 pl-14 pr-7 text-gray-400 dark:bg-gray-700 dark:text-gray-500',
         )}
       >
-        <RadioGroupRadix.Item
-          value={rightValue}
-          id="right"
-        ></RadioGroupRadix.Item>
         <label htmlFor="right" className="font-semibold">
           {rightLabel}
         </label>
-      </div>
-    </RadioGroupRadix.Root>
+      </RadioGroupPrimitive.Item>
+    </RadioGroupPrimitive.Root>
   );
 }
