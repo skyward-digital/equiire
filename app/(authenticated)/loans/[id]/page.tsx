@@ -1,5 +1,6 @@
 import { Badge } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
+import { ProgressCircle } from '#/ui/components/ProgressCircle';
 import { TabHeading, TabLink } from '#/ui/components/TabHeading';
 import {
   BanknotesIcon,
@@ -214,7 +215,12 @@ export default function Page() {
                 })}
               </strong>
             </h1>
-            <div>Progress circle here</div>
+            <ProgressCircle
+              progress={
+                (transactions.filter((t) => t.status === 'paid').length / 24) *
+                100
+              }
+            />
           </div>
 
           {/* Loan details */}
