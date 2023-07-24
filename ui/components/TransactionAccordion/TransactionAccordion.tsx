@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
@@ -37,7 +38,7 @@ export const TransactionAccordion = ({
     <div>
       <div
         className={clsx(
-          'relative mb-8 flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-gray-200 bg-white py-4 pl-6 pr-10 shadow-md dark:border-gray-800 dark:bg-black',
+          'relative flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-gray-200 bg-white py-4 pl-6 pr-10 shadow-md dark:border-gray-800 dark:bg-black',
         )}
         role="button"
         tabIndex={0}
@@ -65,7 +66,7 @@ export const TransactionAccordion = ({
       </div>
 
       {expanded && (
-        <div className="grid gap-4 px-10">
+        <div className="mt-8 grid gap-4 px-10">
           {transactions.map((transaction) => (
             <TransactionCard key={transaction.id} transaction={transaction} />
           ))}
