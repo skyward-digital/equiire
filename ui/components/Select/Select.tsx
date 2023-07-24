@@ -26,7 +26,7 @@ export function Select({
       <SelectPrimitive.Trigger
         className={clsx(
           className,
-          'border-input ring-offset-background data-[state=open]:border-brand-300 focus:border-brand-300 dark:data-[state=open]:border-brand-400 dark:focus:border-brand-300 shadow-xs flex h-9 w-full items-center justify-between rounded-md border bg-transparent px-3 py-3 text-gray-600 placeholder:text-gray-300 focus:outline-none focus:ring-4 focus:ring-[#FFE3CC] disabled:cursor-not-allowed disabled:opacity-50 data-[state=open]:outline-none data-[state=open]:ring-4 data-[state=open]:ring-[#FFE3CC] dark:text-gray-200 dark:placeholder:text-gray-600',
+          'border-input ring-offset-background data-[state=open]:border-brand-300 focus:border-brand-300 dark:data-[state=open]:border-brand-400 dark:focus:border-brand-300 shadow-xs focus:ring-brand-100 data-[state=open]:ring-brand-100 flex h-9 w-full items-center justify-between rounded-md border bg-transparent px-3 py-3 text-gray-600 placeholder:text-gray-300 focus:outline-none focus:ring-4 disabled:cursor-not-allowed disabled:opacity-50 data-[state=open]:outline-none data-[state=open]:ring-4 dark:text-gray-200 dark:placeholder:text-gray-600',
         )}
         id={id}
       >
