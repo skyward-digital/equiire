@@ -12,7 +12,7 @@ export const TabLink = ({ title, href, Icon, active }: TabLinkProps) => {
     <a
       href={href}
       className={clsx(
-        '-mb-px flex items-center gap-2 px-3 pb-1.5 font-semibold',
+        '-mb-px flex w-auto items-center gap-2 whitespace-nowrap px-3 pb-1.5 font-semibold',
         active
           ? '!text-brand border-brand border-b-[3px]'
           : 'text-gray-600 dark:text-gray-400',

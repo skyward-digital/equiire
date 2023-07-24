@@ -39,7 +39,7 @@ export const Button = ({
     <Component
       href={href}
       className={clsx(
-        'inline-flex items-center justify-center gap-2 rounded-full font-semibold no-underline outline-none transition duration-200 ease-in-out focus:ring-2 focus:ring-gray-600 focus:ring-offset-2',
+        'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold no-underline outline-none transition duration-200 ease-in-out focus:ring-2 focus:ring-gray-600 focus:ring-offset-2',
         // Style
         variant === 'primary' &&
           'border-brand hover:border-brand-600 bg-brand shadow-xs hover:bg-brand-600 border text-white hover:-translate-y-0.5 hover:text-white focus:-translate-y-0.5 disabled:bg-gray-200 disabled:text-white dark:disabled:bg-gray-800 dark:disabled:text-gray-500',
