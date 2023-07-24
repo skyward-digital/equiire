@@ -12,6 +12,7 @@ import { Button } from '#/ui/components/Button';
 import { BadgeProps } from '#/ui/components/Badge';
 import { SummaryBoxLine } from './SummaryBoxLine';
 import { Divider } from './Divider';
+import { DatePicker } from '../DatePicker';
 
 type SummaryBoxProps = {
   size: 'sm' | 'lg';
@@ -169,12 +170,11 @@ export function LoanSummaryBox({ size, value, type }: SummaryBoxProps) {
         {/* Loan start */}
         {size === 'lg' && (
           <div className="flex flex-1 flex-col gap-7">
-            <div className="flex items-center justify-between">
-              <h3 className="font-brand  text-brand text-2xl font-semibold tracking-tight dark:text-gray-100">
+            <div className="flex items-center justify-between gap-5">
+              <h3 className="font-brand text-brand text-2xl font-semibold tracking-tight dark:text-gray-100">
                 Loan Start
               </h3>
-              {/* Todo: change to date picker */}
-              <p className="text-gray-600 dark:text-white">06/30/2024</p>
+              <DatePicker className="grow" />
             </div>
             <SummaryBoxLine Icon={CalendarIcon} value="06/30/2023">
               First Repayment
