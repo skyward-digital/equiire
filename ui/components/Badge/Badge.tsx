@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 export type BadgeProps = {
   as?: React.ElementType;
-  type: 'info' | 'warning' | 'error' | 'success';
+  type?: 'info' | 'warning' | 'error' | 'success';
   size?: 'sm' | 'md';
   Icon?: any;
   dot?: boolean;
