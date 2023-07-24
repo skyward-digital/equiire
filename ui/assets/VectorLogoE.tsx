@@ -1,6 +1,6 @@
 'use client';
 
-export function BgVector(props: React.SVGProps<SVGSVGElement>) {
+export function VectorLogoE(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="1423"
@@ -43,13 +43,13 @@ export function BgVector(props: React.SVGProps<SVGSVGElement>) {
           {`
             .light {
               --bg-gradient: url(#LightGradient);
-              
+
             }
 
             .dark {
                 --bg-gradient: url(#DarkGradient);
               }
-            
+
           `}
         </style>
       </defs>
