@@ -7,22 +7,19 @@ export function Select({
   placeholder,
   children,
   className,
-  defaultValue,
+  value,
   id,
   onValueChange,
 }: {
   children: React.ReactNode;
   className?: string;
   placeholder?: string;
-  defaultValue?: string;
+  value: string;
   id: string;
-  onValueChange?: React.Dispatch<React.SetStateAction<string | undefined>>;
+  onValueChange?: (value: string) => void;
 }) {
   return (
-    <SelectPrimitive.Root
-      defaultValue={defaultValue}
-      onValueChange={onValueChange}
-    >
+    <SelectPrimitive.Root value={value} onValueChange={onValueChange}>
       <SelectPrimitive.Trigger
         className={clsx(
           className,
