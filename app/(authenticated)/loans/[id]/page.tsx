@@ -5,6 +5,7 @@ import { ProgressCircle } from '#/ui/components/ProgressCircle';
 import { TabHeading, TabLink } from '#/ui/components/TabHeading';
 import { TransactionAccordion } from '#/ui/components/TransactionAccordion';
 import { TransactionCard } from '#/ui/components/TransactionCard';
+import { Divider } from '#/ui/components/Divider';
 import {
   BanknotesIcon,
   BuildingLibraryIcon,
@@ -97,7 +98,7 @@ export default function Page() {
             />
             <LoanDetailRow Icon={HashtagIcon} label="Loan ID" value={id} />
 
-            <Divider />
+            <Divider className="col-span-2" />
 
             <LoanDetailRow
               Icon={WalletIcon}
@@ -123,7 +124,7 @@ export default function Page() {
               })}
             />
 
-            <Divider />
+            <Divider className="col-span-2" />
 
             <LoanDetailRow
               Icon={ReceiptPercentIcon}
@@ -147,7 +148,7 @@ export default function Page() {
               })}
             />
 
-            <Divider />
+            <Divider className="col-span-2" />
 
             <LoanDetailRow
               Icon={CalendarIcon}
@@ -172,7 +173,7 @@ export default function Page() {
               }
             />
 
-            <Divider />
+            <Divider className="col-span-2" />
 
             <div className="flex flex-col items-start gap-4">
               <Button variant="secondary" size="sm">
@@ -247,10 +248,6 @@ const LoanDetailRow = ({
     </div>
   );
 };
-
-const Divider = () => (
-  <div className="col-span-2 border-b border-dashed border-gray-300 dark:border-gray-500" />
-);
 
 const loan = {
   id: '123456',
