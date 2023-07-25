@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { ProgressBar } from '#/ui/components/ProgressBar';
+import { ProgressSteps } from '#/ui/components/ProgressSteps';
 import { SignupCard } from '#/ui/components/SignupCard';
 import { PersonalInformationForm } from './PersonalInformationForm';
 import { AdditionalDetailsForm } from './AdditionalDetailsForm';
@@ -18,7 +18,7 @@ export function SignupForm() {
 
   return (
     <SignupCard className="sm:mt-20" back={() => setStep(step - 1)} step={step}>
-      <ProgressBar
+      <ProgressSteps
         className="mb-10"
         totalSteps={FORM_STEPS.length}
         currentStep={step}
