@@ -7,7 +7,8 @@ const meta: Meta<typeof LoanSteps> = {
   parameters: {
     docs: {
       description: {
-        component: '',
+        component:
+          'The LoanSteps component displays incomplete steps within the loan process. This should only display for loans when the user has not completed all their account email which should have been done during the application/signup process.',
       },
     },
   },

@@ -7,7 +7,8 @@ const meta: Meta<typeof StepLink> = {
   parameters: {
     docs: {
       description: {
-        component: '',
+        component:
+          'The StepLink component displays a single step within the loan process. It is a less visually identifiable version of the step component',
       },
     },
   },

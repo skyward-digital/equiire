@@ -7,7 +7,8 @@ const meta: Meta<typeof StepCard> = {
   parameters: {
     docs: {
       description: {
-        component: '',
+        component:
+          'The StepCard component displays a single step within the loan process. It is a more visually identifiable version of the step component',
       },
     },
   },
