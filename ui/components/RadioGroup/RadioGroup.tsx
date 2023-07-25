@@ -1,37 +1,37 @@
-import { useState } from 'react';
 import clsx from 'clsx';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
+import { Label } from '#/ui/components/Label';
 
-type RadioGroupProps = {
-  left: {
-    label: string;
-    value: string;
-  };
-  right: {
-    label: string;
-    value: string;
-  };
-  defaultValue?: string;
-  ariaLabel: string;
+export type Option = {
+  label: string;
+  value: string;
+};
+
+export type RadioGroupProps = {
+  value: string;
+  onChange: (value: string) => void;
+  options: [Option, Option];
+  ariaLabel?: string;
+  id?: string;
 };
 
 export function RadioGroup({
-  left,
-  right,
+  value,
+  onChange,
+  options,
   ariaLabel,
-  defaultValue,
+  // Needed if you want to use a label
+  id,
 }: RadioGroupProps) {
-  const [value, setValue] = useState('credit-builder');
-
-  const { label: leftLabel, value: leftValue } = left;
-  const { label: rightLabel, value: rightValue } = right;
+  const { label: leftLabel, value: leftValue } = options[0];
+  const { label: rightLabel, value: rightValue } = options[1];
 
   return (
     <RadioGroupPrimitive.Root
-      defaultValue={defaultValue || leftValue}
       aria-label={ariaLabel}
-      onValueChange={setValue}
+      onValueChange={onChange}
       className="flex"
+      id={id}
     >
       <RadioGroupPrimitive.Item
         value={leftValue}
@@ -43,9 +43,9 @@ export function RadioGroup({
             : 'z-0 rounded-l-full bg-gray-100 pl-7 pr-14 text-gray-400 dark:bg-gray-700 dark:text-gray-500',
         )}
       >
-        <label htmlFor="left" className="font-semibold">
+        <Label htmlFor="left" className="font-semibold">
           {leftLabel}
-        </label>
+        </Label>
       </RadioGroupPrimitive.Item>
       <RadioGroupPrimitive.Item
         value={rightValue}
@@ -57,9 +57,9 @@ export function RadioGroup({
             : 'z-0 rounded-r-full bg-gray-100 pl-14 pr-7 text-gray-400 dark:bg-gray-700 dark:text-gray-500',
         )}
       >
-        <label htmlFor="right" className="font-semibold">
+        <Label htmlFor="right" className="font-semibold">
           {rightLabel}
-        </label>
+        </Label>
       </RadioGroupPrimitive.Item>
     </RadioGroupPrimitive.Root>
   );
