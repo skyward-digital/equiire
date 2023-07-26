@@ -102,17 +102,37 @@ export function LoanSummaryBox({ size, value, type }: SummaryBoxProps) {
           <SummaryBoxLine value="22 Months" Icon={CalendarIcon}>
             Loan Length
           </SummaryBoxLine>
-          <SummaryBoxLine className="" value="$500" Icon={CircleStackIcon}>
+          <SummaryBoxLine
+            className=""
+            value={(500).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              maximumFractionDigits: 0,
+            })}
+            Icon={CircleStackIcon}
+          >
             Monthly Payments
           </SummaryBoxLine>
           <Divider />
           <SummaryBoxLine value="8.95%" Icon={ReceiptPercentIcon}>
             APR
           </SummaryBoxLine>
-          <SummaryBoxLine value="$10,880.01" Icon={BanknotesIcon}>
+          <SummaryBoxLine
+            value={(10880.01).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}
+            Icon={BanknotesIcon}
+          >
             Total Repayable
           </SummaryBoxLine>
-          <SummaryBoxLine value="$880.01" Icon={CurrencyDollarIcon}>
+          <SummaryBoxLine
+            value={(880.01).toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}
+            Icon={CurrencyDollarIcon}
+          >
             Credit Cost
           </SummaryBoxLine>
           {size === 'sm' && (
