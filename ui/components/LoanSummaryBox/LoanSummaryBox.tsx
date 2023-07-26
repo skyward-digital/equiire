@@ -19,6 +19,7 @@ type SummaryBoxProps = {
   size: 'sm' | 'lg';
   value: number;
   type: 'credit-builder' | 'standard';
+  setStep: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
 };
 
@@ -26,6 +27,7 @@ export function LoanSummaryBox({
   size,
   value,
   type = 'standard',
+  setStep,
   className,
 }: SummaryBoxProps) {
   const badgeType = {
@@ -177,11 +179,19 @@ export function LoanSummaryBox({
         })}
       >
         {size === 'lg' && (
-          <Button variant="secondary" className="hidden flex-1 sm:flex">
+          <Button
+            onClick={() => setStep((step: number) => step - 1)}
+            variant="secondary"
+            className="hidden flex-1 sm:flex"
+          >
             Go Back
           </Button>
         )}
-        <Button variant="primary" className="flex-1">
+        <Button
+          variant="primary"
+          className="flex-1"
+          onClick={() => setStep((step: number) => step + 1)}
+        >
           Next
         </Button>
       </div>

@@ -1,4 +1,3 @@
-'use client';
 import { useState, useLayoutEffect } from 'react';
 import { RadioGroup } from '#/ui/components/RadioGroup';
 import { Label } from '#/ui/components/Label';
@@ -6,7 +5,11 @@ import { SliderGroup } from '#/ui/components/SliderGroup';
 import { Select, SelectItem } from '#/ui/components/Select';
 import { Button } from '#/ui/components/Button';
 
-export function LoanCalculator() {
+export function LoanCalculator({
+  setStep,
+}: {
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}) {
   // This has potential to be refactored but these states will be moving outside of this component later in integration
   const [loanType, setLoanType] = useState('credit-builder');
   const [loanAmount, setLoanAmount] = useState('10000');
@@ -191,7 +194,11 @@ export function LoanCalculator() {
             </Select>
           </div>
         )}
-        <Button className="sm:hidden" variant="primary">
+        <Button
+          className="sm:hidden"
+          variant="primary"
+          onClick={() => setStep((step: number) => step + 1)}
+        >
           Next
         </Button>
       </div>
