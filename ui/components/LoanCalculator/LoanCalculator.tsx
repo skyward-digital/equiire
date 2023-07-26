@@ -176,13 +176,13 @@ export function LoanCalculator() {
           <div className="flex items-center justify-between ">
             <Label
               htmlFor="interest-type"
-              className="text-xl font-semibold text-gray-600 dark:text-white"
+              className="font-brand flex-1 text-xl font-normal text-gray-600 dark:text-white sm:font-semibold"
             >
               Type of Interest
             </Label>
             <Select
               id="interest-type"
-              className="max-w-xs"
+              className="max-w-xs flex-1"
               value={interestType}
               onValueChange={setInterestType}
             >
