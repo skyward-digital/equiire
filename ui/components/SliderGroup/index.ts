@@ -1,2 +1,2 @@
-export { SliderGroup } from './SliderGroup';
+export { SliderGroup, type SliderGroupProps } from './SliderGroup';
 export { Slider } from './Slider';
