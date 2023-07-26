@@ -8,11 +8,11 @@ export type Option = {
 };
 
 export type RadioGroupProps = {
+  id: string;
   value: string;
   onChange: (value: string) => void;
   options: [Option, Option];
   ariaLabel?: string;
-  id?: string;
 };
 
 export function RadioGroup({
@@ -20,7 +20,6 @@ export function RadioGroup({
   onChange,
   options,
   ariaLabel,
-  // Needed if you want to use a label
   id,
 }: RadioGroupProps) {
   const { label: leftLabel, value: leftValue } = options[0];
@@ -35,7 +34,7 @@ export function RadioGroup({
     >
       <RadioGroupPrimitive.Item
         value={leftValue}
-        id="left"
+        id={`${id}-left`}
         className={clsx(
           'flex items-center py-2 focus:outline-none ',
           value === leftValue
@@ -43,13 +42,13 @@ export function RadioGroup({
             : 'z-0 rounded-l-full bg-gray-100 pl-7 pr-14 text-gray-400 dark:bg-gray-700 dark:text-gray-500',
         )}
       >
-        <Label htmlFor="left" className="font-semibold">
+        <Label htmlFor={`${id}-left`} className="font-semibold">
           {leftLabel}
         </Label>
       </RadioGroupPrimitive.Item>
       <RadioGroupPrimitive.Item
         value={rightValue}
-        id="right"
+        id={`${id}-right`}
         className={clsx(
           '-ml-7 flex items-center py-2 focus:outline-none ',
           value === rightValue
@@ -57,7 +56,7 @@ export function RadioGroup({
             : 'z-0 rounded-r-full bg-gray-100 pl-14 pr-7 text-gray-400 dark:bg-gray-700 dark:text-gray-500',
         )}
       >
-        <Label htmlFor="right" className="font-semibold">
+        <Label htmlFor={`${id}-right`} className="font-semibold">
           {rightLabel}
         </Label>
       </RadioGroupPrimitive.Item>
