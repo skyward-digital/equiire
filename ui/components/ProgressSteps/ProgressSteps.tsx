@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-type ProgressBarProps = {
+type ProgressStepsProps = {
   currentStep: number;
   totalSteps: number;
   className?: string;
@@ -41,11 +41,11 @@ const Line = () => {
   );
 };
 
-export const ProgressBar = ({
+export const ProgressSteps = ({
   currentStep,
   totalSteps,
   className,
-}: ProgressBarProps) => {
+}: ProgressStepsProps) => {
   return (
     <div
       className={clsx(

@@ -97,6 +97,7 @@ export default {
       boxShadow: {
         xs: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
         sm: '0px 1px 2px 0px rgba(16, 24, 40, 0.06), 0px 1px 3px 0px rgba(16, 24, 40, 0.10)',
+        lg: '0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 16px -4px rgba(16, 24, 40, 0.08)',
       },
       fontFamily: {
         brand: ['var(--font-mazzard)', ...fontFamily.sans],
@@ -111,6 +112,17 @@ export default {
         0.5: '0.5',
         1.5: '1.5',
         2.5: '2.5',
+      },
+      width: {
+        '1/10': '10%',
+        '2/10': '20%',
+        '3/10': '30%',
+        '4/10': '40%',
+        '5/10': '50%',
+        '6/10': '60%',
+        '7/10': '70%',
+        '8/10': '80%',
+        '9/10': '90%',
       },
       // keyframes: ({ theme }) => ({
       //   loading: {

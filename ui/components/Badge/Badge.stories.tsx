@@ -20,9 +20,14 @@ export default meta;
 
 type Story = StoryObj<typeof Badge>;
 
+export const Default: Story = {
+  args: {
+    children: 'Missing information',
+  },
+};
+
 export const Dot: Story = {
   args: {
-    type: 'info',
     dot: true,
     children: 'Missing information',
   },
@@ -30,8 +35,15 @@ export const Dot: Story = {
 
 export const Icon: Story = {
   args: {
-    type: 'info',
     Icon: ExclamationTriangleIcon,
+    children: 'Missing information',
+  },
+};
+
+export const Small: Story = {
+  args: {
+    type: 'info',
+    size: 'sm',
     children: 'Missing information',
   },
 };
