@@ -54,13 +54,13 @@ export function SliderGroup({
       <div className="flex items-center justify-between">
         <Label
           htmlFor="slider"
-          className="font-brand text-xl text-gray-600 dark:text-white"
+          className="font-brand flex-1 text-xl text-gray-600 dark:text-white"
         >
           {label}
         </Label>
         <Select
           value={value}
-          className="max-w-xs"
+          className="max-w-xs flex-1"
           onValueChange={onChange}
           id="slider"
         >
