@@ -30,7 +30,8 @@ function Calendar({
         row: 'flex w-full mt-2',
         cell: 'text-center text-sm p-0 relative',
         day: 'h-8 w-8 p-0 font-normal rounded-full hover:bg-gray-25 dark:hover:bg-gray-800 focus:ring focus:outline-none focus:ring-brand-100',
-        day_selected: 'bg-brand rounded-full hover:bg-brand focus:bg-brand',
+        day_selected:
+          'bg-brand rounded-full hover:bg-brand focus:bg-brand text-white',
         day_today:
           "after:content-['.'] after:absolute after:-bottom-1 after:left-1/2 after:transform after:-translate-x-1/2 after:font-bold after:text-brand",
         day_outside: 'opacity-50',
