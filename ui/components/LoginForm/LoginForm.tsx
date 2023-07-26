@@ -1,12 +1,14 @@
 'use client';
-import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 
 export function LoginForm({ className }: { className?: string }) {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -14,9 +16,11 @@ export function LoginForm({ className }: { className?: string }) {
   } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
     // Here you would typically send the data to your server
     // using an async function and handle the response.
+    console.log(data);
+    // once we get a valid response from the API, we'll navigate to the home page
+    router.push('/');
   };
 
   return (

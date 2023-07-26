@@ -1,8 +1,16 @@
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 
-export function PasswordForm() {
+export function PasswordForm({
+  formData,
+  setFormData,
+}: {
+  formData: Object;
+  setFormData: React.Dispatch<React.SetStateAction<Object>>;
+}) {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -11,10 +19,11 @@ export function PasswordForm() {
   } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
-
-    // Here you would typically send the data to your server
-    // to create a new user account.
+    setFormData({ ...formData, password: data.password });
+    console.log(formData);
+    // Here, we'll send the data to sign up and login
+    // Once we have a valid token, we'll redirect to the dashboard
+    router.push('/');
   };
 
   return (
