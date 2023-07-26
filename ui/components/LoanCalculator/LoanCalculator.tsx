@@ -191,7 +191,9 @@ export function LoanCalculator() {
             </Select>
           </div>
         )}
-        <Button variant="primary">Next</Button>
+        <Button className="sm:hidden" variant="primary">
+          Next
+        </Button>
       </div>
     </section>
   );
