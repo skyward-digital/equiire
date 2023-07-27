@@ -1,5 +1,6 @@
 import type { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { getBaseUrl } from '#/lib/getBaseUrl';
 
 export type AuthSession = {
   user: {
@@ -40,7 +41,7 @@ export const authOptions: AuthOptions = {
       async authorize(credentials, req) {
         if (typeof credentials === 'undefined') return null;
 
-        const loginResponse = await fetch(`${process.env.BASEURL}/api/login`, {
+        const loginResponse = await fetch(`${getBaseUrl()}/api/login`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { 'Content-Type': 'application/json' },
@@ -52,7 +53,7 @@ export const authOptions: AuthOptions = {
         if (!loginResponse.ok || !tokens) return null;
 
         const profileResponse = await fetch(
-          `${process.env.BASEURL}/api/profile?access_token=${tokens.accessToken}`,
+          `${getBaseUrl()}/api/profile?access_token=${tokens.accessToken}`,
           {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
