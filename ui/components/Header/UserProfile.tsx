@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { getServerSession } from 'next-auth';
-import { authOptions, AuthSession } from '#/lib/auth';
+import { AuthSession } from '#/lib/auth';
 import { Avatar } from '#/ui/components/Avatar';
 
 type UserProfileProps = {
@@ -28,9 +27,4 @@ export function UserProfile({ user, className }: UserProfileProps) {
       </Link>
     </div>
   );
-}
-
-export default async function UserProfileComposable(props: any) {
-  const session = (await getServerSession(authOptions)) as AuthSession;
-  return <UserProfile user={session.user} {...props} />;
 }

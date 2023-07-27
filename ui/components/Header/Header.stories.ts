@@ -23,6 +23,11 @@ type Story = StoryObj<typeof Header>;
 
 export const Default: Story = {
   args: {
-    title: 'Header',
+    user: {
+      _id: '1',
+      name: 'John Doe',
+      email: 'johndoe@acme.com',
+      company: 'Acme Inc',
+    },
   },
 };
