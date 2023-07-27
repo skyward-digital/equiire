@@ -1,6 +1,33 @@
 import type { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+export type AuthSession = {
+  user: {
+    _id: 'string';
+    email: 'string';
+    name: 'string';
+    sub: 'string';
+    address: {
+      addressLine1: 'string';
+      addressLine2: 'string';
+      city: 'string';
+      state: 'string';
+      postalCode: 'string';
+      country: 'string';
+    };
+    phone: 'string';
+    company: 'string';
+    contact: 'string';
+    recordStatus: 'string';
+    __v: 0;
+    paymentCustomerId: 'string';
+  };
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+};
+
 export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
@@ -55,17 +82,18 @@ export const authOptions: AuthOptions = {
         } else {
           return p;
         }
-      }, {});
+      }, {}) as AuthSession;
       return {
         ...session,
         user: sanitizedToken.user,
         tokens: sanitizedToken.tokens,
       };
     },
+    // @ts-ignore
     async jwt({ token, user, account, profile }) {
       if (typeof user !== 'undefined') {
         // user has just signed in so the user object is populated
-        return user as JWT;
+        return user;
       }
       return token;
     },
