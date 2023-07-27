@@ -15,6 +15,7 @@ export const Header = () => {
 
       <div className="flex items-center gap-4 text-sm font-semibold text-white">
         <DarkModeToggle />
+        {/* @ts-expect-error */}
         <UserProfile className="hidden sm:block" />
       </div>
     </header>
