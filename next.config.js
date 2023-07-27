@@ -4,6 +4,15 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/overview',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
