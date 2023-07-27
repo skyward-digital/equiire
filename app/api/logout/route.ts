@@ -6,13 +6,16 @@ export async function POST() {
   const session = await getServerSession(authOptions);
   if (!session?.user) return new Error('No Session');
 
+  const { accessToken, refreshToken } = session.tokens;
+
   const res = await fetch(
-    `${process.env.API_URL}/logout?refresh_token=${session.user.refreshToken}`,
+    `${process.env.API_URL}/logout?access_token=${accessToken}`,
     {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'POST',
+      body: JSON.stringify({ refreshToken }),
     },
   );
 

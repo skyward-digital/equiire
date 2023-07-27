@@ -18,13 +18,13 @@ export const login = async (data: { email: string; password: string }) => {
 };
 
 export const logout = async () => {
-  // const res = await fetch('/api/logout', {
-  //   method: 'POST',
-  // });
+  const res = await fetch('/api/logout', {
+    method: 'POST',
+  });
 
-  // console.log(res);
+  console.log(res);
 
-  // if (res.ok) {
-  await signOut({ callbackUrl: '/login' });
-  // }
+  if (res.ok) {
+    await signOut({ callbackUrl: '/login' });
+  }
 };

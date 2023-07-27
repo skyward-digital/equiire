@@ -36,9 +36,8 @@ export const authOptions: AuthOptions = {
 
         if (profileResponse.ok) {
           return {
-            ...user,
-            apiToken: tokens.accessToken,
-            refreshToken: tokens.refreshToken,
+            user,
+            tokens,
           };
         } else {
           return null;
@@ -51,13 +50,17 @@ export const authOptions: AuthOptions = {
     async session({ session, token, user }) {
       const sanitizedToken = Object.keys(token).reduce((p, c) => {
         // strip unnecessary properties
-        if (c !== 'iat' && c !== 'exp' && c !== 'jti' && c !== 'apiToken') {
+        if (c !== 'iat' && c !== 'exp' && c !== 'jti' && c !== 'accessToken') {
           return { ...p, [c]: token[c] };
         } else {
           return p;
         }
       }, {});
-      return { ...session, user: sanitizedToken, apiToken: token.apiToken };
+      return {
+        ...session,
+        user: sanitizedToken.user,
+        tokens: sanitizedToken.tokens,
+      };
     },
     async jwt({ token, user, account, profile }) {
       if (typeof user !== 'undefined') {
