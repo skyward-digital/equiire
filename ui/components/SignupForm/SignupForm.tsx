@@ -13,7 +13,7 @@ const FORM_STEPS = [
 ];
 
 export function SignupForm() {
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = useState(0);
   const { component: CurrentFormComponent, title } = FORM_STEPS[step];
 
   return (
