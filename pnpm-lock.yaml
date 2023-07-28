@@ -53,6 +53,9 @@ dependencies:
   server-only:
     specifier: 0.0.1
     version: 0.0.1
+  states-us:
+    specifier: 1.0.2
+    version: 1.0.2
   styled-components:
     specifier: 6.0.0-beta.2
     version: 6.0.0-beta.2(react-dom@18.2.0)(react@18.2.0)
@@ -10559,6 +10562,10 @@ packages:
   /stackframe@1.3.4:
     resolution: {integrity: sha512-oeVtt7eWQS+Na6F//S4kJ2K2VbRlS9D43mAlMyVpVWovy9o+jfgH8O9agzANzaiLjclA0oYzUXEM4PurhSUChw==}
     dev: true
+
+  /states-us@1.0.2:
+    resolution: {integrity: sha512-0t0C8mfjwZuo6xyRi3OJJtYa06YAC4l8VU2+BBamKeQJtPXKjJawu/TvkdqBxA9WAYK1tBO1vL7ql0kXYn3J4Q==}
+    dev: false
 
   /statuses@2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
