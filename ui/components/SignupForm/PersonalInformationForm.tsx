@@ -5,8 +5,12 @@ import { Button } from '#/ui/components/Button';
 
 export function PersonalInformationForm({
   setStep,
+  formData,
+  setFormData,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  formData: Object;
+  setFormData: React.Dispatch<React.SetStateAction<Object>>;
 }) {
   const {
     register,
@@ -16,6 +20,7 @@ export function PersonalInformationForm({
 
   const onSubmit = (data: any) => {
     console.log(data);
+    setFormData({ ...formData, ...data });
     setStep((step: number) => step + 1);
 
     // Here you would typically send the data to your server

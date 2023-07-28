@@ -1,4 +1,3 @@
-'use client';
 import { useState, useLayoutEffect } from 'react';
 import { RadioGroup } from '#/ui/components/RadioGroup';
 import { Label } from '#/ui/components/Label';
@@ -6,7 +5,11 @@ import { SliderGroup } from '#/ui/components/SliderGroup';
 import { Select, SelectItem } from '#/ui/components/Select';
 import { Button } from '#/ui/components/Button';
 
-export function LoanCalculator() {
+export function LoanCalculator({
+  setStep,
+}: {
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}) {
   // This has potential to be refactored but these states will be moving outside of this component later in integration
   const [loanType, setLoanType] = useState('credit-builder');
   const [loanAmount, setLoanAmount] = useState('10000');
@@ -83,7 +86,7 @@ export function LoanCalculator() {
   }[loanType as 'credit-builder' | 'standard'];
 
   return (
-    <section className="dark:border-brand-secondary flex min-w-[340px] max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 py-8 dark:bg-black sm:border sm:border-gray-100 sm:px-8 sm:py-16 sm:shadow-sm">
+    <section className="dark:border-brand-secondary flex max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 py-8 dark:bg-black sm:border sm:border-gray-100 sm:px-8 sm:py-16 sm:shadow-sm">
       <h2 className="font-brand flex flex-col text-3xl tracking-tight text-gray-400 dark:text-gray-300 sm:block sm:text-4xl">
         <span className="font-semibold text-gray-600 dark:text-gray-100">
           Tailor Your Loan
@@ -176,13 +179,13 @@ export function LoanCalculator() {
           <div className="flex items-center justify-between ">
             <Label
               htmlFor="interest-type"
-              className="text-xl font-semibold text-gray-600 dark:text-white"
+              className="font-brand flex-1 text-xl font-normal text-gray-600 dark:text-white sm:font-semibold"
             >
               Type of Interest
             </Label>
             <Select
               id="interest-type"
-              className="max-w-xs"
+              className="max-w-xs flex-1"
               value={interestType}
               onValueChange={setInterestType}
             >
@@ -191,7 +194,11 @@ export function LoanCalculator() {
             </Select>
           </div>
         )}
-        <Button className="sm:hidden" variant="primary">
+        <Button
+          className="sm:hidden"
+          variant="primary"
+          onClick={() => setStep((step: number) => step + 1)}
+        >
           Next
         </Button>
       </div>
