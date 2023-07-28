@@ -23,8 +23,20 @@ export function PasswordForm({
     console.log(formData);
     // Here, we'll send the data to sign up and login
     // Once we have a valid token, we'll redirect to the dashboard
-    if (data) {
+    if (
+      data &&
+      data.name &&
+      data.email &&
+      data.company &&
+      data.address1 &&
+      data.city &&
+      data.state &&
+      data.zipcode &&
+      data.password
+    ) {
       router.push('/');
+    } else {
+      console.log('Missing data');
     }
   };
 

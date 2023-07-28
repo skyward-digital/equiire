@@ -20,8 +20,10 @@ export function LoginForm({ className }: { className?: string }) {
     // using an async function and handle the response.
     console.log(data);
     // once we get a valid response from the API, we'll navigate to the home page
-    if (data) {
+    if (data && data.email && data.password) {
       router.push('/');
+    } else {
+      console.log('Missing email or password');
     }
   };
 
