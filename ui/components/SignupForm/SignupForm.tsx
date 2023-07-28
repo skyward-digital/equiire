@@ -14,6 +14,7 @@ const FORM_STEPS = [
 
 export function SignupForm() {
   const [step, setStep] = useState<number>(0);
+  const [formData, setFormData] = useState({});
   const { component: CurrentFormComponent, title } = FORM_STEPS[step];
 
   return (
@@ -24,7 +25,11 @@ export function SignupForm() {
         currentStep={step}
       />
       <h2 className="text-brand mb-10 text-center font-semibold">{title}</h2>
-      <CurrentFormComponent setStep={setStep} />
+      <CurrentFormComponent
+        formData={formData}
+        setFormData={setFormData}
+        setStep={setStep}
+      />
     </SignupCard>
   );
 }
