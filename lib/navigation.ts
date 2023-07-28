@@ -2,7 +2,6 @@ import {
   HomeIcon,
   CreditCardIcon,
   Cog8ToothIcon,
-  ArrowLeftIcon,
   BanknotesIcon,
   // @ts-ignore
 } from '@heroicons/react/24/outline';
@@ -57,14 +56,4 @@ export const navigation: { name?: string; items: Item[] }[] = [
   //     },
   //   ],
   // },
-  {
-    // name: '',
-    items: [
-      {
-        name: 'Logout',
-        icon: ArrowLeftIcon,
-        slug: 'logout',
-      },
-    ],
-  },
 ];

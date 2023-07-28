@@ -10,18 +10,26 @@ import {
 import { Badge } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
 import { BadgeProps } from '#/ui/components/Badge';
+import { Divider } from '#/ui/components/Divider';
+import { DatePicker } from '#/ui/components/DatePicker';
 import { PiggyBankIcon, PurseIcon } from '#/ui/assets/icons';
 import { SummaryBoxLine } from './SummaryBoxLine';
-import { Divider } from './Divider';
-import { DatePicker } from '../DatePicker';
 
 type SummaryBoxProps = {
   size: 'sm' | 'lg';
   value: number;
   type: 'credit-builder' | 'standard';
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  className?: string;
 };
 
-export function LoanSummaryBox({ size, value, type }: SummaryBoxProps) {
+export function LoanSummaryBox({
+  size,
+  value,
+  type = 'standard',
+  setStep,
+  className,
+}: SummaryBoxProps) {
   const badgeType = {
     'credit-builder': 'warning',
     standard: 'success',
@@ -39,10 +47,14 @@ export function LoanSummaryBox({ size, value, type }: SummaryBoxProps) {
 
   return (
     <section
-      className={clsx('rounded-lg bg-white dark:bg-black sm:shadow-sm', {
-        'max-w-4xl': size === 'lg',
-        'max-w-md px-14 py-14': size === 'sm',
-      })}
+      className={clsx(
+        className,
+        'grid rounded-lg bg-white dark:bg-black sm:shadow-sm',
+        {
+          'max-w-4xl': size === 'lg',
+          'max-w-md px-14 py-14': size === 'sm',
+        },
+      )}
     >
       {/* Title section (large) */}
       {size === 'lg' && (
@@ -163,15 +175,23 @@ export function LoanSummaryBox({ size, value, type }: SummaryBoxProps) {
       <div
         className={clsx('flex', {
           'gap-8 py-8 sm:border-t sm:px-20': size === 'lg',
-          'mt-10': size === 'sm',
+          'mt-10 self-end': size === 'sm',
         })}
       >
         {size === 'lg' && (
-          <Button variant="secondary" className="hidden flex-1 sm:flex">
+          <Button
+            onClick={() => setStep((step: number) => step - 1)}
+            variant="secondary"
+            className="hidden flex-1 sm:flex"
+          >
             Go Back
           </Button>
         )}
-        <Button variant="primary" className="flex-1">
+        <Button
+          variant="primary"
+          className="flex-1"
+          onClick={() => setStep((step: number) => step + 1)}
+        >
           Next
         </Button>
       </div>
