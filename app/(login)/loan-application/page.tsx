@@ -5,7 +5,7 @@ import { LoanCalculator } from '#/ui/components/LoanCalculator';
 import { LoanSummaryBox } from '#/ui/components/LoanSummaryBox';
 
 export default function Page() {
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = useState(0);
   return (
     <div className="mx-auto flex flex-col justify-center gap-10 sm:mt-20 sm:flex-row">
       {step === 0 && <LoanCalculator setStep={setStep} />}
