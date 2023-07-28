@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
+import { signup } from '#/hooks/useAuth';
 
-export function PasswordForm() {
+export function PasswordForm({ formData }: { formData: Object }) {
   const {
     register,
     handleSubmit,
@@ -11,10 +12,14 @@ export function PasswordForm() {
   } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
-
-    // Here you would typically send the data to your server
-    // to create a new user account.
+    // Here, we'll send the data to sign up and login
+    // Once we have a valid token, we'll redirect to the dashboard
+    if (data?.password) {
+      signup({ ...formData, password: data.password });
+      // They will then need to confirm their email
+    } else {
+      console.log('Missing data');
+    }
   };
 
   return (
