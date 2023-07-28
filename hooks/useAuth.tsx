@@ -13,7 +13,7 @@ export const login = async (data: { email: string; password: string }) => {
       callbackUrl: '/overview',
     });
   } else {
-    console.log('Missing username or password')
+    console.log('Missing username or password');
   }
 };
 
