@@ -86,7 +86,7 @@ export function LoanCalculator({
   }[loanType as 'credit-builder' | 'standard'];
 
   return (
-    <section className="dark:border-brand-secondary flex min-w-[340px] max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 py-8 dark:bg-black sm:border sm:border-gray-100 sm:px-8 sm:py-16 sm:shadow-sm">
+    <section className="dark:border-brand-secondary flex max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 py-8 dark:bg-black sm:border sm:border-gray-100 sm:px-8 sm:py-16 sm:shadow-sm">
       <h2 className="font-brand flex flex-col text-3xl tracking-tight text-gray-400 dark:text-gray-300 sm:block sm:text-4xl">
         <span className="font-semibold text-gray-600 dark:text-gray-100">
           Tailor Your Loan
