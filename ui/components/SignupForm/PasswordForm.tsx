@@ -23,7 +23,9 @@ export function PasswordForm({
     console.log(formData);
     // Here, we'll send the data to sign up and login
     // Once we have a valid token, we'll redirect to the dashboard
-    router.push('/');
+    if (data) {
+      router.push('/');
+    }
   };
 
   return (
