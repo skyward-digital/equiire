@@ -31,6 +31,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "7.44.3",
     "server-only": "0.0.1",
+    "states-us": "1.0.2",
     "styled-components": "6.0.0-beta.2",
     "use-count-up": "3.0.1"
   },
