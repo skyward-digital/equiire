@@ -4,24 +4,24 @@ import { getBaseUrl } from '#/lib/getBaseUrl';
 
 export type AuthSession = {
   user: {
-    _id: 'string';
-    email: 'string';
-    name: 'string';
-    sub: 'string';
+    _id: string;
+    email: string;
+    name: string;
+    sub: string;
     address: {
-      addressLine1: 'string';
-      addressLine2: 'string';
-      city: 'string';
-      state: 'string';
-      postalCode: 'string';
-      country: 'string';
+      addressLine1: string;
+      addressLine2: string;
+      city: string;
+      state: string;
+      postalCode: string;
+      country: string;
     };
-    phone: 'string';
-    company: 'string';
-    contact: 'string';
-    recordStatus: 'string';
+    phone: string;
+    company: string;
+    contact: string;
+    recordStatus: string;
     __v: 0;
-    paymentCustomerId: 'string';
+    paymentCustomerId: string;
   };
   tokens: {
     accessToken: string;

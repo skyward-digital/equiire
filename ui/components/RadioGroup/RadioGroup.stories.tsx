@@ -40,6 +40,7 @@ const args = {
   ] as [Option, Option],
   defaultValue: 'standard',
   ariaLabel: 'Choose your loan',
+  id: 'loan-type',
 };
 
 export const Default: Story = {

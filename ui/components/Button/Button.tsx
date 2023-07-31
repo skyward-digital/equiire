@@ -12,12 +12,14 @@ export interface ButtonBaseProps {
 
 export interface ButtonLinkProps extends ButtonBaseProps, LinkProps {
   children: string;
+  onClick?: never;
 }
 
 export interface ButtonElementProps
   extends ButtonBaseProps,
     React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: never;
+  onClick?: any;
 }
 
 export type ButtonProps = ButtonLinkProps | ButtonElementProps;
@@ -29,6 +31,7 @@ export const Button = ({
   arrow,
   className,
   children,
+  onClick,
   ...props
 }: ButtonProps) => {
   const { href } = props as ButtonLinkProps;
@@ -38,6 +41,7 @@ export const Button = ({
   return (
     <Component
       href={href}
+      onClick={onClick}
       className={clsx(
         'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold no-underline outline-none transition duration-200 ease-in-out focus:ring-2 focus:ring-gray-600 focus:ring-offset-2',
         // Style

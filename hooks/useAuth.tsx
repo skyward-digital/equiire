@@ -25,7 +25,7 @@ export const login = async (data: { email: string; password: string }) => {
       callbackUrl: '/overview',
     });
   } else {
-    // Throw error username/password incorrect
+    console.log('Missing username or password');
   }
 };
 

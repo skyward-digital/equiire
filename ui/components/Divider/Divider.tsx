@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export const Divider = ({ className }: { className: string }) => (
+export const Divider = ({ className }: { className?: string }) => (
   <div
     className={clsx(
       className,
