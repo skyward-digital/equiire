@@ -7,8 +7,12 @@ import { Label } from '../Label';
 
 export function AdditionalDetailsForm({
   setStep,
+  formData,
+  setFormData,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  formData: Object;
+  setFormData: React.Dispatch<React.SetStateAction<Object>>;
 }) {
   const {
     register,
@@ -18,6 +22,7 @@ export function AdditionalDetailsForm({
   } = useForm();
   const onSubmit = (data: any) => {
     console.log(data);
+    setFormData({ ...formData, ...data });
     setStep((step: number) => step + 1);
   };
 

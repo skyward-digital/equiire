@@ -1,22 +1,23 @@
 'use client';
-import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
+import { login } from '#/hooks/useAuth';
 
 export function LoginForm({ className }: { className?: string }) {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-    // Here you would typically send the data to your server
-    // using an async function and handle the response.
+  const onSubmit = async (data: any) => {
+    login(data);
   };
 
   return (
