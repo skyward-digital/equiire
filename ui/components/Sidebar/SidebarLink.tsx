@@ -4,19 +4,29 @@ import clsx from 'clsx';
 
 type SidebarLinkProps = {
   item: Item;
-  isActive: boolean;
+  isActive?: boolean;
   close: () => false | void;
+  onClick?: () => void;
 };
 
-export const SidebarLink = ({ item, isActive, close }: SidebarLinkProps) => {
+export const SidebarLink = ({
+  item,
+  isActive,
+  close,
+  onClick,
+}: SidebarLinkProps) => {
+  const Component = onClick ? 'button' : Link;
   const Icon = item.icon;
 
   return (
-    <Link
-      onClick={close}
+    <Component
+      onClick={() => {
+        if (onClick) onClick();
+        close();
+      }}
       href={`/${item.slug}`}
       className={clsx(
-        'flex items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium',
+        'flex w-full items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium',
         isActive
           ? 'text-brand'
           : 'text-black hover:bg-gray-200 hover:text-gray-800 dark:text-white dark:hover:bg-gray-800 dark:hover:text-gray-300',
@@ -24,6 +34,6 @@ export const SidebarLink = ({ item, isActive, close }: SidebarLinkProps) => {
     >
       <Icon className="stroke-1.5 w-5" />
       {item.name}
-    </Link>
+    </Component>
   );
 };

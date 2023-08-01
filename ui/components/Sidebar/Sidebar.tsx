@@ -5,6 +5,8 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import { navigation } from '#/lib/navigation';
 import { SidebarLink } from './SidebarLink';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { logout } from '#/hooks/useAuth';
 
 export function Sidebar({ segment }: { segment?: string | null }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,23 +38,30 @@ export function Sidebar({ segment }: { segment?: string | null }) {
         <nav className="flex h-full flex-1 flex-col gap-6 px-6 py-8">
           {navigation.map((section, index) => {
             return (
-              <div
-                key={index}
-                className={clsx(index === navigation.length - 1 && 'mt-auto')}
-              >
-                <div className="space-y-2">
-                  {section.items.map((item) => (
-                    <SidebarLink
-                      key={item.slug}
-                      item={item}
-                      isActive={item.slug === segment}
-                      close={close}
-                    />
-                  ))}
-                </div>
+              <div className="space-y-2" key={index}>
+                {section.items.map((item) => (
+                  <SidebarLink
+                    key={item.slug}
+                    item={item}
+                    isActive={item.slug === segment}
+                    close={close}
+                  />
+                ))}
               </div>
             );
           })}
+
+          <div className="mt-auto space-y-2">
+            <SidebarLink
+              item={{
+                name: 'Logout',
+                icon: ArrowLeftIcon,
+                slug: 'logout',
+              }}
+              close={close}
+              onClick={logout}
+            />
+          </div>
         </nav>
       </div>
     </div>

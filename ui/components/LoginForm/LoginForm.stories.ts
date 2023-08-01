@@ -10,6 +10,10 @@ const meta: Meta<typeof LoginForm> = {
         component: 'LoginForm allows a user to log in with email and password.',
       },
     },
+    nextRouter: {
+      pathname: '/',
+      asPath: '/',
+    },
   },
   tags: ['autodocs'],
 };
