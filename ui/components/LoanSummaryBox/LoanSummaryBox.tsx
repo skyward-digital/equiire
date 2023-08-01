@@ -27,6 +27,9 @@ type SummaryBoxProps = {
   loanTerms: string;
   repaymentPeriod: string;
   scheduledPayment: number;
+  loanStartDate: Date;
+  setLoanStartDate: React.Dispatch<React.SetStateAction<Date>>;
+  handleNext: () => void;
 };
 
 export function LoanSummaryBox({
@@ -39,9 +42,10 @@ export function LoanSummaryBox({
   loanTerms,
   repaymentPeriod,
   scheduledPayment,
+  loanStartDate,
+  setLoanStartDate,
+  handleNext,
 }: SummaryBoxProps) {
-  const [loanStartDate, setLoanStartDate] = useState(new Date());
-
   const APR = 0.0895;
   // These calculations still need to be extended
   const totalRepayable = loanAmount + loanAmount * APR;
@@ -226,11 +230,7 @@ export function LoanSummaryBox({
             Go Back
           </Button>
         )}
-        <Button
-          variant="primary"
-          className="flex-1"
-          onClick={() => setStep((step: number) => step + 1)}
-        >
+        <Button variant="primary" className="flex-1" onClick={handleNext}>
           Next
         </Button>
       </div>
