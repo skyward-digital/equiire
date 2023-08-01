@@ -6,16 +6,20 @@ export async function POST(request: Request) {
 
   // input validation
   if (!email) {
-    return NextResponse.json({
-      status: 400,
-      json: { error: 'Email is required' },
-    });
+    return NextResponse.json(
+      {
+        error: 'Email is required',
+      },
+      { status: 400 },
+    );
   }
   if (!password) {
-    return NextResponse.json({
-      status: 400,
-      json: { error: 'Password is required' },
-    });
+    return NextResponse.json(
+      {
+        error: 'Password is required',
+      },
+      { status: 400 },
+    );
   }
 
   const res = await fetch(`${process.env.API_URL}/login`, {

@@ -1,49 +1,37 @@
-'use client';
-import { useState, useLayoutEffect } from 'react';
+import { LoanDetails } from '#/app/(login)/loan-application/page';
 import { RadioGroup } from '#/ui/components/RadioGroup';
 import { Label } from '#/ui/components/Label';
 import { SliderGroup } from '#/ui/components/SliderGroup';
 import { Select, SelectItem } from '#/ui/components/Select';
 import { Button } from '#/ui/components/Button';
 
-export function LoanCalculator() {
-  // This has potential to be refactored but these states will be moving outside of this component later in integration
-  const [loanType, setLoanType] = useState('credit-builder');
-  const [loanAmount, setLoanAmount] = useState('10000');
-  const [loanTerms, setLoanTerms] = useState('monthly');
-  const [scheduledPayment, setScheduledPayment] = useState('500');
-  const [repaymentPeriod, setRepaymentPeriod] = useState('24');
-  const [interestType, setInterestType] = useState('fixed');
+export type LoanCalculatorProps = {
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  loanDetails: LoanDetails;
+  setLoanDetails: React.Dispatch<React.SetStateAction<LoanDetails>>;
+};
 
-  // I am using useLayoutEffect here to stop there being a flicker on the slider when changing the RadioGroup
-  useLayoutEffect(() => {
-    if (loanType === 'credit-builder') {
-      setLoanAmount('10000');
-      setRepaymentPeriod('24');
-      setScheduledPayment('500');
-    } else if (loanType === 'standard') {
-      setLoanAmount('50000');
-      setRepaymentPeriod('12');
-      setScheduledPayment('5000');
-    }
-  }, [loanType]);
-
+export function LoanCalculator({
+  setStep,
+  loanDetails,
+  setLoanDetails,
+}: LoanCalculatorProps) {
   const loanTypeTitle = {
     'credit-builder': 'Credit Builder',
     standard: 'Standard Loan',
-  }[loanType];
+  }[loanDetails.loanType];
 
   const loanTypeDescriptionBold = {
     'credit-builder': 'Establish or improve your credit history.',
     standard: 'Benefit from lower interest rates and fees.',
-  }[loanType];
+  }[loanDetails.loanType];
 
   const loanTypeDescription = {
     'credit-builder':
       'Consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu.',
     standard:
       'Consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu.',
-  }[loanType];
+  }[loanDetails.loanType];
 
   const sliderGroupValues = {
     'credit-builder': {
@@ -80,10 +68,10 @@ export function LoanCalculator() {
         options: [250, 500, 750, 1000, 2500, 5000, 10000],
       },
     },
-  }[loanType as 'credit-builder' | 'standard'];
+  }[loanDetails.loanType as 'credit-builder' | 'standard'];
 
   return (
-    <section className="dark:border-brand-secondary flex min-w-[340px] max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 py-8 dark:bg-black sm:border sm:border-gray-100 sm:px-8 sm:py-16 sm:shadow-sm">
+    <section className="dark:border-brand-secondary flex max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 py-8 dark:bg-black sm:border sm:border-gray-100 sm:px-8 sm:py-16 sm:shadow-sm">
       <h2 className="font-brand flex flex-col text-3xl tracking-tight text-gray-400 dark:text-gray-300 sm:block sm:text-4xl">
         <span className="font-semibold text-gray-600 dark:text-gray-100">
           Tailor Your Loan
@@ -105,8 +93,13 @@ export function LoanCalculator() {
               { label: 'Standard Loan', value: 'standard' },
             ]}
             id="loan-type"
-            value={loanType}
-            onChange={setLoanType}
+            value={loanDetails.loanType}
+            onChange={(value) =>
+              setLoanDetails({
+                ...loanDetails,
+                loanType: value as 'credit-builder' | 'standard',
+              })
+            }
             ariaLabel="Loan Type"
           />
         </div>
@@ -126,8 +119,10 @@ export function LoanCalculator() {
           min={sliderGroupValues.loanAmount.min}
           max={sliderGroupValues.loanAmount.max}
           options={sliderGroupValues.loanAmount.options}
-          value={loanAmount}
-          onChange={setLoanAmount}
+          value={loanDetails.loanAmount}
+          onChange={(value) =>
+            setLoanDetails({ ...loanDetails, loanAmount: value })
+          }
         />
       </div>
       <div className="grid gap-8">
@@ -145,53 +140,65 @@ export function LoanCalculator() {
               { label: 'Loan Length', value: 'length' },
             ]}
             id="loan-terms"
-            value={loanTerms}
-            onChange={setLoanTerms}
+            value={loanDetails.loanTerms}
+            onChange={(value) =>
+              setLoanDetails({ ...loanDetails, loanTerms: value })
+            }
           />
         </div>
         {/* Scheduled payment */}
-        {loanTerms === 'monthly' && (
+        {loanDetails.loanTerms === 'monthly' && (
           <SliderGroup
             label="Scheduled Payment"
             min={sliderGroupValues.scheduledPayment.min}
             max={sliderGroupValues.scheduledPayment.max}
             options={sliderGroupValues.scheduledPayment.options}
-            value={scheduledPayment}
-            onChange={setScheduledPayment}
+            value={loanDetails.scheduledPayment}
+            onChange={(value) =>
+              setLoanDetails({ ...loanDetails, scheduledPayment: value })
+            }
           />
         )}
         {/* Repayment Period */}
-        {loanTerms === 'length' && (
+        {loanDetails.loanTerms === 'length' && (
           <SliderGroup
             label="Repayment Period"
             type="months"
             min={sliderGroupValues.repaymentPeriod.min}
             max={sliderGroupValues.repaymentPeriod.max}
             options={sliderGroupValues.repaymentPeriod.options}
-            value={repaymentPeriod}
-            onChange={setRepaymentPeriod}
+            value={loanDetails.repaymentPeriod}
+            onChange={(value) =>
+              setLoanDetails({ ...loanDetails, repaymentPeriod: value })
+            }
           />
         )}
-        {loanType === 'standard' && (
+        {loanDetails.loanType === 'standard' && (
           <div className="flex items-center justify-between ">
             <Label
               htmlFor="interest-type"
-              className="text-xl font-semibold text-gray-600 dark:text-white"
+              className="font-brand flex-1 text-xl font-normal text-gray-600 dark:text-white sm:font-semibold"
             >
               Type of Interest
             </Label>
             <Select
               id="interest-type"
-              className="max-w-xs"
-              value={interestType}
-              onValueChange={setInterestType}
+              className="max-w-xs flex-1"
+              value={loanDetails.interestType}
+              onValueChange={(value) =>
+                setLoanDetails({ ...loanDetails, interestType: value })
+              }
             >
               <SelectItem value="fixed">Fixed</SelectItem>
               <SelectItem value="variable">Variable</SelectItem>
             </Select>
           </div>
         )}
-        <Button className="sm:hidden" variant="primary">
+        <Button
+          className="sm:hidden"
+          variant="primary"
+          onClick={() => setStep((step: number) => step + 1)}
+        >
           Next
         </Button>
       </div>

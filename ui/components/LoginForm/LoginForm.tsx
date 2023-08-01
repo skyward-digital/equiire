@@ -1,6 +1,6 @@
 'use client';
-import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
@@ -8,6 +8,8 @@ import { Button } from '#/ui/components/Button';
 import { login } from '#/hooks/useAuth';
 
 export function LoginForm({ className }: { className?: string }) {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
