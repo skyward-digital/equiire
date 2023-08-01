@@ -17,7 +17,7 @@ import { DatePicker } from '#/ui/components/DatePicker';
 import { PiggyBankIcon, PurseIcon } from '#/ui/assets/icons';
 import { SummaryBoxLine } from './SummaryBoxLine';
 
-type SummaryBoxProps = {
+export type LoanSummaryBoxProps = {
   size: 'sm' | 'lg';
   setStep: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
@@ -33,7 +33,7 @@ export function LoanSummaryBox({
   handleNext,
   loanDetails,
   setLoanDetails,
-}: SummaryBoxProps) {
+}: LoanSummaryBoxProps) {
   const APR = 0.0895;
   // These calculations still need to be extended
   const totalRepayable =

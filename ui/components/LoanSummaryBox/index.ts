@@ -1,1 +1,1 @@
-export { LoanSummaryBox } from './LoanSummaryBox';
+export { LoanSummaryBox, type LoanSummaryBoxProps } from './LoanSummaryBox';
