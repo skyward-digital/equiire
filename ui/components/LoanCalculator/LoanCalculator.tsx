@@ -5,15 +5,17 @@ import { SliderGroup } from '#/ui/components/SliderGroup';
 import { Select, SelectItem } from '#/ui/components/Select';
 import { Button } from '#/ui/components/Button';
 
+export type LoanCalculatorProps = {
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  loanDetails: LoanDetails;
+  setLoanDetails: React.Dispatch<React.SetStateAction<LoanDetails>>;
+};
+
 export function LoanCalculator({
   setStep,
   loanDetails,
   setLoanDetails,
-}: {
-  setStep: React.Dispatch<React.SetStateAction<number>>;
-  loanDetails: LoanDetails;
-  setLoanDetails: React.Dispatch<React.SetStateAction<LoanDetails>>;
-}) {
+}: LoanCalculatorProps) {
   const loanTypeTitle = {
     'credit-builder': 'Credit Builder',
     standard: 'Standard Loan',
