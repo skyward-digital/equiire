@@ -38,6 +38,11 @@ export function LoanSummaryBox({
   repaymentPeriod,
   scheduledPayment,
 }: SummaryBoxProps) {
+  const APR = 0.0895;
+  // These calculations still need to be extended
+  const totalRepayable = loanAmount + loanAmount * APR;
+  const creditCost = totalRepayable - loanAmount;
+
   const badgeType = {
     'credit-builder': 'warning',
     standard: 'success',
@@ -141,11 +146,11 @@ export function LoanSummaryBox({
           )}
 
           <Divider />
-          <SummaryBoxLine value="8.95%" Icon={ReceiptPercentIcon}>
+          <SummaryBoxLine value={`${APR * 100}%`} Icon={ReceiptPercentIcon}>
             APR
           </SummaryBoxLine>
           <SummaryBoxLine
-            value={(10880.01).toLocaleString('en-US', {
+            value={totalRepayable.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
             })}
@@ -154,7 +159,7 @@ export function LoanSummaryBox({
             Total Repayable
           </SummaryBoxLine>
           <SummaryBoxLine
-            value={(880.01).toLocaleString('en-US', {
+            value={creditCost.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
             })}
