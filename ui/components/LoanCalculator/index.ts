@@ -1,1 +1,1 @@
-export { LoanCalculator } from './LoanCalculator';
+export { LoanCalculator, type LoanCalculatorProps } from './LoanCalculator';

@@ -4,7 +4,7 @@ type SummaryBoxLineProps = {
   className?: string;
   Icon: any;
   children: React.ReactNode;
-  value: string;
+  value?: string;
 };
 
 export function SummaryBoxLine({

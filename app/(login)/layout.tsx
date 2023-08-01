@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <VectorLogoE className="fixed top-0 -z-10 h-screen w-full max-w-full overflow-auto" />
-      <DarkModeToggle className="absolute right-0 top-0" />
+      <DarkModeToggle className="fixed right-0 top-0" />
       <div>{children}</div>
     </>
   );
