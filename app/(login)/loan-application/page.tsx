@@ -4,50 +4,82 @@ import clsx from 'clsx';
 import { LoanCalculator } from '#/ui/components/LoanCalculator';
 import { LoanSummaryBox } from '#/ui/components/LoanSummaryBox';
 
+// This could potentially be moved elsewhere
+export interface LoanDetails {
+  loanType: 'credit-builder' | 'standard';
+  loanAmount: string;
+  loanTerms: string;
+  repaymentPeriod: string;
+  scheduledPayment: string;
+  interestType: string;
+  loanStartDate: Date;
+}
+
 export default function Page() {
   const [step, setStep] = useState(0);
-  const [loanType, setLoanType] = useState('credit-builder');
-  const [loanAmount, setLoanAmount] = useState('10000');
-  const [loanTerms, setLoanTerms] = useState('monthly');
-  const [repaymentPeriod, setRepaymentPeriod] = useState('0');
-  const [scheduledPayment, setScheduledPayment] = useState('500');
-  const [interestType, setInterestType] = useState('');
-  const [loanStartDate, setLoanStartDate] = useState(new Date());
+  const [loanDetails, setLoanDetails] = useState<LoanDetails>({
+    loanType: 'credit-builder',
+    loanAmount: '10000',
+    loanTerms: 'monthly',
+    repaymentPeriod: '0',
+    scheduledPayment: '500',
+    interestType: '',
+    loanStartDate: new Date(),
+  });
+
+  const { loanType, loanTerms } = loanDetails;
 
   // I am using useLayoutEffect here to stop there being a flicker on the slider when changing the RadioGroup
   useLayoutEffect(() => {
     if (loanType === 'credit-builder') {
-      setLoanAmount('10000');
-      setScheduledPayment('500');
-      // wipes the properties that are no longer visible
-      setRepaymentPeriod('');
-      setInterestType('');
+      setLoanDetails((loanDetails) => ({
+        ...loanDetails,
+        loanAmount: '10000',
+        scheduledPayment: '500',
+        // wipes the properties that are no longer visible to user
+        repaymentPeriod: '',
+        interestType: '',
+      }));
     } else if (loanType === 'standard') {
-      setLoanAmount('50000');
-      setRepaymentPeriod('12');
-      setInterestType('fixed');
-      // wipes the properties that are no longer visible
-      setScheduledPayment('');
+      setLoanDetails((loanDetails) => ({
+        ...loanDetails,
+        loanAmount: '50000',
+        repaymentPeriod: '12',
+        interestType: 'fixed',
+        // wipes properties that are no longer visible to user
+        scheduledPayment: '',
+      }));
     }
   }, [loanType]);
 
   useLayoutEffect(() => {
     if (loanTerms === 'length') {
       if (loanType === 'credit-builder') {
-        setRepaymentPeriod('24');
-        setScheduledPayment('');
+        setLoanDetails((loanDetails) => ({
+          ...loanDetails,
+          repaymentPeriod: '24',
+          scheduledPayment: '',
+        }));
       } else {
-        setRepaymentPeriod('12');
-        setScheduledPayment('');
+        setLoanDetails((loanDetails) => ({
+          ...loanDetails,
+          repaymentPeriod: '12',
+          scheduledPayment: '',
+        }));
       }
-    }
-    if (loanTerms === 'monthly') {
+    } else if (loanTerms === 'monthly') {
       if (loanType === 'credit-builder') {
-        setScheduledPayment('500');
-        setRepaymentPeriod('');
+        setLoanDetails((loanDetails) => ({
+          ...loanDetails,
+          scheduledPayment: '500',
+          repaymentPeriod: '',
+        }));
       } else {
-        setScheduledPayment('5000');
-        setRepaymentPeriod('');
+        setLoanDetails((loanDetails) => ({
+          ...loanDetails,
+          scheduledPayment: '5000',
+          repaymentPeriod: '',
+        }));
       }
     }
   }, [loanTerms, loanType]);
@@ -62,15 +94,7 @@ export default function Page() {
 
   // This is where we will integrate with the API
   const onSubmit = () => {
-    console.log({
-      loanType,
-      loanAmount,
-      loanTerms,
-      repaymentPeriod,
-      scheduledPayment,
-      interestType,
-      loanStartDate,
-    });
+    console.log(loanDetails);
   };
 
   return (
@@ -78,33 +102,17 @@ export default function Page() {
       {step === 0 && (
         <LoanCalculator
           setStep={setStep}
-          loanType={loanType}
-          loanAmount={loanAmount}
-          loanTerms={loanTerms}
-          repaymentPeriod={repaymentPeriod}
-          scheduledPayment={scheduledPayment}
-          interestType={interestType}
-          setLoanType={setLoanType}
-          setLoanAmount={setLoanAmount}
-          setLoanTerms={setLoanTerms}
-          setRepaymentPeriod={setRepaymentPeriod}
-          setScheduledPayment={setScheduledPayment}
-          setInterestType={setInterestType}
+          loanDetails={loanDetails}
+          setLoanDetails={setLoanDetails}
         />
       )}
       <LoanSummaryBox
         size={step === 0 ? 'sm' : 'lg'}
-        type="credit-builder"
+        loanDetails={loanDetails}
+        setLoanDetails={setLoanDetails}
         className={clsx({ 'hidden sm:grid': step === 0, 'w-full': step === 1 })}
         setStep={setStep}
         handleNext={handleNext}
-        loanType={loanType}
-        loanAmount={parseInt(loanAmount)}
-        loanTerms={loanTerms}
-        repaymentPeriod={repaymentPeriod}
-        scheduledPayment={parseInt(scheduledPayment)}
-        loanStartDate={loanStartDate}
-        setLoanStartDate={setLoanStartDate}
       />
     </div>
   );

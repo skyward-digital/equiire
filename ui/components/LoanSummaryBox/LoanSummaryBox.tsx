@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import clsx from 'clsx';
 import { format, add } from 'date-fns';
 import {
@@ -9,6 +8,7 @@ import {
   BanknotesIcon,
   CalendarIcon,
 } from '@heroicons/react/24/outline';
+import { LoanDetails } from '#/app/(login)/loan-application/page';
 import { Badge } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
 import { BadgeProps } from '#/ui/components/Badge';
@@ -19,52 +19,41 @@ import { SummaryBoxLine } from './SummaryBoxLine';
 
 type SummaryBoxProps = {
   size: 'sm' | 'lg';
-  type: 'credit-builder' | 'standard';
   setStep: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
-  loanType: string;
-  loanAmount: number;
-  loanTerms: string;
-  repaymentPeriod: string;
-  scheduledPayment: number;
-  loanStartDate: Date;
-  setLoanStartDate: React.Dispatch<React.SetStateAction<Date>>;
   handleNext: () => void;
+  loanDetails: LoanDetails;
+  setLoanDetails: React.Dispatch<React.SetStateAction<LoanDetails>>;
 };
 
 export function LoanSummaryBox({
   size,
-  type = 'standard',
   setStep,
   className,
-  loanType,
-  loanAmount,
-  loanTerms,
-  repaymentPeriod,
-  scheduledPayment,
-  loanStartDate,
-  setLoanStartDate,
   handleNext,
+  loanDetails,
+  setLoanDetails,
 }: SummaryBoxProps) {
   const APR = 0.0895;
   // These calculations still need to be extended
-  const totalRepayable = loanAmount + loanAmount * APR;
-  const creditCost = totalRepayable - loanAmount;
+  const totalRepayable =
+    parseInt(loanDetails.loanAmount) + parseInt(loanDetails.loanAmount) * APR;
+  const creditCost = totalRepayable - parseInt(loanDetails.loanAmount);
 
   const badgeType = {
     'credit-builder': 'warning',
     standard: 'success',
-  }[type] as BadgeProps['type'];
+  }[loanDetails.loanType] as BadgeProps['type'];
 
   const BadgeIcon = {
     'credit-builder': PiggyBankIcon,
     standard: PurseIcon,
-  }[type];
+  }[loanDetails.loanType];
 
   const loanTypeText = {
     'credit-builder': 'Credit Builder',
     standard: 'Standard',
-  }[loanType];
+  }[loanDetails.loanType];
 
   return (
     <section
@@ -124,7 +113,7 @@ export function LoanSummaryBox({
           {/* Loan Basic Details */}
           <SummaryBoxLine
             Icon={WalletIcon}
-            value={loanAmount.toLocaleString('en-US', {
+            value={parseInt(loanDetails.loanAmount).toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
               maximumFractionDigits: 0,
@@ -132,21 +121,24 @@ export function LoanSummaryBox({
           >
             Loan Amount
           </SummaryBoxLine>
-          {loanTerms === 'monthly' ? (
+          {loanDetails.loanTerms === 'monthly' ? (
             <SummaryBoxLine
               className=""
-              value={scheduledPayment.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0,
-              })}
+              value={parseInt(loanDetails.scheduledPayment).toLocaleString(
+                'en-US',
+                {
+                  style: 'currency',
+                  currency: 'USD',
+                  maximumFractionDigits: 0,
+                },
+              )}
               Icon={CircleStackIcon}
             >
               Monthly Payments
             </SummaryBoxLine>
           ) : (
             <SummaryBoxLine
-              value={`${repaymentPeriod} Months`}
+              value={`${loanDetails.repaymentPeriod} Months`}
               Icon={CalendarIcon}
             >
               Loan Length
@@ -189,22 +181,26 @@ export function LoanSummaryBox({
                 Loan Start
               </h3>
               <DatePicker
-                value={loanStartDate}
-                onValueChange={setLoanStartDate}
+                value={loanDetails.loanStartDate}
+                onValueChange={(value) =>
+                  setLoanDetails({ ...loanDetails, loanStartDate: value })
+                }
                 className="grow"
               />
             </div>
             <SummaryBoxLine
               Icon={CalendarIcon}
-              value={format(loanStartDate, 'MM/dd/yyyy')}
+              value={format(loanDetails.loanStartDate, 'MM/dd/yyyy')}
             >
               First Repayment
             </SummaryBoxLine>
             <SummaryBoxLine
               Icon={CalendarIcon}
               value={format(
-                add(loanStartDate, {
-                  months: repaymentPeriod ? parseInt(repaymentPeriod) : 12,
+                add(loanDetails.loanStartDate, {
+                  months: loanDetails.repaymentPeriod
+                    ? parseInt(loanDetails.repaymentPeriod)
+                    : 12,
                 }),
                 'MM/dd/yyyy',
               )}

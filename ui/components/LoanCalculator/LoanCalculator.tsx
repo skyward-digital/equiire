@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from 'react';
+import { LoanDetails } from '#/app/(login)/loan-application/page';
 import { RadioGroup } from '#/ui/components/RadioGroup';
 import { Label } from '#/ui/components/Label';
 import { SliderGroup } from '#/ui/components/SliderGroup';
@@ -7,49 +7,29 @@ import { Button } from '#/ui/components/Button';
 
 export function LoanCalculator({
   setStep,
-  loanType,
-  loanAmount,
-  loanTerms,
-  scheduledPayment,
-  repaymentPeriod,
-  interestType,
-  setLoanType,
-  setLoanAmount,
-  setLoanTerms,
-  setScheduledPayment,
-  setRepaymentPeriod,
-  setInterestType,
+  loanDetails,
+  setLoanDetails,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>;
-  loanType: string;
-  loanAmount: string;
-  loanTerms: string;
-  scheduledPayment: string;
-  repaymentPeriod: string;
-  interestType: string;
-  setLoanType: React.Dispatch<React.SetStateAction<string>>;
-  setLoanAmount: React.Dispatch<React.SetStateAction<string>>;
-  setLoanTerms: React.Dispatch<React.SetStateAction<string>>;
-  setScheduledPayment: React.Dispatch<React.SetStateAction<string>>;
-  setRepaymentPeriod: React.Dispatch<React.SetStateAction<string>>;
-  setInterestType: React.Dispatch<React.SetStateAction<string>>;
+  loanDetails: LoanDetails;
+  setLoanDetails: React.Dispatch<React.SetStateAction<LoanDetails>>;
 }) {
   const loanTypeTitle = {
     'credit-builder': 'Credit Builder',
     standard: 'Standard Loan',
-  }[loanType];
+  }[loanDetails.loanType];
 
   const loanTypeDescriptionBold = {
     'credit-builder': 'Establish or improve your credit history.',
     standard: 'Benefit from lower interest rates and fees.',
-  }[loanType];
+  }[loanDetails.loanType];
 
   const loanTypeDescription = {
     'credit-builder':
       'Consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu.',
     standard:
       'Consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu.',
-  }[loanType];
+  }[loanDetails.loanType];
 
   const sliderGroupValues = {
     'credit-builder': {
@@ -86,7 +66,7 @@ export function LoanCalculator({
         options: [250, 500, 750, 1000, 2500, 5000, 10000],
       },
     },
-  }[loanType as 'credit-builder' | 'standard'];
+  }[loanDetails.loanType as 'credit-builder' | 'standard'];
 
   return (
     <section className="dark:border-brand-secondary flex max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 py-8 dark:bg-black sm:border sm:border-gray-100 sm:px-8 sm:py-16 sm:shadow-sm">
@@ -111,8 +91,13 @@ export function LoanCalculator({
               { label: 'Standard Loan', value: 'standard' },
             ]}
             id="loan-type"
-            value={loanType}
-            onChange={setLoanType}
+            value={loanDetails.loanType}
+            onChange={(value) =>
+              setLoanDetails({
+                ...loanDetails,
+                loanType: value as 'credit-builder' | 'standard',
+              })
+            }
             ariaLabel="Loan Type"
           />
         </div>
@@ -132,8 +117,10 @@ export function LoanCalculator({
           min={sliderGroupValues.loanAmount.min}
           max={sliderGroupValues.loanAmount.max}
           options={sliderGroupValues.loanAmount.options}
-          value={loanAmount}
-          onChange={setLoanAmount}
+          value={loanDetails.loanAmount}
+          onChange={(value) =>
+            setLoanDetails({ ...loanDetails, loanAmount: value })
+          }
         />
       </div>
       <div className="grid gap-8">
@@ -151,34 +138,40 @@ export function LoanCalculator({
               { label: 'Loan Length', value: 'length' },
             ]}
             id="loan-terms"
-            value={loanTerms}
-            onChange={setLoanTerms}
+            value={loanDetails.loanTerms}
+            onChange={(value) =>
+              setLoanDetails({ ...loanDetails, loanTerms: value })
+            }
           />
         </div>
         {/* Scheduled payment */}
-        {loanTerms === 'monthly' && (
+        {loanDetails.loanTerms === 'monthly' && (
           <SliderGroup
             label="Scheduled Payment"
             min={sliderGroupValues.scheduledPayment.min}
             max={sliderGroupValues.scheduledPayment.max}
             options={sliderGroupValues.scheduledPayment.options}
-            value={scheduledPayment}
-            onChange={setScheduledPayment}
+            value={loanDetails.scheduledPayment}
+            onChange={(value) =>
+              setLoanDetails({ ...loanDetails, scheduledPayment: value })
+            }
           />
         )}
         {/* Repayment Period */}
-        {loanTerms === 'length' && (
+        {loanDetails.loanTerms === 'length' && (
           <SliderGroup
             label="Repayment Period"
             type="months"
             min={sliderGroupValues.repaymentPeriod.min}
             max={sliderGroupValues.repaymentPeriod.max}
             options={sliderGroupValues.repaymentPeriod.options}
-            value={repaymentPeriod}
-            onChange={setRepaymentPeriod}
+            value={loanDetails.repaymentPeriod}
+            onChange={(value) =>
+              setLoanDetails({ ...loanDetails, repaymentPeriod: value })
+            }
           />
         )}
-        {loanType === 'standard' && (
+        {loanDetails.loanType === 'standard' && (
           <div className="flex items-center justify-between ">
             <Label
               htmlFor="interest-type"
@@ -189,8 +182,10 @@ export function LoanCalculator({
             <Select
               id="interest-type"
               className="max-w-xs flex-1"
-              value={interestType}
-              onValueChange={setInterestType}
+              value={loanDetails.interestType}
+              onValueChange={(value) =>
+                setLoanDetails({ ...loanDetails, interestType: value })
+              }
             >
               <SelectItem value="fixed">Fixed</SelectItem>
               <SelectItem value="variable">Variable</SelectItem>
