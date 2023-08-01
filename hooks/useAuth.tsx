@@ -1,5 +1,17 @@
 import { signIn, signOut } from 'next-auth/react';
 
+export const signup = async (data: any) => {
+  const res = await fetch('/api/signup', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  if (res.ok) {
+    console.log(res);
+  } else {
+    // Throw error if sign up fails
+  }
+};
+
 export const login = async (data: { email: string; password: string }) => {
   const res = await fetch('/api/login', {
     method: 'POST',

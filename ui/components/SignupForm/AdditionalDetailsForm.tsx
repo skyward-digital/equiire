@@ -36,22 +36,22 @@ export function AdditionalDetailsForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid max-w-2xl gap-6">
       <Input
-        id="address1"
+        id="addressLine1"
         type="text"
         label="Address Line 1"
         placeholder="123 Main St"
         register={register}
         required="Address Line 1 is required"
-        error={errors.address1}
+        error={errors.addressLine1}
         autocomplete="address-line1"
       />
       <Input
-        id="address2"
+        id="addressLine2"
         type="text"
         label="Address Line 2"
         placeholder="123 Main St"
         register={register}
-        error={errors.address2}
+        error={errors.addressLine2}
         autocomplete="address-line2"
       />
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
@@ -89,26 +89,26 @@ export function AdditionalDetailsForm({
           />
         </div>
         <Input
-          id="zipcode"
+          id="postalCode"
           type="text"
           label="Zip Code"
           placeholder="12345"
           register={register}
           required="Zip Code is required"
-          error={errors.zipcode}
-          className="col-span-2 sm:col-span-1"
+          error={errors.postalCode}
+          className="col-span-1 sm:col-span-1"
           autocomplete="postal-code"
           inputMode="numeric"
         />
       </div>
       <Input
-        id="telephone"
+        id="phone"
         type="tel"
         label="Phone Number"
         placeholder="(XXX) XXX-XXXX"
         register={register}
         required="Phone Number is required"
-        error={errors.telephone}
+        error={errors.phone}
         pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
       />
       <Button

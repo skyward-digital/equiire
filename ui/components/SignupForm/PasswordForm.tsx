@@ -2,15 +2,9 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
+import { signup } from '#/hooks/useAuth';
 
-export function PasswordForm({
-  formData,
-  setFormData,
-}: {
-  formData: Object;
-  setFormData: React.Dispatch<React.SetStateAction<Object>>;
-}) {
-  const router = useRouter();
+export function PasswordForm({ formData }: { formData: Object }) {
   const {
     register,
     handleSubmit,
@@ -19,22 +13,11 @@ export function PasswordForm({
   } = useForm();
 
   const onSubmit = (data: any) => {
-    setFormData({ ...formData, password: data.password });
-    console.log(formData);
     // Here, we'll send the data to sign up and login
     // Once we have a valid token, we'll redirect to the dashboard
-    if (
-      data &&
-      data.name &&
-      data.email &&
-      data.company &&
-      data.address1 &&
-      data.city &&
-      data.state &&
-      data.zipcode &&
-      data.password
-    ) {
-      router.push('/');
+    if (data?.password) {
+      signup({ ...formData, password: data.password });
+      // They will then need to confirm their email
     } else {
       console.log('Missing data');
     }
@@ -51,6 +34,12 @@ export function PasswordForm({
         required="Password is required"
         error={errors.password}
         hint="Passwords must have at least 8 characters"
+        // We can put this in later, as it's an easy way for us to check invalid sign up behaviour
+        /* pattern={{
+          value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/,
+          message:
+            'Password must be at least 8 characters and include uppercase, lowercase, number, and special character',
+        }} */
       />
       <Input
         id="confirm_password"
