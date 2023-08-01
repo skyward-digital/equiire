@@ -7,30 +7,33 @@ import { Button } from '#/ui/components/Button';
 
 export function LoanCalculator({
   setStep,
+  loanType,
+  loanAmount,
+  loanTerms,
+  scheduledPayment,
+  repaymentPeriod,
+  interestType,
+  setLoanType,
+  setLoanAmount,
+  setLoanTerms,
+  setScheduledPayment,
+  setRepaymentPeriod,
+  setInterestType,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  loanType: string;
+  loanAmount: string;
+  loanTerms: string;
+  scheduledPayment: string;
+  repaymentPeriod: string;
+  interestType: string;
+  setLoanType: React.Dispatch<React.SetStateAction<string>>;
+  setLoanAmount: React.Dispatch<React.SetStateAction<string>>;
+  setLoanTerms: React.Dispatch<React.SetStateAction<string>>;
+  setScheduledPayment: React.Dispatch<React.SetStateAction<string>>;
+  setRepaymentPeriod: React.Dispatch<React.SetStateAction<string>>;
+  setInterestType: React.Dispatch<React.SetStateAction<string>>;
 }) {
-  // This has potential to be refactored but these states will be moving outside of this component later in integration
-  const [loanType, setLoanType] = useState('credit-builder');
-  const [loanAmount, setLoanAmount] = useState('10000');
-  const [loanTerms, setLoanTerms] = useState('monthly');
-  const [scheduledPayment, setScheduledPayment] = useState('500');
-  const [repaymentPeriod, setRepaymentPeriod] = useState('24');
-  const [interestType, setInterestType] = useState('fixed');
-
-  // I am using useLayoutEffect here to stop there being a flicker on the slider when changing the RadioGroup
-  useLayoutEffect(() => {
-    if (loanType === 'credit-builder') {
-      setLoanAmount('10000');
-      setRepaymentPeriod('24');
-      setScheduledPayment('500');
-    } else if (loanType === 'standard') {
-      setLoanAmount('50000');
-      setRepaymentPeriod('12');
-      setScheduledPayment('5000');
-    }
-  }, [loanType]);
-
   const loanTypeTitle = {
     'credit-builder': 'Credit Builder',
     standard: 'Standard Loan',

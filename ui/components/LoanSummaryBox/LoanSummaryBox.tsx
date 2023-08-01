@@ -17,18 +17,26 @@ import { SummaryBoxLine } from './SummaryBoxLine';
 
 type SummaryBoxProps = {
   size: 'sm' | 'lg';
-  value: number;
   type: 'credit-builder' | 'standard';
   setStep: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
+  loanType: string;
+  loanAmount: number;
+  loanTerms: string;
+  repaymentPeriod: string;
+  scheduledPayment: number;
 };
 
 export function LoanSummaryBox({
   size,
-  value,
   type = 'standard',
   setStep,
   className,
+  loanType,
+  loanAmount,
+  loanTerms,
+  repaymentPeriod,
+  scheduledPayment,
 }: SummaryBoxProps) {
   const badgeType = {
     'credit-builder': 'warning',
@@ -40,10 +48,10 @@ export function LoanSummaryBox({
     standard: PurseIcon,
   }[type];
 
-  const loanType = {
+  const loanTypeText = {
     'credit-builder': 'Credit Builder',
     standard: 'Standard',
-  }[type];
+  }[loanType];
 
   return (
     <section
@@ -68,7 +76,7 @@ export function LoanSummaryBox({
 
           <div className="absolute -bottom-[76px] right-0 flex items-center gap-3 sm:right-10 sm:top-1/2 sm:-translate-y-1/2">
             <BadgeIcon className="stroke-gray-600 dark:stroke-white" />
-            <Badge type={badgeType || 'info'}>{loanType}</Badge>
+            <Badge type={badgeType || 'info'}>{loanTypeText}</Badge>
           </div>
         </div>
       )}
@@ -94,7 +102,7 @@ export function LoanSummaryBox({
           {/* Loan type (small only) */}
           {size == 'sm' && (
             <>
-              <SummaryBoxLine Icon={CurrencyDollarIcon} value={loanType}>
+              <SummaryBoxLine Icon={CurrencyDollarIcon} value={loanTypeText}>
                 Loan Type
               </SummaryBoxLine>
               <Divider />
@@ -103,7 +111,7 @@ export function LoanSummaryBox({
           {/* Loan Basic Details */}
           <SummaryBoxLine
             Icon={WalletIcon}
-            value={value.toLocaleString('en-US', {
+            value={loanAmount.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
               maximumFractionDigits: 0,
@@ -111,20 +119,27 @@ export function LoanSummaryBox({
           >
             Loan Amount
           </SummaryBoxLine>
-          <SummaryBoxLine value="22 Months" Icon={CalendarIcon}>
-            Loan Length
-          </SummaryBoxLine>
-          <SummaryBoxLine
-            className=""
-            value={(500).toLocaleString('en-US', {
-              style: 'currency',
-              currency: 'USD',
-              maximumFractionDigits: 0,
-            })}
-            Icon={CircleStackIcon}
-          >
-            Monthly Payments
-          </SummaryBoxLine>
+          {loanTerms === 'monthly' ? (
+            <SummaryBoxLine
+              className=""
+              value={scheduledPayment.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0,
+              })}
+              Icon={CircleStackIcon}
+            >
+              Monthly Payments
+            </SummaryBoxLine>
+          ) : (
+            <SummaryBoxLine
+              value={`${repaymentPeriod} Months`}
+              Icon={CalendarIcon}
+            >
+              Loan Length
+            </SummaryBoxLine>
+          )}
+
           <Divider />
           <SummaryBoxLine value="8.95%" Icon={ReceiptPercentIcon}>
             APR
