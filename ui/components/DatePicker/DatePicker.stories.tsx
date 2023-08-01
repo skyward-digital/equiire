@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { DatePicker } from '.';
+import { DatePicker, DatePickerProps } from '.';
 
 const meta: Meta<typeof DatePicker> = {
   title: 'Components/DatePicker',
@@ -19,10 +20,23 @@ export default meta;
 
 type Story = StoryObj<typeof DatePicker>;
 
-export const Default: Story = {};
+// This mocks the state of the component
+function StoryRender(props: Omit<DatePickerProps, 'onValueChange' | 'value'>) {
+  const [value, setValue] = useState(new Date());
+  return <DatePicker {...props} value={value} onValueChange={setValue} />;
+}
+
+export const Default: Story = {
+  render: (args) => {
+    return <StoryRender {...args} />;
+  },
+};
 
 export const Expanded: Story = {
   args: {
     defaultOpen: true,
+  },
+  render: (args) => {
+    return <StoryRender {...args} />;
   },
 };

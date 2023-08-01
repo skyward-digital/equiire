@@ -7,7 +7,7 @@ import * as PopoverPrimitive from '@radix-ui/react-popover';
 
 import { Calendar } from '#/ui/components/Calendar';
 
-interface DatePickerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DatePickerProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: Date;
   onValueChange: (value: Date) => void;
   defaultOpen?: boolean;
