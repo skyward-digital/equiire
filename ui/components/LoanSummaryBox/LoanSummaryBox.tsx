@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import clsx from 'clsx';
+import { format, add } from 'date-fns';
 import {
   WalletIcon,
   CircleStackIcon,
@@ -38,6 +40,8 @@ export function LoanSummaryBox({
   repaymentPeriod,
   scheduledPayment,
 }: SummaryBoxProps) {
+  const [loanStartDate, setLoanStartDate] = useState(new Date());
+
   const APR = 0.0895;
   // These calculations still need to be extended
   const totalRepayable = loanAmount + loanAmount * APR;
@@ -180,12 +184,27 @@ export function LoanSummaryBox({
               <h3 className="font-brand text-brand text-2xl font-semibold tracking-tight dark:text-gray-100">
                 Loan Start
               </h3>
-              <DatePicker className="grow" />
+              <DatePicker
+                value={loanStartDate}
+                onValueChange={setLoanStartDate}
+                className="grow"
+              />
             </div>
-            <SummaryBoxLine Icon={CalendarIcon} value="06/30/2023">
+            <SummaryBoxLine
+              Icon={CalendarIcon}
+              value={format(loanStartDate, 'MM/dd/yyyy')}
+            >
               First Repayment
             </SummaryBoxLine>
-            <SummaryBoxLine Icon={CalendarIcon} value="05/01/2024">
+            <SummaryBoxLine
+              Icon={CalendarIcon}
+              value={format(
+                add(loanStartDate, {
+                  months: repaymentPeriod ? parseInt(repaymentPeriod) : 12,
+                }),
+                'MM/dd/yyyy',
+              )}
+            >
               Loan End
             </SummaryBoxLine>
           </div>
