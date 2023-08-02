@@ -1,7 +1,7 @@
 import type { User } from '#/api/profile/user';
 
 export type Loans = {
-  docs: Loan['data'][];
+  docs: LoanData[];
   totalDocs: number;
   totalPages: number;
   page: number;
@@ -12,26 +12,36 @@ export type Loans = {
 };
 
 export type Loan = {
-  message: 'string';
+  message: string;
   status: string;
-  data: {
-    _id: string;
-    type: string;
-    amount: number;
-    currency: string;
-    length: number;
-    monthlyPayment: number;
-    apr: number;
-    interestType: string;
-    totalRepayable: number;
-    creditCost: number;
-    dateCreated: string;
-    startDate: string;
-    endDate: string;
-    product: string;
-    user: User;
-    signatureCompleted: boolean;
-    recordStatus: string;
-    __v: number;
-  };
+  data: loanData;
+};
+
+export type LoanData = {
+  _id: string;
+  type: string;
+  amount: number;
+  currency: string;
+  monthlyPayment: number;
+  length: number;
+  interestType: string;
+  apr: number;
+  totalRepayable: number;
+  creditCost: number;
+  dateCreated: string;
+  startDate: string;
+  endDate?: string;
+  product: string;
+  price: string;
+  paymentMethod: string;
+  user: User;
+  signatureRequestId: string;
+  signatureDocumentId: string;
+  signatureDocumentUrl: string;
+  signatureCompleted: boolean;
+  subscription: string;
+  recordStatus: string;
+  loanStatus: string;
+  recordStatus: string;
+  __v: number;
 };

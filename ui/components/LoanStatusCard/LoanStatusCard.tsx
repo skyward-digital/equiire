@@ -1,11 +1,12 @@
 import { LoanStatusCardSmall } from './LoanStatusCardSmall';
 import { LoanStatusCardLarge } from './LoanStatusCardLarge';
 import { BadgeProps } from '#/ui/components/Badge';
+import { LoanData } from '#/app/api/loans/loans';
 
 export type LoanProps = {
-  id: string;
-  status: string;
-  value: number;
+  _id: string;
+  loanStatus: string;
+  amount: number;
   startDate: string;
   endDate?: string;
   steps?: {
@@ -20,17 +21,24 @@ export interface LoanStatusCardProps extends LoanProps {
   badgeStatus: BadgeProps['type'];
 }
 
-export const LoanStatusCard = ({ loan }: { loan: LoanProps }) => {
-  const { id, value, status, steps } = loan;
-  if (!status) return null;
+export const LoanStatusCard = ({ loan }: { loan: LoanData }) => {
+  const { _id, amount, loanStatus } = loan;
+  const steps = {
+    loan: true,
+    account: true,
+    payment: !!loan.paymentMethod,
+    signature: loan.signatureCompleted,
+  };
+  if (!loanStatus) return null;
 
   const badgeStatus = {
-    pending: 'warning',
-    processing: 'info',
-    approved: 'success',
-    rejected: 'error',
-    completed: undefined,
-  }[status] as BadgeProps['type'];
+    IN_PROGRESS: 'info',
+    REJECTED: 'error',
+    COMPLETED: 'success',
+    // These two statuses are not listed in LoanStatusEnum in Swagger, so I don't know if they exist
+    APPROVED: 'success',
+    PENDING: 'warning',
+  }[loanStatus] as BadgeProps['type'];
 
   const startDate = new Date(loan.startDate).toLocaleDateString('en-US', {
     month: 'long',
@@ -45,12 +53,12 @@ export const LoanStatusCard = ({ loan }: { loan: LoanProps }) => {
       })
     : undefined;
 
-  if (status === 'completed')
+  if (loanStatus === 'COMPLETED')
     return (
       <LoanStatusCardSmall
-        id={id}
-        value={value}
-        status={status}
+        _id={_id}
+        amount={amount}
+        loanStatus={loanStatus}
         badgeStatus={badgeStatus}
         startDate={startDate}
         endDate={endDate}
@@ -59,9 +67,9 @@ export const LoanStatusCard = ({ loan }: { loan: LoanProps }) => {
 
   return (
     <LoanStatusCardLarge
-      id={id}
-      value={value}
-      status={status}
+      _id={_id}
+      amount={amount}
+      loanStatus={loanStatus}
       steps={steps}
       badgeStatus={badgeStatus}
       startDate={startDate}
