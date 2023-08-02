@@ -1,6 +1,18 @@
+import { Loan } from '#/app/(login)/sign-up/page';
 import { signIn, signOut } from 'next-auth/react';
 
-export const signup = async (data: any) => {
+export const signup = async (data: {
+  email: string;
+  password: string;
+  addressLine1: string;
+  addressLine2?: string;
+  city: string;
+  company: string;
+  name: string;
+  postalCode: string;
+  state: string;
+  loan: Loan;
+}) => {
   const res = await fetch('/api/signup', {
     method: 'POST',
     body: JSON.stringify(data),
