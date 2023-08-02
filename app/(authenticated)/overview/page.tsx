@@ -1,5 +1,6 @@
 import { NotificationBanner } from '#/ui/components/NotificationBanner/NotificationBanner';
 import { LoanStatusCard } from '#/ui/components/LoanStatusCard';
+import { getLoans, getLoan } from '#/app/api/loans/getLoans';
 
 const loansData = [
   {
@@ -38,7 +39,12 @@ const activeLoans = loansData.filter(
   (loan) => loan.status !== 'completed' && loan.status !== 'rejected',
 );
 
-export default function Page() {
+export default async function Page() {
+  const loans = await getLoans();
+  const loan = await getLoan({ id: '64bfe6047818cc1a37c346a1' });
+
+  console.log(loans, loan);
+
   return (
     <div className="container flex flex-1 flex-col items-center justify-center gap-8 py-4">
       <NotificationBanner
