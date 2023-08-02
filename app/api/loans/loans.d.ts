@@ -12,7 +12,7 @@ export type Loans = {
 };
 
 export type Loan = {
-  message: 'string';
+  message: string;
   status: string;
   data: {
     _id: string;
@@ -29,9 +29,15 @@ export type Loan = {
     startDate: string;
     endDate: string;
     product: string;
+    price: string;
+    paymentMethod: string;
     user: User;
-    signatureCompleted: boolean;
-    recordStatus: string;
+    signatureRequestId: string;
+    signatureDocumentId: string;
+    signatureDocumentUrl: string;
+    signatureCompleted: true;
+    subscription: string;
+    recordStatus: string; // 'ACTIVE'
     __v: number;
   };
 };
