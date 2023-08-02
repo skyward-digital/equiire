@@ -54,3 +54,27 @@ export async function getLoan({ id }: { id: string }) {
 
   return loan.data;
 }
+
+export async function getLoanDoc({ id }: { id: string }) {
+  const session = (await getServerSession(authOptions)) as AuthSession;
+  const { accessToken } = session.tokens;
+
+  if (!accessToken) throw new Error('Something went wrong!');
+
+  const res = await fetch(
+    `${process.env.API_URL}/loans/${
+      id ? `/${id}` : '_'
+    }/download-signed-document?access_token=${accessToken}`,
+  );
+
+  if (!res.ok) throw new Error('Something went wrong!');
+
+  const loanDoc = (await res.json()) as Loan;
+
+  if (!loanDoc) {
+    // Render the closest `not-found.js` Error Boundary
+    notFound();
+  }
+
+  return loanDoc.data;
+}
