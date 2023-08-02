@@ -23,14 +23,14 @@ function StoryRender(
   props: Omit<LoanCalculatorProps, 'loanDetails' | 'setLoanDetails'>,
 ) {
   const [loanDetails, setLoanDetails] = useState<LoanDetails>({
-    loanType: 'credit-builder',
-    loanAmount: '10000',
-    loanTerms: 'monthly',
+    type: 'CREDIT_BUILDER',
+    amount: '10000',
+    terms: 'monthly',
     repaymentPeriod: '0',
     scheduledPayment: '500',
-    interestType: '',
+    interestType: 'FIXED',
     // static date so it doesn't change every time the story is loaded
-    loanStartDate: new Date(2023, 0, 24),
+    startDate: new Date(2023, 0, 24),
   });
   return (
     <LoanCalculator

@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { UserIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
+import { FormData } from './SignupForm';
 
 export function PersonalInformationForm({
   setStep,
@@ -10,7 +11,7 @@ export function PersonalInformationForm({
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   formData: Object;
-  setFormData: React.Dispatch<React.SetStateAction<Object>>;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
 }) {
   const {
     register,
@@ -19,7 +20,6 @@ export function PersonalInformationForm({
   } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
     setFormData({ ...formData, ...data });
     setStep((step: number) => step + 1);
 

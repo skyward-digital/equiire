@@ -3,12 +3,13 @@ import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
+import { forgotPassword } from '#/hooks/useAuth';
 
 export function ForgotPasswordForm({
-  setFormSubmitted,
+  onSuccess,
   className,
 }: {
-  setFormSubmitted: (value: boolean) => void;
+  onSuccess: () => void;
   className?: string;
 }) {
   const {
@@ -22,11 +23,13 @@ export function ForgotPasswordForm({
   const emailValue = watch('email');
   const emailCompleted = Boolean(emailValue);
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-    setFormSubmitted(true);
-    // Typically, you would send a request to your server here
-    // to initiate the password reset process.
+  const onSubmit = async (data: any) => {
+    localStorage.setItem('email', data.email);
+    const confirmEmailSent = await forgotPassword(data);
+
+    if (confirmEmailSent.success) {
+      onSuccess();
+    }
   };
 
   return (

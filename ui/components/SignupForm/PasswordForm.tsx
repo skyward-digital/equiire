@@ -1,10 +1,25 @@
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 import { signup } from '#/hooks/useAuth';
+import { Loan } from '#/app/(login)/sign-up/page';
 
-export function PasswordForm({ formData }: { formData: Object }) {
+export function PasswordForm({
+  formData,
+  loan,
+}: {
+  formData: {
+    email: string;
+    addressLine1: string;
+    addressLine2?: string;
+    city: string;
+    company: string;
+    name: string;
+    postalCode: string;
+    state: string;
+  };
+  loan: Loan;
+}) {
   const {
     register,
     handleSubmit,
@@ -16,7 +31,7 @@ export function PasswordForm({ formData }: { formData: Object }) {
     // Here, we'll send the data to sign up and login
     // Once we have a valid token, we'll redirect to the dashboard
     if (data?.password) {
-      signup({ ...formData, password: data.password });
+      signup({ ...formData, password: data.password, loan });
       // They will then need to confirm their email
     } else {
       console.log('Missing data');
