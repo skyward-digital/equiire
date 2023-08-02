@@ -21,9 +21,10 @@ import {
   WalletIcon,
 } from '@heroicons/react/24/outline';
 import { getLoan } from '#/app/api/loans/getLoans';
+import { Loan } from '#/app/api/loans/loans';
 
 export default async function Page() {
-  const loan = await getLoan({ id: '64bfe6047818cc1a37c346a1' });
+  const loan: Loan = await getLoan({ id: '64bfe6047818cc1a37c346a1' });
 
   const {
     _id: id,
@@ -33,6 +34,7 @@ export default async function Page() {
     apr,
     startDate,
     endDate,
+    loanStatus,
     transactions = [],
   } = loan;
 
@@ -43,13 +45,17 @@ export default async function Page() {
     signature: loan.signatureCompleted,
   };
 
-  // const badgeStatus = {
-  //   pending: 'warning',
-  //   processing: 'info',
-  //   approved: 'success',
-  //   rejected: 'error',
-  //   completed: undefined,
-  // }[loan.status] as BadgeProps['type'];
+  const status = {
+    IN_PROGRESS: 'pending',
+    REJECTED: 'rejected',
+    COMPLETED: 'completed',
+  }[loanStatus];
+
+  const badgeStatus = {
+    IN_PROGRESS: 'info',
+    REJECTED: 'error',
+    COMPLETED: undefined,
+  }[loanStatus] as BadgeProps['type'];
 
   // const paidTransactions = transactions.filter((t) => t.status === 'paid');
   // const scheduledTransactions = transactions.filter(
@@ -67,9 +73,9 @@ export default async function Page() {
         />
 
         <div className="mb-2 flex w-full items-center justify-end">
-          {/* <Badge type={badgeStatus} dot>
-            {loan.status}
-          </Badge> */}
+          <Badge type={badgeStatus} dot>
+            {status}
+          </Badge>
         </div>
       </TabHeading>
 

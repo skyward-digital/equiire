@@ -1,4 +1,4 @@
-import { NotificationBanner } from '#/ui/components/NotificationBanner/NotificationBanner';
+// import { NotificationBanner } from '#/ui/components/NotificationBanner/NotificationBanner';
 import { LoanStatusCard } from '#/ui/components/LoanStatusCard';
 import { getLoans } from '#/app/api/loans/getLoans';
 
@@ -15,12 +15,12 @@ export default async function Page() {
 
   return (
     <div className="container flex flex-1 flex-col items-center justify-start gap-8 py-4">
-      <NotificationBanner
+      {/* <NotificationBanner
         status="warning"
         message="You still need to complete your account setup"
         link="#"
         linkLabel="Complete setup"
-      />
+      /> */}
 
       {incompleteLoans.map((loan) => (
         <LoanStatusCard key={loan._id} loan={loan} />
