@@ -37,8 +37,6 @@ export function ResetPasswordForm({
       password: getValues('password'),
     });
 
-    console.log({ res, token, email, password: getValues('password') });
-
     if (res.success) {
       onSuccess();
     } else {
