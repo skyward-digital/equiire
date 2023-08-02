@@ -5,7 +5,7 @@ import { LoanCalculator } from '#/ui/components/LoanCalculator';
 import { LoanSummaryBox } from '#/ui/components/LoanSummaryBox';
 
 // This could potentially be moved elsewhere
-export interface LoanCalculatorDetails {
+export interface LoanDetails {
   type: 'CREDIT_BUILDER' | 'STANDARD';
   amount: string;
   terms: string;
@@ -17,7 +17,7 @@ export interface LoanCalculatorDetails {
 
 export default function Page() {
   const [step, setStep] = useState(0);
-  const [loanDetails, setLoanDetails] = useState<LoanCalculatorDetails>({
+  const [loanDetails, setLoanDetails] = useState<LoanDetails>({
     type: 'CREDIT_BUILDER',
     amount: '10000',
     terms: 'monthly',
