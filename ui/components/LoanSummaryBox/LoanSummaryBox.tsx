@@ -19,41 +19,66 @@ import { SummaryBoxLine } from './SummaryBoxLine';
 
 export type LoanSummaryBoxProps = {
   size: 'sm' | 'lg';
+  step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
-  handleNext: () => void;
   loanDetails: LoanDetails;
   setLoanDetails: React.Dispatch<React.SetStateAction<LoanDetails>>;
 };
 
 export function LoanSummaryBox({
   size,
+  step,
   setStep,
   className,
-  handleNext,
   loanDetails,
   setLoanDetails,
 }: LoanSummaryBoxProps) {
-  const APR = 0.0895;
-  // These calculations still need to be extended
-  const totalRepayable =
-    parseInt(loanDetails.loanAmount) + parseInt(loanDetails.loanAmount) * APR;
-  const creditCost = totalRepayable - parseInt(loanDetails.loanAmount);
+  const {
+    type,
+    amount,
+    terms,
+    repaymentPeriod,
+    scheduledPayment,
+    interestType,
+    startDate,
+  } = loanDetails;
+
+  // These calculations may need to be amended
+  const length =
+    terms === 'length'
+      ? parseInt(repaymentPeriod)
+      : parseInt(amount) / parseInt(scheduledPayment);
+  const monthlyPayment =
+    terms === 'monthly'
+      ? parseInt(scheduledPayment)
+      : // we round up so they pay off all of the loan, this may need to be amended
+        Math.ceil(parseInt(amount) / length);
+
+  const apr = 0.0895;
+  const totalRepayable = parseInt(amount) + parseInt(amount) * apr;
+  const creditCost = totalRepayable - parseInt(amount);
+  const endDate = add(startDate, {
+    months: length,
+  });
+
+  const lengthText = length > 1 ? `${length} months` : `${length} month`;
+  const apiText = apr * 100 + '%';
 
   const badgeType = {
-    'credit-builder': 'warning',
-    standard: 'success',
-  }[loanDetails.loanType] as BadgeProps['type'];
+    CREDIT_BUILDER: 'warning',
+    STANDARD: 'success',
+  }[type] as BadgeProps['type'];
 
   const BadgeIcon = {
-    'credit-builder': PiggyBankIcon,
-    standard: PurseIcon,
-  }[loanDetails.loanType];
+    CREDIT_BUILDER: PiggyBankIcon,
+    STANDARD: PurseIcon,
+  }[type];
 
   const loanTypeText = {
-    'credit-builder': 'Credit Builder',
-    standard: 'Standard',
-  }[loanDetails.loanType];
+    CREDIT_BUILDER: 'Credit Builder',
+    STANDARD: 'Standard',
+  }[type];
 
   return (
     <section
@@ -113,7 +138,7 @@ export function LoanSummaryBox({
           {/* Loan Basic Details */}
           <SummaryBoxLine
             Icon={WalletIcon}
-            value={parseInt(loanDetails.loanAmount).toLocaleString('en-US', {
+            value={parseInt(amount).toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
               maximumFractionDigits: 0,
@@ -121,32 +146,24 @@ export function LoanSummaryBox({
           >
             Loan Amount
           </SummaryBoxLine>
-          {loanDetails.loanTerms === 'monthly' ? (
-            <SummaryBoxLine
-              className=""
-              value={parseInt(loanDetails.scheduledPayment).toLocaleString(
-                'en-US',
-                {
-                  style: 'currency',
-                  currency: 'USD',
-                  maximumFractionDigits: 0,
-                },
-              )}
-              Icon={CircleStackIcon}
-            >
-              Monthly Payments
-            </SummaryBoxLine>
-          ) : (
-            <SummaryBoxLine
-              value={`${loanDetails.repaymentPeriod} Months`}
-              Icon={CalendarIcon}
-            >
-              Loan Length
-            </SummaryBoxLine>
-          )}
+          <SummaryBoxLine
+            className=""
+            value={monthlyPayment.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              maximumFractionDigits: 0,
+            })}
+            Icon={CircleStackIcon}
+          >
+            Monthly Payments
+          </SummaryBoxLine>
+
+          <SummaryBoxLine value={lengthText} Icon={CalendarIcon}>
+            Loan Length
+          </SummaryBoxLine>
 
           <Divider />
-          <SummaryBoxLine value={`${APR * 100}%`} Icon={ReceiptPercentIcon}>
+          <SummaryBoxLine value={apiText} Icon={ReceiptPercentIcon}>
             APR
           </SummaryBoxLine>
           <SummaryBoxLine
@@ -181,29 +198,22 @@ export function LoanSummaryBox({
                 Loan Start
               </h3>
               <DatePicker
-                value={loanDetails.loanStartDate}
+                value={startDate}
                 onValueChange={(value) =>
-                  setLoanDetails({ ...loanDetails, loanStartDate: value })
+                  setLoanDetails({ ...loanDetails, startDate: value })
                 }
                 className="grow"
               />
             </div>
             <SummaryBoxLine
               Icon={CalendarIcon}
-              value={format(loanDetails.loanStartDate, 'MM/dd/yyyy')}
+              value={format(startDate, 'MM/dd/yyyy')}
             >
               First Repayment
             </SummaryBoxLine>
             <SummaryBoxLine
               Icon={CalendarIcon}
-              value={format(
-                add(loanDetails.loanStartDate, {
-                  months: loanDetails.repaymentPeriod
-                    ? parseInt(loanDetails.repaymentPeriod)
-                    : 12,
-                }),
-                'MM/dd/yyyy',
-              )}
+              value={format(endDate, 'MM/dd/yyyy')}
             >
               Loan End
             </SummaryBoxLine>
@@ -226,9 +236,39 @@ export function LoanSummaryBox({
             Go Back
           </Button>
         )}
-        <Button variant="primary" className="flex-1" onClick={handleNext}>
-          Next
-        </Button>
+        {step === 0 ? (
+          <Button
+            variant="primary"
+            className="flex-1"
+            onClick={() => setStep((step: number) => step + 1)}
+          >
+            Next
+          </Button>
+        ) : (
+          <Button
+            variant="primary"
+            className="flex-1"
+            href={{
+              pathname: '/sign-up',
+              query: {
+                type,
+                amount,
+                length,
+                monthlyPayment,
+                interestType,
+                apr,
+                totalRepayable,
+                creditCost,
+                startDate: format(startDate, 'yyyy-MM-dd'),
+                // This date might need to change - when does the first payment come out?
+                firstPayment: format(startDate, 'yyyy-MM-dd'),
+                endDate: format(endDate, 'yyyy-MM-dd'),
+              },
+            }}
+          >
+            Next
+          </Button>
+        )}
       </div>
     </section>
   );

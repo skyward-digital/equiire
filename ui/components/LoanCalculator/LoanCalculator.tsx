@@ -16,26 +16,35 @@ export function LoanCalculator({
   loanDetails,
   setLoanDetails,
 }: LoanCalculatorProps) {
+  const {
+    type,
+    amount,
+    terms,
+    repaymentPeriod,
+    scheduledPayment,
+    interestType,
+  } = loanDetails;
+
   const loanTypeTitle = {
-    'credit-builder': 'Credit Builder',
-    standard: 'Standard Loan',
-  }[loanDetails.loanType];
+    CREDIT_BUILDER: 'Credit Builder',
+    STANDARD: 'Standard Loan',
+  }[type];
 
   const loanTypeDescriptionBold = {
-    'credit-builder': 'Establish or improve your credit history.',
-    standard: 'Benefit from lower interest rates and fees.',
-  }[loanDetails.loanType];
+    CREDIT_BUILDER: 'Establish or improve your credit history.',
+    STANDARD: 'Benefit from lower interest rates and fees.',
+  }[type];
 
   const loanTypeDescription = {
-    'credit-builder':
+    CREDIT_BUILDER:
       'Consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu.',
-    standard:
+    STANDARD:
       'Consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu.',
-  }[loanDetails.loanType];
+  }[type];
 
   const sliderGroupValues = {
-    'credit-builder': {
-      loanAmount: {
+    CREDIT_BUILDER: {
+      amount: {
         min: 1000,
         max: 20000,
         options: [1000, 10000, 20000],
@@ -51,8 +60,8 @@ export function LoanCalculator({
         options: [250, 500, 750, 1000],
       },
     },
-    standard: {
-      loanAmount: {
+    STANDARD: {
+      amount: {
         min: 2500,
         max: 100000,
         options: [2500, 5000, 10000, 25000, 50000, 100000],
@@ -68,7 +77,7 @@ export function LoanCalculator({
         options: [250, 500, 750, 1000, 2500, 5000, 10000],
       },
     },
-  }[loanDetails.loanType as 'credit-builder' | 'standard'];
+  }[type as 'CREDIT_BUILDER' | 'STANDARD'];
 
   return (
     <section className="dark:border-brand-secondary flex max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 py-8 dark:bg-black sm:border sm:border-gray-100 sm:px-8 sm:py-16 sm:shadow-sm">
@@ -89,15 +98,15 @@ export function LoanCalculator({
           </Label>
           <RadioGroup
             options={[
-              { label: 'Credit Builder', value: 'credit-builder' },
-              { label: 'Standard Loan', value: 'standard' },
+              { label: 'Credit Builder', value: 'CREDIT_BUILDER' },
+              { label: 'Standard Loan', value: 'STANDARD' },
             ]}
             id="loan-type"
-            value={loanDetails.loanType}
+            value={type}
             onChange={(value) =>
               setLoanDetails({
                 ...loanDetails,
-                loanType: value as 'credit-builder' | 'standard',
+                type: value as 'CREDIT_BUILDER' | 'STANDARD',
               })
             }
             ariaLabel="Loan Type"
@@ -116,12 +125,12 @@ export function LoanCalculator({
         {/* Loan amount */}
         <SliderGroup
           label="Loan Amount"
-          min={sliderGroupValues.loanAmount.min}
-          max={sliderGroupValues.loanAmount.max}
-          options={sliderGroupValues.loanAmount.options}
-          value={loanDetails.loanAmount}
+          min={sliderGroupValues.amount.min}
+          max={sliderGroupValues.amount.max}
+          options={sliderGroupValues.amount.options}
+          value={amount}
           onChange={(value) =>
-            setLoanDetails({ ...loanDetails, loanAmount: value })
+            setLoanDetails({ ...loanDetails, amount: value })
           }
         />
       </div>
@@ -140,40 +149,40 @@ export function LoanCalculator({
               { label: 'Loan Length', value: 'length' },
             ]}
             id="loan-terms"
-            value={loanDetails.loanTerms}
+            value={terms}
             onChange={(value) =>
-              setLoanDetails({ ...loanDetails, loanTerms: value })
+              setLoanDetails({ ...loanDetails, terms: value })
             }
           />
         </div>
         {/* Scheduled payment */}
-        {loanDetails.loanTerms === 'monthly' && (
+        {terms === 'monthly' && (
           <SliderGroup
             label="Scheduled Payment"
             min={sliderGroupValues.scheduledPayment.min}
             max={sliderGroupValues.scheduledPayment.max}
             options={sliderGroupValues.scheduledPayment.options}
-            value={loanDetails.scheduledPayment}
+            value={scheduledPayment}
             onChange={(value) =>
               setLoanDetails({ ...loanDetails, scheduledPayment: value })
             }
           />
         )}
         {/* Repayment Period */}
-        {loanDetails.loanTerms === 'length' && (
+        {terms === 'length' && (
           <SliderGroup
             label="Repayment Period"
             type="months"
             min={sliderGroupValues.repaymentPeriod.min}
             max={sliderGroupValues.repaymentPeriod.max}
             options={sliderGroupValues.repaymentPeriod.options}
-            value={loanDetails.repaymentPeriod}
+            value={repaymentPeriod}
             onChange={(value) =>
               setLoanDetails({ ...loanDetails, repaymentPeriod: value })
             }
           />
         )}
-        {loanDetails.loanType === 'standard' && (
+        {type === 'STANDARD' && (
           <div className="flex items-center justify-between ">
             <Label
               htmlFor="interest-type"
@@ -184,13 +193,16 @@ export function LoanCalculator({
             <Select
               id="interest-type"
               className="max-w-xs flex-1"
-              value={loanDetails.interestType}
+              value={interestType}
               onValueChange={(value) =>
-                setLoanDetails({ ...loanDetails, interestType: value })
+                setLoanDetails({
+                  ...loanDetails,
+                  interestType: value as 'FIXED' | 'VARIABLE',
+                })
               }
             >
-              <SelectItem value="fixed">Fixed</SelectItem>
-              <SelectItem value="variable">Variable</SelectItem>
+              <SelectItem value="FIXED">Fixed</SelectItem>
+              <SelectItem value="VARIABLE">Variable</SelectItem>
             </Select>
           </div>
         )}
