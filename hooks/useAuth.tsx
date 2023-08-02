@@ -53,7 +53,7 @@ export const forgotPassword = async (data: { email: string }) => {
 export const resetPassword = async (data: {
   email: string;
   password: string;
-  confirmationCode: number;
+  confirmationCode: string;
 }) => {
   const res = await fetch('/api/reset-password', {
     method: 'POST',

@@ -26,16 +26,18 @@ export function ResetPasswordForm({
   const onSubmit = async () => {
     const email = localStorage.getItem('email');
 
-    if (!email || !token || Number.isNaN(parseInt(token))) {
+    if (!email || !token) {
       onError();
       return;
     }
 
     const res = await resetPassword({
-      confirmationCode: parseInt(token),
+      confirmationCode: token,
       email: email as string,
       password: getValues('password'),
     });
+
+    console.log({ res, token, email, password: getValues('password') });
 
     if (res.success) {
       onSuccess();
