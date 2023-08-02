@@ -1,6 +1,6 @@
-import { Header } from '#/ui/components/Header/Header';
 import { NotificationBanner } from '#/ui/components/NotificationBanner/NotificationBanner';
 import { LoanStatusCard } from '#/ui/components/LoanStatusCard';
+import { getLoans } from '#/app/api/loans/getLoans';
 
 const loansData = [
   {
@@ -50,11 +50,17 @@ const loansData = [
   },
 ];
 
-const incompleteLoans = loansData.filter((loan) => loan.status !== 'completed');
+export default async function Page() {
+  const loans = await getLoans();
 
-const completedLoans = loansData.filter((loan) => loan.status === 'completed');
+  const incompleteLoans = loans.docs.filter(
+    (loan) => loan.loanStatus !== 'COMPLETED',
+  );
 
-export default function Page() {
+  const completedLoans = loans.docs.filter(
+    (loan) => loan.loanStatus === 'COMPLETED',
+  );
+
   return (
     <div className="container flex flex-1 flex-col items-center justify-center gap-8 py-4">
       <NotificationBanner
@@ -65,7 +71,7 @@ export default function Page() {
       />
 
       {incompleteLoans.map((loan) => (
-        <LoanStatusCard key={loan.id} loan={loan} />
+        <LoanStatusCard key={loan._id} loan={loan} />
       ))}
 
       {/* Completed loans */}
@@ -76,7 +82,7 @@ export default function Page() {
           </h2>
           <div className="grid w-full grid-cols-2 gap-4">
             {completedLoans.map((loan) => (
-              <LoanStatusCard key={loan.id} loan={loan} />
+              <LoanStatusCard key={loan._id} loan={loan} />
             ))}
           </div>
         </div>
