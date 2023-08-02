@@ -34,8 +34,6 @@ export const logout = async () => {
     method: 'POST',
   });
 
-  console.log(res);
-
   if (res.ok) {
     await signOut({ callbackUrl: '/login' });
   }

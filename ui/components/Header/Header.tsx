@@ -3,8 +3,9 @@ import { Logo } from '#/ui/assets/Logo';
 import { DarkModeToggle } from './DarkModeToggle';
 import { UserProfile } from './UserProfile';
 import { AuthSession } from '#/lib/auth';
+import { User } from '#/app/api/profile/user';
 
-export const Header = ({ user }: { user: AuthSession['user'] }) => {
+export const Header = ({ user }: { user: User }) => {
   return (
     <header className="from-brand to-brand-400 fixed top-0 z-10 flex max-h-20 w-full items-center justify-between border-b border-transparent bg-gradient-to-r px-6 py-2 dark:border-gray-600 dark:bg-black">
       <div className="flex h-14 items-center px-4 py-4 lg:h-auto">

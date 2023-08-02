@@ -40,10 +40,8 @@ const activeLoans = loansData.filter(
 );
 
 export default async function Page() {
-  const loans = await getLoans();
-  const loan = await getLoan({ id: '64bfe6047818cc1a37c346a1' });
-
-  console.log(loans, loan);
+  // const loans = await getLoans();
+  // const loan = await getLoan({ id: '64bfe6047818cc1a37c346a1' });
 
   return (
     <div className="container flex flex-1 flex-col items-center justify-center gap-8 py-4">

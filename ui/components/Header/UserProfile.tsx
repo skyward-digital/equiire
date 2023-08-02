@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { AuthSession } from '#/lib/auth';
 import { Avatar } from '#/ui/components/Avatar';
+import { User } from '#/app/api/profile/user';
 
 type UserProfileProps = {
-  user: AuthSession['user'];
+  user: User;
   className: string;
 };
 
