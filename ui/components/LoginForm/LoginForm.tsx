@@ -8,8 +8,6 @@ import { Button } from '#/ui/components/Button';
 import { login } from '#/hooks/useAuth';
 
 export function LoginForm({ className }: { className?: string }) {
-  const router = useRouter();
-
   const {
     register,
     handleSubmit,

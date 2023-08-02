@@ -12,13 +12,7 @@ import { BanknotesIcon } from '@heroicons/react/24/outline';
 import { Badge } from '#/ui/components/Badge';
 import { CheckIcon } from '@heroicons/react/24/outline';
 
-export default function SettingsPage() {
-  const onSubmit = (data: any) => {
-    console.log(data);
-    // Here you would typically send the data to your server
-    // to create a new user account.
-  };
-
+export default function Page() {
   return (
     <>
       <TabHeading>

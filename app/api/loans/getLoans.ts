@@ -13,20 +13,17 @@ export async function getLoans() {
   const session = (await getServerSession(authOptions)) as AuthSession;
   const { accessToken } = session.tokens;
 
-  if (!accessToken) throw new Error('Something went wrong!');
+  if (!accessToken) notFound();
 
   const res = await fetch(
     `${process.env.API_URL}/loans?access_token=${accessToken}`,
   );
 
-  if (res.status !== 200) throw new Error('Something went wrong!');
+  if (res.status !== 200) notFound();
 
   const loans = (await res.json()) as Loans;
 
-  if (loans?.docs.length === 0) {
-    // Render the closest `not-found.js` Error Boundary
-    notFound();
-  }
+  if (loans?.docs.length === 0) notFound();
 
   return loans;
 }
@@ -35,7 +32,7 @@ export async function getLoan({ id }: { id: string }) {
   const session = (await getServerSession(authOptions)) as AuthSession;
   const { accessToken } = session.tokens;
 
-  if (!accessToken) throw new Error('Something went wrong!');
+  if (!accessToken) notFound();
 
   const res = await fetch(
     `${process.env.API_URL}/loans/${
@@ -43,14 +40,11 @@ export async function getLoan({ id }: { id: string }) {
     }?access_token=${accessToken}`,
   );
 
-  if (!res.ok) throw new Error('Something went wrong!');
+  if (!res.ok) notFound();
 
   const loan = (await res.json()) as Loan;
 
-  if (!loan) {
-    // Render the closest `not-found.js` Error Boundary
-    notFound();
-  }
+  if (!loan) notFound();
 
   return loan.data;
 }
@@ -59,7 +53,7 @@ export async function getLoanDoc({ id }: { id: string }) {
   const session = (await getServerSession(authOptions)) as AuthSession;
   const { accessToken } = session.tokens;
 
-  if (!accessToken) throw new Error('Something went wrong!');
+  if (!accessToken) notFound();
 
   const res = await fetch(
     `${process.env.API_URL}/loans/${
@@ -67,14 +61,11 @@ export async function getLoanDoc({ id }: { id: string }) {
     }/download-signed-document?access_token=${accessToken}`,
   );
 
-  if (!res.ok) throw new Error('Something went wrong!');
+  if (!res.ok) notFound();
 
   const loanDoc = (await res.json()) as Loan;
 
-  if (!loanDoc) {
-    // Render the closest `not-found.js` Error Boundary
-    notFound();
-  }
+  if (!loanDoc) notFound();
 
   return loanDoc.data;
 }
