@@ -4,6 +4,7 @@ import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 import { Select, SelectItem } from '#/ui/components/Select';
 import { Label } from '../Label';
+import { FormData } from './SignupForm';
 
 export function AdditionalDetailsForm({
   setStep,
@@ -12,7 +13,7 @@ export function AdditionalDetailsForm({
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   formData: Object;
-  setFormData: React.Dispatch<React.SetStateAction<Object>>;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
 }) {
   const {
     register,
@@ -21,7 +22,6 @@ export function AdditionalDetailsForm({
     control,
   } = useForm();
   const onSubmit = (data: any) => {
-    console.log(data);
     setFormData({ ...formData, ...data });
     setStep((step: number) => step + 1);
   };
