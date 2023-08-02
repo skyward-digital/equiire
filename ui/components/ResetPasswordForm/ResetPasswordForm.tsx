@@ -3,12 +3,17 @@ import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
+import { resetPassword } from '#/hooks/useAuth';
 
 export function ResetPasswordForm({
-  setFormSubmitted,
+  token,
+  onSuccess,
+  onError,
   className,
 }: {
-  setFormSubmitted: (value: boolean) => void;
+  token: string;
+  onSuccess: () => void;
+  onError: () => void;
   className?: string;
 }) {
   const {
@@ -18,10 +23,25 @@ export function ResetPasswordForm({
     getValues,
   } = useForm();
 
-  const onSubmit = (data: any) => {
-    setFormSubmitted(true);
-    // Typically, you would send a request to your server here
-    // to initiate the password reset process.
+  const onSubmit = async () => {
+    const email = localStorage.getItem('email');
+
+    if (!email || !token) {
+      onError();
+      return;
+    }
+
+    const res = await resetPassword({
+      confirmationCode: token,
+      email: email as string,
+      password: getValues('password'),
+    });
+
+    if (res.success) {
+      onSuccess();
+    } else {
+      onError();
+    }
   };
 
   return (

@@ -34,9 +34,33 @@ export const logout = async () => {
     method: 'POST',
   });
 
-  console.log(res);
-
   if (res.ok) {
     await signOut({ callbackUrl: '/login' });
   }
+};
+
+export const forgotPassword = async (data: { email: string }) => {
+  const res = await fetch('/api/forgot-password', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+
+  return res.ok
+    ? { success: true }
+    : { success: false, message: 'Email not found' };
+};
+
+export const resetPassword = async (data: {
+  email: string;
+  password: string;
+  confirmationCode: string;
+}) => {
+  const res = await fetch('/api/reset-password', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+
+  return res.ok
+    ? { success: true }
+    : { success: false, message: 'Password not reset' };
 };
