@@ -22,20 +22,11 @@ type Story = StoryObj<typeof DatePicker>;
 
 // This mocks the state of the component
 function StoryRender(props: Omit<DatePickerProps, 'onValueChange' | 'value'>) {
-  const [value, setValue] = useState(new Date());
+  const [value, setValue] = useState(new Date(2023, 0, 24));
   return <DatePicker {...props} value={value} onValueChange={setValue} />;
 }
 
 export const Default: Story = {
-  render: (args) => {
-    return <StoryRender {...args} />;
-  },
-};
-
-export const Expanded: Story = {
-  args: {
-    defaultOpen: true,
-  },
   render: (args) => {
     return <StoryRender {...args} />;
   },
