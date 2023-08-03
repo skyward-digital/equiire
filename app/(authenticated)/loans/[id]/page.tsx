@@ -23,8 +23,8 @@ import {
 import { getLoan } from '#/app/api/loans/getLoans';
 import { Loan } from '#/app/api/loans/loans';
 
-export default async function Page() {
-  const loan: Loan = await getLoan({ id: '64bfe6047818cc1a37c346a1' });
+export default async function Page({ params }: { params: { id: string } }) {
+  const loan: Loan = await getLoan({ id: params.id });
 
   const {
     _id: id,
