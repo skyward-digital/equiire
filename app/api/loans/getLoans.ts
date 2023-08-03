@@ -44,7 +44,7 @@ export async function getLoan({ id }: { id: string }) {
   if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();
 
-  const loan = (await res.json()) as Loan;
+  const loan = await res.json();
 
   if (!loan) notFound();
 
@@ -88,7 +88,7 @@ export async function getLoanDoc({ id }: { id: string }) {
   if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();
 
-  const loanDoc = (await res.json()) as Loan;
+  const loanDoc = await res.json();
 
   if (!loanDoc) notFound();
 

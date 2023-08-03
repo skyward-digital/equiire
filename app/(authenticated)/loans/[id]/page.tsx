@@ -39,6 +39,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     endDate,
     length: loanLength,
     loanStatus,
+    // @ts-ignore
     transactions = [],
   } = loan;
 
@@ -211,7 +212,8 @@ export default async function Page({ params }: { params: { id: string } }) {
 
         {transactions.length ? (
           <div className="col-span-3 flex flex-col gap-6">
-            <TransactionCard transaction={transactions[0] as any} />
+            Needs re-implementation
+            {/* <TransactionCard transaction={transactions[0] as any} />
             <TransactionAccordion
               transactions={
                 paidTransactions.slice(1, paidTransactions.length) as any
@@ -237,7 +239,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             />
             <TransactionCard
               transaction={transactions[transactions.length - 1] as any}
-            />
+            /> */}
           </div>
         ) : (
           <div className="col-span-3 flex flex-col gap-6">
