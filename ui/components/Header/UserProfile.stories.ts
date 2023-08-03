@@ -36,9 +36,9 @@ export const Default: Story = {
       },
       phone: '123-456-7890',
       contact: 'Jane Doe',
-      recordStatus: 'active',
+      recordStatus: 'ACTIVE',
       paymentCustomerId: 'cus_123',
-      __v: 0,
+      // __v: 0,
     },
   },
 };
