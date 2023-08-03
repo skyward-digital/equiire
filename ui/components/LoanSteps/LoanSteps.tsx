@@ -10,9 +10,10 @@ export type LoanStepsProps = {
     signature: boolean;
   };
   variant?: 'link' | 'card';
+  id: string;
 };
 
-export const LoanSteps = ({ steps, variant }: LoanStepsProps) => {
+export const LoanSteps = ({ steps, variant, id }: LoanStepsProps) => {
   if (!steps) return null;
   const Component = variant === 'card' ? StepCard : StepLink;
 
@@ -37,7 +38,7 @@ export const LoanSteps = ({ steps, variant }: LoanStepsProps) => {
     },
     signature: {
       title: 'Sign loan agreement',
-      href: '#',
+      href: `/loan-signature?id=${id}`,
       order: 4,
       completed: steps.signature,
     },

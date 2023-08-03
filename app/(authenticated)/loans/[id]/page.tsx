@@ -243,7 +243,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
         ) : (
           <div className="col-span-3 flex flex-col gap-6">
-            <LoanSteps steps={steps} variant="card" />
+            <LoanSteps steps={steps} variant="card" id={id} />
           </div>
         )}
       </div>
