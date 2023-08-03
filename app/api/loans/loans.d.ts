@@ -38,3 +38,15 @@ export type Loan = {
   __v: number;
   loanStatus: 'IN_PROGRESS' | 'COMPLETED' | 'REJECTED';
 };
+
+export type LoanTransactions = {
+  message: string;
+  status: 'SUCCESS';
+  data: LoanTransaction[];
+};
+
+export type LoanTransaction = {
+  status: 'SCHEDULED';
+  date: string;
+  amount: number;
+};

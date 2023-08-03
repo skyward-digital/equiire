@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions, AuthSession } from '#/lib/auth';
 import type { User } from './user';
@@ -19,6 +19,7 @@ export async function getUser() {
     `${process.env.API_URL}/profile?access_token=${accessToken}`,
   );
 
+  if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();
 
   const user = (await res.json()) as User;

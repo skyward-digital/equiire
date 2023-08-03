@@ -20,20 +20,24 @@ import {
   ReceiptPercentIcon,
   WalletIcon,
 } from '@heroicons/react/24/outline';
-import { getLoan } from '#/app/api/loans/getLoans';
+import { getLoan, getLoanTransactions } from '#/app/api/loans/getLoans';
 import { Loan } from '#/app/api/loans/loans';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const loan: Loan = await getLoan({ id: params.id });
+  // const loanTransactions = await getLoanTransactions({ id: params.id });
 
   const {
     _id: id,
     type,
     amount: value,
+    monthlyPayment,
     creditCost: interestValue,
+    totalRepayable,
     apr,
     startDate,
     endDate,
+    length: loanLength,
     loanStatus,
     transactions = [],
   } = loan;
@@ -129,20 +133,15 @@ export default async function Page({ params }: { params: { id: string } }) {
             <LoanDetailRow
               Icon={ClipboardDocumentCheckIcon}
               label="Loan Length"
-              value={transactions.length ?? 'Pending'}
+              value={`${loanLength} months`}
             />
             <LoanDetailRow
               Icon={CircleStackIcon}
               label="Monthly Payments"
-              value={
-                transactions.length
-                  ? transactions[0].value.toLocaleString('en-US', {
-                      style: 'currency',
-                      currency: 'USD',
-                      maximumFractionDigits: 0,
-                    })
-                  : 'Pending'
-              }
+              value={monthlyPayment.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+              })}
             />
 
             <Divider className="col-span-2" />
@@ -155,7 +154,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             <LoanDetailRow
               Icon={BanknotesIcon}
               label="Total Repayable"
-              value={(value + interestValue).toLocaleString('en-US', {
+              value={totalRepayable.toLocaleString('en-US', {
                 style: 'currency',
                 currency: 'USD',
               })}
@@ -202,10 +201,10 @@ export default async function Page({ params }: { params: { id: string } }) {
                 Download Loan Agreement
               </Button>
 
-              <Button variant="secondary" size="sm">
+              {/* <Button variant="secondary" size="sm">
                 <PencilIcon className="h-4 w-4" />
                 Add note
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
