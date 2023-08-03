@@ -10,10 +10,16 @@ export type LoanStepsProps = {
     signature: boolean;
   };
   variant?: 'link' | 'card';
-  id: string;
+  loanId: string;
+  paymentUrl?: string;
 };
 
-export const LoanSteps = ({ steps, variant, id }: LoanStepsProps) => {
+export const LoanSteps = ({
+  steps,
+  variant,
+  loanId,
+  paymentUrl,
+}: LoanStepsProps) => {
   if (!steps) return null;
   const Component = variant === 'card' ? StepCard : StepLink;
 
@@ -32,13 +38,13 @@ export const LoanSteps = ({ steps, variant, id }: LoanStepsProps) => {
     },
     payment: {
       title: 'Add payment information',
-      href: '#',
+      href: paymentUrl || `loans/${loanId}?open-stripe-portal=true`,
       order: 3,
       completed: steps.payment,
     },
     signature: {
       title: 'Sign loan agreement',
-      href: `/loan-signature?id=${id}`,
+      href: `/loan-signature?id=${loanId}`,
       order: 4,
       completed: steps.signature,
     },
