@@ -1,4 +1,3 @@
-// import { useEffect } from 'react';
 import { redirect } from 'next/navigation';
 import { Badge, BadgeProps } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
@@ -26,6 +25,7 @@ import {
   getLoan,
   getLoanTransactions,
   updateLoanPaymentMethod,
+  type Loan,
 } from '#/app/api/loans';
 import {
   setStripePaymentMethod,
@@ -68,12 +68,6 @@ export default async function Page({
       paymentMethodId: paymentMethods.docs[0].id,
     });
   }
-
-  console.log({
-    loan,
-    paymentMethods,
-    updatePaymentMethod: updatePaymentMethod ? 'true' : 'false',
-  });
 
   const {
     _id: id,

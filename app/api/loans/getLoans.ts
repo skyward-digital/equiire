@@ -44,7 +44,7 @@ export async function getLoan({ id }: { id: string }) {
   if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();
 
-  const loan = await res.json();
+  const loan = (await res.json()) as { data: Loan };
 
   if (!loan) notFound();
 
