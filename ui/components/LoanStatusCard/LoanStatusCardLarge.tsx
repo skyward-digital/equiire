@@ -63,7 +63,9 @@ export const LoanStatusCardLarge = ({
 
         {/* if account details aren't completed */}
         <div className="w-2/5 space-y-4">
-          {status === 'pending' && <LoanSteps steps={steps} variant="link" />}
+          {status === 'pending' && (
+            <LoanSteps steps={steps} variant="link" id={id} />
+          )}
           {status === 'processing' && (
             <Image src={ClockImage} alt="clock" width={448} height={289} />
           )}

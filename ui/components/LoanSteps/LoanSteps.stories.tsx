@@ -28,6 +28,7 @@ export const Card: Story = {
       signature: false,
     },
     variant: 'card',
+    id: '1234',
   },
 };
 
@@ -40,5 +41,6 @@ export const Link: Story = {
       signature: false,
     },
     variant: 'link',
+    id: '1234',
   },
 };
