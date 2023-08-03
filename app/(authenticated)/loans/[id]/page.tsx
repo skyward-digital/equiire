@@ -20,32 +20,52 @@ import {
   ReceiptPercentIcon,
   WalletIcon,
 } from '@heroicons/react/24/outline';
+import { getLoan, getLoanTransactions } from '#/app/api/loans/getLoans';
+import { Loan } from '#/app/api/loans/loans';
 
-export default function Page() {
+export default async function Page({ params }: { params: { id: string } }) {
+  const loan: Loan = await getLoan({ id: params.id });
+  // const loanTransactions = await getLoanTransactions({ id: params.id });
+
   const {
-    id,
+    _id: id,
     type,
-    value,
-    interestValue,
+    amount: value,
+    monthlyPayment,
+    creditCost: interestValue,
+    totalRepayable,
     apr,
     startDate,
     endDate,
-    transactions,
-    steps,
+    length: loanLength,
+    loanStatus,
+    // @ts-ignore
+    transactions = [],
   } = loan;
 
-  const badgeStatus = {
-    pending: 'warning',
-    processing: 'info',
-    approved: 'success',
-    rejected: 'error',
-    completed: undefined,
-  }[loan.status] as BadgeProps['type'];
+  const steps = {
+    account: true, // always true as a user cannot have a loan without an account
+    loan: true, // always true as a user cannot view a loan without a loan
+    payment: !!loan.paymentMethod,
+    signature: loan.signatureCompleted,
+  };
 
-  const paidTransactions = transactions.filter((t) => t.status === 'paid');
-  const scheduledTransactions = transactions.filter(
-    (t) => t.status === 'scheduled',
-  );
+  const status = {
+    IN_PROGRESS: 'pending',
+    REJECTED: 'rejected',
+    COMPLETED: 'completed',
+  }[loanStatus];
+
+  const badgeStatus = {
+    IN_PROGRESS: 'info',
+    REJECTED: 'error',
+    COMPLETED: undefined,
+  }[loanStatus] as BadgeProps['type'];
+
+  // const paidTransactions = transactions.filter((t) => t.status === 'paid');
+  // const scheduledTransactions = transactions.filter(
+  //   (t) => t.status === 'scheduled',
+  // );
 
   return (
     <>
@@ -59,7 +79,7 @@ export default function Page() {
 
         <div className="mb-2 flex w-full items-center justify-end">
           <Badge type={badgeStatus} dot>
-            {loan.status}
+            {status}
           </Badge>
         </div>
       </TabHeading>
@@ -86,7 +106,7 @@ export default function Page() {
                 })}
               </strong>
             </h1>
-            <ProgressCircle progress={(paidTransactions.length / 24) * 100} />
+            {/* <ProgressCircle progress={(paidTransactions.length / 24) * 100} /> */}
           </div>
 
           {/* Loan details */}
@@ -94,7 +114,9 @@ export default function Page() {
             <LoanDetailRow
               Icon={BuildingLibraryIcon}
               label="Loan type"
-              value={type}
+              value={
+                type === 'CREDIT_BUILDER' ? 'Credit Builder' : 'Standard Loan'
+              }
             />
             <LoanDetailRow Icon={HashtagIcon} label="Loan ID" value={id} />
 
@@ -112,15 +134,14 @@ export default function Page() {
             <LoanDetailRow
               Icon={ClipboardDocumentCheckIcon}
               label="Loan Length"
-              value={transactions.length}
+              value={`${loanLength} months`}
             />
             <LoanDetailRow
               Icon={CircleStackIcon}
               label="Monthly Payments"
-              value={transactions[0].value.toLocaleString('en-US', {
+              value={monthlyPayment.toLocaleString('en-US', {
                 style: 'currency',
                 currency: 'USD',
-                maximumFractionDigits: 0,
               })}
             />
 
@@ -134,7 +155,7 @@ export default function Page() {
             <LoanDetailRow
               Icon={BanknotesIcon}
               label="Total Repayable"
-              value={(value + interestValue).toLocaleString('en-US', {
+              value={totalRepayable.toLocaleString('en-US', {
                 style: 'currency',
                 currency: 'USD',
               })}
@@ -181,17 +202,18 @@ export default function Page() {
                 Download Loan Agreement
               </Button>
 
-              <Button variant="secondary" size="sm">
+              {/* <Button variant="secondary" size="sm">
                 <PencilIcon className="h-4 w-4" />
                 Add note
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
 
         {transactions.length ? (
           <div className="col-span-3 flex flex-col gap-6">
-            <TransactionCard transaction={transactions[0] as any} />
+            Needs re-implementation
+            {/* <TransactionCard transaction={transactions[0] as any} />
             <TransactionAccordion
               transactions={
                 paidTransactions.slice(1, paidTransactions.length) as any
@@ -217,7 +239,7 @@ export default function Page() {
             />
             <TransactionCard
               transaction={transactions[transactions.length - 1] as any}
-            />
+            /> */}
           </div>
         ) : (
           <div className="col-span-3 flex flex-col gap-6">
@@ -247,288 +269,4 @@ const LoanDetailRow = ({
       <p className="text-right">{value}</p>
     </div>
   );
-};
-
-const loan = {
-  id: '123456',
-  status: 'approved',
-  type: 'Standard',
-  value: 10000,
-  interestValue: 880.15,
-  apr: 8.95,
-  startDate: '2021-01-01',
-  endDate: '2023-01-01',
-  steps: {
-    loan: true,
-    account: true,
-    payment: false,
-    signature: false,
-  },
-  transactions: [
-    {
-      id: 4235324986234986,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-01-01',
-      paymentDate: '2021-01-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 1,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234987,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-02-01',
-      paymentDate: '2021-02-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 2,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234988,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-03-01',
-      paymentDate: '2021-03-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 3,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234989,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-04-01',
-      paymentDate: '2021-04-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 4,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234990,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-05-01',
-      paymentDate: '2021-05-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 5,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234991,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-06-01',
-      paymentDate: '2021-06-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 6,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234992,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-07-01',
-      paymentDate: '2021-07-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 7,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234993,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-08-01',
-      paymentDate: '2021-08-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 8,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234994,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-09-01',
-      paymentDate: '2021-09-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 9,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234995,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-10-01',
-      paymentDate: '2021-10-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 10,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234996,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-
-      scheduledDate: '2021-11-01',
-      paymentDate: '2021-11-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 11,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234997,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2021-12-01',
-      paymentDate: '2021-12-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 12,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234998,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2022-01-01',
-      paymentDate: '2022-01-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 13,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986234999,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2022-02-01',
-      paymentDate: '2022-02-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 14,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986235000,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2022-03-01',
-      paymentDate: '2022-03-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 15,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986235001,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2022-04-01',
-      paymentDate: '2022-04-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 16,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986235002,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2022-05-01',
-      paymentDate: '2022-05-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 17,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986235003,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'paid',
-      scheduledDate: '2022-06-01',
-      paymentDate: '2022-06-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 18,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986235004,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'overdue',
-      scheduledDate: '2022-07-01',
-      paymentDate: '2022-07-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 19,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986235005,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'upcoming',
-      scheduledDate: '2022-08-01',
-      paymentDate: '2022-08-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 20,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986235006,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'scheduled',
-      scheduledDate: '2022-09-01',
-      paymentDate: '2022-09-01',
-      paymentMethod: 'Credit Card',
-      transactionCount: 21,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986235007,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'scheduled',
-      scheduledDate: '2022-10-01',
-      paymentDate: undefined,
-      paymentMethod: undefined,
-      transactionCount: 22,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986235008,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'scheduled',
-      scheduledDate: '2022-11-01',
-      paymentDate: undefined,
-      paymentMethod: undefined,
-      transactionCount: 23,
-      transactionTotal: 24,
-    },
-    {
-      id: 4235324986235009,
-      title: 'Transaction Card',
-      value: 500,
-      status: 'scheduled',
-      scheduledDate: '2022-12-01',
-      paymentDate: undefined,
-      paymentMethod: undefined,
-      transactionCount: 24,
-      transactionTotal: 24,
-    },
-  ],
 };

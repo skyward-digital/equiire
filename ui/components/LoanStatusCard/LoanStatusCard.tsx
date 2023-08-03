@@ -1,35 +1,34 @@
 import { LoanStatusCardSmall } from './LoanStatusCardSmall';
 import { LoanStatusCardLarge } from './LoanStatusCardLarge';
 import { BadgeProps } from '#/ui/components/Badge';
+import { Loan } from '#/app/api/loans/loans';
 
-export type LoanProps = {
-  id: string;
-  status: string;
-  value: number;
-  startDate: string;
-  endDate?: string;
-  steps?: {
-    loan: boolean;
-    account: boolean;
-    payment: boolean;
-    signature: boolean;
+export const LoanStatusCard = ({ loan }: { loan: Loan }) => {
+  const {
+    _id: id,
+    amount: value,
+    loanStatus,
+    paymentMethod,
+    signatureCompleted,
+  } = loan;
+
+  const steps = {
+    loan: true,
+    account: true,
+    payment: !!paymentMethod,
+    signature: signatureCompleted,
   };
-};
 
-export interface LoanStatusCardProps extends LoanProps {
-  badgeStatus: BadgeProps['type'];
-}
-
-export const LoanStatusCard = ({ loan }: { loan: LoanProps }) => {
-  const { id, value, status, steps } = loan;
-  if (!status) return null;
+  const status = {
+    IN_PROGRESS: 'pending',
+    REJECTED: 'rejected',
+    COMPLETED: 'completed',
+  }[loanStatus];
 
   const badgeStatus = {
-    pending: 'warning',
-    processing: 'info',
-    approved: 'success',
-    rejected: 'error',
-    completed: undefined,
+    IN_PROGRESS: 'info',
+    REJECTED: 'error',
+    COMPLETED: undefined,
   }[status] as BadgeProps['type'];
 
   const startDate = new Date(loan.startDate).toLocaleDateString('en-US', {

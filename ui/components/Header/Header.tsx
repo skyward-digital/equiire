@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { Logo } from '#/ui/assets/Logo';
 import { DarkModeToggle } from './DarkModeToggle';
 import { UserProfile } from './UserProfile';
-import { AuthSession } from '#/lib/auth';
 import { User } from '#/app/api/profile/user';
 
 export const Header = ({ user }: { user: User }) => {

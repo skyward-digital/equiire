@@ -42,13 +42,11 @@ export const login = async (data: { email: string; password: string }) => {
 };
 
 export const logout = async () => {
-  const res = await fetch('/api/logout', {
+  await fetch('/api/logout', {
     method: 'POST',
   });
 
-  if (res.ok) {
-    await signOut({ callbackUrl: '/login' });
-  }
+  await signOut({ callbackUrl: '/login' });
 };
 
 export const forgotPassword = async (data: { email: string }) => {

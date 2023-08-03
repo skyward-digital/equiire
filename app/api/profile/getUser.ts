@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions, AuthSession } from '#/lib/auth';
 import type { User } from './user';
@@ -13,20 +13,18 @@ export async function getUser() {
   const session = (await getServerSession(authOptions)) as AuthSession;
   const { accessToken } = session.tokens;
 
-  if (!accessToken) throw new Error('Something went wrong!');
+  if (!accessToken) notFound();
 
   const res = await fetch(
     `${process.env.API_URL}/profile?access_token=${accessToken}`,
   );
 
-  if (!res.ok) throw new Error('Something went wrong!');
+  if (res.status === 401) redirect('/login');
+  if (!res.ok) notFound();
 
   const user = (await res.json()) as User;
 
-  if (!user) {
-    // Render the closest `not-found.js` Error Boundary
-    notFound();
-  }
+  if (!user) notFound();
 
   return user;
 }

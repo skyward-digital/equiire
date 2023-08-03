@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Badge } from '#/ui/components/Badge';
 import { CheckIcon } from '@heroicons/react/24/outline';
-import { LoanStatusCardProps } from './LoanStatusCard';
+import { LoanStatusCardProps } from '.';
 
 export const LoanStatusCardSmall = ({
   id,

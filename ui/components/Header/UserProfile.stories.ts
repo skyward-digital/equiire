@@ -38,7 +38,6 @@ export const Default: Story = {
       contact: 'Jane Doe',
       recordStatus: 'ACTIVE',
       paymentCustomerId: 'cus_123',
-      // __v: 0,
     },
   },
 };

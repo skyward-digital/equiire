@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Badge } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
 import { LoanSteps } from '../LoanSteps';
-import { LoanStatusCardProps } from './LoanStatusCard';
+import { LoanStatusCardProps } from '.';
 import ClockImage from '../../../public/images/clock.png';
 
 export const LoanStatusCardLarge = ({

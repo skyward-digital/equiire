@@ -1,4 +1,3 @@
-import { LoanProps } from '#/ui/components/LoanStatusCard';
 import { faker } from '@faker-js/faker';
 
 type TableProps = {
