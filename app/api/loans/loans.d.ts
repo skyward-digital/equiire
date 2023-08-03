@@ -12,7 +12,7 @@ export type Loans = {
 };
 
 export type Loan = {
-  message: 'string';
+  message: string;
   status: string;
   data: {
     _id: string;
