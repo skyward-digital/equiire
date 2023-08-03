@@ -12,7 +12,7 @@ export default function Page() {
   };
   return (
     <div className="mx-auto max-w-2xl p-10">
-      <Button onClick={onClick}>Signature</Button>
+      <Button onClick={onClick}>Loan Signature Request</Button>
     </div>
   );
 }
