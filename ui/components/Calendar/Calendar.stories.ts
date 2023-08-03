@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Calendar } from '.';
-import { subDays } from 'date-fns';
 
 const meta: Meta<typeof Calendar> = {
   title: 'Components/Calendar',
@@ -23,7 +22,10 @@ type Story = StoryObj<typeof Calendar>;
 export const Default: Story = {
   args: {
     mode: 'single',
-    selected: new Date(),
+    // Static dates so the story doesn't change every day
+    defaultMonth: new Date(2023, 0, 8),
+    today: new Date(2023, 0, 8),
+    selected: new Date(2023, 0, 8),
     // This component is only showing what it looks like at each state, it's not functional
     onSelect: () => {},
   },
@@ -32,7 +34,9 @@ export const Default: Story = {
 export const DateInPast: Story = {
   args: {
     mode: 'single',
-    selected: subDays(new Date(), 7), // seven days ago
+    defaultMonth: new Date(2023, 0, 8),
+    today: new Date(2023, 0, 8),
+    selected: new Date(2023, 0, 5),
     onSelect: () => {},
   },
 };
