@@ -19,8 +19,4 @@ export default meta;
 
 type Story = StoryObj<typeof LoanAgreement>;
 
-export const Default: Story = {
-  args: {
-    defaultOpen: true,
-  },
-};
+export const Default: Story = {};
