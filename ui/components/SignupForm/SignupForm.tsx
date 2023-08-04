@@ -6,6 +6,8 @@ import { PersonalInformationForm } from './PersonalInformationForm';
 import { AdditionalDetailsForm } from './AdditionalDetailsForm';
 import { PasswordForm } from './PasswordForm';
 import { Loan } from '#/app/(login)/sign-up/page';
+import { OtpForm } from '#/ui/components/OtpForm';
+import { useRouter } from 'next/navigation';
 
 const FORM_STEPS = [
   { title: 'Personal Information', component: PersonalInformationForm },
@@ -36,7 +38,25 @@ export function SignupForm({ loan }: { loan: Loan }) {
     postalCode: '',
     state: '',
   });
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const { component: CurrentFormComponent, title } = FORM_STEPS[step];
+  const router = useRouter();
+
+  if (formSubmitted) {
+    return (
+      <SignupCard
+        className="sm:mt-20"
+        back={() => setStep(step - 1)}
+        step={step}
+      >
+        <OtpForm
+          onSuccess={(otp) =>
+            router.push(`/confirm-email?email=${formData.email}&code=${otp}`)
+          }
+        />
+      </SignupCard>
+    );
+  }
 
   return (
     <SignupCard className="sm:mt-20" back={() => setStep(step - 1)} step={step}>
@@ -51,6 +71,7 @@ export function SignupForm({ loan }: { loan: Loan }) {
         loan={loan}
         setFormData={setFormData}
         setStep={setStep}
+        setFormSubmitted={setFormSubmitted}
       />
     </SignupCard>
   );
