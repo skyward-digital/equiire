@@ -20,12 +20,14 @@ export const LoanStatusCard = ({ loan }: { loan: Loan }) => {
   };
 
   const status = {
-    IN_PROGRESS: 'pending',
+    PENDING: 'pending',
+    IN_PROGRESS: 'active',
     REJECTED: 'rejected',
     COMPLETED: 'completed',
   }[loanStatus];
 
   const badgeStatus = {
+    PENDING: 'warning',
     IN_PROGRESS: 'info',
     REJECTED: 'error',
     COMPLETED: undefined,

@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { Badge, BadgeProps } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
 import { LoanSteps } from '#/ui/components/LoanSteps';
@@ -20,12 +21,53 @@ import {
   ReceiptPercentIcon,
   WalletIcon,
 } from '@heroicons/react/24/outline';
-import { getLoan, getLoanTransactions } from '#/app/api/loans/getLoans';
-import { Loan } from '#/app/api/loans/loans';
+import {
+  getLoan,
+  getLoanTransactions,
+  updateLoanPaymentMethod,
+  type Loan,
+} from '#/app/api/loans';
+import {
+  setStripePaymentMethod,
+  getStripePaymentMethods,
+} from '#/app/api/payments';
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const loan: Loan = await getLoan({ id: params.id });
-  // const loanTransactions = await getLoanTransactions({ id: params.id });
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: {
+    [key: string]: string | null;
+  };
+}) {
+  const [
+    loan,
+    // loanTransactions,
+    setPaymentMethod,
+    paymentMethods,
+  ] = await Promise.all([
+    getLoan({ id: params.id }),
+    // getLoanTransactions({ id: params.id }),
+    setStripePaymentMethod({
+      returnUrl: `/loans/${params.id}?update-payment-method`,
+    }),
+    getStripePaymentMethods(),
+  ]);
+
+  const openStripePortal = searchParams['open-stripe-portal'];
+  const updatePaymentMethod = searchParams['update-payment-method'];
+
+  if (openStripePortal) {
+    redirect(setPaymentMethod.url);
+  }
+
+  if (updatePaymentMethod) {
+    await updateLoanPaymentMethod({
+      loanId: params.id,
+      paymentMethodId: paymentMethods.docs[0].id,
+    });
+  }
 
   const {
     _id: id,
@@ -51,12 +93,14 @@ export default async function Page({ params }: { params: { id: string } }) {
   };
 
   const status = {
-    IN_PROGRESS: 'pending',
+    PENDING: 'pending',
+    IN_PROGRESS: 'active',
     REJECTED: 'rejected',
     COMPLETED: 'completed',
   }[loanStatus];
 
   const badgeStatus = {
+    PENDING: 'warning',
     IN_PROGRESS: 'info',
     REJECTED: 'error',
     COMPLETED: undefined,
@@ -243,7 +287,12 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
         ) : (
           <div className="col-span-3 flex flex-col gap-6">
-            <LoanSteps steps={steps} variant="card" id={id} />
+            <LoanSteps
+              steps={steps}
+              variant="card"
+              loanId={id}
+              paymentUrl={setPaymentMethod.url}
+            />
           </div>
         )}
       </div>

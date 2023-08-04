@@ -11,7 +11,7 @@ type StepProps = {
 
 export const StepCard = ({ stage, href, children }: StepProps) => {
   const completed = stage === 'complete';
-  const Component = completed ? 'p' : Link;
+  const Component = completed ? 'div' : Link;
 
   return (
     <Component

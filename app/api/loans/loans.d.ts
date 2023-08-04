@@ -36,7 +36,7 @@ export type Loan = {
   subscription: string;
   recordStatus: string; // 'ACTIVE'
   __v: number;
-  loanStatus: 'IN_PROGRESS' | 'COMPLETED' | 'REJECTED';
+  loanStatus: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'REJECTED';
 };
 
 export type LoanTransactions = {
