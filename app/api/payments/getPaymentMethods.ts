@@ -6,7 +6,7 @@ import type { PaymentMethods } from './paymentMethods';
 // will never run on the client. Even though this particular api
 // doesn't currently use sensitive environment variables, it's
 // good practise to add `server-only` preemptively.
-// import 'server-only';
+import 'server-only';
 
 export async function getStripePaymentMethods() {
   const { accessToken } = await getSession();
