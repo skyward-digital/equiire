@@ -41,19 +41,15 @@ export default async function Page({
     [key: string]: string | null;
   };
 }) {
-  const [
-    loan,
-    // loanTransactions,
-    setPaymentMethod,
-    paymentMethods,
-  ] = await Promise.all([
-    getLoan({ id: params.id }),
-    // getLoanTransactions({ id: params.id }),
-    setStripePaymentMethod({
-      returnUrl: `/loans/${params.id}?update-payment-method`,
-    }),
-    getStripePaymentMethods(),
-  ]);
+  const [loan, transactions, setPaymentMethod, paymentMethods] =
+    await Promise.all([
+      getLoan({ id: params.id }),
+      getLoanTransactions({ id: params.id }),
+      setStripePaymentMethod({
+        returnUrl: `/loans/${params.id}?update-payment-method`,
+      }),
+      getStripePaymentMethods(),
+    ]);
 
   const openStripePortal = searchParams['open-stripe-portal'];
   const updatePaymentMethod = searchParams['update-payment-method'];
@@ -82,7 +78,6 @@ export default async function Page({
     length: loanLength,
     loanStatus,
     // @ts-ignore
-    transactions = [],
   } = loan;
 
   const steps = {
@@ -105,11 +100,6 @@ export default async function Page({
     REJECTED: 'error',
     COMPLETED: undefined,
   }[loanStatus] as BadgeProps['type'];
-
-  // const paidTransactions = transactions.filter((t) => t.status === 'paid');
-  // const scheduledTransactions = transactions.filter(
-  //   (t) => t.status === 'scheduled',
-  // );
 
   return (
     <>
@@ -254,38 +244,33 @@ export default async function Page({
           </div>
         </div>
 
-        {transactions.length ? (
-          <div className="col-span-3 flex flex-col gap-6">
-            Needs re-implementation
-            {/* <TransactionCard transaction={transactions[0] as any} />
-            <TransactionAccordion
-              transactions={
-                paidTransactions.slice(1, paidTransactions.length) as any
-              }
-            />
-            <TransactionCard
-              transaction={
-                transactions.filter((t) => t.status === 'overdue')[0] as any
-              }
-            />
-            <TransactionCard
-              transaction={
-                transactions.filter((t) => t.status === 'scheduled')[0] as any
-              }
-            />
-            <TransactionAccordion
-              transactions={
-                scheduledTransactions.slice(
-                  0,
-                  scheduledTransactions.length - 1,
-                ) as any
-              }
-            />
-            <TransactionCard
-              transaction={transactions[transactions.length - 1] as any}
-            /> */}
-          </div>
+        {transactions.docs.length ? (
+          <div></div> // Needs re-implementation
         ) : (
+          // <div className="col-span-3 flex flex-col gap-6">
+          //   <TransactionCard transaction={transactions.data.first} />
+          //   <TransactionAccordion
+          //     transactions={transactions.data.history.slice(
+          //       1,
+          //       transactions.data.history.length,
+          //     )}
+          //   />
+          //   {/* <TransactionCard
+          //     transaction={
+          //       transactions.filter((t) => t.status === 'overdue')[0] as any
+          //     }
+          //   /> */}
+          //   <TransactionCard transaction={transactions.data.next} />
+          //   <TransactionAccordion
+          //     transactions={
+          //       transactions.data.scheduled.slice(
+          //         0,
+          //         transactions.data.scheduled.length - 1,
+          //       ) as any
+          //     }
+          //   />
+          //   <TransactionCard transaction={transactions.data.last} />
+          // </div>
           <div className="col-span-3 flex flex-col gap-6">
             <LoanSteps
               steps={steps}

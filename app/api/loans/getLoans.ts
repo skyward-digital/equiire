@@ -51,28 +51,6 @@ export async function getLoan({ id }: { id: string }) {
   return loan.data;
 }
 
-export async function getLoanTransactions({ id }: { id: string }) {
-  const session = (await getServerSession(authOptions)) as AuthSession;
-  const { accessToken } = session.tokens;
-
-  if (!accessToken) notFound();
-
-  const res = await fetch(
-    `${process.env.API_URL}/loans/${
-      id ? `/${id}` : '_'
-    }/future-payments?access_token=${accessToken}`,
-  );
-
-  if (res.status === 401) redirect('/login');
-  if (!res.ok) notFound();
-
-  const transactions = (await res.json()) as LoanTransactions;
-
-  if (!transactions) notFound();
-
-  return transactions.data;
-}
-
 export async function getLoanDoc({ id }: { id: string }) {
   const session = (await getServerSession(authOptions)) as AuthSession;
   const { accessToken } = session.tokens;
