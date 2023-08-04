@@ -1,6 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
 import { getBaseUrl } from '#/lib/getBaseUrl';
-import { getSession } from '#/app/api/session/getSession';
+import { getSession } from '#/app/api/session';
 import type { PaymentMethodSession } from './paymentMethodSession';
 
 // `server-only` guarantees any modules that import code in file
