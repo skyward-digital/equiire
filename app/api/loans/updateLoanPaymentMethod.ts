@@ -1,5 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { getSession } from '#/app/api/session/getSession';
+import { getSession } from '#/app/api/session/';
 import type { Loan } from './loans';
 
 // `server-only` guarantees any modules that import code in file
