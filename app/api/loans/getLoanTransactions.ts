@@ -16,18 +16,18 @@ export async function getLoanTransactions({ id }: { id: string }) {
 
   if (pastTransactionsResponse.status === 401) redirect('/login');
 
-  const pastTranactions = await pastTransactionsResponse.json();
+  const pastTransactions = await pastTransactionsResponse.json();
   const futureTransactions = await futureTransactionsResponse.json();
 
   return {
-    docs: [...pastTranactions.docs, ...futureTransactions.data],
+    docs: [...pastTransactions.docs, ...futureTransactions.data],
     data: {
-      history: pastTranactions.docs,
+      history: pastTransactions.docs,
       scheduled: futureTransactions.data,
-      first: pastTranactions.docs[0] || futureTransactions.data[0],
+      first: pastTransactions.docs[0] || futureTransactions.data[0],
       last:
         futureTransactions.data[futureTransactions.data.length - 1] ||
-        pastTranactions.docs[pastTranactions.docs.length - 1],
+        pastTransactions.docs[pastTransactions.docs.length - 1],
       next: futureTransactions[0],
     },
   };
