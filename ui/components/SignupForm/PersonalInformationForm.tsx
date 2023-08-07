@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { UserIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
-import { FormData } from './SignupForm';
+import { FormData } from '#/app/(login)/sign-up/page';
 
 export function PersonalInformationForm({
   setStep,

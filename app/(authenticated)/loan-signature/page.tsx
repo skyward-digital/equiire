@@ -1,18 +1,26 @@
-'use client';
-import { useSearchParams } from 'next/navigation';
-import { createSignatureRequest } from '#/app/api/loan-signature/createSignatureRequest';
-import { Button } from '#/ui/components/Button';
+import { notFound, redirect } from 'next/navigation';
+import { setSignRequest } from '#/app/api/loans';
+import { LoanAgreement } from '#/ui/components/LoanAgreement';
 
-export default function Page() {
-  const searchParams = useSearchParams();
-  const id = searchParams?.get('id') || '';
-
-  const onClick = () => {
-    createSignatureRequest(id);
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: {
+    [key: string]: string | null;
   };
-  return (
-    <div className="mx-auto max-w-2xl p-10">
-      <Button onClick={onClick}>Loan Signature Request</Button>
-    </div>
-  );
+}) {
+  const id = searchParams['id'] || '';
+  const closeModal = searchParams['closeModal'] || false;
+
+  if (!id) {
+    notFound();
+  }
+
+  if (closeModal) {
+    redirect(`/loans/${id}`);
+  }
+
+  const signatureDocumentUrl = (await setSignRequest(id)) as string;
+
+  return <LoanAgreement iframeUrl={signatureDocumentUrl} />;
 }

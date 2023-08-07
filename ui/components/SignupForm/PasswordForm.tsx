@@ -4,10 +4,7 @@ import { Button } from '#/ui/components/Button';
 import { signup } from '#/hooks/useAuth';
 import { Loan } from '#/app/(login)/sign-up/page';
 
-export function PasswordForm({
-  formData,
-  loan,
-}: {
+type PasswordFormProps = {
   formData: {
     email: string;
     addressLine1: string;
@@ -19,7 +16,14 @@ export function PasswordForm({
     state: string;
   };
   loan: Loan;
-}) {
+  setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export function PasswordForm({
+  formData,
+  loan,
+  setFormSubmitted,
+}: PasswordFormProps) {
   const {
     register,
     handleSubmit,
@@ -28,11 +32,10 @@ export function PasswordForm({
   } = useForm();
 
   const onSubmit = (data: any) => {
-    // Here, we'll send the data to sign up and login
-    // Once we have a valid token, we'll redirect to the dashboard
     if (data?.password) {
       signup({ ...formData, password: data.password, loan });
       // They will then need to confirm their email
+      setFormSubmitted(true);
     } else {
       console.log('Missing data');
     }
