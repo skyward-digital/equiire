@@ -25,6 +25,8 @@ import {
   getLoan,
   getLoanTransactions,
   updateLoanPaymentMethod,
+  getSignedLoanDoc,
+  setPaymentSubscription,
   type Loan,
 } from '#/app/api/loans';
 import {
@@ -59,10 +61,20 @@ export default async function Page({
   }
 
   if (updatePaymentMethod) {
-    await updateLoanPaymentMethod({
-      loanId: params.id,
-      paymentMethodId: paymentMethods.docs[0].id,
-    });
+    const [updatedLoan, signedLoanDoc] = await Promise.all([
+      updateLoanPaymentMethod({
+        loanId: params.id,
+        paymentMethodId: paymentMethods.docs[0].id,
+      }),
+      getSignedLoanDoc({ loanId: params.id }),
+    ]);
+
+    // activate the loan
+    if (signedLoanDoc.status === 'success') {
+      setPaymentSubscription({
+        loanId: params.id,
+      });
+    }
   }
 
   const {
