@@ -42,13 +42,22 @@ export function SignupForm({ loan }: { loan: Loan }) {
   const { component: CurrentFormComponent, title } = FORM_STEPS[step];
   const router = useRouter();
 
+  // What the user will see after submitting the sign up form (OTP form)
   if (formSubmitted) {
     return (
       <SignupCard
+        title="Confirm your email address"
         className="sm:mt-20"
-        back={() => setStep(step - 1)}
+        back={() => {
+          setStep(step - 1);
+          setFormSubmitted(false);
+        }}
         step={step}
       >
+        <p className="mb-8 text-center text-base text-gray-600 dark:text-gray-300">
+          We have sent you an email. You can enter the code from the email below
+          to confirm your email address.
+        </p>
         <OtpForm
           onSuccess={(otp) =>
             router.push(`/confirm-email?email=${formData.email}&code=${otp}`)
@@ -59,7 +68,12 @@ export function SignupForm({ loan }: { loan: Loan }) {
   }
 
   return (
-    <SignupCard className="sm:mt-20" back={() => setStep(step - 1)} step={step}>
+    <SignupCard
+      title="Complete your loan application"
+      className="sm:mt-20"
+      back={() => setStep(step - 1)}
+      step={step}
+    >
       <ProgressSteps
         className="mb-10"
         totalSteps={FORM_STEPS.length}

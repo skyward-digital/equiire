@@ -3,15 +3,17 @@ import Link from 'next/link';
 import { BackButton } from '#/ui/components/BackButton';
 
 export function SignupCard({
-  className,
-  children,
+  title,
   back,
   step,
+  className,
+  children,
 }: {
-  className?: string;
-  children?: React.ReactNode;
+  title: string;
   back: any;
   step: number;
+  className?: string;
+  children?: React.ReactNode;
 }) {
   return (
     <section
@@ -24,7 +26,7 @@ export function SignupCard({
         {step > 0 ? <BackButton back={back} /> : <p className="h-9 w-9"></p>}
         <div className="mt-8 max-w-md">
           <h1 className="text-brand-secondary font-brand mb-10 mt-5 text-center text-3xl font-bold dark:text-gray-300">
-            Complete your loan application
+            {title}
           </h1>
           {children}
           <p className="mt-10 text-center text-sm text-gray-600 dark:text-gray-300">
