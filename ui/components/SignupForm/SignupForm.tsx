@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { ProgressSteps } from '#/ui/components/ProgressSteps';
-import { SignupCard } from '#/ui/components/SignupCard';
+import { LoginCard } from '#/ui/components/LoginCard';
 import { PersonalInformationForm } from './PersonalInformationForm';
 import { AdditionalDetailsForm } from './AdditionalDetailsForm';
 import { PasswordForm } from './PasswordForm';
@@ -45,34 +45,30 @@ export function SignupForm({ loan }: { loan: Loan }) {
   // What the user will see after submitting the sign up form (OTP form)
   if (formSubmitted) {
     return (
-      <SignupCard
+      <LoginCard
         title="Confirm your email address"
+        description="We have sent you an email. You can enter the code from the email below to confirm your email address."
         className="sm:mt-20"
         back={() => {
-          setStep(step - 1);
+          setStep(0);
           setFormSubmitted(false);
         }}
-        step={step}
       >
-        <p className="mb-8 text-center text-base text-gray-600 dark:text-gray-300">
-          We have sent you an email. You can enter the code from the email below
-          to confirm your email address.
-        </p>
         <OtpForm
           onSuccess={(otp) =>
             router.push(`/confirm-email?email=${formData.email}&code=${otp}`)
           }
         />
-      </SignupCard>
+      </LoginCard>
     );
   }
 
   return (
-    <SignupCard
+    <LoginCard
       title="Complete your loan application"
       className="sm:mt-20"
-      back={() => setStep(step - 1)}
-      step={step}
+      back={step !== 0 ? () => setStep(step - 1) : undefined}
+      showTermsNotice
     >
       <ProgressSteps
         className="mb-10"
@@ -87,6 +83,6 @@ export function SignupForm({ loan }: { loan: Loan }) {
         setStep={setStep}
         setFormSubmitted={setFormSubmitted}
       />
-    </SignupCard>
+    </LoginCard>
   );
 }
