@@ -1,5 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { setSignatureRequest } from '#/app/api/loans';
+import { setSignRequest } from '#/app/api/loans';
 import { LoanAgreement } from '#/ui/components/LoanAgreement';
 
 export default async function Page({
@@ -20,7 +20,7 @@ export default async function Page({
     redirect(`/loans/${id}`);
   }
 
-  const signatureDocumentUrl = (await setSignatureRequest(id)) as string;
+  const signatureDocumentUrl = (await setSignRequest(id)) as string;
 
   return <LoanAgreement iframeUrl={signatureDocumentUrl} />;
 }
