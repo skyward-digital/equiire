@@ -61,7 +61,7 @@ export default async function Page({
   }
 
   if (updatePaymentMethod) {
-    const [updatedLoan, signedLoanDoc] = await Promise.all([
+    const [, signedLoanDoc] = await Promise.all([
       updateLoanPaymentMethod({
         loanId: params.id,
         paymentMethodId: paymentMethods.docs[0].id,
@@ -70,7 +70,7 @@ export default async function Page({
     ]);
 
     // activate the loan
-    if (signedLoanDoc.status === 'success') {
+    if (signedLoanDoc.success) {
       setPaymentSubscription({
         loanId: params.id,
       });

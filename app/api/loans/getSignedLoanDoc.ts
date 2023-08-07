@@ -17,7 +17,5 @@ export async function getSignedLoanDoc({ loanId }: { loanId: string }) {
   if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();
 
-  const signedLoanDoc = await res.json();
-
-  return signedLoanDoc;
+  return { success: true };
 }
