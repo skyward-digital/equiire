@@ -7,7 +7,7 @@ import { getSession } from '#/app/api/session/';
 // good practise to add `server-only` preemptively.
 import 'server-only';
 
-export async function createSignatureRequest(id: string) {
+export async function setSignatureRequest(id: string) {
   const { accessToken } = await getSession();
 
   const res = await fetch(
