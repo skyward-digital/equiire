@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { createSignatureRequest } from '#/app/api/loans';
 import { LoanAgreement } from '#/ui/components/LoanAgreement';
 
@@ -12,9 +12,9 @@ export default async function Page({
   const id = searchParams['id'] || '';
   const closeModal = searchParams['closeModal'] || false;
 
-  /* if (!id) {
-    redirect('/loans');
-  } */
+  if (!id) {
+    notFound();
+  }
 
   if (closeModal) {
     redirect(`/loans/${id}`);
