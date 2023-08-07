@@ -25,6 +25,8 @@ import {
   getLoan,
   getLoanTransactions,
   updateLoanPaymentMethod,
+  getSignedLoanDoc,
+  setPaymentSubscription,
   type Loan,
 } from '#/app/api/loans';
 import {
@@ -46,7 +48,7 @@ export default async function Page({
       getLoan({ id: params.id }),
       getLoanTransactions({ id: params.id }),
       setStripePaymentMethod({
-        returnUrl: `/loans/${params.id}?update-payment-method`,
+        returnUrl: `/loans/${params.id}?update-payment-method=true`,
       }),
       getStripePaymentMethods(),
     ]);
@@ -59,10 +61,20 @@ export default async function Page({
   }
 
   if (updatePaymentMethod) {
-    await updateLoanPaymentMethod({
-      loanId: params.id,
-      paymentMethodId: paymentMethods.docs[0].id,
-    });
+    const [, signedLoanDoc] = await Promise.all([
+      updateLoanPaymentMethod({
+        loanId: params.id,
+        paymentMethodId: paymentMethods.docs[0].id,
+      }),
+      getSignedLoanDoc({ loanId: params.id }),
+    ]);
+
+    // activate the loan
+    if (signedLoanDoc.success) {
+      setPaymentSubscription({
+        loanId: params.id,
+      });
+    }
   }
 
   const {
