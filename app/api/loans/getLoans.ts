@@ -24,7 +24,7 @@ export async function getLoans() {
 
   const loans = (await res.json()) as Loans;
 
-  if (loans?.docs.length === 0) notFound();
+  //if (loans?.docs.length === 0) notFound();
 
   return loans;
 }
