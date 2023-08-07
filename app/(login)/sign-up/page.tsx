@@ -66,6 +66,7 @@ export default function Page({ searchParams }: { searchParams: Loan }) {
     );
   }
 
+  // Default state, displays sign up form with progress steps
   return (
     <SignupForm
       step={step}
