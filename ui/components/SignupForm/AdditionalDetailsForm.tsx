@@ -4,7 +4,7 @@ import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 import { Select, SelectItem } from '#/ui/components/Select';
 import { Label } from '../Label';
-import { FormData } from './SignupForm';
+import { FormData } from '#/app/(login)/sign-up/page';
 
 export function AdditionalDetailsForm({
   setStep,

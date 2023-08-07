@@ -16,7 +16,7 @@ export type SignupFormProps = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   formData: FormData;
   loan: Loan;
-  setFormData: (formData: FormData) => void;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
