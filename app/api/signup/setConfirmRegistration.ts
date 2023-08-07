@@ -4,7 +4,7 @@
 // good practise to add `server-only` preemptively.
 import 'server-only';
 
-export async function confirmEmail({
+export async function setConfirmRegistration({
   email,
   verification,
 }: {

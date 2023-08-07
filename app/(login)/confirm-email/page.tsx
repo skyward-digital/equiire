@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { confirmEmail } from '#/app/api/signup/confirmEmail';
+import { setConfirmRegistration } from '#/app/api/signup/setConfirmRegistration';
 import { LoginCard } from '#/ui/components/LoginCard';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from '#/ui/components/Button';
@@ -18,7 +18,7 @@ export default async function ConfirmEmail({
     redirect('/sign-up');
   }
 
-  await confirmEmail({ email, verification });
+  await setConfirmRegistration({ email, verification });
 
   return (
     <LoginCard
