@@ -1,7 +1,6 @@
 'use client';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-//import { useState, useEffect } from 'react';
 
 type LoanAgreementProps = {
   iframeUrl?: string;
