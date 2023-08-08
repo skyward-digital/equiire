@@ -1,5 +1,7 @@
-import { Loan } from '#/app/(login)/sign-up/page';
 import { signIn, signOut } from 'next-auth/react';
+import formatISO from 'date-fns/formatISO';
+import parse from 'date-fns/parse';
+import { Loan } from '#/app/(login)/sign-up/page';
 
 export const signup = async (data: {
   email: string;
@@ -12,10 +14,60 @@ export const signup = async (data: {
   postalCode: string;
   state: string;
   loan: Loan;
+  phone: string;
 }) => {
+  const {
+    email,
+    password,
+    addressLine1,
+    addressLine2,
+    city,
+    state,
+    postalCode,
+    company,
+    name,
+    loan,
+    phone,
+  } = data;
+
+  // Check if the loan details are present and valid
+  if (
+    !loan ||
+    !loan.type ||
+    !loan.amount ||
+    !loan.length ||
+    !loan.monthlyPayment ||
+    !loan.startDate ||
+    !loan.endDate
+  ) {
+    throw new Error('Missing or invalid loan details. Sign up failed.');
+  }
+
   const res = await fetch('/api/signup', {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      name,
+      email,
+      address: {
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        postalCode,
+        country: 'United States',
+      },
+      phone,
+      company,
+      password,
+      loan: {
+        type: loan.type,
+        amount: parseInt(loan.amount),
+        length: parseInt(loan.length),
+        monthlyPayment: parseInt(loan.monthlyPayment),
+        startDate: formatISO(parse(loan.startDate, 'yyyy-MM-dd', new Date())),
+        endDate: formatISO(parse(loan.endDate, 'yyyy-MM-dd', new Date())),
+      },
+    }),
   });
   if (res.ok) {
     console.log(res);

@@ -2,32 +2,8 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const {
-    name,
-    email,
-    company,
-    addressLine1,
-    city,
-    state,
-    postalCode,
-    password,
-    phone,
-  } = body;
-
-  // This will come from the loan application page later
-  const loan = {
-    type: 'CREDIT_BUILDER',
-    amount: 0,
-    length: 0,
-    monthlyPayment: 0,
-    interestType: 'FIXED',
-    apr: 0,
-    totalRepayable: 0,
-    creditCost: 0,
-    startDate: '2023-07-28T10:27:32.659Z',
-    firstPayment: 'string',
-    endDate: 'string',
-  };
+  const { email, password, name, company, address, phone } = body;
+  const { addressLine1, city, state, postalCode } = address;
 
   // input validation
   if (!email) {
@@ -108,7 +84,7 @@ export async function POST(request: Request) {
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    body: JSON.stringify({ ...body, country: 'United States', loan }),
+    body: JSON.stringify(body),
   });
 
   const data = await res.json();
