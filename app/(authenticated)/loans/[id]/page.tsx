@@ -70,12 +70,14 @@ export default async function Page({
     }
 
     if (updatePaymentMethod) {
-      const updatedLoan = await updateLoanPaymentMethod({
-        loanId: params.id,
-        paymentMethodId: paymentMethods.docs[0].id,
-      });
-      // Confirms that the payment method was updated on the loan
-      paymentStepCompleted = !!updatedLoan.paymentMethod;
+      if (paymentMethods.docs.length > 0) {
+        const updatedLoan = await updateLoanPaymentMethod({
+          loanId: params.id,
+          paymentMethodId: paymentMethods.docs[0].id,
+        });
+        // Confirms that the payment method was updated on the loan
+        paymentStepCompleted = !!updatedLoan.paymentMethod;
+      }
     }
 
     // Subscribes the loan and updates loan status
@@ -90,8 +92,6 @@ export default async function Page({
       }
     }
   }
-
-  console.log(loan);
 
   const {
     _id: id,
