@@ -271,7 +271,7 @@ export default async function Page({
           </div>
         </div>
 
-        {/* Needs reimplementation with transations.docs.length when transactions are working */}
+        {/* Needs reimplementation with transactions.docs.length when transactions are working */}
         {transactions ? (
           <div></div> // Needs re-implementation
         ) : (

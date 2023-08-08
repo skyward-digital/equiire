@@ -40,7 +40,7 @@ export function LoanSummaryBox({
     terms,
     repaymentPeriod,
     scheduledPayment,
-    interestType,
+    //interestType,
     startDate,
   } = loanDetails;
 
@@ -55,15 +55,15 @@ export function LoanSummaryBox({
       : // we round up so they pay off all of the loan, this may need to be amended
         Math.ceil(parseInt(amount) / length);
 
-  const apr = 0.0895;
-  const totalRepayable = parseInt(amount) + parseInt(amount) * apr;
+  const apr = 11;
+  const totalRepayable = parseInt(amount) + parseInt(amount) * (apr / 100);
   const creditCost = totalRepayable - parseInt(amount);
   const endDate = add(startDate, {
     months: length,
   });
 
   const lengthText = length > 1 ? `${length} months` : `${length} month`;
-  const apiText = apr * 100 + '%';
+  const apiText = apr + '%';
 
   const badgeType = {
     CREDIT_BUILDER: 'warning',
@@ -255,14 +255,12 @@ export function LoanSummaryBox({
                 amount,
                 length,
                 monthlyPayment,
-                interestType,
+                startDate: format(startDate, 'yyyy-MM-dd'),
+                // we aren't passing these fields in when signing up, they are calculated automatically
+                /* interestType,
                 apr,
                 totalRepayable,
-                creditCost,
-                startDate: format(startDate, 'yyyy-MM-dd'),
-                // This date might need to change - when does the first payment come out?
-                firstPayment: format(startDate, 'yyyy-MM-dd'),
-                endDate: format(endDate, 'yyyy-MM-dd'),
+                creditCost, */
               },
             }}
           >

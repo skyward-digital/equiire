@@ -37,8 +37,7 @@ export const signup = async (data: {
     !loan.amount ||
     !loan.length ||
     !loan.monthlyPayment ||
-    !loan.startDate ||
-    !loan.endDate
+    !loan.startDate
   ) {
     throw new Error('Missing or invalid loan details. Sign up failed.');
   }
@@ -65,7 +64,6 @@ export const signup = async (data: {
         length: parseInt(loan.length),
         monthlyPayment: parseInt(loan.monthlyPayment),
         startDate: formatISO(parse(loan.startDate, 'yyyy-MM-dd', new Date())),
-        endDate: formatISO(parse(loan.endDate, 'yyyy-MM-dd', new Date())),
       },
     }),
   });
