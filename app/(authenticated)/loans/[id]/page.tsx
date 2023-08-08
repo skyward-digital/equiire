@@ -46,34 +46,50 @@ export default async function Page({
   const [loan, transactions, setPaymentMethod, paymentMethods] =
     await Promise.all([
       getLoan({ id: params.id }),
-      getLoanTransactions({ id: params.id }),
+      // transactions are currently returning a 500 error in the backend
+      null,
+      //getLoanTransactions({ id: params.id }),
       setStripePaymentMethod({
         returnUrl: `/loans/${params.id}?update-payment-method=true`,
       }),
       getStripePaymentMethods(),
     ]);
 
+  // We are changing some of these variables after certain processes have finished
+  let paymentStepCompleted = !!loan.paymentMethod;
+  let loanStatus = loan.loanStatus;
+  const loanAgreementSigned = loan.signatureCompleted;
+
   const openStripePortal = searchParams['open-stripe-portal'];
   const updatePaymentMethod = searchParams['update-payment-method'];
 
-  if (openStripePortal) {
-    redirect(setPaymentMethod.url);
-  }
+  // Completes the loan steps for pending loans
+  if (loan.loanStatus === 'PENDING') {
+    if (openStripePortal) {
+      redirect(setPaymentMethod.url);
+    }
 
-  if (updatePaymentMethod) {
-    const [, signedLoanDoc] = await Promise.all([
-      updateLoanPaymentMethod({
-        loanId: params.id,
-        paymentMethodId: paymentMethods.docs[0].id,
-      }),
-      getSignedLoanDoc({ loanId: params.id }),
-    ]);
+    if (updatePaymentMethod) {
+      if (paymentMethods.docs.length > 0) {
+        const updatedLoan = await updateLoanPaymentMethod({
+          loanId: params.id,
+          paymentMethodId: paymentMethods.docs[0].id,
+        });
+        // Confirms that the payment method was updated on the loan
+        paymentStepCompleted = !!updatedLoan.paymentMethod;
+      }
+    }
 
-    // activate the loan
-    if (signedLoanDoc.success) {
-      setPaymentSubscription({
-        loanId: params.id,
-      });
+    // Subscribes the loan and updates loan status
+    if (paymentStepCompleted && loanAgreementSigned) {
+      // Does a final check for signed loan document
+      const signedLoanDoc = await getSignedLoanDoc({ loanId: params.id });
+      if (signedLoanDoc.success) {
+        const subscribedLoan = await setPaymentSubscription({
+          loanId: params.id,
+        });
+        loanStatus = subscribedLoan.loanStatus;
+      }
     }
   }
 
@@ -88,15 +104,14 @@ export default async function Page({
     startDate,
     endDate,
     length: loanLength,
-    loanStatus,
     // @ts-ignore
   } = loan;
 
   const steps = {
     account: true, // always true as a user cannot have a loan without an account
     loan: true, // always true as a user cannot view a loan without a loan
-    payment: !!loan.paymentMethod,
-    signature: loan.signatureCompleted,
+    payment: paymentStepCompleted,
+    signature: loanAgreementSigned,
   };
 
   const status = {
@@ -256,7 +271,8 @@ export default async function Page({
           </div>
         </div>
 
-        {transactions.docs.length ? (
+        {/* Needs reimplementation with transactions.docs.length when transactions are working */}
+        {transactions ? (
           <div></div> // Needs re-implementation
         ) : (
           // <div className="col-span-3 flex flex-col gap-6">

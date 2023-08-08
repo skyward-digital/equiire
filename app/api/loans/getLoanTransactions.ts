@@ -16,9 +16,13 @@ export async function getLoanTransactions({ id }: { id: string }) {
 
   if (pastTransactionsResponse.status === 401) redirect('/login');
 
+  if (!pastTransactionsResponse.ok)
+    throw new Error('Error fetching past transactions');
+  if (!futureTransactionsResponse.ok)
+    throw new Error('Error fetching future transactions');
+
   const pastTransactions = await pastTransactionsResponse.json();
   const futureTransactions = await futureTransactionsResponse.json();
-
   return {
     docs: [...pastTransactions.docs, ...futureTransactions.data],
     data: {

@@ -15,7 +15,19 @@ export async function getSignedLoanDoc({ loanId }: { loanId: string }) {
   );
 
   if (res.status === 401) redirect('/login');
-  if (!res.ok) notFound();
+  if (!res.ok) {
+    // Handles in case loan document isn't signed yet
+    try {
+      const response = await res.json();
 
+      if (response.status == 'fail') {
+        return { success: false, message: response.message };
+      }
+    } catch (e) {
+      // Handles other errors
+      console.log(e);
+      notFound();
+    }
+  }
   return { success: true };
 }

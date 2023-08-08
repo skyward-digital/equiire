@@ -28,6 +28,7 @@ export interface FormData {
   name: string;
   postalCode: string;
   state: string;
+  phone: string;
 }
 
 export default function Page({ searchParams }: { searchParams: Loan }) {
@@ -41,6 +42,7 @@ export default function Page({ searchParams }: { searchParams: Loan }) {
     name: '',
     postalCode: '',
     state: '',
+    phone: '',
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const router = useRouter();

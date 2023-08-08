@@ -21,7 +21,7 @@ export async function setSignRequest(id: string) {
   );
 
   if (res.status === 401) redirect('/login');
-  if (!res.ok) notFound();
+  if (!res.ok) throw new Error('Failed to create sign request');
 
   const response = await res.json();
 

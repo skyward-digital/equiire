@@ -13,6 +13,12 @@ export async function setPaymentSubscription({ loanId }: { loanId: string }) {
 
   const res = await fetch(
     `${process.env.API_URL}/loans/${loanId}/subscribe?access_token=${accessToken}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    },
   );
 
   if (res.status === 401) redirect('/login');

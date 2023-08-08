@@ -2,19 +2,10 @@ import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 import { signup } from '#/hooks/useAuth';
-import { Loan } from '#/app/(login)/sign-up/page';
+import { FormData, Loan } from '#/app/(login)/sign-up/page';
 
 type PasswordFormProps = {
-  formData: {
-    email: string;
-    addressLine1: string;
-    addressLine2?: string;
-    city: string;
-    company: string;
-    name: string;
-    postalCode: string;
-    state: string;
-  };
+  formData: FormData;
   loan: Loan;
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 };

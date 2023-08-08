@@ -33,6 +33,7 @@ function StoryRender(
     name: '',
     postalCode: '',
     state: '',
+    phone: '',
   });
   return (
     <SignupForm

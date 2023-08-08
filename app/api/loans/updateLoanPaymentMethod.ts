@@ -29,13 +29,10 @@ export async function updateLoanPaymentMethod({
       }),
     },
   );
-
   if (res.status === 401) redirect('/login');
-  if (!res.ok) notFound();
+  if (!res.ok) throw new Error('Failed to update payment method');
 
-  const loan = (await res.json()) as Loan;
+  const loan = (await res.json()) as { data: Loan };
 
-  console.log(loan);
-
-  return loan;
+  return loan.data;
 }
