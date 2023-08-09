@@ -22,7 +22,6 @@ type Story = StoryObj<typeof TransactionCard>;
 
 const transaction = {
   id: 4235324986234986,
-  title: 'Transaction Card',
   amount: 500,
   status: 'paid',
   date: '2021-01-01',
@@ -33,6 +32,7 @@ const transaction = {
 
 const args = {
   transactionTotal: 48,
+  title: 'Transaction Card',
 };
 
 export const Default: Story = {

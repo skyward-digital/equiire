@@ -43,16 +43,15 @@ export default async function Page({
     [key: string]: string | null;
   };
 }) {
-  const [loan, setPaymentMethod, paymentMethods] = await Promise.all([
-    getLoan({ id: params.id }),
-    setStripePaymentMethod({
-      returnUrl: `/loans/${params.id}?update-payment-method=true`,
-    }),
-    getStripePaymentMethods(),
-  ]);
-
-  // We will need to refetch transactions when loan is subscribed
-  let transactions = await getLoanTransactions({ id: params.id });
+  let [loan, transactions, setPaymentMethod, paymentMethods] =
+    await Promise.all([
+      getLoan({ id: params.id }),
+      await getLoanTransactions({ id: params.id }),
+      setStripePaymentMethod({
+        returnUrl: `/loans/${params.id}?update-payment-method=true`,
+      }),
+      getStripePaymentMethods(),
+    ]);
 
   // We are changing some of these variables after certain processes have finished
   let paymentStepCompleted = !!loan.paymentMethod;
@@ -276,6 +275,7 @@ export default async function Page({
             <TransactionCard
               transaction={transactions.data.first}
               transactionTotal={transactions.docs.length}
+              title="First Payment"
             />
             {/* Paid transactions */}
             {transactions.data.history.length > 0 && (
@@ -291,9 +291,9 @@ export default async function Page({
                 {/* Shows next payment if the "next" payment isn't the first payment */}
                 {transactions.data.next.transactionCount !== 1 && (
                   <TransactionCard
-                    next
                     transaction={transactions.data.next}
                     transactionTotal={transactions.docs.length}
+                    title="Next Payment"
                   />
                 )}
                 <TransactionAccordion
@@ -309,33 +309,10 @@ export default async function Page({
             <TransactionCard
               transaction={transactions.data.last}
               transactionTotal={transactions.docs.length}
+              title="Last Payment"
             />
           </div> // Needs re-implementation
         ) : (
-          // <div className="col-span-3 flex flex-col gap-6">
-          //   <TransactionCard transaction={transactions.data.first} />
-          //   <TransactionAccordion
-          //     transactions={transactions.data.history.slice(
-          //       1,
-          //       transactions.data.history.length,
-          //     )}
-          //   />
-          //   {/* <TransactionCard
-          //     transaction={
-          //       transactions.filter((t) => t.status === 'overdue')[0] as any
-          //     }
-          //   /> */}
-          //   <TransactionCard transaction={transactions.data.next} />
-          //   <TransactionAccordion
-          //     transactions={
-          //       transactions.data.scheduled.slice(
-          //         0,
-          //         transactions.data.scheduled.length - 1,
-          //       ) as any
-          //     }
-          //   />
-          //   <TransactionCard transaction={transactions.data.last} />
-          // </div>
           <div className="col-span-3 flex flex-col gap-6">
             <LoanSteps
               steps={steps}

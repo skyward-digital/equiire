@@ -24,7 +24,6 @@ export const TransactionAccordion = ({
     overdue: 'overdue',
     SCHEDULED: 'scheduled',
   }[transactionStatus];
-  console.log(transactions);
 
   const statusText = {
     paid: transactions.length > 1 ? 'Payments' : 'Payment',
@@ -82,6 +81,11 @@ export const TransactionAccordion = ({
               key={transaction.transactionCount}
               transaction={transaction}
               transactionTotal={transactionTotal}
+              title={
+                transaction.status === 'SCHEDULED'
+                  ? 'Scheduled Payment'
+                  : 'Payment'
+              }
             />
           ))}
         </div>

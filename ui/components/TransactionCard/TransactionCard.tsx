@@ -19,14 +19,14 @@ export interface TransactionCardProps {
   transaction: TransactionProps;
   expandedDefault?: boolean;
   transactionTotal: number;
-  next?: boolean;
+  title: string;
 }
 
 export const TransactionCard = ({
   transaction,
   expandedDefault,
   transactionTotal,
-  next,
+  title,
 }: TransactionCardProps) => {
   const {
     id,
@@ -67,17 +67,6 @@ export const TransactionCard = ({
   }[status];
 
   const [expanded, setExpanded] = useState(expandedDefault || false);
-
-  const title =
-    transactionCount === 1
-      ? 'First Payment'
-      : transactionCount === transactionTotal
-      ? 'Last Payment'
-      : next
-      ? 'Next Payment'
-      : status === 'scheduled'
-      ? 'Scheduled Payment'
-      : 'Payment';
 
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-800 dark:bg-black">

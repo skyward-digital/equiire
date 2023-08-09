@@ -22,7 +22,6 @@ type Story = StoryObj<typeof TransactionAccordion>;
 
 const transaction = {
   id: 4235324986234986,
-  title: 'Transaction Card',
   amount: 500,
   status: 'paid',
   date: '2021-01-01',
