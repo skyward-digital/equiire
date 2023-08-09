@@ -50,9 +50,10 @@ export default async function Page({
     }),
     getStripePaymentMethods(),
   ]);
+
   // We will need to refetch transactions when loan is subscribed
   let transactions = await getLoanTransactions({ id: params.id });
-  console.log(transactions);
+
   // We are changing some of these variables after certain processes have finished
   let paymentStepCompleted = !!loan.paymentMethod;
   let loanStatus = loan.loanStatus;
