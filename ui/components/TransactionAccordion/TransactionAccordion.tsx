@@ -24,6 +24,7 @@ export const TransactionAccordion = ({
     overdue: 'overdue',
     SCHEDULED: 'scheduled',
   }[transactionStatus];
+  console.log(transactions);
 
   const statusText = {
     paid: transactions.length > 1 ? 'Payments' : 'Payment',
@@ -78,7 +79,7 @@ export const TransactionAccordion = ({
         <div className="mt-8 grid gap-4 px-10">
           {transactions.map((transaction) => (
             <TransactionCard
-              key={transaction.id}
+              key={transaction.transactionCount}
               transaction={transaction}
               transactionTotal={transactionTotal}
             />
