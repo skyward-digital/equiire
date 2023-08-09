@@ -43,18 +43,16 @@ export default async function Page({
     [key: string]: string | null;
   };
 }) {
-  const [loan, transactions, setPaymentMethod, paymentMethods] =
-    await Promise.all([
-      getLoan({ id: params.id }),
-      // transactions are currently returning a 500 error in the backend
-      null,
-      //getLoanTransactions({ id: params.id }),
-      setStripePaymentMethod({
-        returnUrl: `/loans/${params.id}?update-payment-method=true`,
-      }),
-      getStripePaymentMethods(),
-    ]);
-
+  const [loan, setPaymentMethod, paymentMethods] = await Promise.all([
+    getLoan({ id: params.id }),
+    setStripePaymentMethod({
+      returnUrl: `/loans/${params.id}?update-payment-method=true`,
+    }),
+    getStripePaymentMethods(),
+  ]);
+  // We will need to refetch transactions when loan is subscribed
+  let transactions = await getLoanTransactions({ id: params.id });
+  console.log(transactions);
   // We are changing some of these variables after certain processes have finished
   let paymentStepCompleted = !!loan.paymentMethod;
   let loanStatus = loan.loanStatus;
@@ -89,6 +87,7 @@ export default async function Page({
           loanId: params.id,
         });
         loanStatus = subscribedLoan.loanStatus;
+        transactions = await getLoanTransactions({ id: params.id });
       }
     }
   }
@@ -271,9 +270,46 @@ export default async function Page({
           </div>
         </div>
 
-        {/* Needs reimplementation with transactions.docs.length when transactions are working */}
-        {transactions ? (
-          <div></div> // Needs re-implementation
+        {transactions.docs.length ? (
+          <div className="col-span-3 flex flex-col gap-6">
+            <TransactionCard
+              transaction={transactions.data.first}
+              transactionTotal={transactions.docs.length}
+            />
+            {/* Paid transactions */}
+            {transactions.data.history.length > 0 && (
+              <TransactionAccordion
+                transactions={transactions.data.history}
+                transactionTotal={transactions.docs.length}
+              />
+            )}
+
+            {/* Scheduled transactions */}
+            {transactions.data.scheduled.length > 0 && (
+              <>
+                {/* Shows next payment if the "next" payment isn't the first payment */}
+                {transactions.data.next.transactionCount !== 1 && (
+                  <TransactionCard
+                    next
+                    transaction={transactions.data.next}
+                    transactionTotal={transactions.docs.length}
+                  />
+                )}
+                <TransactionAccordion
+                  transactions={transactions.data.scheduled.slice(
+                    1,
+                    transactions.data.scheduled.length - 1,
+                  )}
+                  transactionTotal={transactions.docs.length}
+                />
+              </>
+            )}
+
+            <TransactionCard
+              transaction={transactions.data.last}
+              transactionTotal={transactions.docs.length}
+            />
+          </div> // Needs re-implementation
         ) : (
           // <div className="col-span-3 flex flex-col gap-6">
           //   <TransactionCard transaction={transactions.data.first} />

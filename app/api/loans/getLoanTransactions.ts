@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getSession } from '#/app/api/session/getSession';
+import { LoanTransaction } from './loans';
 
 export async function getLoanTransactions({ id }: { id: string }) {
   const { accessToken } = await getSession();
@@ -21,17 +22,30 @@ export async function getLoanTransactions({ id }: { id: string }) {
   if (!futureTransactionsResponse.ok)
     throw new Error('Error fetching future transactions');
 
-  const pastTransactions = await pastTransactionsResponse.json();
-  const futureTransactions = await futureTransactionsResponse.json();
+  const pastTransactionsJson = await pastTransactionsResponse.json();
+  const futureTransactionsJson = await futureTransactionsResponse.json();
+
+  const pastTransactions = pastTransactionsJson.docs.map(
+    (transaction: LoanTransaction, index: number) => ({
+      ...transaction,
+      transactionCount: index + 1,
+    }),
+  );
+  const futureTransactions = futureTransactionsJson.data.map(
+    (transaction: LoanTransaction, index: number) => ({
+      ...transaction,
+      transactionCount: index + pastTransactions.length + 1,
+    }),
+  );
   return {
-    docs: [...pastTransactions.docs, ...futureTransactions.data],
+    docs: [...pastTransactions, ...futureTransactions],
     data: {
-      history: pastTransactions.docs,
-      scheduled: futureTransactions.data,
-      first: pastTransactions.docs[0] || futureTransactions.data[0],
+      history: pastTransactions,
+      scheduled: futureTransactions,
+      first: pastTransactions[0] || futureTransactions[0],
       last:
-        futureTransactions.data[futureTransactions.data.length - 1] ||
-        pastTransactions.docs[pastTransactions.docs.length - 1],
+        futureTransactions[futureTransactions.length - 1] ||
+        pastTransactions[pastTransactions.length - 1],
       next: futureTransactions[0],
     },
   };

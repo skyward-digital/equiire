@@ -7,35 +7,43 @@ import { Badge, type BadgeProps } from '../Badge';
 export interface TransactionProps {
   id: number | string;
   title: string;
-  value: number;
-  status: 'paid' | 'upcoming' | 'scheduled' | 'overdue';
-  scheduledDate: Date | string;
+  amount: number;
+  status: 'paid' | 'upcoming' | 'SCHEDULED' | 'overdue';
+  date: Date | string;
   paymentDate?: Date | string;
   paymentMethod?: 'Bank Transfer' | 'Credit Card';
   transactionCount: number;
-  transactionTotal: number;
 }
 
 export interface TransactionCardProps {
   transaction: TransactionProps;
   expandedDefault?: boolean;
+  transactionTotal: number;
+  next?: boolean;
 }
 
 export const TransactionCard = ({
   transaction,
   expandedDefault,
+  transactionTotal,
+  next,
 }: TransactionCardProps) => {
   const {
     id,
-    title,
-    value,
-    scheduledDate,
+    amount,
+    date,
     paymentDate,
-    status,
+    status: transactionStatus,
     paymentMethod,
     transactionCount,
-    transactionTotal,
   } = transaction;
+
+  const status = {
+    paid: 'paid',
+    upcoming: 'upcoming',
+    overdue: 'overdue',
+    SCHEDULED: 'scheduled',
+  }[transactionStatus];
 
   const badgeStatus = {
     paid: 'success',
@@ -59,6 +67,17 @@ export const TransactionCard = ({
   }[status];
 
   const [expanded, setExpanded] = useState(expandedDefault || false);
+
+  const title =
+    transactionCount === 1
+      ? 'First Payment'
+      : transactionCount === transactionTotal
+      ? 'Last Payment'
+      : next
+      ? 'Next Payment'
+      : status === 'scheduled'
+      ? 'Scheduled Payment'
+      : 'Payment';
 
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-800 dark:bg-black">
@@ -88,7 +107,7 @@ export const TransactionCard = ({
               {status}
             </Badge>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {new Date(scheduledDate).toLocaleDateString('en-US', {
+              {new Date(date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric',
@@ -97,7 +116,7 @@ export const TransactionCard = ({
           </div>
         </div>
         <p className="font-brand -mb-2 text-5xl font-semibold text-gray-800 dark:text-white">
-          {value.toLocaleString('en-US', {
+          {amount.toLocaleString('en-US', {
             style: 'currency',
             currency: 'USD',
           })}
