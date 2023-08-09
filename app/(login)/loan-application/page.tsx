@@ -88,7 +88,7 @@ export default function Page() {
   }, [terms, type]);
 
   return (
-    <div className="mx-auto flex flex-col justify-center gap-10 sm:mt-20 sm:flex-row">
+    <div className="mx-auto flex flex-col justify-center sm:mt-20 sm:flex-row lg:gap-10">
       {step === 0 && (
         <LoanCalculator
           setStep={setStep}
@@ -100,7 +100,7 @@ export default function Page() {
         size={step === 0 ? 'sm' : 'lg'}
         loanDetails={loanDetails}
         setLoanDetails={setLoanDetails}
-        className={clsx({ 'hidden sm:grid': step === 0, 'w-full': step === 1 })}
+        className={clsx({ 'hidden lg:grid': step === 0, 'w-full': step === 1 })}
         step={step}
         setStep={setStep}
       />

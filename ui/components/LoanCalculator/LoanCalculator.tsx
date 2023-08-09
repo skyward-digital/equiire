@@ -80,7 +80,7 @@ export function LoanCalculator({
   }[type as 'CREDIT_BUILDER' | 'STANDARD'];
 
   return (
-    <section className="dark:border-brand-secondary flex max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 py-8 dark:bg-black sm:border sm:border-gray-100 sm:px-8 sm:py-16 sm:shadow-sm">
+    <section className="dark:border-brand-secondary flex max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 py-8 dark:bg-black md:border md:border-gray-100 md:px-8 md:py-16 md:shadow-sm">
       <h2 className="font-brand flex flex-col text-3xl tracking-tight text-gray-400 dark:text-gray-300 sm:block sm:text-4xl">
         <span className="font-semibold text-gray-600 dark:text-gray-100">
           Tailor Your Loan
@@ -110,6 +110,7 @@ export function LoanCalculator({
               })
             }
             ariaLabel="Loan Type"
+            className="mx-auto sm:mx-0"
           />
         </div>
         {/* Loan description */}
@@ -153,6 +154,7 @@ export function LoanCalculator({
             onChange={(value) =>
               setLoanDetails({ ...loanDetails, terms: value })
             }
+            className="mx-auto sm:mx-0"
           />
         </div>
         {/* Scheduled payment */}
@@ -207,7 +209,7 @@ export function LoanCalculator({
           </div>
         )}
         <Button
-          className="sm:hidden"
+          className="lg:hidden"
           variant="primary"
           onClick={() => setStep((step: number) => step + 1)}
         >

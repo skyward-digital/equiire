@@ -84,10 +84,10 @@ export function LoanSummaryBox({
     <section
       className={clsx(
         className,
-        'grid rounded-lg bg-white dark:bg-black sm:shadow-sm',
+        'grid rounded-lg bg-white dark:bg-black md:shadow-sm',
         {
           'max-w-4xl': size === 'lg',
-          'max-w-md px-14 py-14': size === 'sm',
+          'max-w-lg px-14 py-14': size === 'sm',
         },
       )}
     >

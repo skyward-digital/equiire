@@ -13,6 +13,7 @@ export type RadioGroupProps = {
   onChange: (value: string) => void;
   options: [Option, Option];
   ariaLabel?: string;
+  className?: string;
 };
 
 export function RadioGroup({
@@ -21,6 +22,7 @@ export function RadioGroup({
   options,
   ariaLabel,
   id,
+  className,
 }: RadioGroupProps) {
   const { label: leftLabel, value: leftValue } = options[0];
   const { label: rightLabel, value: rightValue } = options[1];
@@ -29,7 +31,7 @@ export function RadioGroup({
     <RadioGroupPrimitive.Root
       aria-label={ariaLabel}
       onValueChange={onChange}
-      className="flex"
+      className={clsx(className, 'flex')}
       id={id}
     >
       <RadioGroupPrimitive.Item
