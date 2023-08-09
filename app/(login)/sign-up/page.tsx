@@ -2,21 +2,16 @@
 import { SignupForm } from '#/ui/components/SignupForm';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { LoginCard } from '#/ui/components/LoginCard';
 import { OtpForm } from '#/ui/components/OtpForm';
 
 export interface Loan {
-  type: 'CREDIT_BUILDER' | 'STANDARD';
-  amount: string;
-  length: string;
-  monthlyPayment: string;
-  interestType: 'FIXED' | 'VARIABLE';
-  apr: string;
-  totalRepayable: string;
-  creditCost: string;
-  startDate: string;
-  firstPayment: string;
-  endDate: string;
+  type?: string | null;
+  amount?: string | null;
+  length?: string | null;
+  monthlyPayment?: string | null;
+  startDate?: string | null;
 }
 
 export interface FormData {
@@ -31,7 +26,7 @@ export interface FormData {
   phone: string;
 }
 
-export default function Page({ searchParams }: { searchParams: Loan }) {
+export default function Page() {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     email: '',
@@ -46,6 +41,15 @@ export default function Page({ searchParams }: { searchParams: Loan }) {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const loan = {
+    type: searchParams?.get('type'),
+    amount: searchParams?.get('amount'),
+    length: searchParams?.get('length'),
+    monthlyPayment: searchParams?.get('monthlyPayment'),
+    startDate: searchParams?.get('startDate'),
+  };
 
   // What the user will see after submitting the sign up form (OTP form)
   if (formSubmitted) {
@@ -74,7 +78,7 @@ export default function Page({ searchParams }: { searchParams: Loan }) {
       step={step}
       setStep={setStep}
       formData={formData}
-      loan={searchParams}
+      loan={loan}
       setFormData={setFormData}
       setFormSubmitted={setFormSubmitted}
     />
