@@ -22,24 +22,29 @@ type Story = StoryObj<typeof TransactionCard>;
 
 const transaction = {
   id: 4235324986234986,
-  title: 'Transaction Card',
-  value: 500,
+  amount: 500,
   status: 'paid',
-  scheduledDate: '2021-01-01',
+  date: '2021-01-01',
   paymentDate: '2021-01-01',
   paymentMethod: 'Credit Card',
   transactionCount: 5,
-  transactionTotal: 48,
 } as TransactionProps;
+
+const args = {
+  transactionTotal: 48,
+  title: 'Transaction Card',
+};
 
 export const Default: Story = {
   args: {
+    ...args,
     transaction,
   },
 };
 
 export const Expanded: Story = {
   args: {
+    ...args,
     transaction,
     expandedDefault: true,
   },
@@ -47,6 +52,7 @@ export const Expanded: Story = {
 
 export const Paid: Story = {
   args: {
+    ...args,
     transaction: {
       ...transaction,
       status: 'paid',
@@ -56,6 +62,7 @@ export const Paid: Story = {
 
 export const Upcoming: Story = {
   args: {
+    ...args,
     transaction: {
       ...transaction,
       status: 'upcoming',
@@ -65,15 +72,17 @@ export const Upcoming: Story = {
 
 export const Scheduled: Story = {
   args: {
+    ...args,
     transaction: {
       ...transaction,
-      status: 'scheduled',
+      status: 'SCHEDULED',
     },
   },
 };
 
 export const Overdue: Story = {
   args: {
+    ...args,
     transaction: {
       ...transaction,
       status: 'overdue',

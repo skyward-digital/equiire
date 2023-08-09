@@ -43,12 +43,10 @@ export default async function Page({
     [key: string]: string | null;
   };
 }) {
-  const [loan, transactions, setPaymentMethod, paymentMethods] =
+  let [loan, transactions, setPaymentMethod, paymentMethods] =
     await Promise.all([
       getLoan({ id: params.id }),
-      // transactions are currently returning a 500 error in the backend
-      null,
-      //getLoanTransactions({ id: params.id }),
+      await getLoanTransactions({ id: params.id }),
       setStripePaymentMethod({
         returnUrl: `/loans/${params.id}?update-payment-method=true`,
       }),
@@ -89,6 +87,7 @@ export default async function Page({
           loanId: params.id,
         });
         loanStatus = subscribedLoan.loanStatus;
+        transactions = await getLoanTransactions({ id: params.id });
       }
     }
   }
@@ -271,34 +270,49 @@ export default async function Page({
           </div>
         </div>
 
-        {/* Needs reimplementation with transactions.docs.length when transactions are working */}
-        {transactions ? (
-          <div></div> // Needs re-implementation
+        {transactions.docs.length ? (
+          <div className="col-span-3 flex flex-col gap-6">
+            <TransactionCard
+              transaction={transactions.data.first}
+              transactionTotal={transactions.docs.length}
+              title="First Payment"
+            />
+            {/* Paid transactions */}
+            {transactions.data.history.length > 0 && (
+              <TransactionAccordion
+                transactions={transactions.data.history}
+                transactionTotal={transactions.docs.length}
+              />
+            )}
+
+            {/* Scheduled transactions */}
+            {transactions.data.scheduled.length > 0 && (
+              <>
+                {/* Shows next payment if the "next" payment isn't the first payment */}
+                {transactions.data.next.transactionCount !== 1 && (
+                  <TransactionCard
+                    transaction={transactions.data.next}
+                    transactionTotal={transactions.docs.length}
+                    title="Next Payment"
+                  />
+                )}
+                <TransactionAccordion
+                  transactions={transactions.data.scheduled.slice(
+                    1,
+                    transactions.data.scheduled.length - 1,
+                  )}
+                  transactionTotal={transactions.docs.length}
+                />
+              </>
+            )}
+
+            <TransactionCard
+              transaction={transactions.data.last}
+              transactionTotal={transactions.docs.length}
+              title="Last Payment"
+            />
+          </div> // Needs re-implementation
         ) : (
-          // <div className="col-span-3 flex flex-col gap-6">
-          //   <TransactionCard transaction={transactions.data.first} />
-          //   <TransactionAccordion
-          //     transactions={transactions.data.history.slice(
-          //       1,
-          //       transactions.data.history.length,
-          //     )}
-          //   />
-          //   {/* <TransactionCard
-          //     transaction={
-          //       transactions.filter((t) => t.status === 'overdue')[0] as any
-          //     }
-          //   /> */}
-          //   <TransactionCard transaction={transactions.data.next} />
-          //   <TransactionAccordion
-          //     transactions={
-          //       transactions.data.scheduled.slice(
-          //         0,
-          //         transactions.data.scheduled.length - 1,
-          //       ) as any
-          //     }
-          //   />
-          //   <TransactionCard transaction={transactions.data.last} />
-          // </div>
           <div className="col-span-3 flex flex-col gap-6">
             <LoanSteps
               steps={steps}

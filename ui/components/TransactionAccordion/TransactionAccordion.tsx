@@ -7,14 +7,23 @@ import { TransactionCard, TransactionProps } from '../TransactionCard';
 export interface TransactionGroupProps {
   transactions: TransactionProps[];
   expandedDefault?: boolean;
+  transactionTotal: number;
 }
 
 export const TransactionAccordion = ({
   transactions,
   expandedDefault,
+  transactionTotal,
 }: TransactionGroupProps) => {
   // All statuses should be the same for all transactions in the group
-  const status = transactions[0].status;
+  const transactionStatus = transactions[0].status;
+
+  const status = {
+    paid: 'paid',
+    upcoming: 'upcoming',
+    overdue: 'overdue',
+    SCHEDULED: 'scheduled',
+  }[transactionStatus];
 
   const statusText = {
     paid: transactions.length > 1 ? 'Payments' : 'Payment',
@@ -68,7 +77,16 @@ export const TransactionAccordion = ({
       {expanded && (
         <div className="mt-8 grid gap-4 px-10">
           {transactions.map((transaction) => (
-            <TransactionCard key={transaction.id} transaction={transaction} />
+            <TransactionCard
+              key={transaction.transactionCount}
+              transaction={transaction}
+              transactionTotal={transactionTotal}
+              title={
+                transaction.status === 'SCHEDULED'
+                  ? 'Scheduled Payment'
+                  : 'Payment'
+              }
+            />
           ))}
         </div>
       )}

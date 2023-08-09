@@ -22,15 +22,17 @@ type Story = StoryObj<typeof TransactionAccordion>;
 
 const transaction = {
   id: 4235324986234986,
-  title: 'Transaction Card',
-  value: 500,
+  amount: 500,
   status: 'paid',
-  scheduledDate: '2021-01-01',
+  date: '2021-01-01',
   paymentDate: '2021-01-01',
   paymentMethod: 'Credit Card',
   transactionCount: 5,
-  transactionTotal: 48,
 } as TransactionProps;
+
+const args = {
+  transactionTotal: 48,
+};
 
 const transactions = [
   transaction,
@@ -46,12 +48,14 @@ const transactions = [
 
 export const Default: Story = {
   args: {
+    ...args,
     transactions,
   },
 };
 
 export const Expanded: Story = {
   args: {
+    ...args,
     transactions,
     expandedDefault: true,
   },

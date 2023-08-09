@@ -7,35 +7,43 @@ import { Badge, type BadgeProps } from '../Badge';
 export interface TransactionProps {
   id: number | string;
   title: string;
-  value: number;
-  status: 'paid' | 'upcoming' | 'scheduled' | 'overdue';
-  scheduledDate: Date | string;
+  amount: number;
+  status: 'paid' | 'upcoming' | 'SCHEDULED' | 'overdue';
+  date: Date | string;
   paymentDate?: Date | string;
   paymentMethod?: 'Bank Transfer' | 'Credit Card';
   transactionCount: number;
-  transactionTotal: number;
 }
 
 export interface TransactionCardProps {
   transaction: TransactionProps;
   expandedDefault?: boolean;
+  transactionTotal: number;
+  title: string;
 }
 
 export const TransactionCard = ({
   transaction,
   expandedDefault,
+  transactionTotal,
+  title,
 }: TransactionCardProps) => {
   const {
     id,
-    title,
-    value,
-    scheduledDate,
+    amount,
+    date,
     paymentDate,
-    status,
+    status: transactionStatus,
     paymentMethod,
     transactionCount,
-    transactionTotal,
   } = transaction;
+
+  const status = {
+    paid: 'paid',
+    upcoming: 'upcoming',
+    overdue: 'overdue',
+    SCHEDULED: 'scheduled',
+  }[transactionStatus];
 
   const badgeStatus = {
     paid: 'success',
@@ -88,7 +96,7 @@ export const TransactionCard = ({
               {status}
             </Badge>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {new Date(scheduledDate).toLocaleDateString('en-US', {
+              {new Date(date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric',
@@ -97,7 +105,7 @@ export const TransactionCard = ({
           </div>
         </div>
         <p className="font-brand -mb-2 text-5xl font-semibold text-gray-800 dark:text-white">
-          {value.toLocaleString('en-US', {
+          {amount.toLocaleString('en-US', {
             style: 'currency',
             currency: 'USD',
           })}
