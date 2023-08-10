@@ -31,7 +31,7 @@ export const Switch = ({
   return (
     <button
       className={clsx(
-        'flex items-center gap-2 rounded-lg p-2.5',
+        'focus:outline-brand-100 flex items-center gap-2 rounded-lg p-2.5',
         reversed && 'flex-row-reverse',
       )}
       onClick={handleChange}
