@@ -4,7 +4,7 @@ import { User } from '#/app/api/profile/user';
 
 type UserProfileProps = {
   user: User;
-  className: string;
+  className?: string;
 };
 
 export function UserProfile({ user, className }: UserProfileProps) {

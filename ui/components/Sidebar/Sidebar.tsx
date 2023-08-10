@@ -1,75 +1,82 @@
-'use client';
-import { useState } from 'react';
 import clsx from 'clsx';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import { navigation } from '#/lib/navigation';
 import { SidebarLink } from './SidebarLink';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { logout } from '#/hooks/useAuth';
+import { UserProfile } from '../Header/UserProfile';
+import { User } from '#/app/api/profile/user';
 
-export function Sidebar({ segment }: { segment?: string | null }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const close = () => setIsOpen(false);
+type SidebarProps = {
+  segment?: string | null;
+  user: User;
+  isOpen: boolean;
+  close: () => void;
+};
 
+export function Sidebar({ user, isOpen, segment, close }: SidebarProps) {
   return (
-    <div className="fixed top-0 z-10 flex h-full w-full flex-col border-b border-gray-200  dark:border-gray-700 sm:pt-20 lg:bottom-0 lg:z-auto lg:w-56 lg:border-b-0 lg:border-r lg:border-gray-300">
-      {/* This div is the same size as the Header so we can position the sidebar mobile menu icon perfectly in the center */}
-      <div className="absolute left-6 top-0 h-14 py-9">
-        <button
-          type="button"
-          className="focus:outline-brand-100 bg-brand-400 group flex -translate-y-1/2 items-center rounded-full p-2 dark:bg-gray-800 dark:hover:bg-gray-500 lg:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? (
-            <XMarkIcon className="block w-4 text-white" />
-          ) : (
-            <Bars3Icon className="block w-4 text-white" />
-          )}
-        </button>
-      </div>
-
+    <div
+      className={clsx('fixed top-0 h-screen lg:w-56', {
+        'w-3/4': isOpen,
+      })}
+    >
       <div
-        className={clsx('flex flex-1 overflow-y-auto lg:static lg:block', {
-          'fixed inset-x-0 bottom-0 top-14 mt-px bg-black': isOpen,
-          hidden: !isOpen,
-        })}
+        className={clsx(
+          'flex h-full w-full flex-col border-r border-gray-300 bg-white pt-20 dark:border-gray-700 dark:bg-black',
+          {
+            'hidden lg:block': !isOpen,
+          },
+        )}
       >
-        <nav className="flex h-full flex-1 flex-col gap-6 px-6 py-8">
-          {navigation.map((section, index) => {
-            return (
-              <div className="space-y-2" key={index}>
-                {section.items.map((item) => (
-                  <SidebarLink
-                    key={item.slug}
-                    item={item}
-                    isActive={item.slug === segment}
-                    close={close}
-                  />
-                ))}
-              </div>
-            );
-          })}
-
-          <div className="mt-auto space-y-2">
-            <SidebarLink
-              item={{
-                name: 'Logout',
-                icon: ArrowLeftIcon,
-                slug: 'logout',
-              }}
-              close={close}
-              onClick={logout}
-            />
+        <nav className="flex h-full flex-1 flex-col justify-between gap-6 border-b border-gray-300 px-6 py-8 dark:border-gray-700 lg:border-0">
+          <div>
+            {navigation.map((section, index) => {
+              return (
+                <div className="space-y-2" key={index}>
+                  {section.items.map((item) => (
+                    <SidebarLink
+                      key={item.slug}
+                      item={item}
+                      isActive={item.slug === segment}
+                      close={close}
+                    />
+                  ))}
+                </div>
+              );
+            })}
           </div>
+          <SidebarLink
+            item={{
+              name: 'Logout',
+              icon: ArrowLeftIcon,
+              slug: 'logout',
+            }}
+            close={close}
+            onClick={logout}
+          />
         </nav>
+        <UserProfile
+          className="my-4 ml-8 block text-sm font-semibold text-gray-600 dark:text-gray-300 lg:hidden"
+          user={user}
+        />
       </div>
     </div>
   );
 }
 
-export default function SidebarWithSegment() {
+export default function SidebarWithSegment({
+  user,
+  isOpen,
+  close,
+}: {
+  user: User;
+  isOpen: boolean;
+  close: () => void;
+}) {
   const segment = useSelectedLayoutSegment(); // This can't be tested in isolation
 
-  return <Sidebar segment={segment} />;
+  return (
+    <Sidebar close={close} isOpen={isOpen} user={user} segment={segment} />
+  );
 }
