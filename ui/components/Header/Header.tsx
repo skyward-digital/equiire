@@ -44,7 +44,9 @@ export const Header = ({
       </div>
 
       <div className="flex items-center gap-4 text-sm font-semibold text-white">
-        <DarkModeToggle className="hidden lg:block" />
+        <DarkModeToggle
+          className={clsx('lg:block', sidebarOpen ? 'block' : 'hidden')}
+        />
         <UserProfile user={user} className="hidden lg:block" />
       </div>
     </header>
