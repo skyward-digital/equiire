@@ -24,6 +24,7 @@ import {
 import {
   getLoan,
   getLoanTransactions,
+  updateLoan,
   updateLoanPaymentMethod,
   getSignedLoanDoc,
   setPaymentSubscription,
@@ -53,16 +54,18 @@ export default async function Page({
       getStripePaymentMethods(),
     ]);
 
-  // We are changing some of these variables after certain processes have finished
-  let paymentStepCompleted = !!loan.paymentMethod;
-  let loanStatus = loan.loanStatus;
-  const loanAgreementSigned = loan.signatureCompleted;
-
   const openStripePortal = searchParams['open-stripe-portal'];
   const updatePaymentMethod = searchParams['update-payment-method'];
 
+  // If the loan agreement date is in the past, it should fail gracefully
+  const expiredLoan = new Date(loan.startDate) < new Date();
+
+  // We are changing some of these variables after certain processes have finished
+  let paymentStepCompleted = !!loan.paymentMethod;
+  let status = loan.loanStatus;
+
   // Completes the loan steps for pending loans
-  if (loan.loanStatus === 'PENDING') {
+  if (status === 'PENDING' && !expiredLoan) {
     if (openStripePortal) {
       redirect(setPaymentMethod.url);
     }
@@ -78,16 +81,21 @@ export default async function Page({
       }
     }
 
+    console.log({ loan });
+
     // Subscribes the loan and updates loan status
-    if (paymentStepCompleted && loanAgreementSigned) {
+    if (paymentStepCompleted && loan.signatureCompleted) {
       // Does a final check for signed loan document
       const signedLoanDoc = await getSignedLoanDoc({ loanId: params.id });
+
       if (signedLoanDoc.success) {
         const subscribedLoan = await setPaymentSubscription({
           loanId: params.id,
         });
-        loanStatus = subscribedLoan.loanStatus;
+        status = subscribedLoan.loanStatus;
         transactions = await getLoanTransactions({ id: params.id });
+
+        console.log({ subscribedLoan, transactions });
       }
     }
   }
@@ -110,22 +118,22 @@ export default async function Page({
     account: true, // always true as a user cannot have a loan without an account
     loan: true, // always true as a user cannot view a loan without a loan
     payment: paymentStepCompleted,
-    signature: loanAgreementSigned,
+    signature: loan.signatureCompleted,
   };
 
-  const status = {
+  const statusText = {
     PENDING: 'pending',
     IN_PROGRESS: 'active',
     REJECTED: 'rejected',
     COMPLETED: 'completed',
-  }[loanStatus];
+  }[status];
 
   const badgeStatus = {
     PENDING: 'warning',
     IN_PROGRESS: 'info',
     REJECTED: 'error',
     COMPLETED: undefined,
-  }[loanStatus] as BadgeProps['type'];
+  }[status] as BadgeProps['type'];
 
   return (
     <>
@@ -138,9 +146,15 @@ export default async function Page({
         />
 
         <div className="mb-2 flex w-full items-center justify-end">
-          <Badge type={badgeStatus} dot>
-            {status}
-          </Badge>
+          {expiredLoan ? (
+            <Badge type="error" dot>
+              Expired
+            </Badge>
+          ) : (
+            <Badge type={badgeStatus} dot>
+              {statusText}
+            </Badge>
+          )}
         </div>
       </TabHeading>
 
