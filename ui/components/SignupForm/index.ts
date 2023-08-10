@@ -1,1 +1,3 @@
-export { SignupForm, type SignupFormProps } from './SignupForm';
+export { PasswordForm } from './PasswordForm';
+export { AdditionalDetailsForm } from './AdditionalDetailsForm';
+export { PersonalInformationForm } from './PersonalInformationForm';

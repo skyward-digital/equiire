@@ -84,9 +84,9 @@ export function LoanSummaryBox({
     <section
       className={clsx(
         className,
-        'grid rounded-lg bg-white dark:bg-black md:shadow-sm',
+        'grid rounded-lg bg-white dark:bg-black sm:dark:border sm:dark:border-gray-400 md:shadow-sm',
         {
-          'max-w-4xl': size === 'lg',
+          'max-w-4xl px-6 pt-6 sm:px-0 sm:pt-0': size === 'lg',
           'max-w-lg px-14 py-14': size === 'sm',
         },
       )}
@@ -94,7 +94,7 @@ export function LoanSummaryBox({
       {/* Title section (large) */}
       {size === 'lg' && (
         <div className="relative">
-          <h2 className="font-brand border-gray-200 px-2 pt-3 text-3xl font-semibold tracking-tight text-gray-600 dark:text-gray-100 sm:border-b sm:px-10 sm:pb-8 sm:pt-8 sm:text-5xl">
+          <h2 className="font-brand border-gray-200 px-2 pt-3 text-3xl font-semibold tracking-tight text-gray-600 dark:border-gray-400 dark:text-gray-100 sm:border-b sm:px-10 sm:pb-8 sm:pt-8 sm:text-5xl">
             Loan{' '}
             <span className="font-normal text-gray-400 dark:text-gray-300">
               Summary
@@ -109,20 +109,17 @@ export function LoanSummaryBox({
       )}
       <div
         className={clsx({
-          'my-12 flex flex-col gap-10 px-2 sm:flex-row sm:gap-28 sm:px-10':
+          'my-10 flex flex-col gap-10 px-2 sm:my-12 sm:flex-row sm:gap-28 sm:px-10':
             size === 'lg',
         })}
       >
         {/* Breakdown */}
         <div className="flex flex-1 flex-col gap-7">
           <h3
-            className={clsx(
-              'font-brand  font-semibold tracking-tight dark:text-gray-100',
-              {
-                'text-brand text-2xl': size === 'lg',
-                'text-4xl text-gray-600': size === 'sm',
-              },
-            )}
+            className={clsx('font-brand font-semibold tracking-tight ', {
+              'text-brand text-2xl': size === 'lg',
+              'text-4xl text-gray-600': size === 'sm',
+            })}
           >
             Breakdown
           </h3>
@@ -194,7 +191,7 @@ export function LoanSummaryBox({
         {size === 'lg' && (
           <div className="flex flex-1 flex-col gap-7">
             <div className="flex items-center justify-between gap-5">
-              <h3 className="font-brand text-brand text-2xl font-semibold tracking-tight dark:text-gray-100">
+              <h3 className="font-brand text-brand text-2xl font-semibold tracking-tight">
                 Loan Start
               </h3>
               <DatePicker
@@ -223,7 +220,8 @@ export function LoanSummaryBox({
       {/* Button section */}
       <div
         className={clsx('flex', {
-          'gap-8 py-8 sm:border-t sm:px-20': size === 'lg',
+          'gap-8 border-gray-200 py-8 dark:border-gray-400 sm:border-t sm:px-20':
+            size === 'lg',
           'mt-10 self-end': size === 'sm',
         })}
       >
@@ -245,27 +243,29 @@ export function LoanSummaryBox({
             Next
           </Button>
         ) : (
-          <Button
-            variant="primary"
-            className="flex-1"
-            href={{
-              pathname: '/sign-up',
-              query: {
-                type,
-                amount,
-                length,
-                monthlyPayment,
-                startDate: format(startDate, 'yyyy-MM-dd'),
-                // we aren't passing these fields in when signing up, they are calculated automatically
-                /* interestType,
+          <div className="fixed bottom-0 left-0 right-0 z-20 w-full flex-1 bg-white px-4 pb-5 pt-3 dark:bg-black sm:static sm:p-0">
+            <Button
+              variant="primary"
+              className="w-full "
+              href={{
+                pathname: '/sign-up',
+                query: {
+                  type,
+                  amount,
+                  length,
+                  monthlyPayment,
+                  startDate: format(startDate, 'yyyy-MM-dd'),
+                  // we aren't passing these fields in when signing up, they are calculated automatically
+                  /* interestType,
                 apr,
                 totalRepayable,
                 creditCost, */
-              },
-            }}
-          >
-            Next
-          </Button>
+                },
+              }}
+            >
+              Next
+            </Button>
+          </div>
         )}
       </div>
     </section>
