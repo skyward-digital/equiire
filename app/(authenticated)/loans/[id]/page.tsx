@@ -24,7 +24,6 @@ import {
 import {
   getLoan,
   getLoanTransactions,
-  updateLoan,
   updateLoanPaymentMethod,
   getSignedLoanDoc,
   setPaymentSubscription,
