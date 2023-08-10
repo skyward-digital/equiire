@@ -15,7 +15,7 @@ export const BackButton = ({ back, ariaLabel = 'Back' }: BackButtonProps) => {
     <Component
       {...props}
       aria-label={ariaLabel}
-      className="flex w-min items-center justify-center rounded-full bg-gray-100 p-2 dark:bg-gray-800 dark:hover:bg-gray-500"
+      className="focus:ring-brand-100 focus:border-brand-300 flex w-min items-center justify-center rounded-full border border-gray-100 bg-gray-100 p-2 focus:outline-none focus:ring-4 dark:border-gray-800 dark:bg-gray-800 dark:hover:bg-gray-500"
     >
       <ArrowLeftIcon className="h-5 w-5 text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-100" />
     </Component>

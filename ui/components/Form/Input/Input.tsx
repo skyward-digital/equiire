@@ -76,7 +76,7 @@ const PasswordVisibilityToggle = ({
   const Icon = passwordIsVisible ? EyeIcon : EyeSlashIcon;
   return (
     <button
-      className="focus:ring-brand-100 focus:border-brand-300 absolute right-0 top-1/2 mr-3 -translate-y-1/2 rounded-full focus:border focus:outline-none focus:ring-2"
+      className="focus:ring-brand-100 focus:border-brand-300 absolute right-0 top-1/2 mr-3 -translate-y-1/2 rounded-full border border-transparent focus:outline-none focus:ring-2 "
       onClick={onClick}
       aria-label={passwordIsVisible ? 'Hide password' : 'Show password'}
       type="button"
