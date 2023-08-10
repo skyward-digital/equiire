@@ -26,7 +26,7 @@ export const SidebarLink = ({
       }}
       href={`/${item.slug}`}
       className={clsx(
-        'flex w-full items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium',
+        'focus:outline-brand-100 flex w-full items-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium',
         isActive
           ? 'text-brand'
           : 'text-gray-600 hover:bg-gray-200 hover:text-gray-800 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-300',
