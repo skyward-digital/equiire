@@ -23,7 +23,7 @@ export default async function Layout({
         <Sidebar />
       </div>
 
-      <main className="flex h-screen w-full flex-col overflow-auto pl-56 pt-20">
+      <main className="flex h-screen w-full flex-col overflow-auto pt-20 lg:pl-56">
         {children}
       </main>
     </>

@@ -18,7 +18,7 @@ export function UserProfile({ user, className }: UserProfileProps) {
     <div className={className}>
       <Link
         href="/settings"
-        className="flex items-center gap-2 rounded-lg p-2.5"
+        className="focus:outline-brand-100 flex items-center gap-2 rounded-lg p-2.5 "
       >
         <p>{user.company ? user.company : user.name}</p>
         <Avatar className="bg-brand-500" width={24} height={24}>

@@ -13,21 +13,21 @@ export function Sidebar({ segment }: { segment?: string | null }) {
   const close = () => setIsOpen(false);
 
   return (
-    <div className="fixed top-0 z-10 flex h-full w-full flex-col border-b border-gray-200 bg-white pt-20 dark:border-gray-700 dark:bg-black lg:bottom-0 lg:z-auto lg:w-56 lg:border-b-0 lg:border-r lg:border-gray-300">
-      <button
-        type="button"
-        className="group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4 lg:hidden"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <div className="font-medium text-gray-100 group-hover:text-gray-400">
-          Menu
-        </div>
-        {isOpen ? (
-          <XMarkIcon className="block w-6 text-gray-400" />
-        ) : (
-          <Bars3Icon className="block w-6 text-gray-400" />
-        )}
-      </button>
+    <div className="fixed top-0 z-10 flex h-full w-full flex-col border-b border-gray-200  dark:border-gray-700 sm:pt-20 lg:bottom-0 lg:z-auto lg:w-56 lg:border-b-0 lg:border-r lg:border-gray-300">
+      {/* This div is the same size as the Header so we can position the sidebar mobile menu icon perfectly in the center */}
+      <div className="absolute left-6 top-0 h-14 py-9">
+        <button
+          type="button"
+          className="focus:outline-brand-100 bg-brand-400 group flex -translate-y-1/2 items-center rounded-full p-2 dark:bg-gray-800 dark:hover:bg-gray-500 lg:hidden"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? (
+            <XMarkIcon className="block w-4 text-white" />
+          ) : (
+            <Bars3Icon className="block w-4 text-white" />
+          )}
+        </button>
+      </div>
 
       <div
         className={clsx('flex flex-1 overflow-y-auto lg:static lg:block', {
