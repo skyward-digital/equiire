@@ -9,8 +9,8 @@ export const metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <VectorLogoE className="fixed top-0 -z-10 h-screen w-full max-w-full overflow-auto" />
-      <DarkModeToggle className="fixed right-0 top-0" />
+      <VectorLogoE className="fixed top-0 -z-10 hidden h-screen w-full max-w-full overflow-auto sm:block" />
+      <DarkModeToggle className="fixed right-0 top-0 hidden sm:block" />
       <div>{children}</div>
     </>
   );

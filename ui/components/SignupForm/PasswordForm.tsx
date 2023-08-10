@@ -43,12 +43,11 @@ export function PasswordForm({
         required="Password is required"
         error={errors.password}
         hint="Passwords must have at least 8 characters"
-        // We can put this in later, as it's an easy way for us to check invalid sign up behaviour
-        /* pattern={{
+        pattern={{
           value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/,
           message:
             'Password must be at least 8 characters and include uppercase, lowercase, number, and special character',
-        }} */
+        }}
       />
       <Input
         id="confirm_password"
@@ -56,7 +55,7 @@ export function PasswordForm({
         label="Confirm password"
         placeholder="Password"
         register={register}
-        required="Confirm Password is required"
+        required="Confirm password is required"
         error={errors.confirm_password}
         validate={(value: string) =>
           value === getValues('password') || 'Passwords do not match'

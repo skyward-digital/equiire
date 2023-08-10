@@ -31,7 +31,7 @@ export function RadioGroup({
     <RadioGroupPrimitive.Root
       aria-label={ariaLabel}
       onValueChange={onChange}
-      className={clsx('flex', className)}
+      className={clsx(className, 'flex')}
       id={id}
     >
       <RadioGroupPrimitive.Item

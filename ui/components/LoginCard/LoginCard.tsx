@@ -26,7 +26,7 @@ export function LoginCard({
     <section
       className={clsx(
         className,
-        'mx-auto max-w-2xl rounded-lg bg-white px-7 pb-16 pt-10 shadow-sm dark:border dark:border-gray-600 dark:bg-black',
+        'mx-auto max-w-2xl rounded-lg bg-white px-7 pb-16 pt-10 dark:border-gray-600 dark:bg-black sm:shadow-sm dark:sm:border',
       )}
     >
       <div className="flex flex-col items-start sm:flex-row sm:gap-3">

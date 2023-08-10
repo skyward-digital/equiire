@@ -19,6 +19,7 @@ export default {
     extend: {
       // As we get further into the project we will add the colours directly into the theme, for now we'll extend
       colors: {
+        transparent: 'transparent',
         black: '#26272B',
         gray: {
           25: '#F8F8F8',

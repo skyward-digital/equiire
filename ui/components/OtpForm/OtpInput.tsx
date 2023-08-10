@@ -137,7 +137,7 @@ export const OtpInput = ({ value, valueLength, onChange }: OtpInputProps) => {
           autoComplete="one-time-code"
           pattern="\d{1}"
           maxLength={valueLength}
-          className="focus:border-brand focus:ring-brand font-brand h-16 w-16 rounded-md border-2 border-gray-300 pt-3 text-center text-3xl font-semibold leading-none"
+          className="focus:border-brand focus:ring-brand font-brand h-12 w-12 rounded-md border-2 border-gray-300 pt-3 text-center text-2xl font-semibold leading-none sm:h-16 sm:w-16 sm:text-3xl"
           value={digit}
           onChange={(e) => inputOnChange(e, index)}
           onKeyDown={inputOnKeyDown}
