@@ -7,11 +7,15 @@ export default async function Page() {
 
   const incompleteLoans = loans.docs.filter(
     (loan) =>
-      loan.loanStatus === 'IN_PROGRESS' || loan.loanStatus === 'PENDING',
+      loan.loanStatus === 'IN_PROGRESS' ||
+      (loan.loanStatus === 'PENDING' && new Date(loan.startDate) > new Date()),
   );
 
   const completedLoans = loans.docs.filter(
-    (loan) => loan.loanStatus === 'COMPLETED' || loan.loanStatus === 'REJECTED',
+    (loan) =>
+      loan.loanStatus === 'COMPLETED' ||
+      loan.loanStatus === 'REJECTED' ||
+      new Date(loan.startDate) < new Date(),
   );
 
   return (
