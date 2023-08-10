@@ -14,7 +14,7 @@ export function NavigationLayout({ user }: { user: User }) {
       {/* transparent overlay on mobile only */}
       <div
         className={clsx(
-          'fixed right-0 z-20 h-screen w-1/4 bg-black/50 lg:hidden',
+          'fixed right-0 z-20 h-screen w-1/4 border-l border-gray-300 bg-black/50 dark:border-gray-700 lg:hidden',
           {
             hidden: !sidebarOpen,
           },

@@ -23,7 +23,7 @@ export function Sidebar({ user, isOpen, segment, close }: SidebarProps) {
     >
       <div
         className={clsx(
-          'flex h-full w-full flex-col border-r border-gray-300 bg-white pt-20 dark:border-gray-700 dark:bg-black',
+          'flex h-full w-full flex-col border-gray-300 bg-white pt-20 dark:border-gray-700 dark:bg-black lg:border-r',
           {
             'hidden lg:block': !isOpen,
           },
