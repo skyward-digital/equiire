@@ -1,5 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { getSession } from '#/app/api/session/';
+import { getServerSession } from '#/app/api/session/';
 
 // `server-only` guarantees any modules that import code in file
 // will never run on the client. Even though this particular api
@@ -8,7 +8,7 @@ import { getSession } from '#/app/api/session/';
 import 'server-only';
 
 export async function setSignRequest(id: string) {
-  const { accessToken } = await getSession();
+  const { accessToken } = await getServerSession();
 
   const res = await fetch(
     `${process.env.API_URL}/loans/${id}/create-sign-request?access_token=${accessToken}`,

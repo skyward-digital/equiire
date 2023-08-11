@@ -1,5 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { getSession } from '#/app/api/session/getSession';
+import { getServerSession } from '#/app/api/session';
 import { Loan } from '#/app/api/loans/loans';
 
 // `server-only` guarantees any modules that import code in file
@@ -9,7 +9,7 @@ import { Loan } from '#/app/api/loans/loans';
 import 'server-only';
 
 export async function setPaymentSubscription({ loanId }: { loanId: string }) {
-  const { accessToken } = await getSession();
+  const { accessToken } = await getServerSession();
 
   const res = await fetch(
     `${process.env.API_URL}/loans/${loanId}/subscribe?access_token=${accessToken}`,
