@@ -136,7 +136,7 @@ export const Input = ({
       >
         {label}
       </label>
-      <div className="relative">
+      <div className="relative mb-5">
         <input
           id={id}
           type={inputType}
@@ -159,16 +159,18 @@ export const Input = ({
         )}
         {RightIcon}
       </div>
-      <p
-        className={clsx(
-          'mt-2 text-sm',
-          error && 'text-error',
-          hint && !error && 'dark:text-brand-secondary text-gray-600',
-          !hint && !error && 'h-5',
-        )}
-      >
-        {error?.message ?? hint ?? ' '}
-      </p>
+      {error?.message || hint ? (
+        <p
+          className={clsx(
+            'm-0 text-sm',
+            error && 'text-error',
+            hint && !error && 'dark:text-brand-secondary text-gray-600',
+            !hint && !error && 'h-5',
+          )}
+        >
+          {error?.message ?? hint ?? ' '}
+        </p>
+      ) : null}
     </div>
   );
 };
