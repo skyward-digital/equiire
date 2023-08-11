@@ -91,11 +91,16 @@ export const authOptions: AuthOptions = {
       };
     },
     // @ts-ignore
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, user, trigger, session, account, profile }) {
       if (typeof user !== 'undefined') {
         // user has just signed in so the user object is populated
         return user;
       }
+
+      if (trigger === 'update' && session?.user) {
+        token.user = session.user;
+      }
+
       return token;
     },
   },
