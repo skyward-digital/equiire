@@ -9,10 +9,14 @@ import { Status } from '#/ui/components/Status';
 import { Avatar } from '#/ui/components/Avatar';
 import { tableData } from '#/lib/table';
 import { BanknotesIcon } from '@heroicons/react/24/outline';
-import { Badge } from '#/ui/components/Badge';
+import { Badge, BadgeProps } from '#/ui/components/Badge';
 import { CheckIcon } from '@heroicons/react/24/outline';
+import { getPaymentHistory } from '#/app/api/payments/getPaymentHistory';
+import { HistoryDoc } from '#/app/api/payments/history';
 
-export default function Page() {
+export default async function Page() {
+  const history = await getPaymentHistory();
+
   return (
     <>
       <TabHeading>
@@ -40,20 +44,36 @@ export default function Page() {
           </thead>
 
           <tbody>
-            {tableData.map(
-              ({ id, name, value, status, owner, created }, index) => (
+            {history.docs.map(
+              (
+                {
+                  id,
+                  totalAmount,
+                  amountRemaining,
+                  amount,
+                  status,
+                  paymentMethod,
+                  owner,
+                  created,
+                }: HistoryDoc,
+                index,
+              ) => (
                 <TableRow key={index}>
                   <TableCell>
                     {/* Loan details - Loan value, ID & Start Date */}
                     <div className="flex flex-col justify-center">
                       <p className="font-brand m-0 text-xl">
-                        {(42000).toLocaleString('en-US', {
+                        {totalAmount.toLocaleString('en-US', {
                           currency: 'usd',
                           style: 'currency',
                         })}
                       </p>
                       <p className="m-0 text-xs text-gray-600 dark:text-gray-400">
-                        {id} • May 2020
+                        {id} •{' '}
+                        {new Date(created).toLocaleDateString('en-US', {
+                          month: 'long',
+                          year: 'numeric',
+                        })}
                       </p>
                     </div>
                   </TableCell>
@@ -61,18 +81,38 @@ export default function Page() {
                     {/* Transaction value & status */}
                     <div className="flex flex-col items-end">
                       <p className="font-brand m-0 text-xl">
-                        {value.toLocaleString('en-US', {
+                        {amount.toLocaleString('en-US', {
                           currency: 'usd',
                           style: 'currency',
                         })}
                       </p>
                       <Badge
-                        type="success"
+                        type={
+                          {
+                            canceled: 'error',
+                            processing: 'info',
+                            requires_action: 'warning',
+                            requires_capture: 'warning',
+                            requires_confirmation: 'warning',
+                            requires_payment_method: 'warning',
+                            succeeded: 'success',
+                          }[status] as BadgeProps['type']
+                        }
                         size="sm"
                         as="span"
                         Icon={CheckIcon}
                       >
-                        {status}
+                        {
+                          {
+                            canceled: 'cancelled',
+                            processing: 'processing',
+                            requires_action: 'needs action',
+                            requires_capture: 'needs action',
+                            requires_confirmation: 'needs action',
+                            requires_payment_method: 'needs action',
+                            succeeded: 'paid',
+                          }[status]
+                        }
                       </Badge>
                     </div>
                   </TableCell>
@@ -80,7 +120,7 @@ export default function Page() {
                     {/* Remaining loan value */}
                     <div className="flex flex-col items-end">
                       <p className="font-brand m-0 text-xl">
-                        {(32000).toLocaleString('en-US', {
+                        {amountRemaining.toLocaleString('en-US', {
                           currency: 'usd',
                           style: 'currency',
                         })}
@@ -90,11 +130,12 @@ export default function Page() {
 
                   <TableCell>
                     <div className="flex flex-col gap-1">
-                      <p className="m-0 text-sm font-semibold text-gray-800 dark:text-gray-200">
-                        Credit Card
+                      <p className="m-0 text-sm font-semibold capitalize text-gray-800 dark:text-gray-200">
+                        {paymentMethod.paymentMethodInfo.brand}{' '}
+                        {paymentMethod.type === 'debit' ? 'Debit' : ''}
                       </p>
                       <p className="m-0 text-xs text-gray-600 dark:text-gray-400">
-                        Ending 0990
+                        Ending in {paymentMethod.paymentMethodInfo.last4}
                       </p>
                     </div>
                   </TableCell>

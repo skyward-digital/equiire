@@ -1,6 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
 import { getSession } from '#/app/api/session';
-// import type { History } from './history';
+import { PaymentHistory } from '#/app/api/payments';
 
 // `server-only` guarantees any modules that import code in file
 // will never run on the client. Even though this particular api
@@ -18,7 +18,7 @@ export async function getPaymentHistory() {
   if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();
 
-  const paymentHistory = await res.json();
+  const paymentHistory = (await res.json()) as PaymentHistory;
 
   return paymentHistory;
 }
