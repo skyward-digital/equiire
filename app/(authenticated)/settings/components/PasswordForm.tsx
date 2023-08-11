@@ -43,9 +43,6 @@ export const PasswordForm = () => {
       placeholder="******"
       Icon={KeyIcon}
       onSubmit={handleSubmit(onSubmit)}
-      errors={
-        errors.password || errors.confirmPassword || errors.currentPassword
-      }
       expanded={expanded}
       setExpanded={setExpanded}
     >
