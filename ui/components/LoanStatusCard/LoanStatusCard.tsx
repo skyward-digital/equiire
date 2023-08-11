@@ -31,7 +31,7 @@ export const LoanStatusCard = ({ loan }: { loan: Loan }) => {
     IN_PROGRESS: 'info',
     REJECTED: 'error',
     COMPLETED: undefined,
-  }[status] as BadgeProps['type'];
+  }[loanStatus] as BadgeProps['type'];
 
   const startDate = new Date(loan.startDate).toLocaleDateString('en-US', {
     month: 'long',
