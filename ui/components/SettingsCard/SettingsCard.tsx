@@ -97,3 +97,44 @@ export const SettingsCard = ({
     </form>
   );
 };
+
+type SettingsCardLinkProps = {
+  title: string;
+  detail?: string;
+  placeholder: string;
+  Icon?: any;
+  link: string;
+};
+
+export const SettingsCardLink = ({
+  title,
+  detail,
+  placeholder,
+  Icon,
+  link,
+}: SettingsCardLinkProps) => {
+  return (
+    <div className="dark:border-brand-secondary rounded-xl border border-gray-300 bg-white px-4 py-2 dark:bg-black">
+      {/* Title area */}
+      <div className="flex h-16 items-center justify-between gap-4">
+        <div className="flex items-center gap-4 text-gray-600 dark:text-gray-300">
+          <Icon className="h-6 w-6" />
+          <div className="not-prose flex flex-col">
+            <p className="font-semibold capitalize">{title}</p>
+            {detail ? (
+              <p className="text-gray-500 dark:text-gray-100">{detail}</p>
+            ) : (
+              <p className="text-gray-300 dark:text-gray-500">{placeholder}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="flex gap-4">
+          <Button href={link} variant="secondary" size="sm">
+            Edit
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};

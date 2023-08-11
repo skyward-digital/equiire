@@ -1,3 +1,4 @@
+export { setStripePaymentPortal } from './setPaymentPortal';
 export { setStripePaymentMethod } from './setPaymentMethod';
 export { getStripePaymentMethods } from './getPaymentMethods';
 
