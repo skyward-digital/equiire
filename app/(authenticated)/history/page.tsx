@@ -32,7 +32,7 @@ export default async function Page() {
         {/* user details form */}
 
         <Table>
-          <thead className="border-gray-200">
+          <thead className="border-gray-200 dark:border-gray-600">
             <TableRow>
               <TableHeadCell className="px-8">Loan Details</TableHeadCell>
               <TableHeadCell>Amount</TableHeadCell>
