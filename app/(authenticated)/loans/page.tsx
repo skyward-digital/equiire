@@ -37,7 +37,7 @@ export default async function Page() {
           <h2 className="font-brand text-xl font-semibold text-gray-500 dark:text-gray-50">
             Completed Loans
           </h2>
-          <div className="grid w-full grid-cols-2 gap-4">
+          <div className="grid w-full gap-4 xl:grid-cols-2">
             {completedLoans.map((loan) => (
               <LoanStatusCard key={loan._id} loan={loan} />
             ))}
