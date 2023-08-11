@@ -1,16 +1,15 @@
-'use client';
-import { useState } from 'react';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { Badge } from '../Badge';
+import { Button } from '../Button';
 
 type SettingsCardProps = {
   title: string;
   detail?: string;
   placeholder: string;
-  expanded?: boolean;
+  expanded: boolean;
+  setExpanded: any;
   Icon?: any;
-  onSave: any;
-  errors: any;
+  onSubmit?: any;
   children: React.ReactNode;
 };
 
@@ -18,24 +17,20 @@ export const SettingsCard = ({
   title,
   detail,
   placeholder,
-  expanded: expandedDefault,
+  expanded,
+  setExpanded,
   Icon,
-  onSave,
-  errors,
+  onSubmit,
   children,
 }: SettingsCardProps) => {
-  const [expanded, setExpanded] = useState(expandedDefault || false);
-
-  const handleSave = (e: any) => {
-    if (errors) return;
-
-    onSave(e);
-    setExpanded(false);
+  const onSave = (e: any) => {
+    e.preventDefault();
+    onSubmit();
   };
 
   return (
     <form
-      // onSubmit={handleSave}
+      onSubmit={onSave}
       className="dark:border-brand-secondary rounded-xl border border-gray-300 bg-white px-4 py-2 dark:bg-black"
     >
       {/* Title area */}
@@ -54,21 +49,25 @@ export const SettingsCard = ({
 
         {expanded ? (
           <div className="flex gap-4">
-            <button
+            <Button
+              variant="secondary"
+              size="sm"
               type="button"
-              className="text-sm text-gray-600 hover:text-gray-800"
               onClick={() => setExpanded(false)}
             >
-              Cancel
-            </button>
+              Close
+            </Button>
             {/* Setting this as a submit button causes a weird refresh issue - needs debugging */}
-            <button
-              type="button"
-              className="text-sm text-gray-600 hover:text-gray-800"
-              onClick={handleSave}
-            >
-              Save
-            </button>
+            {onSubmit && (
+              <Button
+                variant="secondary-brand"
+                size="sm"
+                type="button"
+                onClick={onSave}
+              >
+                Save
+              </Button>
+            )}
           </div>
         ) : (
           <div className="flex gap-4">
@@ -77,13 +76,14 @@ export const SettingsCard = ({
                 Missing Info
               </Badge>
             )}
-            <button
+            <Button
+              variant="secondary"
+              size="sm"
               type="button"
-              className="text-sm text-gray-600 hover:text-gray-800"
               onClick={() => setExpanded(true)}
             >
-              Edit
-            </button>
+              {onSubmit ? 'Edit' : 'View'}
+            </Button>
           </div>
         )}
       </div>

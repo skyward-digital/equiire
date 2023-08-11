@@ -19,6 +19,7 @@ export const AddressForm = (props: { address: User['address'] }) => {
 
   const { update: updateSession } = useSession();
 
+  const [expanded, setExpanded] = useState(false);
   const [address, setAddress] = useState(props.address);
 
   const onSubmit = async (data: any) => {
@@ -37,6 +38,10 @@ export const AddressForm = (props: { address: User['address'] }) => {
       }),
     });
 
+    if (res.status === 200) {
+      setExpanded(false);
+    }
+
     const json = await res.json();
 
     // update the state so it reflects the new data immediately
@@ -52,8 +57,9 @@ export const AddressForm = (props: { address: User['address'] }) => {
       detail={`${address.addressLine1}, ${address.city}, ${address.state} ${address.postalCode}`}
       placeholder="Acme Inc., 123 Main St, New York, NY 10001"
       Icon={MapPinIcon}
-      onSave={handleSubmit(onSubmit)}
-      errors={errors.address1 || errors.city || errors.state || errors.zip}
+      onSubmit={handleSubmit(onSubmit)}
+      expanded={expanded}
+      setExpanded={setExpanded}
     >
       <Input
         id="address1"

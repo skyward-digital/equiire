@@ -17,6 +17,7 @@ export const CompanyForm = (props: { company: User['company'] }) => {
 
   const { update: updateSession } = useSession();
 
+  const [expanded, setExpanded] = useState(false);
   const [company, setCompany] = useState(props.company);
 
   const onSubmit = async (data: any) => {
@@ -27,6 +28,11 @@ export const CompanyForm = (props: { company: User['company'] }) => {
     //   method: 'PATCH',
     //   body: JSON.stringify(data),
     // });
+    //
+    // if (res.status === 200) {
+    //   setExpanded(false);
+    // }
+    //
     // const json = await res.json();
     // // update the state so it reflects the new data immediately
     // setCompany(json.data.name);
@@ -40,8 +46,9 @@ export const CompanyForm = (props: { company: User['company'] }) => {
       detail={company}
       placeholder="Acme Inc."
       Icon={BuildingOffice2Icon}
-      onSave={handleSubmit(onSubmit)}
-      errors={errors.company}
+      onSubmit={handleSubmit(onSubmit)}
+      expanded={expanded}
+      setExpanded={setExpanded}
     >
       <Input
         id="company"

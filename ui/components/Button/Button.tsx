@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
 
 export interface ButtonBaseProps {
-  variant?: 'primary' | 'secondary' | 'link';
+  variant?: 'primary' | 'secondary' | 'secondary-brand' | 'link';
   size?: 'sm' | 'md' | 'lg';
   Icon?: React.ElementType;
   arrow?: boolean;
@@ -48,7 +48,9 @@ export const Button = ({
         variant === 'primary' &&
           'border-brand hover:border-brand-600 group-hover:border-brand-600 bg-brand shadow-xs hover:bg-brand-600 group-hover:bg-brand-600 border text-white hover:-translate-y-0.5 hover:text-white focus:-translate-y-0.5 disabled:border-gray-200 disabled:bg-gray-200 disabled:text-white group-hover:text-white dark:disabled:border-gray-800 dark:disabled:bg-gray-800 dark:disabled:text-gray-500',
         variant === 'secondary' &&
-          'shadow-xs border border-gray-300 text-gray-600 hover:-translate-y-0.5 hover:bg-gray-100 hover:text-black focus:-translate-y-0.5 disabled:bg-gray-100 disabled:text-gray-400 group-hover:bg-gray-100 group-hover:text-black dark:text-gray-300 dark:hover:border-white dark:hover:bg-transparent dark:hover:text-white dark:disabled:bg-gray-800 dark:group-hover:border-white dark:group-hover:bg-transparent',
+          'shadow-xs border border-gray-300 text-gray-600 hover:-translate-y-0.5 hover:text-black focus:-translate-y-0.5 disabled:bg-gray-100 disabled:text-gray-400 group-hover:text-black dark:text-gray-300 dark:hover:border-white dark:hover:bg-transparent dark:hover:text-white dark:disabled:bg-gray-800 dark:group-hover:border-white dark:group-hover:bg-transparent',
+        variant === 'secondary-brand' &&
+          'shadow-xs border-brand border text-gray-600 hover:-translate-y-0.5 hover:text-black focus:-translate-y-0.5 disabled:bg-gray-100 disabled:text-gray-400 group-hover:text-black dark:text-gray-300 dark:hover:border-white dark:hover:bg-transparent dark:hover:text-white dark:disabled:bg-gray-800 dark:group-hover:border-white dark:group-hover:bg-transparent',
         variant === 'link' &&
           'text-brand hover:text-brand-600 group-hover:hover:text-brand-600 py-2 disabled:text-gray-400',
         // Size

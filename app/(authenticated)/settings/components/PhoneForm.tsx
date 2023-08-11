@@ -16,6 +16,7 @@ export const PhoneForm = (props: { phone: User['phone'] }) => {
 
   const { update: updateSession } = useSession();
 
+  const [expanded, setExpanded] = useState(false);
   const [phone, setPhone] = useState(props.phone);
 
   const onSubmit = async (data: any) => {
@@ -24,6 +25,10 @@ export const PhoneForm = (props: { phone: User['phone'] }) => {
       method: 'PATCH',
       body: JSON.stringify(data),
     });
+
+    if (res.status === 200) {
+      setExpanded(false);
+    }
 
     const json = await res.json();
 
@@ -40,8 +45,9 @@ export const PhoneForm = (props: { phone: User['phone'] }) => {
       detail={phone}
       placeholder="+1 (555) 555-5555"
       Icon={PhoneIcon}
-      onSave={handleSubmit(onSubmit)}
-      errors={errors.phone}
+      onSubmit={handleSubmit(onSubmit)}
+      expanded={expanded}
+      setExpanded={setExpanded}
     >
       <Input
         id="phone"

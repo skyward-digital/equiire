@@ -16,6 +16,7 @@ export const NameForm = (props: { name: User['name'] }) => {
 
   const { update: updateSession } = useSession();
 
+  const [expanded, setExpanded] = useState(false);
   const [name, setName] = useState(props.name);
 
   const onSubmit = async (data: any) => {
@@ -26,6 +27,10 @@ export const NameForm = (props: { name: User['name'] }) => {
         name: `${data.firstname} ${data.lastname}`,
       }),
     });
+
+    if (res.status === 200) {
+      setExpanded(false);
+    }
 
     const json = await res.json();
 
@@ -42,8 +47,9 @@ export const NameForm = (props: { name: User['name'] }) => {
       detail={name}
       placeholder="Jane Doe"
       Icon={UserIcon}
-      onSave={handleSubmit(onSubmit)}
-      errors={errors.firstname || errors.lastname}
+      onSubmit={handleSubmit(onSubmit)}
+      expanded={expanded}
+      setExpanded={setExpanded}
     >
       <Input
         id="firstname"

@@ -17,6 +17,7 @@ export const EmailForm = (props: { email: User['email'] }) => {
 
   // const { update: updateSession } = useSession();
 
+  const [expanded, setExpanded] = useState(false);
   const [email, setEmail] = useState(props.email);
 
   // const onSubmit = async (data: any) => {
@@ -25,6 +26,10 @@ export const EmailForm = (props: { email: User['email'] }) => {
   //     method: 'PATCH',
   //     body: JSON.stringify(data),
   //   });
+
+  // if (res.status === 200) {
+  //   setExpanded(false);
+  // }
 
   //   const json = await res.json();
 
@@ -41,8 +46,9 @@ export const EmailForm = (props: { email: User['email'] }) => {
       detail={email}
       placeholder="jane.doe@acme.inc"
       Icon={EnvelopeIcon}
-      // onSave={handleSubmit(onSubmit)}
-      errors={errors.email}
+      // onSubmit={handleSubmit(onSubmit)}
+      expanded={expanded}
+      setExpanded={setExpanded}
     >
       <Input
         id="email"
