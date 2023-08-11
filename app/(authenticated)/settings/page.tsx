@@ -11,10 +11,8 @@ import {
   BuildingLibraryIcon,
   ShieldCheckIcon,
   DocumentTextIcon,
-} from '@heroicons/react/24/outline';
 import { Input, Checkbox } from '#/ui/components/Form';
 import { SettingsCard } from '#/ui/components/SettingsCard';
-import { TabHeading, TabLink } from '#/ui/components/TabHeading';
 import { useCurrentSection } from '#/hooks/useCurrentSection';
 
 export default function SettingsPage() {
@@ -33,32 +31,21 @@ export default function SettingsPage() {
     // Here you would typically send the data to your server
     // to update the user account.
   };
+} from '#/lib/@heroicons/react/24/outline';
+import { TabHeading } from '#/ui/components/TabHeading';
 
   const password: string = watch('password');
   const confirmPassword: string = watch('confirmPassword');
 
   return (
     <>
-      <TabHeading>
-        <TabLink
-          href="#details"
-          title="Company Details"
-          Icon={DocumentTextIcon}
-          active={currentSection === 'details'}
-        />
-        <TabLink
-          href="#security"
-          title="Security"
-          Icon={ShieldCheckIcon}
-          active={currentSection === 'security'}
-        />
-        <TabLink
-          href="#payment"
-          title="Cards/Banks"
-          Icon={CreditCardIcon}
-          active={currentSection === 'payment'}
-        />
-      </TabHeading>
+      <TabHeading
+        links={[
+          { id: 'details', title: 'Company Details', Icon: DocumentTextIcon },
+          { id: 'security', title: 'Security', Icon: ShieldCheckIcon },
+          { id: 'payment', title: 'Cards/Banks', Icon: CreditCardIcon },
+        ]}
+      />
 
       <div className="prose prose-sm dark:prose-invert mb-16 max-w-none">
         {/* user details form */}
