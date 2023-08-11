@@ -21,23 +21,21 @@ export const CompanyForm = (props: { company: User['company'] }) => {
   const [company, setCompany] = useState(props.company);
 
   const onSubmit = async (data: any) => {
-    // the API is currently missing for this
-    //
     // local api as we need to update on the client
-    // const res = await fetch('/api/profile/company', {
-    //   method: 'PATCH',
-    //   body: JSON.stringify(data),
-    // });
-    //
-    // if (res.status === 200) {
-    //   setExpanded(false);
-    // }
-    //
-    // const json = await res.json();
-    // // update the state so it reflects the new data immediately
-    // setCompany(json.data.name);
-    // // Update the session so it remembers the new data as the user navigates
-    // updateSession({ user: json.data });
+    const res = await fetch('/api/profile/company', {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+
+    if (res.status === 200) {
+      setExpanded(false);
+    }
+
+    const json = await res.json();
+    // update the state so it reflects the new data immediately
+    setCompany(json.data.company);
+    // Update the session so it remembers the new data as the user navigates
+    updateSession({ user: json.data });
   };
 
   return (
