@@ -13,6 +13,7 @@ import { Badge, BadgeProps } from '#/ui/components/Badge';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { getPaymentHistory } from '#/app/api/payments/getPaymentHistory';
 import { HistoryDoc } from '#/app/api/payments/history';
+import { Slider } from '#/ui/components/Slider';
 
 export default async function Page() {
   const history = await getPaymentHistory();
@@ -141,12 +142,16 @@ export default async function Page() {
                   </TableCell>
 
                   <TableCell>
-                    <div className="flex gap-3">
-                      <p className="m-0 text-sm text-gray-400 dark:text-gray-600">
-                        Progress bar
-                      </p>
+                    <div className="flex flex-wrap items-center gap-x-3">
+                      <Slider
+                        progress={
+                          ((totalAmount - amountRemaining) / totalAmount) * 100
+                        }
+                        className="w-32"
+                      />
                       <p className="m-0 text-sm text-gray-600 dark:text-gray-400">
-                        4 of 18
+                        {Math.ceil((totalAmount - amountRemaining) / amount)} of{' '}
+                        {Math.ceil(totalAmount / amount)}
                       </p>
                     </div>
                   </TableCell>

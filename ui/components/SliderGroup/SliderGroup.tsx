@@ -1,5 +1,5 @@
 import { Select, SelectItem } from '#/ui/components/Select';
-import { Slider } from './Slider';
+import { Slider } from '#/ui/components/Slider';
 import { Label } from '#/ui/components/Label';
 
 export type SliderGroupProps = {
@@ -47,7 +47,7 @@ export function SliderGroup({
   value,
   onChange,
 }: SliderGroupProps) {
-  const sliderClass = value ? `${(parseInt(value) / max) * 100}%` : '';
+  const sliderProgress = value ? (parseInt(value) / max) * 100 : 0;
 
   return (
     <div className="flex flex-col gap-4">
@@ -77,7 +77,7 @@ export function SliderGroup({
           ))}
         </Select>
       </div>
-      <Slider width={sliderClass} />
+      <Slider progress={sliderProgress} />
       <div className="flex justify-between">
         <LabelForSlider type="min" value={min} sliderType={type} />
         <LabelForSlider type="max" value={max} sliderType={type} />
