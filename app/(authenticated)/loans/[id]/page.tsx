@@ -92,8 +92,6 @@ export default async function Page({
         });
         status = subscribedLoan.loanStatus;
         transactions = await getLoanTransactions({ id: params.id });
-
-        console.log({ subscribedLoan, transactions });
       }
     }
   }
@@ -132,8 +130,6 @@ export default async function Page({
     REJECTED: 'error',
     COMPLETED: undefined,
   }[status] as BadgeProps['type'];
-
-  console.log({ status });
 
   return (
     <>
@@ -283,8 +279,6 @@ export default async function Page({
             </div>
           </div>
         </div>
-
-        {console.log(transactions.data.first)}
 
         {transactions.docs.length ? (
           <div className="col-span-3 flex flex-col gap-6">
