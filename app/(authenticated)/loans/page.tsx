@@ -15,7 +15,7 @@ export default async function Page() {
     (loan) =>
       loan.loanStatus === 'COMPLETED' ||
       loan.loanStatus === 'REJECTED' ||
-      new Date(loan.startDate) < new Date(),
+      (loan.loanStatus === 'PENDING' && new Date(loan.startDate) < new Date()),
   );
 
   return (

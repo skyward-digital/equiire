@@ -56,12 +56,13 @@ export default async function Page({
   const openStripePortal = searchParams['open-stripe-portal'];
   const updatePaymentMethod = searchParams['update-payment-method'];
 
-  // If the loan agreement date is in the past, it should fail gracefully
-  const expiredLoan = new Date(loan.startDate) < new Date();
-
   // We are changing some of these variables after certain processes have finished
   let paymentStepCompleted = !!loan.paymentMethod;
   let status = loan.loanStatus;
+
+  // If the loan agreement date is in the past, it should fail gracefully
+  const expiredLoan =
+    status === 'PENDING' && new Date(loan.startDate) < new Date();
 
   // Completes the loan steps for pending loans
   if (status === 'PENDING' && !expiredLoan) {
@@ -79,8 +80,6 @@ export default async function Page({
         paymentStepCompleted = !!updatedLoan.paymentMethod;
       }
     }
-
-    console.log({ loan });
 
     // Subscribes the loan and updates loan status
     if (paymentStepCompleted && loan.signatureCompleted) {
@@ -133,6 +132,8 @@ export default async function Page({
     REJECTED: 'error',
     COMPLETED: undefined,
   }[status] as BadgeProps['type'];
+
+  console.log({ status });
 
   return (
     <>
@@ -282,6 +283,8 @@ export default async function Page({
             </div>
           </div>
         </div>
+
+        {console.log(transactions.data.first)}
 
         {transactions.docs.length ? (
           <div className="col-span-3 flex flex-col gap-6">

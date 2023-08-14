@@ -42,10 +42,31 @@ export type Loan = {
 export type LoanTransactions = {
   message: string;
   status: 'SUCCESS';
-  data: LoanTransaction[];
+  data: LoanFutureTransaction[] | LoanPastTransaction[];
 };
 
-export type LoanTransaction = {
+export type LoanPastTransaction = {
+  id: string;
+  invoiceId: string;
+  created: string;
+  amount: number;
+  paymentMethod: {
+    id: string;
+    type: string;
+    paymentMethodInfo: { brand: string; last4: string; funding: string };
+  };
+  status: string;
+  invoiceStatus: string;
+  totalAmount: number;
+  amountRemaining: number;
+  loan: {
+    id: string;
+    type: string;
+    startDate: string;
+  };
+};
+
+export type LoanFutureTransaction = {
   status: 'SCHEDULED';
   date: string;
   amount: number;
