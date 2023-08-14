@@ -5,9 +5,6 @@ import {
   TableCell,
 } from '#/ui/components/Table';
 import { TabHeading, TabLink } from '#/ui/components/TabHeading';
-import { Status } from '#/ui/components/Status';
-import { Avatar } from '#/ui/components/Avatar';
-import { tableData } from '#/lib/table';
 import { BanknotesIcon } from '@heroicons/react/24/outline';
 import { Badge, BadgeProps } from '#/ui/components/Badge';
 import { CheckIcon } from '@heroicons/react/24/outline';
@@ -54,10 +51,9 @@ export default async function Page() {
                   amount,
                   status,
                   paymentMethod,
-                  owner,
                   created,
                 }: HistoryDoc,
-                index,
+                index: number,
               ) => (
                 <TableRow key={index}>
                   <TableCell>
