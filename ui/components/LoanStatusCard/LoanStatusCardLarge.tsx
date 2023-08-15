@@ -32,11 +32,11 @@ export const LoanStatusCardLarge = ({
           <Button href={`/loans/${id}`} variant="secondary" size="sm">
             View Loan Details
           </Button>
-          {status !== 'rejected' && status !== 'pending' ? (
+          {/* {status !== 'rejected' && status !== 'pending' ? (
             <Button href="#" variant="primary" size="sm">
               Make Payment Early
             </Button>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
 
