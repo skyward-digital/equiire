@@ -46,7 +46,10 @@ export const LoanStatusCard = ({ loan }: { loan: Loan }) => {
       })
     : undefined;
 
-  if (status === 'completed' || new Date(loan.startDate) < new Date())
+  if (
+    status === 'completed' ||
+    (status === 'pending' && new Date(loan.startDate) < new Date())
+  )
     return (
       <LoanStatusCardSmall
         id={id}
