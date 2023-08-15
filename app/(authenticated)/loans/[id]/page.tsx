@@ -153,136 +153,132 @@ export default async function Page({
           )}
         </div>
       </TabHeading>
-
-      <div className="container grid grid-cols-5 gap-24 px-12 py-12">
-        <div className="col-span-2">
-          {/* Heading */}
-          <div className="mb-6 flex">
-            <h1 className="font-brand mb-1.5 text-5xl font-semibold">
-              Loan of{' '}
-              <strong className="text-brand">
-                {value.toLocaleString('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                  maximumFractionDigits: 0,
-                })}
-              </strong>
-              <br />
-              in{' '}
-              <strong className="text-brand">
-                {new Date(startDate).toLocaleDateString('en-US', {
-                  month: 'long',
-                  year: 'numeric',
-                })}
-              </strong>
-            </h1>
-            {/* <ProgressCircle progress={(paidTransactions.length / 24) * 100} /> */}
-          </div>
-
-          {/* Loan details */}
-          <div className="space-y-6">
-            <LoanDetailRow
-              Icon={BuildingLibraryIcon}
-              label="Loan type"
-              value={
-                type === 'CREDIT_BUILDER' ? 'Credit Builder' : 'Standard Loan'
-              }
-            />
-            <LoanDetailRow Icon={HashtagIcon} label="Loan Number" value={id} />
-
-            <Divider className="col-span-2" />
-
-            <LoanDetailRow
-              Icon={WalletIcon}
-              label="Loan Amount"
-              value={value.toLocaleString('en-US', {
+      <div className="container grid gap-24 px-12 py-12 sm:grid-cols-5">
+        {/* Heading */}
+        <div className="order-1 col-span-1 row-span-1 mb-6 flex sm:col-span-2">
+          <h1 className="font-brand mb-1.5 text-5xl font-semibold">
+            Loan of{' '}
+            <strong className="text-brand">
+              {value.toLocaleString('en-US', {
                 style: 'currency',
                 currency: 'USD',
                 maximumFractionDigits: 0,
               })}
-            />
-            <LoanDetailRow
-              Icon={ClipboardDocumentCheckIcon}
-              label="Loan Length"
-              value={`${loanLength} Months`}
-            />
-            <LoanDetailRow
-              Icon={CircleStackIcon}
-              label="Monthly Payments"
-              value={monthlyPayment.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0,
-              })}
-            />
-
-            <Divider className="col-span-2" />
-
-            <LoanDetailRow
-              Icon={ReceiptPercentIcon}
-              label="APR"
-              value={`${apr}%`}
-            />
-            <LoanDetailRow
-              Icon={BanknotesIcon}
-              label="Total Repayable"
-              value={totalRepayable.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              })}
-            />
-            <LoanDetailRow
-              Icon={CurrencyDollarIcon}
-              label="Credit Cost"
-              value={interestValue.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-              })}
-            />
-
-            <Divider className="col-span-2" />
-
-            <LoanDetailRow
-              Icon={CalendarIcon}
-              label="First Repayment Date"
-              value={new Date(startDate).toLocaleDateString('en-US', {
-                day: 'numeric',
+            </strong>
+            <br />
+            in{' '}
+            <strong className="text-brand">
+              {new Date(startDate).toLocaleDateString('en-US', {
                 month: 'long',
                 year: 'numeric',
               })}
-            />
-            <LoanDetailRow
-              Icon={CalendarDaysIcon}
-              label="Loan Deposited"
-              value={
-                endDate
-                  ? new Date(endDate).toLocaleDateString('en-US', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                    })
-                  : 'Pending'
-              }
-            />
+            </strong>
+          </h1>
+          {/* <ProgressCircle progress={(paidTransactions.length / 24) * 100} /> */}
+        </div>
+        {/* Loan details */}
+        <div className="order-2 col-span-1 row-span-1 space-y-6 sm:order-3">
+          <LoanDetailRow
+            Icon={BuildingLibraryIcon}
+            label="Loan type"
+            value={
+              type === 'CREDIT_BUILDER' ? 'Credit Builder' : 'Standard Loan'
+            }
+          />
+          <LoanDetailRow Icon={HashtagIcon} label="Loan Number" value={id} />
 
-            <Divider className="col-span-2" />
+          <Divider className="col-span-2" />
 
-            <div className="flex flex-col items-start gap-4">
-              <Button variant="secondary" size="sm">
-                <DocumentArrowDownIcon className="h-4 w-4" />
-                Download Loan Agreement
-              </Button>
+          <LoanDetailRow
+            Icon={WalletIcon}
+            label="Loan Amount"
+            value={value.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              maximumFractionDigits: 0,
+            })}
+          />
+          <LoanDetailRow
+            Icon={ClipboardDocumentCheckIcon}
+            label="Loan Length"
+            value={`${loanLength} Months`}
+          />
+          <LoanDetailRow
+            Icon={CircleStackIcon}
+            label="Monthly Payments"
+            value={monthlyPayment.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              maximumFractionDigits: 0,
+            })}
+          />
 
-              {/* <Button variant="secondary" size="sm">
+          <Divider className="col-span-2" />
+
+          <LoanDetailRow
+            Icon={ReceiptPercentIcon}
+            label="APR"
+            value={`${apr}%`}
+          />
+          <LoanDetailRow
+            Icon={BanknotesIcon}
+            label="Total Repayable"
+            value={totalRepayable.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}
+          />
+          <LoanDetailRow
+            Icon={CurrencyDollarIcon}
+            label="Credit Cost"
+            value={interestValue.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}
+          />
+
+          <Divider className="col-span-2" />
+
+          <LoanDetailRow
+            Icon={CalendarIcon}
+            label="First Repayment Date"
+            value={new Date(startDate).toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+            })}
+          />
+          <LoanDetailRow
+            Icon={CalendarDaysIcon}
+            label="Loan Deposited"
+            value={
+              endDate
+                ? new Date(endDate).toLocaleDateString('en-US', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })
+                : 'Pending'
+            }
+          />
+
+          <Divider className="col-span-2" />
+
+          <div className="flex flex-col items-start gap-4">
+            <Button variant="secondary" size="sm">
+              <DocumentArrowDownIcon className="h-4 w-4" />
+              Download Loan Agreement
+            </Button>
+
+            {/* <Button variant="secondary" size="sm">
                 <PencilIcon className="h-4 w-4" />
                 Add note
               </Button> */}
-            </div>
           </div>
         </div>
 
         {transactions.docs.length ? (
-          <div className="col-span-3 flex flex-col gap-6">
+          <div className="order-3 col-span-1 row-span-2 flex flex-col gap-6 sm:order-2 sm:col-span-3">
             <TransactionCard
               transaction={transactions.data.first}
               transactionTotal={transactions.docs.length}
@@ -324,7 +320,7 @@ export default async function Page({
             />
           </div> // Needs re-implementation
         ) : (
-          <div className="col-span-3 flex flex-col gap-6">
+          <div className="order-1 col-span-1 row-span-2 flex flex-col gap-6 sm:order-2 sm:col-span-3">
             <LoanSteps
               steps={steps}
               variant="card"
