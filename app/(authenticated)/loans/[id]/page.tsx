@@ -126,7 +126,7 @@ export default async function Page({
 
   const badgeStatus = {
     PENDING: 'warning',
-    IN_PROGRESS: 'info',
+    IN_PROGRESS: 'success',
     REJECTED: 'error',
     COMPLETED: undefined,
   }[status] as BadgeProps['type'];
@@ -188,7 +188,7 @@ export default async function Page({
                 type === 'CREDIT_BUILDER' ? 'Credit Builder' : 'Standard Loan'
               }
             />
-            <LoanDetailRow Icon={HashtagIcon} label="Loan ID" value={id} />
+            <LoanDetailRow Icon={HashtagIcon} label="Loan Number" value={id} />
 
             <Divider className="col-span-2" />
 
@@ -204,7 +204,7 @@ export default async function Page({
             <LoanDetailRow
               Icon={ClipboardDocumentCheckIcon}
               label="Loan Length"
-              value={`${loanLength} months`}
+              value={`${loanLength} Months`}
             />
             <LoanDetailRow
               Icon={CircleStackIcon}
@@ -212,6 +212,7 @@ export default async function Page({
               value={monthlyPayment.toLocaleString('en-US', {
                 style: 'currency',
                 currency: 'USD',
+                maximumFractionDigits: 0,
               })}
             />
 
@@ -347,8 +348,8 @@ const LoanDetailRow = ({
   value: string | number;
 }) => {
   return (
-    <div className="grid grid-cols-2 justify-between gap-x-8 text-sm font-semibold text-gray-600 dark:text-gray-300">
-      <p className="flex items-center gap-2">
+    <div className="grid grid-cols-2 justify-between gap-x-8 text-sm text-gray-600 dark:text-gray-300">
+      <p className="flex items-center gap-2 font-semibold capitalize">
         <Icon className="h-4 w-4" />
         {label}
       </p>
