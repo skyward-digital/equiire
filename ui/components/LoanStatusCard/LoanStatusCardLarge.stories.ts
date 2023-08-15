@@ -23,7 +23,7 @@ const args = {
   id: '123456',
   status: 'approved',
   value: 100000,
-  startDate: '2021-01-01',
+  startDate: 'January 2021',
 };
 
 export const Default: Story = {
