@@ -18,4 +18,16 @@ export default meta;
 
 type Story = StoryObj<typeof Slider>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    progress: 66,
+  },
+};
+
+export const Empty: Story = {};
+
+export const Complete: Story = {
+  args: {
+    progress: 100,
+  },
+};
