@@ -153,10 +153,10 @@ export default async function Page({
           )}
         </div>
       </TabHeading>
-      <div className="container grid gap-24 px-12 py-12 sm:grid-cols-5">
+      <div className="container grid gap-8 px-6 py-10 sm:grid-cols-5 sm:gap-10 sm:px-12 sm:py-12">
         {/* Heading */}
-        <div className="order-1 col-span-1 row-span-1 mb-6 flex sm:col-span-2">
-          <h1 className="font-brand mb-1.5 text-5xl font-semibold">
+        <div className="order-1 col-span-1 row-span-1 flex sm:col-span-2">
+          <h1 className="font-brand text-4xl font-semibold sm:text-6xl">
             Loan of{' '}
             <strong className="text-brand">
               {value.toLocaleString('en-US', {
@@ -177,7 +177,7 @@ export default async function Page({
           {/* <ProgressCircle progress={(paidTransactions.length / 24) * 100} /> */}
         </div>
         {/* Loan details */}
-        <div className="order-2 col-span-1 row-span-1 space-y-6 sm:order-3">
+        <div className="order-2 col-span-1 row-span-1 space-y-6 sm:order-3 sm:col-span-2">
           <LoanDetailRow
             Icon={BuildingLibraryIcon}
             label="Loan type"
@@ -265,7 +265,11 @@ export default async function Page({
           <Divider className="col-span-2" />
 
           <div className="flex flex-col items-start gap-4">
-            <Button variant="secondary" size="sm">
+            <Button
+              variant="secondary"
+              size="sm"
+              className="w-full py-2 sm:w-auto sm:py-1"
+            >
               <DocumentArrowDownIcon className="h-4 w-4" />
               Download Loan Agreement
             </Button>
@@ -320,7 +324,7 @@ export default async function Page({
             />
           </div> // Needs re-implementation
         ) : (
-          <div className="order-1 col-span-1 row-span-2 flex flex-col gap-6 sm:order-2 sm:col-span-3">
+          <div className="order-1 col-span-1 row-span-2 flex flex-col gap-2 sm:order-2 sm:col-span-3 sm:gap-6">
             <LoanSteps
               steps={steps}
               variant="card"
@@ -344,7 +348,7 @@ const LoanDetailRow = ({
   value: string | number;
 }) => {
   return (
-    <div className="grid grid-cols-2 justify-between gap-x-8 text-sm text-gray-600 dark:text-gray-300">
+    <div className="flex justify-between text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
       <p className="flex items-center gap-2 font-semibold capitalize">
         <Icon className="h-4 w-4" />
         {label}

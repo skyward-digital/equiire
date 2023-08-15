@@ -17,7 +17,7 @@ export const StepCard = ({ stage, href, children }: StepProps) => {
     <Component
       href={href}
       className={clsx(
-        'relative flex w-full items-center gap-2 overflow-hidden rounded-lg border bg-white p-6 text-xl font-semibold shadow-md dark:bg-black',
+        'text-md relative flex w-full items-center gap-2 overflow-hidden rounded-lg border bg-white px-3 py-2 font-semibold shadow-md dark:bg-black sm:p-6 sm:text-xl',
         !completed && 'group',
         completed && 'border-success-200 dark:border-success-800',
         stage === 'next' && 'border-brand-200 dark:border-brand-800',
@@ -42,13 +42,13 @@ export const StepCard = ({ stage, href, children }: StepProps) => {
       >
         {completed ? (
           <CheckBadgeIcon
-            className="text-success-600 h-8 w-8"
+            className="text-success-600 h-4 w-4 sm:h-8 sm:w-8"
             strokeWidth={1.5}
           />
         ) : (
           <XCircleIcon
             className={clsx(
-              'h-8 w-8 duration-200',
+              'h-4 w-4 duration-200 sm:h-8 sm:w-8',
               stage === 'next' && 'text-brand-600',
               stage === 'incomplete' &&
                 'text-gray-300 group-hover:text-gray-400 dark:text-gray-400',
