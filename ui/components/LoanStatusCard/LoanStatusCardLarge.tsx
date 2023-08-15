@@ -16,10 +16,10 @@ export const LoanStatusCardLarge = ({
 }: LoanStatusCardProps) => {
   return (
     <div className="w-full rounded-xl border bg-white shadow-sm dark:border-gray-600 dark:bg-black">
-      <div className="flex w-full justify-between gap-4 border-b px-8 py-4 dark:border-gray-600">
-        <div className="flex items-center gap-4">
+      <div className="flex w-full flex-col justify-between gap-4 border-b px-4 py-4 dark:border-gray-600 sm:flex-row sm:px-8">
+        <div className="flex items-center justify-between gap-4">
           <Link href={`/loans/${id}`}>
-            <p className="font-brand -mb-1 text-xl font-semibold text-gray-400 dark:text-gray-200">
+            <p className="font-brand -mb-1 text-sm text-gray-400 dark:text-gray-200 sm:text-xl sm:font-semibold">
               #{id}
             </p>
           </Link>
@@ -28,21 +28,26 @@ export const LoanStatusCardLarge = ({
           </Badge>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Button href={`/loans/${id}`} variant="secondary" size="sm">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <Button
+            href={`/loans/${id}`}
+            variant="secondary"
+            size="sm"
+            className="w-full py-2 sm:py-1"
+          >
             View Loan Details
           </Button>
           {/* {status !== 'rejected' && status !== 'pending' ? (
-            <Button href="#" variant="primary" size="sm">
+            <Button href="#" variant="primary" size="sm" className="w-full py-2 sm:py-1">
               Make Payment Early
             </Button>
           ) : null} */}
         </div>
       </div>
 
-      <div className="flex min-h-[16rem] justify-between gap-8 p-8">
-        <div className="w-1/2">
-          <h2 className="font-brand mb-1.5 text-7xl">
+      <div className="flex min-h-[16rem] flex-col justify-between gap-8 px-4 py-6 sm:flex-row sm:p-8">
+        <div className="sm:w-4/5">
+          <h2 className="font-brand mb-1.5 text-5xl md:text-7xl">
             Loan of{' '}
             <strong className="text-brand">
               {value.toLocaleString('en-US', {
@@ -50,8 +55,8 @@ export const LoanStatusCardLarge = ({
                 currency: 'USD',
                 maximumFractionDigits: 0,
               })}
-            </strong>
-            <br />
+            </strong>{' '}
+            <br className="hidden lg:block" />
             in <strong className="text-brand">{startDate}</strong>
           </h2>
           {status === 'processing' && (
@@ -62,7 +67,7 @@ export const LoanStatusCardLarge = ({
         </div>
 
         {/* if account details aren't completed */}
-        <div className="w-2/5 space-y-4">
+        <div className="w-full space-y-4 sm:w-2/5">
           {status === 'pending' && (
             <LoanSteps steps={steps} variant="link" loanId={id} />
           )}
