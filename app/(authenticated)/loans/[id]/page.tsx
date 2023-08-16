@@ -110,6 +110,8 @@ export default async function Page({
     // @ts-ignore
   } = loan;
 
+  console.log(loan);
+
   const steps = {
     account: true, // always true as a user cannot have a loan without an account
     loan: true, // always true as a user cannot view a loan without a loan
@@ -157,7 +159,7 @@ export default async function Page({
       <div className="container grid grid-cols-5 gap-24 px-12 py-12">
         <div className="col-span-2">
           {/* Heading */}
-          <div className="mb-6 flex">
+          <div className="mb-6 flex items-start">
             <h1 className="font-brand mb-1.5 text-5xl font-semibold">
               Loan of{' '}
               <strong className="text-brand">
@@ -176,7 +178,14 @@ export default async function Page({
                 })}
               </strong>
             </h1>
-            {/* <ProgressCircle progress={(paidTransactions.length / 24) * 100} /> */}
+            <ProgressCircle
+              progress={
+                ((transactions.docs.length -
+                  transactions.data.scheduled.length) /
+                  transactions.docs.length) *
+                100
+              }
+            />
           </div>
 
           {/* Loan details */}
