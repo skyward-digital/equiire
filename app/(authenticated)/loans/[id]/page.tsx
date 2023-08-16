@@ -153,7 +153,7 @@ export default async function Page({
           )}
         </div>
       </TabHeading>
-      <div className="container grid gap-8 px-6 py-10 sm:grid-cols-5 sm:gap-10 sm:px-12 sm:py-12">
+      <div className="container grid gap-8 px-6 py-10 sm:grid-cols-5 sm:gap-10 sm:px-4 sm:py-12 lg:px-12">
         {/* Heading */}
         <div className="order-1 col-span-1 row-span-1 flex sm:col-span-2">
           <h1 className="font-brand text-4xl font-semibold sm:text-6xl">

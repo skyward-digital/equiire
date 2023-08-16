@@ -48,7 +48,7 @@ export const TransactionAccordion = ({
     <div>
       <div
         className={clsx(
-          'relative flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-gray-200 bg-white py-2 pl-3 pr-10 shadow-md dark:border-gray-800 dark:bg-black sm:py-4 sm:pl-6',
+          'relative flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-gray-200 bg-white py-2 pl-3 pr-10 shadow-md dark:border-gray-800 dark:bg-black md:py-4 md:pl-6',
         )}
         role="button"
         tabIndex={0}
@@ -76,7 +76,7 @@ export const TransactionAccordion = ({
       </div>
 
       {expanded && (
-        <div className="mt-3 grid gap-4 px-6 md:mt-8 md:px-10">
+        <div className="mt-3 grid gap-4 px-6 md:mt-8 lg:px-10">
           {transactions.map((transaction) => (
             <TransactionCard
               key={transaction.transactionCount}
