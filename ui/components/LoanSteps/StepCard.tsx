@@ -17,7 +17,7 @@ export const StepCard = ({ stage, href, children }: StepProps) => {
     <Component
       href={href}
       className={clsx(
-        'text-md relative flex w-full items-center gap-2 overflow-hidden rounded-lg border bg-white px-3 py-2 font-semibold shadow-md dark:bg-black sm:p-6 sm:text-xl',
+        'relative flex w-full items-center gap-2 overflow-hidden rounded-lg border bg-white px-3 py-2 font-semibold shadow-md dark:bg-black sm:p-6 sm:text-xl',
         !completed && 'group',
         completed && 'border-success-200 dark:border-success-800',
         stage === 'next' && 'border-brand-200 dark:border-brand-800',
