@@ -86,8 +86,10 @@ export const login = async (data: { email: string; password: string }) => {
       password: data.password,
       callbackUrl: '/overview',
     });
+    return { error: null };
   } else {
-    console.log('Missing username or password');
+    const response = await res.json();
+    return { error: response.error };
   }
 };
 

@@ -35,6 +35,11 @@ export async function POST(request: Request) {
   if (res.status === 200) {
     return NextResponse.json({ data });
   } else {
-    return new Error('Login failed: ' + data.message);
+    return NextResponse.json(
+      {
+        error: data?.message || 'Something went wrong',
+      },
+      { status: res.status },
+    );
   }
 }
