@@ -4,7 +4,7 @@ import {
   TableHeadCell,
   TableCell,
 } from '#/ui/components/Table';
-import { TabHeading, TabLink } from '#/ui/components/TabHeading';
+import { TabHeading } from '#/ui/components/TabHeading';
 import { BanknotesIcon } from '@heroicons/react/24/outline';
 import { Badge, BadgeProps } from '#/ui/components/Badge';
 import { CheckIcon } from '@heroicons/react/24/outline';
@@ -17,14 +17,11 @@ export default async function Page() {
 
   return (
     <>
-      <TabHeading>
-        <TabLink
-          href="#history"
-          title="Payment History"
-          Icon={BanknotesIcon}
-          active
-        />
-      </TabHeading>
+      <TabHeading
+        links={[
+          { id: 'history', title: 'Payment History', Icon: BanknotesIcon },
+        ]}
+      />
 
       <div className="prose prose-sm dark:prose-invert max-w-none py-8">
         {/* user details form */}

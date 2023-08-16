@@ -1,5 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { getSession } from '#/app/api/session';
+import { getServerSession } from '#/app/api/session';
 import type { PaymentMethods } from './paymentMethods';
 
 // `server-only` guarantees any modules that import code in file
@@ -9,7 +9,7 @@ import type { PaymentMethods } from './paymentMethods';
 import 'server-only';
 
 export async function getStripePaymentMethods() {
-  const { accessToken } = await getSession();
+  const { accessToken } = await getServerSession();
 
   const res = await fetch(
     `${process.env.API_URL}/payments/payment-methods?access_token=${accessToken}`,
