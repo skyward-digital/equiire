@@ -7,7 +7,8 @@ export default async function Page() {
 
   const activeLoans = loans.docs.filter(
     (loan) =>
-      loan.loanStatus === 'IN_PROGRESS' || loan.loanStatus === 'PENDING',
+      loan.loanStatus === 'IN_PROGRESS' ||
+      (loan.loanStatus === 'PENDING' && new Date(loan.startDate) > new Date()),
   );
 
   return (

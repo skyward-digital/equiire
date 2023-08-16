@@ -31,7 +31,7 @@ export const LoanStatusCard = ({ loan }: { loan: Loan }) => {
     IN_PROGRESS: 'info',
     REJECTED: 'error',
     COMPLETED: undefined,
-  }[status] as BadgeProps['type'];
+  }[loanStatus] as BadgeProps['type'];
 
   const startDate = new Date(loan.startDate).toLocaleDateString('en-US', {
     month: 'long',
@@ -46,7 +46,10 @@ export const LoanStatusCard = ({ loan }: { loan: Loan }) => {
       })
     : undefined;
 
-  if (status === 'completed')
+  if (
+    status === 'completed' ||
+    (status === 'pending' && new Date(loan.startDate) < new Date())
+  )
     return (
       <LoanStatusCardSmall
         id={id}

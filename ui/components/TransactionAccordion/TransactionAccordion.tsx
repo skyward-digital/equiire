@@ -23,6 +23,7 @@ export const TransactionAccordion = ({
     upcoming: 'upcoming',
     overdue: 'overdue',
     SCHEDULED: 'scheduled',
+    succeeded: 'paid',
   }[transactionStatus];
 
   const statusText = {

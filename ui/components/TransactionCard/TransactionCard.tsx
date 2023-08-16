@@ -8,7 +8,7 @@ export interface TransactionProps {
   id: number | string;
   title: string;
   amount: number;
-  status: 'paid' | 'upcoming' | 'SCHEDULED' | 'overdue';
+  status: 'paid' | 'upcoming' | 'SCHEDULED' | 'overdue' | 'succeeded';
   date: Date | string;
   paymentDate?: Date | string;
   paymentMethod?: 'Bank Transfer' | 'Credit Card';
@@ -43,6 +43,7 @@ export const TransactionCard = ({
     upcoming: 'upcoming',
     overdue: 'overdue',
     SCHEDULED: 'scheduled',
+    succeeded: 'paid',
   }[transactionStatus];
 
   const badgeStatus = {

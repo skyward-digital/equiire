@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from '#/app/api/session';
-import { LoanTransaction } from './loans';
+import { LoanPastTransaction, LoanFutureTransaction } from './loans';
 
 export async function getLoanTransactions({ id }: { id: string }) {
   const { accessToken } = await getServerSession();
@@ -26,13 +26,18 @@ export async function getLoanTransactions({ id }: { id: string }) {
   const futureTransactionsJson = await futureTransactionsResponse.json();
 
   const pastTransactions = pastTransactionsJson.docs.map(
-    (transaction: LoanTransaction, index: number) => ({
+    (transaction: LoanPastTransaction, index: number) => ({
       ...transaction,
+      date: transaction.created
+        ? new Date(
+            Date.parse(transaction.created.replace(' ', 'T')),
+          ).toDateString()
+        : '',
       transactionCount: index + 1,
     }),
   );
   const futureTransactions = futureTransactionsJson.data.map(
-    (transaction: LoanTransaction, index: number) => ({
+    (transaction: LoanFutureTransaction, index: number) => ({
       ...transaction,
       transactionCount: index + pastTransactions.length + 1,
     }),

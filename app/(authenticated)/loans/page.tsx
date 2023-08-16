@@ -7,11 +7,15 @@ export default async function Page() {
 
   const incompleteLoans = loans.docs.filter(
     (loan) =>
-      loan.loanStatus === 'IN_PROGRESS' || loan.loanStatus === 'PENDING',
+      loan.loanStatus === 'IN_PROGRESS' ||
+      (loan.loanStatus === 'PENDING' && new Date(loan.startDate) > new Date()),
   );
 
   const completedLoans = loans.docs.filter(
-    (loan) => loan.loanStatus === 'COMPLETED' || loan.loanStatus === 'REJECTED',
+    (loan) =>
+      loan.loanStatus === 'COMPLETED' ||
+      loan.loanStatus === 'REJECTED' ||
+      (loan.loanStatus === 'PENDING' && new Date(loan.startDate) < new Date()),
   );
 
   return (
@@ -33,7 +37,7 @@ export default async function Page() {
           <h2 className="font-brand text-xl font-semibold text-gray-500 dark:text-gray-50">
             Completed Loans
           </h2>
-          <div className="grid w-full grid-cols-2 gap-4">
+          <div className="grid w-full gap-4 xl:grid-cols-2">
             {completedLoans.map((loan) => (
               <LoanStatusCard key={loan._id} loan={loan} />
             ))}

@@ -11,6 +11,8 @@ export const LoanStatusCardSmall = ({
   endDate,
   badgeStatus,
 }: LoanStatusCardProps) => {
+  const expiredLoan = new Date(startDate) < new Date();
+
   return (
     <div className="w-full rounded-xl border bg-white shadow-sm dark:border-gray-600 dark:bg-black">
       <div className="flex w-full justify-between gap-4 border-b px-8 py-4 dark:border-gray-600">
@@ -20,19 +22,27 @@ export const LoanStatusCardSmall = ({
               #{id}
             </p>
           </Link>
-          <Badge type={badgeStatus} Icon={CheckIcon}>
-            {status}
-          </Badge>
+          {expiredLoan ? (
+            <Badge type="error" dot>
+              Expired
+            </Badge>
+          ) : (
+            <Badge type={badgeStatus} dot>
+              {status}
+            </Badge>
+          )}
         </div>
 
-        <div className="flex items-center gap-4">
-          <Link
-            href={`/loans/${id}`}
-            className="hover:text-brand focus:text-brand font-semibold text-gray-600 duration-200"
-          >
-            View
-          </Link>
-        </div>
+        {!expiredLoan && (
+          <div className="flex items-center gap-4">
+            <Link
+              href={`/loans/${id}`}
+              className="hover:text-brand focus:text-brand font-semibold text-gray-600 duration-200"
+            >
+              View
+            </Link>
+          </div>
+        )}
       </div>
 
       <div className="flex w-full flex-col p-8">

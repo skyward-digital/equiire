@@ -28,7 +28,7 @@ export const navigation: { name?: string; items: Item[] }[] = [
         slug: 'loans',
       },
       {
-        name: 'Payment',
+        name: 'History',
         icon: CreditCardIcon,
         slug: 'history',
       },
