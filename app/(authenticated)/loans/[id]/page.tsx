@@ -264,17 +264,13 @@ export default async function Page({
 
           <Divider className="col-span-2" />
 
-          <div className="flex flex-col items-start gap-4">
-            <Button
-              variant="secondary"
-              size="sm"
-              className="w-full py-2 sm:w-auto sm:py-1"
-            >
+          <div className="flex flex-col items-start gap-2 sm:gap-4">
+            <Button variant="secondary" size="sm" className="w-full sm:w-auto">
               <DocumentArrowDownIcon className="h-4 w-4" />
               Download Loan Agreement
             </Button>
 
-            {/* <Button variant="secondary" size="sm">
+            {/* <Button variant="secondary" size="sm" className="w-full sm:w-auto">
                 <PencilIcon className="h-4 w-4" />
                 Add note
               </Button> */}
