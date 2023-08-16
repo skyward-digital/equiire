@@ -88,7 +88,7 @@ export default function Page() {
   }, [terms, type]);
 
   return (
-    <div className="mx-auto flex flex-col justify-center sm:mt-20 sm:flex-row lg:gap-10">
+    <div className="mx-auto flex flex-col justify-center sm:flex-row lg:gap-10">
       {step === 0 && (
         <LoanCalculator
           setStep={setStep}

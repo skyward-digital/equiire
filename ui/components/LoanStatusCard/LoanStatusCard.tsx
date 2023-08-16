@@ -28,7 +28,7 @@ export const LoanStatusCard = ({ loan }: { loan: Loan }) => {
 
   const badgeStatus = {
     PENDING: 'warning',
-    IN_PROGRESS: 'info',
+    IN_PROGRESS: 'success',
     REJECTED: 'error',
     COMPLETED: undefined,
   }[loanStatus] as BadgeProps['type'];

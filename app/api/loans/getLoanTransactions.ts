@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
-import { getSession } from '#/app/api/session/getSession';
+import { getServerSession } from '#/app/api/session';
 import { LoanPastTransaction, LoanFutureTransaction } from './loans';
 
 export async function getLoanTransactions({ id }: { id: string }) {
-  const { accessToken } = await getSession();
+  const { accessToken } = await getServerSession();
 
   const [pastTransactionsResponse, futureTransactionsResponse] =
     await Promise.all([

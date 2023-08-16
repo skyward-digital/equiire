@@ -3,7 +3,7 @@ import { Badge, BadgeProps } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
 import { LoanSteps } from '#/ui/components/LoanSteps';
 import { ProgressCircle } from '#/ui/components/ProgressCircle';
-import { TabHeading, TabLink } from '#/ui/components/TabHeading';
+import { TabHeading } from '#/ui/components/TabHeading';
 import { TransactionAccordion } from '#/ui/components/TransactionAccordion';
 import { TransactionCard } from '#/ui/components/TransactionCard';
 import { Divider } from '#/ui/components/Divider';
@@ -20,7 +20,7 @@ import {
   PencilIcon,
   ReceiptPercentIcon,
   WalletIcon,
-} from '@heroicons/react/24/outline';
+} from '#/lib/@heroicons/react/24/outline';
 import {
   getLoan,
   getLoanTransactions,
@@ -133,14 +133,20 @@ export default async function Page({
 
   return (
     <>
-      <TabHeading>
-        <TabLink
-          href="#details"
-          title="Loan Details"
-          Icon={CircleStackIcon}
-          active
-        />
-
+      <TabHeading
+        links={[
+          {
+            id: 'details',
+            title: 'Loan Details',
+            Icon: CircleStackIcon,
+          },
+          {
+            id: 'transactions',
+            title: 'Transactions',
+            Icon: ClipboardDocumentCheckIcon,
+          },
+        ]}
+      >
         <div className="mb-2 flex w-full items-center justify-end">
           {expiredLoan ? (
             <Badge type="error" dot>

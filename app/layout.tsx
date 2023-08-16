@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import ThemeProvider from './ThemeProvider';
+import SessionProvider from './SessionProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -39,13 +40,17 @@ const mazzard = localFont({
 
 export default function RootLayout({
   children,
+  session,
 }: {
   children: React.ReactNode;
+  session: any;
 }) {
   return (
     <html lang="en" className={`${mazzard.variable} ${inter.variable}`}>
       <body className="bg-white dark:bg-black">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <SessionProvider session={session}>{children}</SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

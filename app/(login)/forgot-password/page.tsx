@@ -30,7 +30,6 @@ export default function Page() {
     <LoginCard
       title="Password Reset"
       description="To reset your password, please enter the email address associated with your account. We will send you an email with a link to reset your password."
-      className="sm:mt-40"
       back="/login"
     >
       <ForgotPasswordForm onSuccess={() => setFormSubmitted(true)} />

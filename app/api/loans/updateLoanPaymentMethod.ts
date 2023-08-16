@@ -1,5 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { getSession } from '#/app/api/session/';
+import { getServerSession } from '#/app/api/session/';
 import type { Loan } from './loans';
 
 // `server-only` guarantees any modules that import code in file
@@ -15,7 +15,7 @@ export async function updateLoanPaymentMethod({
   loanId: string;
   paymentMethodId: string;
 }) {
-  const { accessToken } = await getSession();
+  const { accessToken } = await getServerSession();
 
   const res = await fetch(
     `${process.env.API_URL}/loans/${loanId}/update-payment-method?access_token=${accessToken}`,

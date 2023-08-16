@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { TabHeading, TabLink } from '.';
+import { TabHeading } from '.';
 
 const meta: Meta<typeof TabHeading> = {
   title: 'Components/TabHeading/TabHeading',
@@ -21,12 +21,25 @@ type Story = StoryObj<typeof TabHeading>;
 
 export const Default: Story = {
   args: {
+    links: [
+      { id: 'details', title: 'Company Details' },
+      { id: 'security', title: 'Security' },
+      { id: 'payment', title: 'Cards/Banks' },
+    ],
+  },
+};
+
+export const WithChildren: Story = {
+  args: {
+    links: [
+      { id: 'details', title: 'Company Details' },
+      { id: 'security', title: 'Security' },
+      { id: 'payment', title: 'Cards/Banks' },
+    ],
     children: (
-      <>
-        <TabLink title="Tab 1" href="#" active />
-        <TabLink title="Tab 2" href="#" />
-        <TabLink title="Tab 3" href="#" />
-      </>
+      <div className="flex items-center space-x-4">
+        <button className="btn btn-primary">Save</button>
+      </div>
     ),
   },
 };
