@@ -40,3 +40,14 @@ export const DateInPast: Story = {
     onSelect: () => {},
   },
 };
+
+export const PastDatesDisabled: Story = {
+  args: {
+    mode: 'single',
+    defaultMonth: new Date(2023, 0, 8),
+    today: new Date(2023, 0, 8),
+    selected: new Date(2023, 0, 10),
+    onSelect: () => {},
+    disablePast: true,
+  },
+};
