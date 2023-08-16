@@ -1,6 +1,5 @@
 'use client';
 import { useForm } from 'react-hook-form';
-import { useSession } from 'next-auth/react';
 import { UserIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
@@ -11,19 +10,20 @@ export function PersonalInformationForm({
   formData,
   setFormData,
   existingAccount,
+  updateSession,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   formData: FormData;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
   existingAccount?: boolean;
+  updateSession: any;
 }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { update: updateSession } = useSession();
 
   const onSubmit = async (data: any) => {
     if (existingAccount) {
@@ -69,7 +69,7 @@ export function PersonalInformationForm({
         label="Contact Name"
         placeholder="Your name"
         register={register}
-        value={formData.name}
+        value={formData?.name}
         required="Name is required"
         error={errors.name}
       />
@@ -79,7 +79,7 @@ export function PersonalInformationForm({
         label="Email"
         placeholder="Your email"
         register={register}
-        value={formData.email}
+        value={formData?.email}
         required="Email is required"
         pattern={{
           value: /^\S+@\S+$/i,
@@ -94,7 +94,7 @@ export function PersonalInformationForm({
         label="Company"
         placeholder="Cool Company"
         register={register}
-        value={formData.company}
+        value={formData?.company}
         required="Company is required"
         error={errors.company}
         Icon={PencilIcon}

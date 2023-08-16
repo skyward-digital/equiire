@@ -1,7 +1,6 @@
 'use client';
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import statesFullList from 'states-us';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
@@ -15,6 +14,7 @@ export function AdditionalDetailsForm({
   setFormData,
   existingAccount,
   loan,
+  updateSession,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   formData: FormData;
@@ -22,6 +22,7 @@ export function AdditionalDetailsForm({
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
   existingAccount?: boolean;
   loan: any;
+  updateSession: any;
 }) {
   const {
     register,
@@ -29,7 +30,7 @@ export function AdditionalDetailsForm({
     formState: { errors },
     control,
   } = useForm();
-  const { update: updateSession } = useSession();
+
   const router = useRouter();
 
   const onSubmit = async (data: any) => {
@@ -101,7 +102,7 @@ export function AdditionalDetailsForm({
         label="Address Line 1"
         placeholder="123 Main St"
         register={register}
-        value={formData.addressLine1}
+        value={formData?.addressLine1}
         required="Address Line 1 is required"
         error={errors.addressLine1}
         autocomplete="address-line1"
@@ -112,7 +113,7 @@ export function AdditionalDetailsForm({
         label="Address Line 2"
         placeholder="123 Main St"
         register={register}
-        value={formData.addressLine2}
+        value={formData?.addressLine2}
         error={errors.addressLine2}
         autocomplete="address-line2"
       />
@@ -123,7 +124,7 @@ export function AdditionalDetailsForm({
           label="City"
           placeholder="Anytown"
           register={register}
-          value={formData.city}
+          value={formData?.city}
           required="City is required"
           error={errors.city}
           className="col-span-2 sm:col-span-2"
@@ -139,7 +140,7 @@ export function AdditionalDetailsForm({
           <Controller
             name="state"
             control={control}
-            defaultValue={formData.state || 'AL'}
+            defaultValue={formData?.state || 'AL'}
             render={({ field: { onChange, name, value } }) => (
               <Select id={name} value={value} onValueChange={onChange}>
                 {states.map((state) => (
@@ -157,7 +158,7 @@ export function AdditionalDetailsForm({
           label="Zip Code"
           placeholder="12345"
           register={register}
-          value={formData.postalCode}
+          value={formData?.postalCode}
           required="Zip Code is required"
           error={errors.postalCode}
           className="col-span-1 sm:col-span-1"
@@ -171,7 +172,7 @@ export function AdditionalDetailsForm({
         label="Phone Number"
         placeholder="(XXX) XXX-XXXX"
         register={register}
-        value={formData.phone}
+        value={formData?.phone}
         required="Phone Number is required"
         error={errors.phone}
         // pattern={{

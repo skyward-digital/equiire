@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { LoginCard } from '#/ui/components/LoginCard';
@@ -33,6 +34,7 @@ export interface FormData {
 
 export function SignUp({ user }: { user: any }) {
   const router = useRouter();
+  const { update: updateSession } = useSession();
   const [step, setStep] = useState(0);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
@@ -118,6 +120,7 @@ export function SignUp({ user }: { user: any }) {
         setStep={setStep}
         setFormSubmitted={setFormSubmitted}
         existingAccount={existingAccount}
+        updateSession={updateSession}
       />
     </LoginCard>
   );
