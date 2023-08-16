@@ -76,7 +76,7 @@ export const TransactionAccordion = ({
       </div>
 
       {expanded && (
-        <div className="mt-8 grid gap-4 px-10">
+        <div className="mt-3 grid gap-4 px-6 md:mt-8 md:px-10">
           {transactions.map((transaction) => (
             <TransactionCard
               key={transaction.transactionCount}
