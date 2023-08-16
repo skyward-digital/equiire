@@ -33,7 +33,7 @@ export const LoanStatusCardLarge = ({
             href={`/loans/${id}`}
             variant="secondary"
             size="sm"
-            className="w-full py-2 sm:py-1"
+            className="w-full"
           >
             View Loan Details
           </Button>
