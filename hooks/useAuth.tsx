@@ -1,7 +1,7 @@
 import { signIn, signOut } from 'next-auth/react';
 import formatISO from 'date-fns/formatISO';
 import parse from 'date-fns/parse';
-import { Loan } from '#/app/(login)/sign-up/page';
+import { Loan } from '#/app/(login)/sign-up/SignUp';
 
 export const signup = async (data: {
   email: string;
