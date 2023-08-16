@@ -121,7 +121,7 @@ export const AddressForm = (props: { address: User['address'] }) => {
                 id={name}
                 value={value}
                 onValueChange={onChange}
-                className="mt-2 border-gray-300 text-base dark:border-gray-300"
+                className="mt-2"
               >
                 {states.map((state) => (
                   <SelectItem key={state.value} value={state.value}>
