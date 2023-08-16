@@ -14,12 +14,14 @@ export function AdditionalDetailsForm({
   setFormData,
   setFormSubmitted,
   existingAccount,
+  loan,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   formData: FormData;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
   existingAccount?: boolean;
+  loan: any;
 }) {
   const {
     register,
@@ -52,6 +54,8 @@ export function AdditionalDetailsForm({
         }),
       ]);
 
+      console.log(loan);
+
       if (address.status === 200 && phone.status === 200) {
         const json = await address.json();
 
@@ -62,7 +66,20 @@ export function AdditionalDetailsForm({
           },
         });
 
-        setFormSubmitted(true);
+        const loanres = await fetch('/api/loans', {
+          method: 'POST',
+          body: JSON.stringify({
+            type: loan.type,
+            amount: parseInt(loan.amount),
+            length: parseInt(loan.length),
+            monthlyPayment: parseInt(loan.monthlyPayment),
+            startDate: loan.startDate,
+          }),
+        });
+
+        if (loanres.status === 200) {
+          setFormSubmitted(true);
+        }
       }
     } else {
       setFormData({ ...formData, ...data });

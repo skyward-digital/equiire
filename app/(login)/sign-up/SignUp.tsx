@@ -47,8 +47,6 @@ export function SignUp({ user }: { user: any }) {
     phone: user.phone ?? '',
   });
 
-  console.log(user?.address);
-
   const existingAccount = !!user?.email;
 
   const FORM_STEPS = [

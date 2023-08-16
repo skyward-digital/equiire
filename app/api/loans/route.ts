@@ -1,3 +1,5 @@
+import { getServerSession } from '#/app/api/session';
+import { redirect } from 'next/navigation';
 import { NextResponse } from 'next/server';
 import type { Loan, Loans } from './loans';
 
@@ -43,4 +45,29 @@ export async function GET(request: Request) {
       },
     });
   }
+}
+
+export async function POST(request: Request) {
+  const { accessToken } = await getServerSession();
+  const data = await request.json();
+
+  const res = await fetch(
+    `${process.env.API_URL}/loans?access_token=${accessToken}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    },
+  );
+
+  console.log(res);
+
+  if (res.status === 401) redirect('/login');
+  if (!res.ok) throw new Error('Failed to create a new loan');
+
+  const loan = (await res.json()) as { data: Loan };
+
+  return NextResponse.json({ data: loan.data });
 }
