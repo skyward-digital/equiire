@@ -1,8 +1,8 @@
-import { getServerSession } from '#/app/api/session';
+import { getOptionalServerSession } from '#/app/api/session';
 import { SignUp } from './SignUp';
 
 export default async function Page() {
-  const { user } = await getServerSession();
+  const { user } = await getOptionalServerSession();
   // return null;
   return <SignUp user={user} />;
 }

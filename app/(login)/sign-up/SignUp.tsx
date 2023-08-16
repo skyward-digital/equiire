@@ -37,14 +37,14 @@ export function SignUp({ user }: { user: any }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     email: user?.email ?? '',
-    addressLine1: user.address.addressLine1 ?? '',
-    addressLine2: user.address.addressLine2 ?? '',
-    city: user.address.city ?? '',
-    company: user.company ?? '',
-    name: user.name ?? '',
-    postalCode: user.address.postalCode ?? '',
-    state: user.address.state ?? '',
-    phone: user.phone ?? '',
+    addressLine1: user?.address.addressLine1 ?? '',
+    addressLine2: user?.address.addressLine2 ?? '',
+    city: user?.address.city ?? '',
+    company: user?.company ?? '',
+    name: user?.name ?? '',
+    postalCode: user?.address.postalCode ?? '',
+    state: user?.address.state ?? '',
+    phone: user?.phone ?? '',
   });
 
   const existingAccount = !!user?.email;
@@ -75,11 +75,6 @@ export function SignUp({ user }: { user: any }) {
   };
 
   if (formSubmitted) {
-    // If they already have an account, skip the passsword step
-    if (existingAccount) {
-      router.push(`/overview`);
-    }
-
     // What the user will see after submitting the sign up form (OTP form)
     return (
       <LoginCard

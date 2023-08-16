@@ -1,5 +1,6 @@
 'use client';
 import { Controller, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import statesFullList from 'states-us';
 import { Input } from '#/ui/components/Form/Input';
@@ -12,7 +13,6 @@ export function AdditionalDetailsForm({
   setStep,
   formData,
   setFormData,
-  setFormSubmitted,
   existingAccount,
   loan,
 }: {
@@ -30,6 +30,7 @@ export function AdditionalDetailsForm({
     control,
   } = useForm();
   const { update: updateSession } = useSession();
+  const router = useRouter();
 
   const onSubmit = async (data: any) => {
     if (existingAccount) {
@@ -54,8 +55,6 @@ export function AdditionalDetailsForm({
         }),
       ]);
 
-      console.log(loan);
-
       if (address.status === 200 && phone.status === 200) {
         const json = await address.json();
 
@@ -78,7 +77,7 @@ export function AdditionalDetailsForm({
         });
 
         if (loanres.status === 200) {
-          setFormSubmitted(true);
+          router.push(`/overview`);
         }
       }
     } else {

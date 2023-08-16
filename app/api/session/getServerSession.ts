@@ -10,3 +10,13 @@ export async function getServerSession() {
 
   return { user: session.user, accessToken, refreshToken };
 }
+
+export async function getOptionalServerSession() {
+  const session = (await nextAuthGetServerSession(authOptions)) as AuthSession;
+
+  return {
+    user: session?.user,
+    accessToken: session?.tokens?.accessToken,
+    refreshToken: session?.tokens?.refreshToken,
+  };
+}
