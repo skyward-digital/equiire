@@ -57,7 +57,10 @@ export const PhoneForm = (props: { phone: User['phone'] }) => {
         value={phone}
         register={register}
         required="Phone number is required"
-        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+        // pattern={{
+        //   value: /[0-9]{3}-[0-9]{3}-[0-9]{4}/,
+        //   message: 'Invalid phone number.',
+        // }}
         error={errors.phone}
       />
     </SettingsCard>

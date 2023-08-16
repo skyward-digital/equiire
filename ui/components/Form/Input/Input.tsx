@@ -55,7 +55,7 @@ type InputProps = {
   register?: any;
   required?: string;
   validate?: any;
-  pattern?: string | { value: string | RegExp; message: string };
+  pattern?: { value: string | RegExp; message: string };
   error?: any;
   hint?: string;
   Icon?: any;
