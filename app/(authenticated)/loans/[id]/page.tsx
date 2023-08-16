@@ -177,7 +177,7 @@ export default async function Page({
           {/* <ProgressCircle progress={(paidTransactions.length / 24) * 100} /> */}
         </div>
         {/* Loan details */}
-        <div className="order-2 col-span-1 row-span-1 space-y-6 sm:order-3 sm:col-span-2">
+        <div className="order-3 space-y-6 sm:col-span-2">
           <LoanDetailRow
             Icon={BuildingLibraryIcon}
             label="Loan type"
@@ -278,7 +278,7 @@ export default async function Page({
         </div>
 
         {transactions.docs.length ? (
-          <div className="order-3 col-span-1 row-span-2 flex flex-col gap-2 sm:order-2 sm:col-span-3 sm:gap-6">
+          <div className="order-4 flex flex-col gap-2 sm:order-2 sm:col-span-3 sm:row-span-2 sm:gap-6">
             <TransactionCard
               transaction={transactions.data.first}
               transactionTotal={transactions.docs.length}
@@ -320,7 +320,7 @@ export default async function Page({
             />
           </div> // Needs re-implementation
         ) : (
-          <div className="order-1 col-span-1 row-span-2 flex flex-col gap-2 sm:order-2 sm:col-span-3 sm:gap-6">
+          <div className="order-2 flex flex-col gap-2 sm:col-span-3 sm:row-span-2 sm:gap-6">
             <LoanSteps
               steps={steps}
               variant="card"
