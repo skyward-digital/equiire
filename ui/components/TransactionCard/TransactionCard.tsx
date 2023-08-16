@@ -73,7 +73,7 @@ export const TransactionCard = ({
     <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-800 dark:bg-black">
       <div
         className={clsx(
-          'relative flex w-full cursor-pointer items-center justify-between overflow-hidden p-6',
+          'relative flex w-full cursor-pointer items-center justify-between overflow-hidden p-3 sm:p-6',
         )}
         role="button"
         tabIndex={0}
@@ -89,14 +89,14 @@ export const TransactionCard = ({
       >
         <span className={clsx('absolute left-0 h-full w-2', highlightColor)} />
         <div className="pl-4">
-          <p className="font-brand mb-1 text-3xl font-semibold text-gray-800 dark:text-white">
+          <p className="font-brand mb-1 text-lg font-semibold text-gray-800 dark:text-white sm:text-3xl">
             {title}
           </p>
           <div className="flex items-center gap-2">
             <Badge type={badgeStatus} Icon={BadgeIcon} dot={!BadgeIcon}>
               {status}
             </Badge>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-gray-500 dark:text-gray-400 sm:text-sm">
               {new Date(date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
@@ -105,7 +105,7 @@ export const TransactionCard = ({
             </p>
           </div>
         </div>
-        <p className="font-brand -mb-2 text-5xl font-semibold text-gray-800 dark:text-white">
+        <p className="font-brand -mb-2 text-2xl font-semibold text-gray-800 dark:text-white sm:text-5xl">
           {amount.toLocaleString('en-US', {
             style: 'currency',
             currency: 'USD',

@@ -282,7 +282,7 @@ export default async function Page({
         </div>
 
         {transactions.docs.length ? (
-          <div className="order-3 col-span-1 row-span-2 flex flex-col gap-6 sm:order-2 sm:col-span-3">
+          <div className="order-3 col-span-1 row-span-2 flex flex-col gap-2 sm:order-2 sm:col-span-3 sm:gap-6">
             <TransactionCard
               transaction={transactions.data.first}
               transactionTotal={transactions.docs.length}

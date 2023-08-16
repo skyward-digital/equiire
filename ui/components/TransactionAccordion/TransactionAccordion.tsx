@@ -48,7 +48,7 @@ export const TransactionAccordion = ({
     <div>
       <div
         className={clsx(
-          'relative flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-gray-200 bg-white py-4 pl-6 pr-10 shadow-md dark:border-gray-800 dark:bg-black',
+          'relative flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-lg border border-gray-200 bg-white py-2 pl-3 pr-10 shadow-md dark:border-gray-800 dark:bg-black sm:py-4 sm:pl-6',
         )}
         role="button"
         tabIndex={0}
