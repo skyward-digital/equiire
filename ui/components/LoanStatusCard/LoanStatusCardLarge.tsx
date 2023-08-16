@@ -46,7 +46,7 @@ export const LoanStatusCardLarge = ({
       </div>
 
       <div className="flex min-h-[16rem] flex-col justify-between gap-8 px-4 py-6 sm:flex-row sm:p-8">
-        <div className="sm:w-4/5">
+        <div className="sm:w-3/5">
           <h2 className="font-brand mb-1.5 text-5xl md:text-7xl">
             Loan of{' '}
             <strong className="text-brand">
