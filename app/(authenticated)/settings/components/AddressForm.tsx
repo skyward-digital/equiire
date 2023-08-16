@@ -1,11 +1,14 @@
 'use client';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Input } from '#/ui/components/Form';
-import { SettingsCard } from '#/ui/components/SettingsCard';
-import { MapPinIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
+import { Controller, useForm } from 'react-hook-form';
+import statesFullList from 'states-us';
+import { MapPinIcon } from '@heroicons/react/24/outline';
 import { User } from '#/app/api/profile/user';
+import { Input } from '#/ui/components/Form';
+import { Select, SelectItem } from '#/ui/components/Select';
+import { SettingsCard } from '#/ui/components/SettingsCard';
+import { Label } from '#/ui/components/Label';
 
 {
   /* TODO: Question - Should we implement an address lookup here? */
@@ -15,12 +18,20 @@ export const AddressForm = (props: { address: User['address'] }) => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
 
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
   const [address, setAddress] = useState(props.address);
+
+  const states = statesFullList
+    .filter((state) => !state.territory)
+    .map((state) => ({
+      label: state.name,
+      value: state.abbreviation,
+    }));
 
   const onSubmit = async (data: any) => {
     // local api as we need to update on the client
@@ -94,18 +105,33 @@ export const AddressForm = (props: { address: User['address'] }) => {
       />
 
       <div className="flex gap-2">
-        {/* This should probably be a select as states are fixed */}
-        <Input
-          id="state"
-          label="State"
-          placeholder="NY"
-          value={address.state}
-          register={register}
-          required="State is required"
-          error={errors.state}
-          className="w-1/2"
-          autocomplete="address-level1"
-        />
+        <div className="w-1/2">
+          <Label
+            className="mb-2 text-base font-semibold text-gray-600 dark:text-gray-400"
+            htmlFor="state"
+          >
+            State
+          </Label>
+          <Controller
+            name="state"
+            control={control}
+            defaultValue="AL"
+            render={({ field: { onChange, name, value } }) => (
+              <Select
+                id={name}
+                value={value}
+                onValueChange={onChange}
+                className="mt-2 border-gray-300 text-base dark:border-gray-300"
+              >
+                {states.map((state) => (
+                  <SelectItem key={state.value} value={state.value}>
+                    {state.label}
+                  </SelectItem>
+                ))}
+              </Select>
+            )}
+          />
+        </div>
 
         <Input
           id="zip"
