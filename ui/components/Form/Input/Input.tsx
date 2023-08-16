@@ -162,7 +162,7 @@ export const Input = ({
       {error?.message || hint ? (
         <p
           className={clsx(
-            'm-0 text-sm',
+            '-mt-3 mb-2 text-sm',
             error && 'text-error',
             hint && !error && 'dark:text-brand-secondary text-gray-600',
             !hint && !error && 'h-5',
