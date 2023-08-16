@@ -9,7 +9,10 @@ export const TableCell = (props: TableCellProps) => {
   const { children, className, ...rest } = props;
 
   return (
-    <td className={clsx('px-8 py-4 align-middle', className)} {...rest}>
+    <td
+      className={clsx('min-w-[160px] px-8 py-4 align-middle', className)}
+      {...rest}
+    >
       {children}
     </td>
   );
