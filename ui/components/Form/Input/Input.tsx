@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import clsx from 'clsx';
 import {
@@ -12,6 +13,7 @@ type InputProps = {
   id: string;
   type?: 'text' | 'email' | 'tel' | 'password';
   label: string;
+  value?: string;
   placeholder?: string;
   size?: number;
   maxLength?: number;
@@ -53,10 +55,11 @@ type InputProps = {
   register?: any;
   required?: string;
   validate?: any;
-  pattern?: string | { value: string | RegExp; message: string };
+  pattern?: { value: string | RegExp; message: string };
   error?: any;
   hint?: string;
   Icon?: any;
+  disabled?: boolean;
 };
 
 const iconMap = {
@@ -90,6 +93,7 @@ export const Input = ({
   id,
   type = 'text',
   label,
+  value,
   placeholder,
   size,
   autocomplete,
@@ -103,6 +107,7 @@ export const Input = ({
   error,
   hint,
   Icon,
+  disabled,
 }: InputProps) => {
   const [passwordShown, setPasswordShown] = useState(false);
   const inputType =
@@ -120,7 +125,7 @@ export const Input = ({
   ) : null;
 
   const hookFormRegister = register
-    ? register(id, { required, validate, pattern })
+    ? register(id, { value, required, validate, pattern })
     : undefined;
 
   return (
@@ -131,7 +136,7 @@ export const Input = ({
       >
         {label}
       </label>
-      <div className="relative">
+      <div className="relative mb-5">
         <input
           id={id}
           type={inputType}
@@ -146,6 +151,7 @@ export const Input = ({
             RightIcon ? 'pr-10' : 'pr-3',
             error ? 'border-error' : 'border-gray-300',
           )}
+          disabled={disabled}
           {...hookFormRegister}
         />
         {LeftIcon && (
@@ -153,16 +159,18 @@ export const Input = ({
         )}
         {RightIcon}
       </div>
-      <p
-        className={clsx(
-          'mt-2 text-sm',
-          error && 'text-error',
-          hint && !error && 'dark:text-brand-secondary text-gray-600',
-          !hint && !error && 'h-5',
-        )}
-      >
-        {error?.message ?? hint ?? ' '}
-      </p>
+      {error?.message || hint ? (
+        <p
+          className={clsx(
+            '-mt-3 mb-2 text-sm',
+            error && 'text-error',
+            hint && !error && 'dark:text-brand-secondary text-gray-600',
+            !hint && !error && 'h-5',
+          )}
+        >
+          {error?.message ?? hint ?? ' '}
+        </p>
+      ) : null}
     </div>
   );
 };
