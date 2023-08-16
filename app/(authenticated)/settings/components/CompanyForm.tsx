@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form';
 import { SettingsCard } from '#/ui/components/SettingsCard';
@@ -9,6 +10,8 @@ import { User } from '#/app/api/profile/user';
 
 //
 export const CompanyForm = (props: { company: User['company'] }) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -36,6 +39,9 @@ export const CompanyForm = (props: { company: User['company'] }) => {
     setCompany(json.data.company);
     // Update the session so it remembers the new data as the user navigates
     updateSession({ user: json.data });
+
+    // To ensure that areas where this data is reused updates too, like the header
+    router.refresh();
   };
 
   return (
