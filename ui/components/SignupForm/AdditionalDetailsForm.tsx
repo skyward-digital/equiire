@@ -1,4 +1,3 @@
-'use client';
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import statesFullList from 'states-us';
