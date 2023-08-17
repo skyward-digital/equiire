@@ -1,7 +1,7 @@
 import { cache } from 'react';
 
 export const getBaseUrl = cache(() => {
-  return process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : `http://localhost:${process.env.PORT ?? 3000}`;
+  const envUrl = process.env.baseUrl || `https://${process.env.VERCEL_URL}`;
+
+  return envUrl ? envUrl : `http://localhost:${process.env.PORT ?? 3000}`;
 });
