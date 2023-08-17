@@ -1,6 +1,12 @@
+import { Metadata } from 'next';
 // import { NotificationBanner } from '#/ui/components/NotificationBanner/NotificationBanner';
 import { LoanStatusCard } from '#/ui/components/LoanStatusCard';
 import { getLoans } from '#/app/api/loans/getLoans';
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+  description: 'Welcome to your Equiire homescreen',
+};
 
 export default async function Page() {
   const loans = await getLoans();

@@ -21,6 +21,11 @@ import {
 } from '#/app/api/payments';
 import { Button } from '#/ui/components/Button';
 
+export const metadata: Metadata = {
+  title: 'Settings',
+  description: 'Your account details and user information',
+};
+
 export default async function SettingsPage() {
   const [session, paymentPortal, paymentMethods] = await Promise.all([
     getServerSession(),

@@ -1,6 +1,12 @@
+import { Metadata } from 'next';
 // import { NotificationBanner } from '#/ui/components/NotificationBanner/NotificationBanner';
 import { LoanStatusCard } from '#/ui/components/LoanStatusCard';
 import { getLoans } from '#/app/api/loans/getLoans';
+
+export const metadata: Metadata = {
+  title: 'Loans',
+  description: 'View your loans',
+};
 
 export default async function Page() {
   const loans = await getLoans();
