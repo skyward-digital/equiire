@@ -10,7 +10,6 @@ export default function Page() {
           <span className="text-brand">Smart and Flexible</span> Loans
         </>
       }
-      showLogo
     >
       <LoginForm className="px-3" />
 
