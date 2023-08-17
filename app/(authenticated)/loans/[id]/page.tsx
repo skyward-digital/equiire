@@ -193,40 +193,8 @@ export default async function Page({
               }
             />
           </div>
-
-          {/* Loan details */}
-          <div className="order-3 space-y-6 sm:col-span-2">
-            <LoanDetailRow
-              Icon={BuildingLibraryIcon}
-              label="Loan type"
-              value={
-                type === 'CREDIT_BUILDER' ? 'Credit Builder' : 'Standard Loan'
-              }
-            />
-            <LoanDetailRow Icon={HashtagIcon} label="Loan ID" value={id} />
-
-            <Divider className="col-span-2" />
-
-            <LoanDetailRow
-              Icon={WalletIcon}
-              label="Loan Amount"
-              value={value.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0,
-              })}
-            </strong>
-            <br />
-            in{' '}
-            <strong className="text-brand">
-              {new Date(startDate).toLocaleDateString('en-US', {
-                month: 'long',
-                year: 'numeric',
-              })}
-            </strong>
-          </h1>
-          {/* <ProgressCircle progress={(paidTransactions.length / 24) * 100} /> */}
         </div>
+
         {/* Loan details */}
         <div className="order-3 space-y-6 sm:col-span-2">
           <LoanDetailRow
