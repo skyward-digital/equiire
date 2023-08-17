@@ -101,7 +101,7 @@ export function LoanCalculator({
           <RadioGroup
             options={[
               { label: 'Credit Builder', value: 'CREDIT_BUILDER' },
-              { label: 'Standard Loan', value: 'STANDARD' },
+              { label: 'Standard Loan', value: 'STANDARD', disabled: true },
             ]}
             id="loan-type"
             value={type}
