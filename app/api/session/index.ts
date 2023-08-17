@@ -1,2 +1,2 @@
-export { getServerSession } from './getServerSession';
+export { getServerSession, getOptionalServerSession } from './getServerSession';
 export { useSession } from 'next-auth/react';

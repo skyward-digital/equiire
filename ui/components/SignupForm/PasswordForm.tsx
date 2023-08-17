@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 import { signup } from '#/hooks/useAuth';
-import { FormData, Loan } from '#/app/(login)/sign-up/page';
+import { FormData, Loan } from '#/app/(login)/sign-up/SignUp';
 
 type PasswordFormProps = {
   formData: FormData;

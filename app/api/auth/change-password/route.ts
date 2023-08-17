@@ -20,8 +20,6 @@ export async function POST(request: Request) {
     },
   );
 
-  console.log({ res });
-
   if (res.status === 401) redirect('/login');
   if (!res.ok) throw new Error("Failed to update user's password");
 
