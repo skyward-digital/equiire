@@ -25,12 +25,12 @@ function StoryRender(
   const [loanDetails, setLoanDetails] = useState<LoanDetails>({
     type: 'CREDIT_BUILDER',
     amount: '10000',
-    terms: 'monthly',
-    repaymentPeriod: '0',
     scheduledPayment: '500',
-    interestType: 'FIXED',
     // static date so it doesn't change every time the story is loaded
     startDate: new Date(2023, 0, 24),
+    // terms: 'monthly',
+    // repaymentPeriod: '0',
+    //interestType: 'FIXED',
   });
   return (
     <LoanCalculator

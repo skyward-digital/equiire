@@ -19,10 +19,10 @@ export function LoanCalculator({
   const {
     type,
     amount,
-    terms,
-    repaymentPeriod,
-    scheduledPayment,
-    interestType,
+    //scheduledPayment,
+    //terms,
+    //repaymentPeriod,
+    //interestType,
   } = loanDetails;
 
   const loanTypeTitle = {
@@ -49,16 +49,16 @@ export function LoanCalculator({
         max: 20000,
         options: [1000, 10000, 20000],
       },
-      repaymentPeriod: {
-        min: 12,
-        max: 60,
-        options: [12, 24, 36, 48, 60],
-      },
-      scheduledPayment: {
-        min: 250,
-        max: 1000,
-        options: [250, 500, 750, 1000],
-      },
+      // repaymentPeriod: {
+      //   min: 12,
+      //   max: 60,
+      //   options: [12, 24, 36, 48, 60],
+      // },
+      // scheduledPayment: {
+      //   min: 250,
+      //   max: 1000,
+      //   options: [250, 500, 750, 1000],
+      // },
     },
     STANDARD: {
       amount: {
@@ -66,16 +66,16 @@ export function LoanCalculator({
         max: 100000,
         options: [2500, 5000, 10000, 25000, 50000, 100000],
       },
-      repaymentPeriod: {
-        min: 6,
-        max: 60,
-        options: [6, 12, 24, 36, 48, 60],
-      },
-      scheduledPayment: {
-        min: 250,
-        max: 10000,
-        options: [250, 500, 750, 1000, 2500, 5000, 10000],
-      },
+      // repaymentPeriod: {
+      //   min: 6,
+      //   max: 60,
+      //   options: [6, 12, 24, 36, 48, 60],
+      // },
+      // scheduledPayment: {
+      //   min: 250,
+      //   max: 10000,
+      //   options: [250, 500, 750, 1000, 2500, 5000, 10000],
+      // },
     },
   }[type as 'CREDIT_BUILDER' | 'STANDARD'];
 
@@ -137,9 +137,40 @@ export function LoanCalculator({
           }
         />
       </div>
-      <div className="grid gap-8">
-        {/* Loan terms */}
+      <div className="mt-3 grid gap-8">
+        <div className="font-brand hidden text-xl font-semibold text-gray-600 dark:text-white sm:block">
+          Loan Terms
+        </div>
         <div className="flex items-center justify-between">
+          <Label
+            htmlFor="monthly-payment"
+            className="font-brand block flex-1 text-xl text-gray-600 dark:text-white"
+          >
+            Monthly Payments
+          </Label>
+          <div
+            className="text-lg text-gray-600 dark:text-white"
+            id="monthly-payment"
+          >
+            $500
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <Label
+            htmlFor="loan-length"
+            className="font-brand block flex-1 text-xl text-gray-600 dark:text-white"
+          >
+            Loan Length
+          </Label>
+          <div
+            className="text-lg text-gray-600 dark:text-white"
+            id="monthly-payment"
+          >
+            24 Months
+          </div>
+        </div>
+        {/* Loan terms user selection - to be used later */}
+        {/* <div className="flex items-center justify-between">
           <Label
             className="font-brand hidden text-xl font-semibold text-gray-600 dark:text-white sm:block"
             htmlFor="loan-type"
@@ -159,7 +190,6 @@ export function LoanCalculator({
             className="mx-auto sm:mx-0"
           />
         </div>
-        {/* Scheduled payment */}
         {terms === 'monthly' && (
           <SliderGroup
             label="Scheduled Payment"
@@ -172,7 +202,6 @@ export function LoanCalculator({
             }
           />
         )}
-        {/* Repayment Period */}
         {terms === 'length' && (
           <SliderGroup
             label="Repayment Period"
@@ -185,7 +214,7 @@ export function LoanCalculator({
               setLoanDetails({ ...loanDetails, repaymentPeriod: value })
             }
           />
-        )}
+        )} 
         {type === 'STANDARD' && (
           <div className="flex items-center justify-between ">
             <Label
@@ -210,6 +239,7 @@ export function LoanCalculator({
             </Select>
           </div>
         )}
+         */}
         <div className="fixed bottom-0 left-0 right-0 z-20 w-full bg-white px-4 pb-5 pt-3 dark:bg-black sm:static sm:p-0 lg:hidden">
           <Button
             className="w-full lg:hidden"

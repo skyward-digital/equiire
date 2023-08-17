@@ -37,23 +37,25 @@ export function LoanSummaryBox({
   const {
     type,
     amount,
-    terms,
-    repaymentPeriod,
+    //terms,
+    //repaymentPeriod,
     scheduledPayment,
     //interestType,
     startDate,
   } = loanDetails;
 
-  // These calculations may need to be amended
-  const length =
+  // These calculations are needed when the user can select the loan terms
+  /* const length =
     terms === 'length'
       ? parseInt(repaymentPeriod)
-      : parseInt(amount) / parseInt(scheduledPayment);
-  const monthlyPayment =
+      : parseInt(amount) / parseInt(scheduledPayment); 
+   const monthlyPayment =
     terms === 'monthly'
       ? parseInt(scheduledPayment)
       : // we round up so they pay off all of the loan, this may need to be amended
-        Math.ceil(parseInt(amount) / length);
+        Math.ceil(parseInt(amount) / length); */
+  const length = 24;
+  const monthlyPayment = parseInt(scheduledPayment);
 
   const apr = 11;
   const totalRepayable = parseInt(amount) + parseInt(amount) * (apr / 100);
