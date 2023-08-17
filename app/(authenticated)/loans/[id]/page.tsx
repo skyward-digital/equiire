@@ -110,6 +110,8 @@ export default async function Page({
     // @ts-ignore
   } = loan;
 
+  console.log(loan);
+
   const steps = {
     account: true, // always true as a user cannot have a loan without an account
     loan: true, // always true as a user cannot view a loan without a loan
@@ -159,29 +161,40 @@ export default async function Page({
           )}
         </div>
       </TabHeading>
+
       <div className="container grid gap-8 px-6 py-10 sm:grid-cols-5 sm:gap-10 sm:px-4 sm:py-12 lg:px-12">
-        {/* Heading */}
         <div className="flex sm:col-span-2">
-          <h1 className="font-brand text-4xl font-semibold sm:text-6xl">
-            Loan of{' '}
-            <strong className="text-brand">
-              {value.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0,
-              })}
-            </strong>
-            <br />
-            in{' '}
-            <strong className="text-brand">
-              {new Date(startDate).toLocaleDateString('en-US', {
-                month: 'long',
-                year: 'numeric',
-              })}
-            </strong>
-          </h1>
-          {/* <ProgressCircle progress={(paidTransactions.length / 24) * 100} /> */}
+          {/* Heading */}
+          <div className="mb-6 flex items-start">
+            <h1 className="font-brand text-4xl font-semibold sm:text-6xl">
+              Loan of{' '}
+              <strong className="text-brand">
+                {value.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  maximumFractionDigits: 0,
+                })}
+              </strong>
+              <br />
+              in{' '}
+              <strong className="text-brand">
+                {new Date(startDate).toLocaleDateString('en-US', {
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </strong>
+            </h1>
+            <ProgressCircle
+              progress={
+                ((transactions.docs.length -
+                  transactions.data.scheduled.length) /
+                  transactions.docs.length) *
+                100
+              }
+            />
+          </div>
         </div>
+
         {/* Loan details */}
         <div className="order-3 space-y-6 sm:col-span-2">
           <LoanDetailRow
