@@ -5,7 +5,7 @@ import {
   TableCell,
 } from '#/ui/components/Table';
 import { TabHeading } from '#/ui/components/TabHeading';
-import { BanknotesIcon } from '@heroicons/react/24/outline';
+import { BanknotesIcon } from '#/lib/@heroicons/react/24/outline';
 import { Badge, BadgeProps } from '#/ui/components/Badge';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { getPaymentHistory } from '#/app/api/payments/getPaymentHistory';
