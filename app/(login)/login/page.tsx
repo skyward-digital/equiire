@@ -1,6 +1,11 @@
+import { Metadata } from 'next';
 import { LoginForm } from '#/ui/components/LoginForm';
 import { LoginCard } from '#/ui/components/LoginCard';
 import { Logo } from '#/ui/assets/Logo';
+
+export const metadata: Metadata = {
+  title: 'Login',
+};
 
 export default function Page() {
   return (

@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import {
   Table,
   TableRow,
@@ -11,6 +12,11 @@ import { CheckIcon } from '@heroicons/react/24/outline';
 import { getPaymentHistory } from '#/app/api/payments/getPaymentHistory';
 import { HistoryDoc } from '#/app/api/payments/history';
 import { Slider } from '#/ui/components/Slider';
+
+export const metadata: Metadata = {
+  title: 'History',
+  description: 'A record of your past payments on Equiire',
+};
 
 export default async function Page() {
   const history = await getPaymentHistory();

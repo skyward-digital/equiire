@@ -8,7 +8,7 @@ import {
   BanknotesIcon,
   CalendarIcon,
 } from '@heroicons/react/24/outline';
-import { LoanDetails } from '#/app/(login)/loan-application/page';
+import { LoanDetails } from '#/app/(login)/loan-application/LoanApplication';
 import { Badge } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
 import { BadgeProps } from '#/ui/components/Badge';

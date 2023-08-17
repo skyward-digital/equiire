@@ -1,8 +1,13 @@
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { setConfirmRegistration } from '#/app/api/signup/setConfirmRegistration';
 import { LoginCard } from '#/ui/components/LoginCard';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from '#/ui/components/Button';
+
+export const metadata: Metadata = {
+  title: 'Confirm your email',
+};
 
 export default async function ConfirmEmail({
   searchParams,

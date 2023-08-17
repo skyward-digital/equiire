@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { LoanCalculator, LoanCalculatorProps } from '.';
-import { LoanDetails } from '#/app/(login)/loan-application/page';
+import { LoanDetails } from '#/app/(login)/loan-application/LoanApplication';
 
 const meta: Meta<typeof LoanCalculator> = {
   title: 'Components/LoanCalculator',

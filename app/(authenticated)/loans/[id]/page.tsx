@@ -1,3 +1,4 @@
+import { Metadata, ResolvingMetadata } from 'next';
 import { redirect } from 'next/navigation';
 import { Badge, BadgeProps } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
@@ -33,6 +34,13 @@ import {
   setStripePaymentMethod,
   getStripePaymentMethods,
 } from '#/app/api/payments';
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  return {
+    title: `Loan #${params.id}`,
+    description: 'Details of your loan',
+  };
+}
 
 export default async function Page({
   params,

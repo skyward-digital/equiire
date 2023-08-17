@@ -1,6 +1,12 @@
+import { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { setSignRequest } from '#/app/api/loans';
 import { LoanAgreement } from '#/ui/components/LoanAgreement';
+
+export const metadata: Metadata = {
+  title: 'Loan Signature',
+  description: 'Sign and complete your loan',
+};
 
 export default async function Page({
   searchParams,
