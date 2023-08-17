@@ -10,11 +10,16 @@ export function Slider({ progress, className }: SliderProps) {
   if (progress > 100) progress = 100;
 
   return (
-    <div className={clsx('relative my-3', className)}>
+    <div
+      className={clsx('relative my-3 overflow-hidden rounded-full', className)}
+    >
       <div className="h-3 w-full rounded-full bg-gray-100 dark:bg-gray-700"></div>
       <div
-        style={{ width: `${Math.round(progress * 100) / 100}%` }}
-        className="bg-brand absolute top-0 h-3 rounded-full"
+        style={{
+          // @ts-ignore
+          '--tw-translate-x': `-${100 - Math.round(progress * 100) / 100}%`,
+        }}
+        className="bg-brand absolute top-0 h-3 w-full transform rounded-full transition-all duration-300 ease-in-out"
       />
     </div>
   );
