@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
-import { getServerSession } from 'next-auth';
+import { getServerSession as nextAuthGetServerSession } from 'next-auth';
 import { authOptions, AuthSession } from '#/lib/auth';
 
-export async function getSession() {
-  const session = (await getServerSession(authOptions)) as AuthSession;
+export async function getServerSession() {
+  const session = (await nextAuthGetServerSession(authOptions)) as AuthSession;
   const { accessToken, refreshToken } = session.tokens;
 
   if (!accessToken) notFound();

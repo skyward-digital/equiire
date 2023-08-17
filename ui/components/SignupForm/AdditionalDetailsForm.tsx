@@ -109,7 +109,10 @@ export function AdditionalDetailsForm({
         register={register}
         required="Phone Number is required"
         error={errors.phone}
-        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+        // pattern={{
+        //   value: /[0-9]{3}-[0-9]{3}-[0-9]{4}/,
+        //   message: 'Invalid phone number.',
+        // }}
       />
       <Button
         variant="primary"

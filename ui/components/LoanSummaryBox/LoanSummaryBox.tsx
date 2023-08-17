@@ -200,6 +200,7 @@ export function LoanSummaryBox({
                   setLoanDetails({ ...loanDetails, startDate: value })
                 }
                 className="grow"
+                disablePast
               />
             </div>
             <SummaryBoxLine

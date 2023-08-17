@@ -70,7 +70,6 @@ export default function Page() {
       <LoginCard
         title="Confirm your email address"
         description="We have sent you an email. You can enter the code from the email below to confirm your email address."
-        className="sm:mt-20"
         back={() => {
           setStep(0);
           setFormSubmitted(false);
@@ -89,7 +88,6 @@ export default function Page() {
   return (
     <LoginCard
       title="Complete your loan application"
-      className="sm:mt-20"
       back={step !== 0 ? () => setStep(step - 1) : undefined}
       showTermsNotice
     >

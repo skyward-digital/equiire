@@ -29,7 +29,6 @@ export default function Page() {
       <LoginCard
         title="Password Reset"
         description="Your new password has now been set."
-        className="sm:mt-40"
         back="/forgot-password"
       >
         <CheckCircleIcon className="mx-auto h-12 w-12 text-gray-400" />
@@ -48,7 +47,6 @@ export default function Page() {
       <LoginCard
         title="Password Reset"
         description="Something went wrong. Please try again."
-        className="sm:mt-40"
         back="/forgot-password"
       >
         <XCircleIcon className="mx-auto h-12 w-12 text-gray-400" />

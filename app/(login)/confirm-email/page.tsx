@@ -24,7 +24,6 @@ export default async function ConfirmEmail({
     <LoginCard
       title="Email Confirmed"
       description="Your email address has now been confirmed."
-      className="sm:mt-40"
     >
       <CheckCircleIcon className="mx-auto h-12 w-12 text-gray-400" />
 
