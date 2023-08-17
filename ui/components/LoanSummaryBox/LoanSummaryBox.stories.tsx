@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { LoanSummaryBox, LoanSummaryBoxProps } from '.';
-import { LoanDetails } from '#/app/(login)/loan-application/page';
+import { LoanDetails } from '#/app/(login)/loan-application/LoanApplication';
 
 const meta: Meta<typeof LoanSummaryBox> = {
   title: 'Components/LoanSummaryBox',

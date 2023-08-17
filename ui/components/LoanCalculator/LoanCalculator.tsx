@@ -1,4 +1,4 @@
-import { LoanDetails } from '#/app/(login)/loan-application/page';
+import { LoanDetails } from '#/app/(login)/loan-application/LoanApplication';
 import { RadioGroup } from '#/ui/components/RadioGroup';
 import { Label } from '#/ui/components/Label';
 import { SliderGroup } from '#/ui/components/SliderGroup';
