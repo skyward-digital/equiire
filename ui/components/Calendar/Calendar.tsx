@@ -2,18 +2,25 @@ import * as React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { DayPicker } from 'react-day-picker';
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
+export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+  disablePast?: boolean;
+};
 
 function Calendar({
   className,
   classNames,
   showOutsideDays = true,
+  disablePast = false,
   ...props
 }: CalendarProps) {
+  // We pass the today prop in Storybook stories so that the calendar doesn't change every day
+  const today = props.today ? props.today : new Date();
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={className}
+      disabled={disablePast ? { before: today } : undefined}
       classNames={{
         months:
           'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 text-gray-700 dark:text-white',

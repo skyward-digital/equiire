@@ -36,7 +36,7 @@ export const Badge = ({
           'border-gray-200 bg-gray-50 text-gray-700 dark:border-gray-900 dark:bg-gray-800 dark:text-gray-200',
         // Size
         size === 'sm' && 'px-1 py-0 text-xs',
-        size === 'md' && 'px-2 py-0.5 text-sm',
+        size === 'md' && 'px-2 py-0.5 text-xs sm:text-sm',
       )}
     >
       {Icon && (
