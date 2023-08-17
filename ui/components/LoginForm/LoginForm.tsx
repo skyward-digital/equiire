@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 import { login } from '#/hooks/useAuth';
+import { useState } from 'react';
 
 export function LoginForm({ className }: { className?: string }) {
   const {
@@ -14,8 +15,14 @@ export function LoginForm({ className }: { className?: string }) {
     formState: { errors },
   } = useForm();
 
+  const [error, setError] = useState('');
+
   const onSubmit = async (data: any) => {
-    login(data);
+    setError('');
+    const { error } = await login(data);
+    if (error) {
+      setError(error);
+    }
   };
 
   return (
@@ -56,6 +63,7 @@ export function LoginForm({ className }: { className?: string }) {
         />
       </div>
       <div className="mt-10 flex w-full flex-col gap-5">
+        {error && <p className="text-error -mt-8 text-sm">{error}</p>}
         <Button variant="primary" type="submit" arrow>
           Log In
         </Button>

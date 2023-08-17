@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
@@ -22,13 +23,25 @@ export function PasswordForm({
     getValues,
   } = useForm();
 
-  const onSubmit = (data: any) => {
+  const [error, setError] = useState('');
+
+  const onSubmit = async (data: any) => {
+    setError('');
+
     if (data?.password) {
-      signup({ ...formData, password: data.password, loan });
-      // They will then need to confirm their email
-      setFormSubmitted(true);
+      const { error } = await signup({
+        ...formData,
+        password: data.password,
+        loan,
+      });
+      if (!error) {
+        // They will then need to confirm their email
+        setFormSubmitted(true);
+      } else {
+        setError(error);
+      }
     } else {
-      console.log('Missing data');
+      setError('Missing password');
     }
   };
 
@@ -61,6 +74,7 @@ export function PasswordForm({
           value === getValues('password') || 'Passwords do not match'
         }
       />
+      {error && <p className="text-error -mb-4 text-sm">{error}</p>}
       <Button
         variant="primary"
         className="mt-3 w-full max-w-xs justify-self-center"

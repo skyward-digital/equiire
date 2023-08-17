@@ -39,7 +39,7 @@ export const signup = async (data: {
     !loan.monthlyPayment ||
     !loan.startDate
   ) {
-    throw new Error('Missing or invalid loan details. Sign up failed.');
+    return { error: 'Missing or invalid loan details.' };
   }
 
   const res = await fetch('/api/signup', {
@@ -68,9 +68,10 @@ export const signup = async (data: {
     }),
   });
   if (res.ok) {
-    console.log(res);
+    return { error: null };
   } else {
-    // Throw error if sign up fails
+    const response = await res.json();
+    return { error: response.error };
   }
 };
 
@@ -86,8 +87,10 @@ export const login = async (data: { email: string; password: string }) => {
       password: data.password,
       callbackUrl: '/overview',
     });
+    return { error: null };
   } else {
-    console.log('Missing username or password');
+    const response = await res.json();
+    return { error: response.error };
   }
 };
 
