@@ -1,6 +1,4 @@
 import clsx from 'clsx';
-import Link from 'next/link';
-import { Logo } from '#/ui/assets/Logo';
 import { BackButton } from '#/ui/components/BackButton';
 
 type LoginCardProps = {
@@ -8,9 +6,7 @@ type LoginCardProps = {
   description?: string;
   back?: string | (() => void);
   children: React.ReactNode;
-  showLogo?: boolean;
   className?: string;
-  showTermsNotice?: boolean;
 };
 
 export function LoginCard({
@@ -18,9 +14,7 @@ export function LoginCard({
   description,
   back,
   children,
-  showLogo,
   className,
-  showTermsNotice,
 }: LoginCardProps) {
   return (
     <section
@@ -42,18 +36,6 @@ export function LoginCard({
           )}
 
           {children}
-
-          {showLogo && (
-            <Logo className="mx-auto mt-16" width="288" height="74" />
-          )}
-          {showTermsNotice && (
-            <p className="mt-10 text-center text-sm text-gray-600 dark:text-gray-300">
-              By signing up, you agree to our{' '}
-              <Link href="/" className="text-brand underline">
-                Terms & Privacy Statement
-              </Link>
-            </p>
-          )}
         </div>
       </div>
     </section>

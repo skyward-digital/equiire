@@ -1,16 +1,16 @@
 'use client';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { LoginCard } from '#/ui/components/LoginCard';
 import { OtpForm } from '#/ui/components/OtpForm';
+import { ProgressSteps } from '#/ui/components/ProgressSteps';
 import {
   PersonalInformationForm,
   AdditionalDetailsForm,
   PasswordForm,
 } from '#/ui/components/SignupForm';
-import { ProgressSteps } from '#/ui/components/ProgressSteps';
 
 export interface Loan {
   type?: string | null;
@@ -103,7 +103,6 @@ export function SignUp({ user }: { user: any }) {
       title="Complete your loan application"
       className="sm:mt-20"
       back={step !== 0 ? () => setStep(step - 1) : undefined}
-      showTermsNotice={!existingAccount}
     >
       <ProgressSteps
         className="mb-10"
@@ -122,6 +121,14 @@ export function SignUp({ user }: { user: any }) {
         existingAccount={existingAccount}
         updateSession={updateSession}
       />
+      {!existingAccount && (
+        <p className="mt-10 text-center text-sm text-gray-600 dark:text-gray-300">
+          By signing up, you agree to our{' '}
+          <Link href="/" className="text-brand underline">
+            Terms & Privacy Statement
+          </Link>
+        </p>
+      )}
     </LoginCard>
   );
 }
