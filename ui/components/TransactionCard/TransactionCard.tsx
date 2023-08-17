@@ -49,7 +49,7 @@ export const TransactionCard = ({
   const badgeStatus = {
     paid: 'success',
     upcoming: 'warning',
-    scheduled: undefined,
+    scheduled: 'warning',
     overdue: 'error',
   }[status] as BadgeProps['type'];
 
