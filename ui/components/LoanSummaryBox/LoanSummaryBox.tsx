@@ -223,7 +223,7 @@ export function LoanSummaryBox({
       {/* Button section */}
       <div
         className={clsx('flex', {
-          'gap-8 border-gray-200 py-8 dark:border-gray-400 sm:border-t sm:px-20':
+          'fixed bottom-0 left-0 right-0 z-20 w-full flex-1 gap-8 border-gray-200 bg-white px-4 py-6 dark:border-gray-400 dark:bg-black sm:static sm:border-t sm:px-8 md:px-20':
             size === 'lg',
           'mt-10 self-end': size === 'sm',
         })}
@@ -240,35 +240,33 @@ export function LoanSummaryBox({
         {step === 0 ? (
           <Button
             variant="primary"
-            className="flex-1"
+            className="w-full flex-1"
             onClick={() => setStep((step: number) => step + 1)}
           >
             Next
           </Button>
         ) : (
-          <div className="fixed bottom-0 left-0 right-0 z-20 w-full flex-1 bg-white px-4 pb-5 pt-3 dark:bg-black sm:static sm:p-0">
-            <Button
-              variant="primary"
-              className="w-full "
-              href={{
-                pathname: '/sign-up',
-                query: {
-                  type,
-                  amount,
-                  length,
-                  monthlyPayment,
-                  startDate: format(startDate, 'yyyy-MM-dd'),
-                  // we aren't passing these fields in when signing up, they are calculated automatically
-                  /* interestType,
+          <Button
+            variant="primary"
+            className="w-full flex-1"
+            href={{
+              pathname: '/sign-up',
+              query: {
+                type,
+                amount,
+                length,
+                monthlyPayment,
+                startDate: format(startDate, 'yyyy-MM-dd'),
+                // we aren't passing these fields in when signing up, they are calculated automatically
+                /* interestType,
                 apr,
                 totalRepayable,
                 creditCost, */
-                },
-              }}
-            >
-              Next
-            </Button>
-          </div>
+              },
+            }}
+          >
+            Next
+          </Button>
         )}
       </div>
     </section>

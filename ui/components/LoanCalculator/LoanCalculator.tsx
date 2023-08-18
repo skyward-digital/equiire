@@ -81,7 +81,7 @@ export function LoanCalculator({
 
   return (
     <section className="dark:border-brand-secondary mb-20 flex max-w-3xl flex-col gap-10 rounded-lg bg-white px-6 pb-8 dark:bg-black sm:mb-0 md:border md:border-gray-100 md:px-8 md:py-16 md:shadow-sm">
-      <div className="fixed z-20 w-full bg-white pb-4 pt-6 dark:bg-black sm:static sm:py-0">
+      <div className="fixed z-20 w-full bg-white pb-4 pt-6 dark:bg-black sm:static md:py-0">
         <h2 className="font-brand flex flex-col text-3xl tracking-tight text-gray-400 dark:text-gray-300 sm:block sm:text-4xl">
           <span className="font-semibold text-gray-600 dark:text-gray-100">
             Tailor Your Loan
