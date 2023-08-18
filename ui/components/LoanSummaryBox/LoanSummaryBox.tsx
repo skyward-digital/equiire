@@ -120,7 +120,7 @@ export function LoanSummaryBox({
           <h3
             className={clsx('font-brand font-semibold tracking-tight ', {
               'text-brand text-2xl': size === 'lg',
-              'text-4xl text-gray-600': size === 'sm',
+              'text-4xl text-gray-600 dark:text-gray-300': size === 'sm',
             })}
           >
             Breakdown
