@@ -1,20 +1,18 @@
+import { getServerSession } from '#/app/api/session';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
-  const searchParams = new URLSearchParams(request.url.split('?')[1]);
-  const access_token = searchParams.get('access_token');
+  const { accessToken } = await getServerSession();
 
-  if (!access_token) return new Error('No access token provided');
+  if (!accessToken) return new Error('No access token provided');
 
-  const res = await fetch(
-    `${process.env.API_URL}/profile?access_token=${access_token}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'GET',
+  const res = await fetch(`${process.env.API_URL}/profile`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
     },
-  );
+    method: 'GET',
+  });
 
   if (res.status !== 200) {
     return new Error('Fetching profile failed');

@@ -11,9 +11,12 @@ import 'server-only';
 export async function getPaymentHistory() {
   const { accessToken } = await getServerSession();
 
-  const res = await fetch(
-    `${process.env.API_URL}/payments/history?access_token=${accessToken}`,
-  );
+  const res = await fetch(`${process.env.API_URL}/payments/history`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  });
 
   if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();

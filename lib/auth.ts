@@ -106,7 +106,7 @@ export const authOptions: AuthOptions = {
   },
   pages: {
     signIn: '/login',
-    // signOut: '/api/logout',
+    // signOut: '/api/auth/logout',
     // verifyRequest: '/auth/verify-request', // (used for check email message)
   },
 };

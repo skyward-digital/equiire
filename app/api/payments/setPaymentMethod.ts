@@ -17,10 +17,11 @@ export async function setStripePaymentMethod({
   const { accessToken } = await getServerSession();
 
   const res = await fetch(
-    `${process.env.API_URL}/payments/payment-method-session?access_token=${accessToken}`,
+    `${process.env.API_URL}/payments/payment-method-session`,
     {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

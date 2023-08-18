@@ -7,18 +7,16 @@ export async function PATCH(request: Request) {
   const { accessToken } = await getServerSession();
   const { phone } = await request.json();
 
-  const res = await fetch(
-    `${process.env.API_URL}/profile/phone?access_token=${accessToken}`,
-    {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        phone,
-      }),
+  const res = await fetch(`${process.env.API_URL}/profile/phone`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify({
+      phone,
+    }),
+  });
 
   if (res.status === 401) redirect('/login');
   if (!res.ok) throw new Error("Failed to update user's phone");

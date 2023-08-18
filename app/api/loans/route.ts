@@ -1,22 +1,23 @@
 import { getServerSession } from '#/app/api/session';
 import { redirect } from 'next/navigation';
 import { NextResponse } from 'next/server';
-import type { Loan, Loans } from './loans';
+import type { Loan, Loans } from '.';
 
 // export const runtime = 'edge';
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+  const { accessToken } = await getServerSession();
 
+  const { searchParams } = new URL(request.url);
   const id = searchParams.get('id');
 
   if (id) {
     // fetch the loan
     const res = await fetch(`${process.env.API_URL}/loans/${id}`, {
       headers: {
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
-      method: 'GET',
     });
 
     const loan: Loan = await res.json();
