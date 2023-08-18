@@ -9,6 +9,8 @@ import { TransactionAccordion } from '#/ui/components/TransactionAccordion';
 import { TransactionCard } from '#/ui/components/TransactionCard';
 import { Divider } from '#/ui/components/Divider';
 import {
+  ArchiveBoxIcon,
+  ArrowTopRightOnSquareIcon,
   BanknotesIcon,
   BuildingLibraryIcon,
   CalendarDaysIcon,
@@ -34,6 +36,7 @@ import {
   setStripePaymentMethod,
   getStripePaymentMethods,
 } from '#/app/api/payments';
+import Link from 'next/link';
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
   return {
@@ -291,6 +294,37 @@ export default async function Page({
 
           <Divider className="col-span-2" />
 
+          <LoanDetailRow
+            Icon={ArchiveBoxIcon}
+            label="End loan agreement early"
+            value={
+              <Link
+                href={`mailto:process@equiire.com?subject=Cancel Loan ${id}&body=${encodeURIComponent(`
+                Hi \n
+                I would like to cancel my loan agreement early \n
+                Loan Details:\n
+                Loan ID: ${id}\n
+                Principal: ${value.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  maximumFractionDigits: 0,
+                })}\n
+                Start date: ${new Date(startDate).toLocaleDateString('en-US', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}\n
+                `)}`}
+                className="flex items-center gap-2 hover:underline focus:underline"
+              >
+                process@equiire.com
+                <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+              </Link>
+            }
+          />
+
+          <Divider className="col-span-2" />
+
           <div className="flex flex-col items-start gap-2 sm:gap-4">
             <Button variant="secondary" size="sm" className="w-full sm:w-auto">
               <DocumentArrowDownIcon className="h-4 w-4" />
@@ -368,7 +402,7 @@ const LoanDetailRow = ({
 }: {
   label: string;
   Icon: any;
-  value: string | number;
+  value: React.ReactNode | string | number;
 }) => {
   return (
     <div className="flex justify-between text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
