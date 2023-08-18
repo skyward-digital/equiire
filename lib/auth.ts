@@ -41,7 +41,7 @@ export const authOptions: AuthOptions = {
       async authorize(credentials, req) {
         if (typeof credentials === 'undefined') return null;
 
-        const loginResponse = await fetch(`${getBaseUrl()}/api/login`, {
+        const loginResponse = await fetch(`${getBaseUrl()}/api/auth/login`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { 'Content-Type': 'application/json' },

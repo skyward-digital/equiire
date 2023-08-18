@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
-import { signup } from '#/hooks/useAuth';
+import { signup } from '#/app/api/auth';
 import { FormData, Loan } from '#/app/(login)/sign-up/SignUp';
 
 type PasswordFormProps = {

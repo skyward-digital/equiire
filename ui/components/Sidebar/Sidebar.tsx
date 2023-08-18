@@ -3,7 +3,7 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import { navigation } from '#/lib/navigation';
 import { SidebarLink } from './SidebarLink';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { logout } from '#/hooks/useAuth';
+import { logout } from '#/app/api/auth';
 import { UserProfile } from '../Header/UserProfile';
 import { User } from '#/app/api/profile/user';
 
