@@ -1,6 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
 import { getServerSession } from '#/app/api/session';
-import { Loan } from '#/app/api/loans/loans';
+import { Loan } from '#/app/api/loans';
 
 // `server-only` guarantees any modules that import code in file
 // will never run on the client. Even though this particular api
@@ -11,15 +11,13 @@ import 'server-only';
 export async function setPaymentSubscription({ loanId }: { loanId: string }) {
   const { accessToken } = await getServerSession();
 
-  const res = await fetch(
-    `${process.env.API_URL}/loans/${loanId}/subscribe?access_token=${accessToken}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
+  const res = await fetch(`${process.env.API_URL}/loans/${loanId}/subscribe`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
     },
-  );
+  });
 
   if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();

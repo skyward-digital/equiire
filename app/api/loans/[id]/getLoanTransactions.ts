@@ -1,18 +1,24 @@
 import { redirect } from 'next/navigation';
 import { getServerSession } from '#/app/api/session';
-import { LoanPastTransaction, LoanFutureTransaction } from './loans';
+import { LoanPastTransaction, LoanFutureTransaction } from '../loans';
 
 export async function getLoanTransactions({ id }: { id: string }) {
   const { accessToken } = await getServerSession();
 
   const [pastTransactionsResponse, futureTransactionsResponse] =
     await Promise.all([
-      fetch(
-        `${process.env.API_URL}/payments/history?query=loanId:${id}&access_token=${accessToken}`,
-      ),
-      fetch(
-        `${process.env.API_URL}/loans/${id}/future-payments?access_token=${accessToken}`,
-      ),
+      fetch(`${process.env.API_URL}/payments/history?query=loanId:${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      }),
+      fetch(`${process.env.API_URL}/loans/${id}/future-payments`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      }),
     ]);
 
   if (pastTransactionsResponse.status === 401) redirect('/login');

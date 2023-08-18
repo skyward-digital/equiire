@@ -11,7 +11,13 @@ export async function getSignedLoanDoc({ loanId }: { loanId: string }) {
   const { accessToken } = await getServerSession();
 
   const res = await fetch(
-    `${process.env.API_URL}/loans/${loanId}/download-signed-document?access_token=${accessToken}`,
+    `${process.env.API_URL}/loans/${loanId}/download-signed-document`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    },
   );
 
   if (res.status === 401) redirect('/login');

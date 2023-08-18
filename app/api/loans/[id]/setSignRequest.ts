@@ -11,12 +11,13 @@ export async function setSignRequest(id: string) {
   const { accessToken } = await getServerSession();
 
   const res = await fetch(
-    `${process.env.API_URL}/loans/${id}/create-sign-request?access_token=${accessToken}`,
+    `${process.env.API_URL}/loans/${id}/create-sign-request`,
     {
+      method: 'POST',
       headers: {
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
-      method: 'POST',
     },
   );
 
