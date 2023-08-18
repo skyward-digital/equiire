@@ -89,8 +89,11 @@ export function LoanCalculator({
           to Fit Your Needs
         </h2>
       </div>
-      <div className="mt-28 grid gap-8 sm:mt-0">
+      <div className="relative mt-28 grid gap-8 sm:mt-0">
         {/* Loan type */}
+        <p className="text-brand font-brand absolute -top-6 right-2 text-xs font-semibold">
+          Coming soon
+        </p>
         <div className="flex items-center justify-between">
           <Label
             className="font-brand hidden text-xl font-semibold text-gray-600 dark:text-white sm:block"
