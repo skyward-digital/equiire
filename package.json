@@ -24,7 +24,7 @@
     "date-fns": "2.29.3",
     "dinero.js": "2.0.0-alpha.8",
     "ms": "3.0.0-canary.1",
-    "next": "13.4.9",
+    "next": "13.4.19",
     "next-auth": "4.22.3",
     "next-themes": "0.2.1",
     "react": "18.2.0",
