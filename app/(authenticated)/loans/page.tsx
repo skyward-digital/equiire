@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
-// import { NotificationBanner } from '#/ui/components/NotificationBanner/NotificationBanner';
+import { NotificationBanner } from '#/ui/components/NotificationBanner/NotificationBanner';
 import { LoanStatusCard } from '#/ui/components/LoanStatusCard';
 import { getLoans } from '#/app/api/loans/getLoans';
+import { getUser } from '#/app/api/profile';
 
 export const metadata: Metadata = {
   title: 'Loans',
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const loans = await getLoans();
+  const user = await getUser();
 
   const incompleteLoans = loans.docs.filter(
     (loan) =>
@@ -24,14 +26,24 @@ export default async function Page() {
       (loan.loanStatus === 'PENDING' && new Date(loan.startDate) < new Date()),
   );
 
+  const userProfileIncomplete =
+    !user.company ||
+    !user.address ||
+    !user.phone ||
+    !user.ssn ||
+    !user.ein ||
+    !user.dateOfBirth;
+
   return (
     <div className="container flex flex-1 flex-col items-center justify-start gap-8 py-4">
-      {/* <NotificationBanner
-        status="warning"
-        message="You still need to complete your account setup"
-        link="#"
-        linkLabel="Complete setup"
-      /> */}
+      {userProfileIncomplete && (
+        <NotificationBanner
+          status="warning"
+          message="We need a few additional details to be able to complete your first loan"
+          link="/settings"
+          linkLabel="Complete setup"
+        />
+      )}
 
       {incompleteLoans.map((loan) => (
         <LoanStatusCard key={loan._id} loan={loan} />
