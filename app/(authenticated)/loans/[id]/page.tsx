@@ -36,6 +36,7 @@ import {
   setStripePaymentMethod,
   getStripePaymentMethods,
 } from '#/app/api/payments';
+import { getUser } from '#/app/api/profile';
 import Link from 'next/link';
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
@@ -54,7 +55,7 @@ export default async function Page({
     [key: string]: string | null;
   };
 }) {
-  let [loan, transactions, setPaymentMethod, paymentMethods] =
+  let [loan, transactions, setPaymentMethod, paymentMethods, user] =
     await Promise.all([
       getLoan({ id: params.id }),
       await getLoanTransactions({ id: params.id }),
@@ -62,6 +63,7 @@ export default async function Page({
         returnUrl: `/loans/${params.id}?update-payment-method=true`,
       }),
       getStripePaymentMethods(),
+      getUser(),
     ]);
 
   const openStripePortal = searchParams['open-stripe-portal'];
