@@ -103,6 +103,7 @@ export function SignUp({ user }: { user: any }) {
       title="Complete your loan application"
       className="sm:mt-20"
       back={step !== 0 ? () => setStep(step - 1) : undefined}
+      skip={step == 1 ? true : false}
     >
       <ProgressSteps
         className="mb-10"

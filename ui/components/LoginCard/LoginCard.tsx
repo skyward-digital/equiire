@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { BackButton } from '#/ui/components/BackButton';
+import { Button } from '../Button';
 
 type LoginCardProps = {
   title: string | React.ReactNode;
@@ -7,6 +8,7 @@ type LoginCardProps = {
   back?: string | (() => void);
   children: React.ReactNode;
   className?: string;
+  skip?: boolean;
 };
 
 export function LoginCard({
@@ -15,15 +17,23 @@ export function LoginCard({
   back,
   children,
   className,
+  skip,
 }: LoginCardProps) {
   return (
     <section
       className={clsx(
         className,
-        'relative mx-auto flex max-w-2xl flex-col items-start rounded-lg bg-white px-7 pb-16 pt-10 dark:border-gray-600 dark:bg-black sm:flex-row sm:gap-3 sm:shadow-sm dark:sm:border',
+        'mx-auto flex max-w-2xl flex-col items-start rounded-lg bg-white px-7 pb-16 pt-10 dark:border-gray-600 dark:bg-black sm:shadow-sm dark:sm:border',
       )}
     >
-      {back && <BackButton back={back} className="absolute left-7 top-10" />}
+      <div className="flex w-full justify-between">
+        {back && <BackButton back={back} className="" />}
+        {skip && (
+          <Button variant="tertiary" arrow>
+            Skip
+          </Button>
+        )}
+      </div>
       <div className="mx-auto w-full max-w-lg">
         <h1 className="text-brand-secondary font-brand my-6 mb-8 text-center text-3xl font-bold dark:text-gray-300">
           {title}
