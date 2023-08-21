@@ -19,17 +19,17 @@ export default async function Page() {
       (loan.loanStatus === 'PENDING' && new Date(loan.startDate) > new Date()),
   );
 
-  const userProfileIncomplete =
-    !user.company ||
-    !user.address ||
-    !user.phone ||
-    !user.ssn ||
-    !user.ein ||
-    !user.dateOfBirth;
+  const userProfileComplete =
+    user.company &&
+    user.address &&
+    user.phone &&
+    user.ssn &&
+    user.ein &&
+    user.dateOfBirth;
 
   return (
     <div className="container flex flex-1 flex-col items-center justify-start gap-8 py-4">
-      {userProfileIncomplete && (
+      {!userProfileComplete && (
         <NotificationBanner
           status="warning"
           message="We need a few additional details to be able to complete your first loan"
