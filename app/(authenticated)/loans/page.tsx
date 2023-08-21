@@ -10,8 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const loans = await getLoans();
-  const user = await getUser();
+  const [loans, user] = await Promise.all([getLoans(), getUser()]);
 
   const incompleteLoans = loans.docs.filter(
     (loan) =>
