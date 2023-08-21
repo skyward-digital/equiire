@@ -20,23 +20,21 @@ export function LoginCard({
     <section
       className={clsx(
         className,
-        'mx-auto max-w-2xl rounded-lg bg-white px-7 pb-16 pt-10 dark:border-gray-600 dark:bg-black sm:shadow-sm dark:sm:border',
+        'relative mx-auto flex max-w-2xl flex-col items-start rounded-lg bg-white px-7 pb-16 pt-10 dark:border-gray-600 dark:bg-black sm:flex-row sm:gap-3 sm:shadow-sm dark:sm:border',
       )}
     >
-      <div className="relative flex flex-col items-start sm:flex-row sm:gap-3">
-        {back && <BackButton back={back} className="absolute left-0 top-0" />}
-        <div className="mx-auto w-full max-w-lg">
-          <h1 className="text-brand-secondary font-brand my-6 mb-8 text-center text-3xl font-bold dark:text-gray-300">
-            {title}
-          </h1>
-          {description && (
-            <p className="mb-8 text-center text-base text-gray-600 dark:text-gray-300">
-              {description}
-            </p>
-          )}
+      {back && <BackButton back={back} className="absolute left-7 top-10" />}
+      <div className="mx-auto w-full max-w-lg">
+        <h1 className="text-brand-secondary font-brand my-6 mb-8 text-center text-3xl font-bold dark:text-gray-300">
+          {title}
+        </h1>
+        {description && (
+          <p className="mb-8 text-center text-base text-gray-600 dark:text-gray-300">
+            {description}
+          </p>
+        )}
 
-          {children}
-        </div>
+        {children}
       </div>
     </section>
   );
