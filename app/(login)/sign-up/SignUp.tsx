@@ -53,13 +53,13 @@ export function SignUp({ user }: { user: any }) {
     setFormData({
       ...formData,
       // Should we wipe the data when they skip, in case they started and didn't finish?
-      company: '',
-      addressLine1: '',
-      addressLine2: '',
-      city: '',
-      postalCode: '',
-      state: '',
-      phone: '',
+      company: user?.company ?? '',
+      addressLine1: user?.address.addressLine1 ?? '',
+      addressLine2: user?.address.addressLine2 ?? '',
+      city: user?.address.city ?? '',
+      postalCode: user?.address.postalCode ?? '',
+      state: user?.address.state ?? '',
+      phone: user?.phone ?? '',
     });
     setStep(step + 1);
   };
