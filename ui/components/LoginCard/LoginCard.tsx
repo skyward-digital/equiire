@@ -8,7 +8,7 @@ type LoginCardProps = {
   back?: string | (() => void);
   children: React.ReactNode;
   className?: string;
-  skip?: boolean;
+  skip?: () => void;
 };
 
 export function LoginCard({
@@ -19,6 +19,22 @@ export function LoginCard({
   className,
   skip,
 }: LoginCardProps) {
+  const buttons = (
+    <div
+      className={clsx(
+        'flex w-full justify-between',
+        back && !skip && '-mb-4 sm:-mb-10',
+      )}
+    >
+      {back && <BackButton back={back} className="" />}
+      {skip && (
+        <Button onClick={skip} variant="tertiary" arrow>
+          Skip
+        </Button>
+      )}
+    </div>
+  );
+
   return (
     <section
       className={clsx(
@@ -26,14 +42,7 @@ export function LoginCard({
         'mx-auto flex max-w-2xl flex-col items-start rounded-lg bg-white px-7 pb-16 pt-10 dark:border-gray-600 dark:bg-black sm:shadow-sm dark:sm:border',
       )}
     >
-      <div className="flex w-full justify-between">
-        {back && <BackButton back={back} className="" />}
-        {skip && (
-          <Button variant="tertiary" arrow>
-            Skip
-          </Button>
-        )}
-      </div>
+      {(skip || back) && buttons}
       <div className="mx-auto w-full max-w-lg">
         <h1 className="text-brand-secondary font-brand my-6 mb-8 text-center text-3xl font-bold dark:text-gray-300">
           {title}
