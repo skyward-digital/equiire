@@ -49,21 +49,6 @@ export function SignUp({ user }: { user: any }) {
     phone: user?.phone ?? '',
   });
 
-  const skip = () => {
-    setFormData({
-      ...formData,
-      // Should we wipe the data when they skip, in case they started and didn't finish?
-      company: user?.company ?? '',
-      addressLine1: user?.address.addressLine1 ?? '',
-      addressLine2: user?.address.addressLine2 ?? '',
-      city: user?.address.city ?? '',
-      postalCode: user?.address.postalCode ?? '',
-      state: user?.address.state ?? '',
-      phone: user?.phone ?? '',
-    });
-    setStep(step + 1);
-  };
-
   const existingAccount = !!user?.email;
 
   const FORM_STEPS = [
@@ -118,7 +103,7 @@ export function SignUp({ user }: { user: any }) {
       title="Complete your loan application"
       className="sm:mt-20"
       back={step !== 0 ? () => setStep(step - 1) : undefined}
-      skip={step == 1 ? () => skip() : undefined}
+      skip={step == 1 ? () => setStep(step + 1) : undefined}
     >
       <ProgressSteps
         className="mb-10"
