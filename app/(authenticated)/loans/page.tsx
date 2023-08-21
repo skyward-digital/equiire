@@ -26,13 +26,14 @@ export default async function Page() {
       (loan.loanStatus === 'PENDING' && new Date(loan.startDate) < new Date()),
   );
 
-  const userProfileComplete =
+  const userProfileComplete = !!(
     user.company &&
     user.address &&
     user.phone &&
     user.ssn &&
     user.ein &&
-    user.dateOfBirth;
+    user.dateOfBirth
+  );
 
   return (
     <div className="container flex flex-1 flex-col items-center justify-start gap-8 py-4">
@@ -46,7 +47,11 @@ export default async function Page() {
       )}
 
       {incompleteLoans.map((loan) => (
-        <LoanStatusCard key={loan._id} loan={loan} />
+        <LoanStatusCard
+          key={loan._id}
+          loan={loan}
+          userProfileComplete={userProfileComplete}
+        />
       ))}
 
       {/* Completed loans */}
@@ -57,7 +62,11 @@ export default async function Page() {
           </h2>
           <div className="grid w-full gap-4 xl:grid-cols-2">
             {completedLoans.map((loan) => (
-              <LoanStatusCard key={loan._id} loan={loan} />
+              <LoanStatusCard
+                key={loan._id}
+                loan={loan}
+                userProfileComplete={userProfileComplete}
+              />
             ))}
           </div>
         </div>

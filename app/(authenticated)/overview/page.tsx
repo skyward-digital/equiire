@@ -19,13 +19,14 @@ export default async function Page() {
       (loan.loanStatus === 'PENDING' && new Date(loan.startDate) > new Date()),
   );
 
-  const userProfileComplete =
+  const userProfileComplete = !!(
     user.company &&
     user.address &&
     user.phone &&
     user.ssn &&
     user.ein &&
-    user.dateOfBirth;
+    user.dateOfBirth
+  );
 
   return (
     <div className="container flex flex-1 flex-col items-center justify-start gap-8 py-4">
@@ -39,7 +40,11 @@ export default async function Page() {
       )}
 
       {activeLoans.map((loan) => (
-        <LoanStatusCard key={loan._id} loan={loan} />
+        <LoanStatusCard
+          key={loan._id}
+          loan={loan}
+          userProfileComplete={userProfileComplete}
+        />
       ))}
     </div>
   );
