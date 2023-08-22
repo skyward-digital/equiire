@@ -7,23 +7,57 @@ import { LoanSummaryBox } from '#/ui/components/LoanSummaryBox';
 // This could potentially be moved elsewhere
 export interface LoanDetails {
   type: 'CREDIT_BUILDER' | 'STANDARD';
-  amount: string;
-  scheduledPayment: string;
+  amount: 1000 | 2500 | 5000 | 10000 | 15000 | 25000;
   startDate: Date;
+  repaymentPeriod: number;
+  //scheduledPayment: string;
   //terms: string;
   //repaymentPeriod: string;
   //interestType: 'FIXED' | 'VARIABLE';
 }
 
+export const LOAN_VALUES = {
+  1000: {
+    creditCost: 100,
+    apr: 19.189,
+    monthlyPayment: 30,
+  },
+  2500: {
+    creditCost: 150,
+    apr: 19.189,
+    monthlyPayment: 75,
+  },
+  5000: {
+    creditCost: 200,
+    apr: 19.189,
+    monthlyPayment: 150,
+  },
+  10000: {
+    creditCost: 300,
+    apr: 14.345,
+    monthlyPayment: 275,
+  },
+  15000: {
+    creditCost: 400,
+    apr: 11.264,
+    monthlyPayment: 275,
+  },
+  25000: {
+    creditCost: 500,
+    apr: 10.265,
+    monthlyPayment: 650,
+  },
+};
+
 export function LoanApplication() {
   const [step, setStep] = useState(0);
   const [loanDetails, setLoanDetails] = useState<LoanDetails>({
     type: 'CREDIT_BUILDER',
-    amount: '10000',
-    scheduledPayment: '500',
+    amount: 10000,
     startDate: new Date(),
+    repaymentPeriod: 48,
+    //scheduledPayment: '500',
     //terms: 'monthly',
-    //repaymentPeriod: '0',
     //interestType: 'FIXED',
   });
   // This will be needed again when the user can choose Loan Terms

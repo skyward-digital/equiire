@@ -2,8 +2,9 @@ import { LoanDetails } from '#/app/(login)/loan-application/LoanApplication';
 import { RadioGroup } from '#/ui/components/RadioGroup';
 import { Label } from '#/ui/components/Label';
 import { SliderGroup } from '#/ui/components/SliderGroup';
-import { Select, SelectItem } from '#/ui/components/Select';
+//import { Select, SelectItem } from '#/ui/components/Select';
 import { Button } from '#/ui/components/Button';
+import { LOAN_VALUES } from '#/app/(login)/loan-application/LoanApplication';
 
 export type LoanCalculatorProps = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -19,9 +20,9 @@ export function LoanCalculator({
   const {
     type,
     amount,
+    repaymentPeriod,
     //scheduledPayment,
     //terms,
-    //repaymentPeriod,
     //interestType,
   } = loanDetails;
 
@@ -46,8 +47,8 @@ export function LoanCalculator({
     CREDIT_BUILDER: {
       amount: {
         min: 1000,
-        max: 20000,
-        options: [1000, 10000, 20000],
+        max: 25000,
+        options: [1000, 2500, 5000, 10000, 15000, 25000],
       },
       // repaymentPeriod: {
       //   min: 12,
@@ -136,9 +137,12 @@ export function LoanCalculator({
           min={sliderGroupValues.amount.min}
           max={sliderGroupValues.amount.max}
           options={sliderGroupValues.amount.options}
-          value={amount}
+          value={amount.toString()}
           onChange={(value) =>
-            setLoanDetails({ ...loanDetails, amount: value })
+            setLoanDetails({
+              ...loanDetails,
+              amount: Number(value) as LoanDetails['amount'],
+            })
           }
         />
       </div>
@@ -157,7 +161,11 @@ export function LoanCalculator({
             className="text-lg text-gray-600 dark:text-white"
             id="monthly-payment"
           >
-            $500
+            {LOAN_VALUES[amount].monthlyPayment.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+              maximumFractionDigits: 0,
+            })}
           </div>
         </div>
         <div className="flex items-center justify-between">
@@ -171,7 +179,7 @@ export function LoanCalculator({
             className="text-lg text-gray-600 dark:text-white"
             id="monthly-payment"
           >
-            24 Months
+            {repaymentPeriod} Months
           </div>
         </div>
         {/* Loan terms user selection - to be used later */}

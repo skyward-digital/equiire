@@ -73,6 +73,8 @@ export function AdditionalDetailsForm({
             length: parseInt(loan.length),
             monthlyPayment: parseInt(loan.monthlyPayment),
             startDate: loan.startDate,
+            apr: Number(loan.apr),
+            creditCost: parseInt(loan.creditCost),
           }),
         });
 
