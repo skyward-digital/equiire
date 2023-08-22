@@ -1,18 +1,32 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { Input } from '#/ui/components/Form';
+import { Controller, useForm } from 'react-hook-form';
+import { Select, SelectItem } from '#/ui/components/Select';
+import { Label } from '#/ui/components/Label';
 import { SettingsCard } from '#/ui/components/SettingsCard';
 import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
 
+const ENTITY_TYPES = [
+  { label: 'Sole Trader', value: 'Sole Trader' },
+  { label: 'Partnership', value: 'Partnership' },
+  {
+    label: 'Limited Liability Partnership',
+    value: 'Limited Liability Partnership',
+  },
+  { label: 'Limited Liability Company', value: 'Limited Liability Company' },
+  { label: 'Corporation', value: 'Corporation' },
+  { label: 'Non-Profit Organisation', value: 'Non-Profit Organisation' },
+  // todo: other
+];
+
 export const EntityTypeForm = (props: { entityType: User['entityType'] }) => {
   const router = useRouter();
 
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -57,15 +71,33 @@ export const EntityTypeForm = (props: { entityType: User['entityType'] }) => {
       expanded={expanded}
       setExpanded={setExpanded}
     >
-      {/* todo: change to select */}
-      <Input
-        id="entitytype"
-        label="Entity Type"
-        value={entityType}
-        register={register}
-        required="Entity type is required"
-        error={errors.entitytype}
-      />
+      <div>
+        <Label
+          className="mb-2 text-base font-semibold text-gray-600 dark:text-gray-400"
+          htmlFor="entitytype"
+        >
+          Entity Type
+        </Label>
+        <Controller
+          name="entitytype"
+          control={control}
+          defaultValue={entityType || 'Sole Trader'}
+          render={({ field: { onChange, name, value } }) => (
+            <Select
+              id={name}
+              value={value}
+              onValueChange={onChange}
+              className="mt-2"
+            >
+              {ENTITY_TYPES.map((entity) => (
+                <SelectItem key={entity.value} value={entity.value}>
+                  {entity.label}
+                </SelectItem>
+              ))}
+            </Select>
+          )}
+        />
+      </div>
     </SettingsCard>
   );
 };
