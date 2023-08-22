@@ -32,7 +32,7 @@ export const LoanSteps = ({
     },
     account: {
       title: 'Complete account setup',
-      href: '#',
+      href: '/settings',
       order: 2,
       completed: steps.account,
     },

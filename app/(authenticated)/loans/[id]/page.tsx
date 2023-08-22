@@ -36,7 +36,9 @@ import {
   setStripePaymentMethod,
   getStripePaymentMethods,
 } from '#/app/api/payments';
+import { getUser } from '#/app/api/profile';
 import Link from 'next/link';
+import { userProfileComplete } from '#/lib/userProfileComplete';
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
   return {
@@ -54,7 +56,7 @@ export default async function Page({
     [key: string]: string | null;
   };
 }) {
-  let [loan, transactions, setPaymentMethod, paymentMethods] =
+  let [loan, transactions, setPaymentMethod, paymentMethods, user] =
     await Promise.all([
       getLoan({ id: params.id }),
       await getLoanTransactions({ id: params.id }),
@@ -62,10 +64,13 @@ export default async function Page({
         returnUrl: `/loans/${params.id}?update-payment-method=true`,
       }),
       getStripePaymentMethods(),
+      getUser(),
     ]);
 
   const openStripePortal = searchParams['open-stripe-portal'];
   const updatePaymentMethod = searchParams['update-payment-method'];
+
+  const profileCompleted = userProfileComplete(user);
 
   // We are changing some of these variables after certain processes have finished
   let paymentStepCompleted = !!loan.paymentMethod;
@@ -93,7 +98,7 @@ export default async function Page({
     }
 
     // Subscribes the loan and updates loan status
-    if (paymentStepCompleted && loan.signatureCompleted) {
+    if (profileCompleted && paymentStepCompleted && loan.signatureCompleted) {
       // Does a final check for signed loan document
       const signedLoanDoc = await getSignedLoanDoc({ loanId: params.id });
 
@@ -121,10 +126,8 @@ export default async function Page({
     // @ts-ignore
   } = loan;
 
-  console.log(loan);
-
   const steps = {
-    account: true, // always true as a user cannot have a loan without an account
+    account: profileCompleted,
     loan: true, // always true as a user cannot view a loan without a loan
     payment: paymentStepCompleted,
     signature: loan.signatureCompleted,
