@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { email, password, name, company, address, phone } = body;
-  const { addressLine1, city, state, postalCode } = address;
+  const { email, password, name } = body;
 
   // input validation
   if (!email) {
@@ -26,54 +25,6 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error: 'Name is required',
-      },
-      { status: 400 },
-    );
-  }
-  if (!company) {
-    return NextResponse.json(
-      {
-        error: 'Company is required',
-      },
-      { status: 400 },
-    );
-  }
-  if (!addressLine1) {
-    return NextResponse.json(
-      {
-        error: 'Address Line 1 is required',
-      },
-      { status: 400 },
-    );
-  }
-  if (!city) {
-    return NextResponse.json(
-      {
-        error: 'City is required',
-      },
-      { status: 400 },
-    );
-  }
-  if (!state) {
-    return NextResponse.json(
-      {
-        error: 'State is required',
-      },
-      { status: 400 },
-    );
-  }
-  if (!postalCode) {
-    return NextResponse.json(
-      {
-        error: 'Zip code is required',
-      },
-      { status: 400 },
-    );
-  }
-  if (!phone) {
-    return NextResponse.json(
-      {
-        error: 'Telephone is required',
       },
       { status: 400 },
     );

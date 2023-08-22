@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { UserIcon, PencilIcon } from '@heroicons/react/24/outline';
+import { UserIcon } from '@heroicons/react/24/outline';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 import { FormData } from '#/app/(login)/sign-up/SignUp';
@@ -26,28 +26,19 @@ export function PersonalInformationForm({
 
   const onSubmit = async (data: any) => {
     if (existingAccount) {
-      const [name, company] = await Promise.all([
-        fetch('/api/profile/name', {
-          method: 'PATCH',
-          body: JSON.stringify({
-            name: data.name,
-          }),
+      const name = await fetch('/api/profile/name', {
+        method: 'PATCH',
+        body: JSON.stringify({
+          name: data.name,
         }),
-        fetch('/api/profile/company', {
-          method: 'PATCH',
-          body: JSON.stringify({
-            company: data.company,
-          }),
-        }),
-      ]);
+      });
 
-      if (name.status === 200 && company.status === 200) {
+      if (name.status === 200) {
         const json = await name.json();
 
         await updateSession({
           user: {
             ...json.data,
-            company: data.company,
           },
         });
 
@@ -86,17 +77,6 @@ export function PersonalInformationForm({
         }}
         error={errors.email}
         disabled={existingAccount}
-      />
-      <Input
-        id="company"
-        type="text"
-        label="Company"
-        placeholder="Cool Company"
-        register={register}
-        value={formData?.company}
-        required="Company is required"
-        error={errors.company}
-        Icon={PencilIcon}
       />
       <Button
         variant="primary"
