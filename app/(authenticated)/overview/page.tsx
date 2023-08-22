@@ -33,7 +33,11 @@ export default async function Page() {
       )}
 
       {activeLoans.map((loan) => (
-        <LoanStatusCard key={loan._id} loan={loan} />
+        <LoanStatusCard
+          key={loan._id}
+          loan={loan}
+          profileCompleted={profileCompleted}
+        />
       ))}
     </div>
   );

@@ -39,7 +39,11 @@ export default async function Page() {
       )}
 
       {incompleteLoans.map((loan) => (
-        <LoanStatusCard key={loan._id} loan={loan} />
+        <LoanStatusCard
+          key={loan._id}
+          loan={loan}
+          profileCompleted={profileCompleted}
+        />
       ))}
 
       {/* Completed loans */}
@@ -50,7 +54,11 @@ export default async function Page() {
           </h2>
           <div className="grid w-full gap-4 xl:grid-cols-2">
             {completedLoans.map((loan) => (
-              <LoanStatusCard key={loan._id} loan={loan} />
+              <LoanStatusCard
+                key={loan._id}
+                loan={loan}
+                profileCompleted={profileCompleted}
+              />
             ))}
           </div>
         </div>
