@@ -15,5 +15,8 @@ export type User = {
   phone: string;
   company: string;
   contact: string;
+  ein: string;
+  dateOfBirth: string;
+  ssn: string;
   recordStatus: 'ACTIVE';
 };
