@@ -69,6 +69,15 @@ export default async function Page({
   const openStripePortal = searchParams['open-stripe-portal'];
   const updatePaymentMethod = searchParams['update-payment-method'];
 
+  const userProfileComplete = !!(
+    user.company &&
+    user.address &&
+    user.phone &&
+    user.ssn &&
+    user.ein &&
+    user.dateOfBirth
+  );
+
   // We are changing some of these variables after certain processes have finished
   let paymentStepCompleted = !!loan.paymentMethod;
   let status = loan.loanStatus;
@@ -123,10 +132,8 @@ export default async function Page({
     // @ts-ignore
   } = loan;
 
-  console.log(loan);
-
   const steps = {
-    account: true, // always true as a user cannot have a loan without an account
+    account: userProfileComplete,
     loan: true, // always true as a user cannot view a loan without a loan
     payment: paymentStepCompleted,
     signature: loan.signatureCompleted,
