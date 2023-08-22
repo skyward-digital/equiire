@@ -104,7 +104,11 @@ export default async function Page({
     }
 
     // Subscribes the loan and updates loan status
-    if (paymentStepCompleted && loan.signatureCompleted) {
+    if (
+      userProfileComplete &&
+      paymentStepCompleted &&
+      loan.signatureCompleted
+    ) {
       // Does a final check for signed loan document
       const signedLoanDoc = await getSignedLoanDoc({ loanId: params.id });
 
