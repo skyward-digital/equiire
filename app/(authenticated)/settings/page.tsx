@@ -4,8 +4,8 @@ import {
   ShieldCheckIcon,
   DocumentTextIcon,
   BuildingLibraryIcon,
+  UserIcon,
 } from '#/lib/@heroicons/react/24/outline';
-import { getServerSession } from '#/app/api/session';
 import { TabHeading } from '#/ui/components/TabHeading';
 import { SettingsCardLink } from '#/ui/components/SettingsCard';
 import {
@@ -15,12 +15,16 @@ import {
   AddressForm,
   PhoneForm,
   PasswordForm,
+  LegalNameForm,
+  DateOfBirthForm,
+  SSNForm,
 } from './components';
 import {
   setStripePaymentPortal,
   getStripePaymentMethods,
 } from '#/app/api/payments';
 import { Button } from '#/ui/components/Button';
+import { getUser } from '#/app/api/profile';
 
 export const metadata: Metadata = {
   title: 'Settings',
@@ -28,34 +32,43 @@ export const metadata: Metadata = {
 };
 
 export default async function SettingsPage() {
-  const [session, paymentPortal, paymentMethods] = await Promise.all([
-    getServerSession(),
+  const [user, paymentPortal, paymentMethods] = await Promise.all([
+    getUser(),
     setStripePaymentPortal({
       returnUrl: `/settings`,
     }),
     getStripePaymentMethods(),
   ]);
 
-  const { user } = session;
   const [defaultPayment, ...restPayments] = paymentMethods.docs;
 
   return (
     <>
       <TabHeading
         links={[
-          { id: 'details', title: 'Company Details', Icon: DocumentTextIcon },
+          {
+            id: 'personal',
+            title: 'Personal Information',
+            Icon: UserIcon,
+          },
+          { id: 'company', title: 'Company Details', Icon: DocumentTextIcon },
           { id: 'security', title: 'Security', Icon: ShieldCheckIcon },
           { id: 'payment', title: 'Cards/Banks', Icon: CreditCardIcon },
         ]}
       />
 
       <div className="prose prose-sm dark:prose-invert mb-16 mt-4 max-w-none space-y-8">
-        <Wrapper id="details" title="Company Details">
-          <CompanyForm company={user.company} />
+        <Wrapper id="personal" title="Personal Information">
           <NameForm name={user.name} />
+          <LegalNameForm fullLegalName={user.fullLegalName} />
           <EmailForm email={user.email} />
           <AddressForm address={user.address} />
+          <DateOfBirthForm dateOfBirth={user.dateOfBirth} />
           <PhoneForm phone={user.phone} />
+          <SSNForm ssn={user.ssn} />
+        </Wrapper>
+        <Wrapper id="company" title="Company Details">
+          <CompanyForm company={user.company} />
         </Wrapper>
 
         <Wrapper id="security" title="Security">

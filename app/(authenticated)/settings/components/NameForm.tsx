@@ -49,7 +49,7 @@ export const NameForm = (props: { name: User['name'] }) => {
 
   return (
     <SettingsCard
-      title="Contact"
+      title="Name"
       detail={name}
       placeholder="Jane Doe"
       Icon={UserIcon}

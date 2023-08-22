@@ -4,3 +4,6 @@ export { PhoneForm } from './PhoneForm';
 export { EmailForm } from './EmailForm';
 export { PasswordForm } from './PasswordForm';
 export { CompanyForm } from './CompanyForm';
+export { LegalNameForm } from './LegalNameForm';
+export { DateOfBirthForm } from './DateOfBirthForm';
+export { SSNForm } from './SSNForm';

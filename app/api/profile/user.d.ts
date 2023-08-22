@@ -4,6 +4,7 @@ export type User = {
   name: string;
   sub: string;
   paymentCustomerId: string;
+  contact: string;
   address: {
     addressLine1: string;
     addressLine2: string;
@@ -12,8 +13,25 @@ export type User = {
     postalCode: string;
     country: string;
   };
-  phone: string;
+  legalBusinessName: string;
   company: string;
-  contact: string;
+  ein: string;
+  entityType: string;
+  businessAddress: {
+    addressLine1: string;
+    addressLine2: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+  };
+  businessPhone: string;
+  formationDate: string;
+  website: string;
+  industry: string;
+  fullLegalName: string;
+  dateOfBirth: string;
+  phone: string;
+  ssn: string;
   recordStatus: 'ACTIVE';
 };

@@ -11,6 +11,7 @@ type SettingsCardProps = {
   Icon?: any;
   onSubmit?: any;
   children: React.ReactNode;
+  secret?: boolean;
 };
 
 export const SettingsCard = ({
@@ -22,6 +23,7 @@ export const SettingsCard = ({
   Icon,
   onSubmit,
   children,
+  secret,
 }: SettingsCardProps) => {
   const onSave = (e: any) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ export const SettingsCard = ({
           <Icon className="h-6 w-6" />
           <div className="not-prose flex flex-col">
             <p className="font-semibold">{title}</p>
-            {detail ? (
+            {detail && !secret ? (
               <p className="text-gray-500 dark:text-gray-100">{detail}</p>
             ) : (
               <p className="text-gray-300 dark:text-gray-500">{placeholder}</p>
@@ -70,7 +72,7 @@ export const SettingsCard = ({
             )}
           </div>
         ) : (
-          <div className="flex gap-4">
+          <div className="flex items-center gap-4">
             {!detail && (
               <Badge type="warning" Icon={ExclamationCircleIcon}>
                 Missing Info
