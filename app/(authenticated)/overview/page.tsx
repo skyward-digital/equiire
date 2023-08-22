@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
-import { NotificationBanner } from '#/ui/components/NotificationBanner/NotificationBanner';
+import { NotificationBanner } from '#/ui/components/NotificationBanner';
 import { LoanStatusCard } from '#/ui/components/LoanStatusCard';
 import { getLoans } from '#/app/api/loans/getLoans';
 import { getUser } from '#/app/api/profile/getUser';
+import { userProfileComplete } from '#/lib/userProfileComplete';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -18,18 +19,11 @@ export default async function Page() {
       (loan.loanStatus === 'PENDING' && new Date(loan.startDate) > new Date()),
   );
 
-  const userProfileComplete = !!(
-    user.company &&
-    user.address &&
-    user.phone &&
-    user.ssn &&
-    user.ein &&
-    user.dateOfBirth
-  );
+  const profileCompleted = userProfileComplete(user);
 
   return (
     <div className="container flex flex-1 flex-col items-center justify-start gap-8 py-4">
-      {!userProfileComplete && (
+      {!profileCompleted && (
         <NotificationBanner
           status="warning"
           message="We need a few additional details to be able to complete your first loan"
@@ -42,7 +36,7 @@ export default async function Page() {
         <LoanStatusCard
           key={loan._id}
           loan={loan}
-          userProfileComplete={userProfileComplete}
+          userProfileComplete={profileCompleted}
         />
       ))}
     </div>
