@@ -5,8 +5,12 @@ import { HashtagIcon } from '@heroicons/react/24/outline';
 import { Input } from '#/ui/components/Form';
 import { SettingsCard } from '#/ui/components/SettingsCard';
 import { User } from '#/app/api/profile/user';
+import { CustomerFields } from '#/app/(authenticated)/settings/page';
 
-export const SSNForm = (props: { ssn: User['ssn'] }) => {
+export const SSNForm = (props: {
+  ssn: User['ssn'];
+  customerFields: CustomerFields;
+}) => {
   const {
     register,
     handleSubmit,
@@ -16,22 +20,22 @@ export const SSNForm = (props: { ssn: User['ssn'] }) => {
   const [expanded, setExpanded] = useState(false);
   const [status, setStatus] = useState('idle');
 
-  // const onSubmit = async (data: any) => {
-  //   // local api as we need to update on the client
-  //   const res = await fetch('/api/auth/change-password', {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       currentPassword: data.currentPassword,
-  //       newPassword: data.confirmPassword,
-  //     }),
-  //   });
+  const onSubmit = async (data: any) => {
+    // local api as we need to update on the client
+    const res = await fetch('/api/profile/customer', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        ...props.customerFields,
+        ssn: data.ssn,
+      }),
+    });
 
-  //   if (res.status !== 200) {
-  //     setStatus('error');
-  //   } else {
-  //     setExpanded(false);
-  //   }
-  // };
+    if (res.status !== 200) {
+      setStatus('error');
+    } else {
+      setExpanded(false);
+    }
+  };
 
   return (
     <SettingsCard
@@ -39,7 +43,7 @@ export const SSNForm = (props: { ssn: User['ssn'] }) => {
       detail={props.ssn}
       placeholder="******"
       Icon={HashtagIcon}
-      //onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
       secret
@@ -53,6 +57,11 @@ export const SSNForm = (props: { ssn: User['ssn'] }) => {
         required="Social Security Number is required"
         error={errors.ssn}
       />
+      {status === 'error' ? (
+        <p className="mt-0 text-sm text-red-500">
+          There was an error updating your social security number.
+        </p>
+      ) : null}
     </SettingsCard>
   );
 };

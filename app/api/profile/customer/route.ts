@@ -22,6 +22,7 @@ export async function PATCH(request: Request) {
     state = '',
     postalCode = '',
   } = residentialAddress;
+
   const res = await fetch(
     `${process.env.API_URL}/profile/customer?access_token=${accessToken}`,
     {
@@ -31,7 +32,7 @@ export async function PATCH(request: Request) {
       },
       body: JSON.stringify({
         fullLegalName,
-        dateOfBirth: dateOfBirth,
+        dateOfBirth,
         residentialAddress: {
           addressLine1,
           addressLine2,

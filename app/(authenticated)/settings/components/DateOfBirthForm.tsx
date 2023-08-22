@@ -9,9 +9,11 @@ import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
 import { DatePicker } from '#/ui/components/DatePicker';
 import { Label } from '#/ui/components/Label';
+import { CustomerFields } from '#/app/(authenticated)/settings/page';
 
 export const DateOfBirthForm = (props: {
   dateOfBirth: User['dateOfBirth'];
+  customerFields: CustomerFields;
 }) => {
   const router = useRouter();
 
@@ -28,30 +30,31 @@ export const DateOfBirthForm = (props: {
     props.dateOfBirth ? new Date(props.dateOfBirth) : undefined,
   );
 
-  //   const onSubmit = async (data: any) => {
-  //     // local api as we need to update on the client
-  //     const res = await fetch('/api/profile/name', {
-  //       method: 'PATCH',
-  //       body: JSON.stringify({
-  //         name: `${data.firstname} ${data.lastname}`,
-  //       }),
-  //     });
+  const onSubmit = async (data: any) => {
+    // local api as we need to update on the client
+    const res = await fetch('/api/profile/customer', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        ...props.customerFields,
+        dateOfBirth: dateOfBirth,
+      }),
+    });
 
-  //     if (res.status === 200) {
-  //       setExpanded(false);
-  //     }
+    if (res.status === 200) {
+      setExpanded(false);
+    }
 
-  //     const json = await res.json();
+    const json = await res.json();
 
-  //     // update the state so it reflects the new data immediately
-  //     setName(json.data.name);
+    // update the state so it reflects the new data immediately
+    setDateOfBirth(new Date(json.data.dateOfBirth));
 
-  //     // Update the session so it remembers the new data as the user navigates
-  //     updateSession({ user: json.data });
+    // Update the session so it remembers the new data as the user navigates
+    updateSession({ user: json.data });
 
-  //     // To ensure that areas where this data is reused updates too, like the header
-  //     router.refresh();
-  //   };
+    // To ensure that areas where this data is reused updates too, like the header
+    router.refresh();
+  };
 
   return (
     <SettingsCard
@@ -59,8 +62,7 @@ export const DateOfBirthForm = (props: {
       detail={dateOfBirth && format(dateOfBirth, 'MM/dd/yyyy')}
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
-      onSubmit={() => console.log('save')}
-      //onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
     >
@@ -74,7 +76,7 @@ export const DateOfBirthForm = (props: {
         <DatePicker
           id="dateofbirth"
           value={dateOfBirth}
-          onValueChange={setDateOfBirth}
+          onValueChange={(value) => setDateOfBirth(value)}
         />
       </div>
     </SettingsCard>

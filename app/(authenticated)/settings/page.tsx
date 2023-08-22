@@ -91,9 +91,12 @@ export default async function SettingsPage() {
           <EmailForm email={user.email} />
           <PasswordForm />
           <AddressForm address={user.address} />
-          <DateOfBirthForm dateOfBirth={user.dateOfBirth} />
+          <DateOfBirthForm
+            dateOfBirth={user.dateOfBirth}
+            customerFields={customerFields}
+          />
           <PhoneForm phone={user.phone} />
-          <SSNForm ssn={user.ssn} />
+          <SSNForm ssn={user.ssn} customerFields={customerFields} />
         </Wrapper>
         <Wrapper id="company" title="Company Information">
           <LegalBusinessNameForm legalBusinessName={user.legalBusinessName} />
