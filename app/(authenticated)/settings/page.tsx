@@ -33,10 +33,19 @@ import {
 } from '#/app/api/payments';
 import { Button } from '#/ui/components/Button';
 import { getUser } from '#/app/api/profile';
+import { User } from '#/app/api/profile/user';
 
 export const metadata: Metadata = {
   title: 'Settings',
   description: 'Your account details and user information',
+};
+
+export type CustomerFields = {
+  fullLegalName: User['fullLegalName'];
+  dateOfBirth: User['dateOfBirth'];
+  phone: User['phone'];
+  ssn: User['ssn'];
+  address: User['address'];
 };
 
 export default async function SettingsPage() {
@@ -49,6 +58,10 @@ export default async function SettingsPage() {
   ]);
 
   const [defaultPayment, ...restPayments] = paymentMethods.docs;
+  const { fullLegalName, dateOfBirth, phone, ssn, address } = user;
+  // Todo: Need to clarify which address is personal address - address or residentialAddress
+  // at the moment we are using two addresses
+  const customerFields = { fullLegalName, dateOfBirth, phone, ssn, address };
 
   return (
     <>
@@ -71,7 +84,10 @@ export default async function SettingsPage() {
       <div className="prose prose-sm dark:prose-invert mb-16 mt-4 max-w-none space-y-8">
         <Wrapper id="personal" title="Personal Information">
           <NameForm name={user.name} />
-          <LegalNameForm fullLegalName={user.fullLegalName} />
+          <LegalNameForm
+            fullLegalName={user.fullLegalName}
+            customerFields={customerFields}
+          />
           <EmailForm email={user.email} />
           <PasswordForm />
           <AddressForm address={user.address} />
