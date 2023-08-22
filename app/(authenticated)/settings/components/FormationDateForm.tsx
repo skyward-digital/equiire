@@ -2,8 +2,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { Input } from '#/ui/components/Form';
+import format from 'date-fns/format';
 import { SettingsCard } from '#/ui/components/SettingsCard';
+import { Label } from '#/ui/components/Label';
+import { DatePicker } from '#/ui/components/DatePicker';
 import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
@@ -22,7 +24,9 @@ export const FormationDateForm = (props: {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [formationDate, setFormationDate] = useState(props.formationDate);
+  const [formationDate, setFormationDate] = useState(
+    props.formationDate ? new Date(props.formationDate) : undefined,
+  );
 
   //   const onSubmit = async (data: any) => {
   //     // local api as we need to update on the client
@@ -52,22 +56,28 @@ export const FormationDateForm = (props: {
   return (
     <SettingsCard
       title="Formation Date"
-      detail={formationDate}
+      detail={formationDate && format(formationDate, 'MM/dd/yyyy')}
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
+      onSubmit={() => console.log('save')}
       //onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
     >
-      {/* Todo: datepicker */}
-      <Input
-        id="formationdate"
-        label="Formation Date"
-        value={formationDate}
-        register={register}
-        required="Formation date is required"
-        error={errors.formationdate}
-      />
+      <div>
+        <Label
+          htmlFor="formationdate"
+          className="mb-2 block text-base font-semibold text-gray-600 dark:text-gray-400"
+        >
+          Formation Date
+        </Label>
+        <DatePicker
+          id="formationdate"
+          value={formationDate}
+          onValueChange={setFormationDate}
+          disableFuture
+        />
+      </div>
     </SettingsCard>
   );
 };

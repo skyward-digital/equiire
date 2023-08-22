@@ -2,11 +2,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { Input } from '#/ui/components/Form';
+import format from 'date-fns/format';
 import { SettingsCard } from '#/ui/components/SettingsCard';
 import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
+import { DatePicker } from '#/ui/components/DatePicker';
+import { Label } from '#/ui/components/Label';
 
 export const DateOfBirthForm = (props: {
   dateOfBirth: User['dateOfBirth'];
@@ -22,7 +24,9 @@ export const DateOfBirthForm = (props: {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [dateOfBirth, setDateOfBirth] = useState(props.dateOfBirth);
+  const [dateOfBirth, setDateOfBirth] = useState(
+    props.dateOfBirth ? new Date(props.dateOfBirth) : undefined,
+  );
 
   //   const onSubmit = async (data: any) => {
   //     // local api as we need to update on the client
@@ -52,22 +56,27 @@ export const DateOfBirthForm = (props: {
   return (
     <SettingsCard
       title="Date of Birth"
-      detail={dateOfBirth}
+      detail={dateOfBirth && format(dateOfBirth, 'MM/dd/yyyy')}
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
+      onSubmit={() => console.log('save')}
       //onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
     >
-      {/* Todo: datepicker */}
-      <Input
-        id="dateofbirth"
-        label="Date of Birth"
-        value={dateOfBirth}
-        register={register}
-        required="Date of birth is required"
-        error={errors.dateofbirth}
-      />
+      <div>
+        <Label
+          htmlFor="dateofbirth"
+          className="mb-2 block text-base font-semibold text-gray-600 dark:text-gray-400"
+        >
+          Date of Birth
+        </Label>
+        <DatePicker
+          id="dateofbirth"
+          value={dateOfBirth}
+          onValueChange={setDateOfBirth}
+        />
+      </div>
     </SettingsCard>
   );
 };

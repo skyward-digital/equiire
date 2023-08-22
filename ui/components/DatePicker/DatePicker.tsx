@@ -12,6 +12,7 @@ export interface DatePickerProps extends React.HTMLAttributes<HTMLDivElement> {
   onValueChange: (value: Date) => void;
   defaultOpen?: boolean;
   disablePast?: boolean;
+  disableFuture?: boolean;
 }
 
 export function DatePicker({
@@ -19,6 +20,7 @@ export function DatePicker({
   defaultOpen,
   value,
   disablePast = false,
+  disableFuture = false,
   onValueChange,
 }: DatePickerProps) {
   return (
@@ -44,6 +46,7 @@ export function DatePicker({
                 }
               }}
               disablePast={disablePast}
+              disableFuture={disableFuture}
             />
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Portal>
