@@ -46,7 +46,7 @@ export const CompanyForm = (props: { company: User['company'] }) => {
 
   return (
     <SettingsCard
-      title="Company"
+      title="Short Name"
       detail={company}
       placeholder="Acme Inc."
       Icon={BuildingOffice2Icon}

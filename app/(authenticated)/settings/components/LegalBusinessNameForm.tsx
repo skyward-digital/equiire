@@ -4,12 +4,12 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form';
 import { SettingsCard } from '#/ui/components/SettingsCard';
-import { UserIcon } from '@heroicons/react/24/outline';
+import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
 
-export const LegalNameForm = (props: {
-  fullLegalName: User['fullLegalName'];
+export const LegalBusinessNameForm = (props: {
+  legalBusinessName: User['legalBusinessName'];
 }) => {
   const router = useRouter();
 
@@ -22,7 +22,9 @@ export const LegalNameForm = (props: {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [legalName, setLegalName] = useState(props.fullLegalName);
+  const [legalBusinessName, setLegalBusinessName] = useState(
+    props.legalBusinessName,
+  );
 
   //   const onSubmit = async (data: any) => {
   //     // local api as we need to update on the client
@@ -51,21 +53,21 @@ export const LegalNameForm = (props: {
 
   return (
     <SettingsCard
-      title="Legal Name"
-      detail={legalName}
-      placeholder="Jane Claire Doe"
-      Icon={UserIcon}
+      title="Legal Business Name"
+      detail={legalBusinessName}
+      placeholder="Acme Incorporated International LTD"
+      Icon={BuildingOffice2Icon}
       //onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
     >
       <Input
-        id="legalname"
-        label="Legal Name"
-        value={legalName}
+        id="legalbusinessname"
+        label="Legal Business Name"
+        value={legalBusinessName}
         register={register}
-        required="Legal name is required"
-        error={errors.legalname}
+        required="Legal business name is required"
+        error={errors.legalbusinessname}
       />
     </SettingsCard>
   );

@@ -4,12 +4,12 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form';
 import { SettingsCard } from '#/ui/components/SettingsCard';
-import { UserIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
 
-export const LegalNameForm = (props: {
-  fullLegalName: User['fullLegalName'];
+export const FormationDateForm = (props: {
+  formationDate: User['formationDate'];
 }) => {
   const router = useRouter();
 
@@ -22,7 +22,7 @@ export const LegalNameForm = (props: {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [legalName, setLegalName] = useState(props.fullLegalName);
+  const [formationDate, setFormationDate] = useState(props.formationDate);
 
   //   const onSubmit = async (data: any) => {
   //     // local api as we need to update on the client
@@ -51,21 +51,22 @@ export const LegalNameForm = (props: {
 
   return (
     <SettingsCard
-      title="Legal Name"
-      detail={legalName}
-      placeholder="Jane Claire Doe"
-      Icon={UserIcon}
+      title="Formation Date"
+      detail={formationDate}
+      placeholder="01/01/1970"
+      Icon={CalendarDaysIcon}
       //onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
     >
+      {/* Todo: datepicker */}
       <Input
-        id="legalname"
-        label="Legal Name"
-        value={legalName}
+        id="formationdate"
+        label="Formation Date"
+        value={formationDate}
         register={register}
-        required="Legal name is required"
-        error={errors.legalname}
+        required="Formation date is required"
+        error={errors.formationdate}
       />
     </SettingsCard>
   );

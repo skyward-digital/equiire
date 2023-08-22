@@ -18,6 +18,14 @@ import {
   LegalNameForm,
   DateOfBirthForm,
   SSNForm,
+  LegalBusinessNameForm,
+  EINForm,
+  EntityTypeForm,
+  BusinessAddressForm,
+  BusinessPhoneForm,
+  FormationDateForm,
+  WebsiteForm,
+  IndustryForm,
 } from './components';
 import {
   setStripePaymentPortal,
@@ -51,7 +59,11 @@ export default async function SettingsPage() {
             title: 'Personal Information',
             Icon: UserIcon,
           },
-          { id: 'company', title: 'Company Details', Icon: DocumentTextIcon },
+          {
+            id: 'company',
+            title: 'Company Information',
+            Icon: DocumentTextIcon,
+          },
           { id: 'payment', title: 'Cards/Banks', Icon: CreditCardIcon },
         ]}
       />
@@ -67,8 +79,16 @@ export default async function SettingsPage() {
           <PhoneForm phone={user.phone} />
           <SSNForm ssn={user.ssn} />
         </Wrapper>
-        <Wrapper id="company" title="Company Details">
+        <Wrapper id="company" title="Company Information">
+          <LegalBusinessNameForm legalBusinessName={user.legalBusinessName} />
           <CompanyForm company={user.company} />
+          <EINForm ein={user.ein} />
+          <EntityTypeForm entityType={user.entityType} />
+          <BusinessAddressForm businessAddress={user.businessAddress} />
+          <BusinessPhoneForm businessPhone={user.businessPhone} />
+          <FormationDateForm formationDate={user.formationDate} />
+          <WebsiteForm website={user.website} />
+          <IndustryForm industry={user.industry} />
         </Wrapper>
         <Wrapper
           id="payment"

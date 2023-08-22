@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { KeyIcon } from '@heroicons/react/24/outline';
+import { HashtagIcon } from '@heroicons/react/24/outline';
 import { Input } from '#/ui/components/Form';
 import { SettingsCard } from '#/ui/components/SettingsCard';
 import { User } from '#/app/api/profile/user';
@@ -38,7 +38,7 @@ export const SSNForm = (props: { ssn: User['ssn'] }) => {
       title="Social Security Number"
       detail={props.ssn}
       placeholder="******"
-      Icon={KeyIcon}
+      Icon={HashtagIcon}
       //onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
