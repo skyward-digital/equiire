@@ -36,7 +36,7 @@ export default async function Page() {
         <LoanStatusCard
           key={loan._id}
           loan={loan}
-          userProfileComplete={profileCompleted}
+          profileCompleted={profileCompleted}
         />
       ))}
     </div>

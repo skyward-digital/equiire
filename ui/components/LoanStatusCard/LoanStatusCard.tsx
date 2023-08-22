@@ -5,12 +5,12 @@ import { Loan } from '#/app/api/loans/loans';
 
 type LoanStatusCardProps = {
   loan: Loan;
-  userProfileComplete: boolean;
+  profileCompleted: boolean;
 };
 
 export const LoanStatusCard = ({
   loan,
-  userProfileComplete,
+  profileCompleted,
 }: LoanStatusCardProps) => {
   const {
     _id: id,
@@ -22,7 +22,7 @@ export const LoanStatusCard = ({
 
   const steps = {
     loan: true,
-    account: userProfileComplete,
+    account: profileCompleted,
     payment: !!paymentMethod,
     signature: signatureCompleted,
   };
