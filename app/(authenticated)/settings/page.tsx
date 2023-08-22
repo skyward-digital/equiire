@@ -52,7 +52,6 @@ export default async function SettingsPage() {
             Icon: UserIcon,
           },
           { id: 'company', title: 'Company Details', Icon: DocumentTextIcon },
-          { id: 'security', title: 'Security', Icon: ShieldCheckIcon },
           { id: 'payment', title: 'Cards/Banks', Icon: CreditCardIcon },
         ]}
       />
@@ -62,6 +61,7 @@ export default async function SettingsPage() {
           <NameForm name={user.name} />
           <LegalNameForm fullLegalName={user.fullLegalName} />
           <EmailForm email={user.email} />
+          <PasswordForm />
           <AddressForm address={user.address} />
           <DateOfBirthForm dateOfBirth={user.dateOfBirth} />
           <PhoneForm phone={user.phone} />
@@ -70,11 +70,6 @@ export default async function SettingsPage() {
         <Wrapper id="company" title="Company Details">
           <CompanyForm company={user.company} />
         </Wrapper>
-
-        <Wrapper id="security" title="Security">
-          <PasswordForm />
-        </Wrapper>
-
         <Wrapper
           id="payment"
           title="Cards/Banks"
