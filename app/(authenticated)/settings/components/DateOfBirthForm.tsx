@@ -48,6 +48,7 @@ export const DateOfBirthForm = (props: {
 
     const json = await res.json();
 
+    console.log(json.data.dateOfBirth);
     // update the state so it reflects the new data immediately
     setDateOfBirth(new Date(json.data.dateOfBirth));
 

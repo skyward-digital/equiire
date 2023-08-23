@@ -10,6 +10,7 @@ import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
 import { BusinessFields } from '#/app/(authenticated)/settings/page';
+import { getLocalAdjustedDate } from '#/lib/getLocalAdjustedDate';
 
 export const FormationDateForm = (props: {
   formationDate: User['formationDate'];
@@ -46,6 +47,7 @@ export const FormationDateForm = (props: {
     }
 
     const json = await res.json();
+    console.log(json.data.formationDate);
 
     // update the state so it reflects the new data immediately
     setFormationDate(new Date(json.data.formationDate));
@@ -60,7 +62,10 @@ export const FormationDateForm = (props: {
   return (
     <SettingsCard
       title="Formation Date"
-      detail={formationDate && format(formationDate, 'MM/dd/yyyy')}
+      detail={
+        formationDate &&
+        format(getLocalAdjustedDate(formationDate), 'MM/dd/yyyy')
+      }
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
       onSubmit={handleSubmit(onSubmit)}
