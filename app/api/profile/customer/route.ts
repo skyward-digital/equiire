@@ -23,29 +23,27 @@ export async function PATCH(request: Request) {
     postalCode = '',
   } = residentialAddress;
 
-  const res = await fetch(
-    `${process.env.API_URL}/profile/customer?access_token=${accessToken}`,
-    {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        fullLegalName,
-        dateOfBirth,
-        residentialAddress: {
-          addressLine1,
-          addressLine2,
-          city,
-          state,
-          postalCode,
-          country: 'US',
-        },
-        phone,
-        ssn,
-      }),
+  const res = await fetch(`${process.env.API_URL}/profile/customer`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
     },
-  );
+    body: JSON.stringify({
+      fullLegalName,
+      dateOfBirth,
+      residentialAddress: {
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        postalCode,
+        country: 'US',
+      },
+      phone,
+      ssn,
+    }),
+  });
 
   if (res.status === 401) redirect('/login');
   if (!res.ok) throw new Error('Failed to update customer information');

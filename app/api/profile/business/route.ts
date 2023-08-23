@@ -26,33 +26,31 @@ export async function PATCH(request: Request) {
     postalCode = '',
   } = businessAddress;
 
-  const res = await fetch(
-    `${process.env.API_URL}/profile/business?access_token=${accessToken}`,
-    {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        legalBusinessName,
-        company,
-        ein,
-        entityType,
-        businessAddress: {
-          addressLine1,
-          addressLine2,
-          city,
-          state,
-          postalCode,
-          country: 'US',
-        },
-        businessPhone,
-        formationDate,
-        website,
-        industry,
-      }),
+  const res = await fetch(`${process.env.API_URL}/profile/business`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
     },
-  );
+    body: JSON.stringify({
+      legalBusinessName,
+      company,
+      ein,
+      entityType,
+      businessAddress: {
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        postalCode,
+        country: 'US',
+      },
+      businessPhone,
+      formationDate,
+      website,
+      industry,
+    }),
+  });
 
   if (res.status === 401) redirect('/login');
   if (!res.ok) throw new Error('Failed to update business information');
