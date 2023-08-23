@@ -77,7 +77,7 @@ export const FormationDateForm = (props: {
         <DatePicker
           id="formationdate"
           value={formationDate}
-          onValueChange={setFormationDate}
+          onValueChange={(value) => setFormationDate(value)}
           disableFuture
         />
       </div>
