@@ -9,6 +9,7 @@ import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
 import { BusinessFields } from '#/app/(authenticated)/settings/page';
+import { Input } from '#/ui/components/Form';
 
 const ENTITY_TYPES = [
   { label: 'Sole Trader', value: 'Sole Trader' },
@@ -20,7 +21,7 @@ const ENTITY_TYPES = [
   { label: 'Limited Liability Company', value: 'Limited Liability Company' },
   { label: 'Corporation', value: 'Corporation' },
   { label: 'Non-Profit Organisation', value: 'Non-Profit Organisation' },
-  // todo: other
+  { label: 'Other', value: 'other' },
 ];
 
 export const EntityTypeForm = (props: {
@@ -32,21 +33,30 @@ export const EntityTypeForm = (props: {
   const {
     control,
     handleSubmit,
+    register,
     formState: { errors },
+    watch,
   } = useForm();
 
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
   const [entityType, setEntityType] = useState(props.entityType);
+  const [other, setOther] = useState('');
+
+  const entityTypeValue: string = watch('entityType');
 
   const onSubmit = async (data: any) => {
+    // Sets to other text field if other is selected
+    const entityType =
+      data.entityType === 'other' ? data.other : data.entityType;
+
     // local api as we need to update on the client
     const res = await fetch('/api/profile/business', {
       method: 'PATCH',
       body: JSON.stringify({
         ...props.businessFields,
-        entityType: data.entityType,
+        entityType,
       }),
     });
 
@@ -57,7 +67,12 @@ export const EntityTypeForm = (props: {
     const json = await res.json();
 
     // update the state so it reflects the new data immediately
-    setEntityType(json.data.entityType);
+    if (data.entityType === 'other') {
+      setEntityType('other');
+      setOther(json.data.entityType);
+    } else {
+      setEntityType(json.data.entityType);
+    }
 
     // Update the session so it remembers the new data as the user navigates
     updateSession({ user: json.data });
@@ -69,7 +84,7 @@ export const EntityTypeForm = (props: {
   return (
     <SettingsCard
       title="Entity Type"
-      detail={entityType}
+      detail={entityType === 'other' ? other : entityType}
       placeholder="Corporation"
       Icon={BuildingOffice2Icon}
       onSubmit={handleSubmit(onSubmit)}
@@ -103,6 +118,17 @@ export const EntityTypeForm = (props: {
           )}
         />
       </div>
+      {entityTypeValue === 'other' && (
+        <Input
+          id="other"
+          label="Other"
+          value={other}
+          register={register}
+          required="Other is required"
+          error={errors.other}
+          className="mt-4"
+        />
+      )}
     </SettingsCard>
   );
 };
