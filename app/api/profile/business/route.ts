@@ -18,7 +18,6 @@ export async function PATCH(request: Request) {
     website = '',
     industry = '',
   } = await request.json();
-  console.log(entityType);
   const {
     addressLine1 = '',
     addressLine2 = '',
@@ -55,10 +54,10 @@ export async function PATCH(request: Request) {
     },
   );
 
-  const user = (await res.json()) as { data: User };
-  console.log(user);
   if (res.status === 401) redirect('/login');
   if (!res.ok) throw new Error('Failed to update business information');
+
+  const user = (await res.json()) as { data: User };
 
   return NextResponse.json({ data: user.data });
 }
