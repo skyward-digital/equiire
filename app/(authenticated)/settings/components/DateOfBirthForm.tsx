@@ -78,6 +78,7 @@ export const DateOfBirthForm = (props: {
           id="dateofbirth"
           value={dateOfBirth}
           onValueChange={(value) => setDateOfBirth(value)}
+          disableFuture
         />
       </div>
     </SettingsCard>

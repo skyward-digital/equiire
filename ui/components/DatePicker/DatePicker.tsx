@@ -26,6 +26,7 @@ export function DatePicker({
   const [stringDate, setStringDate] = useState(
     value ? format(value, 'MM/dd/yyyy') : '',
   );
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStringDate(e.target.value);
@@ -34,7 +35,14 @@ export function DatePicker({
     // If the date is invalid, set the date to today
     if (parsedDate.toString() === 'Invalid Date') {
       onValueChange(new Date());
+    } else if (disablePast && parsedDate < new Date()) {
+      onValueChange(new Date());
+      setErrorMessage('Date must be in the future');
+    } else if (disableFuture && parsedDate > new Date()) {
+      onValueChange(new Date());
+      setErrorMessage('Date must be in the past');
     } else {
+      setErrorMessage('');
       onValueChange(new Date(e.target.value));
     }
   };
@@ -71,6 +79,7 @@ export function DatePicker({
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Portal>
       </div>
+      <p className="text-error mt-2 text-sm">{errorMessage}</p>
     </PopoverPrimitive.Root>
   );
 }
