@@ -26,11 +26,11 @@ export const DateOfBirthForm = (props: {
 
   const [expanded, setExpanded] = useState(false);
   // This is what is saved in the database and what we display in the detail of the settings card
-  const [savedDateOfBirth, setSavedDateOfBirth] = useState(
+  const [dateOfBirthDb, setDateOfBirthDb] = useState(
     props.dateOfBirth ? new Date(props.dateOfBirth) : undefined,
   );
   // This is what we use in the form fields (ensures that the 'detail' doesn't update while the user changes the date)
-  const [dateOfBirth, setDateOfBirth] = useState(savedDateOfBirth);
+  const [dateOfBirth, setDateOfBirth] = useState(dateOfBirthDb);
 
   const onSubmit = async (data: any) => {
     // local api as we need to update on the client
@@ -49,7 +49,7 @@ export const DateOfBirthForm = (props: {
 
     const json = await res.json();
     // update the state so it reflects the new data immediately
-    setSavedDateOfBirth(new Date(json.data.dateOfBirth));
+    setDateOfBirthDb(new Date(json.data.dateOfBirth));
 
     // Update the session so it remembers the new data as the user navigates
     updateSession({ user: json.data });
@@ -61,7 +61,7 @@ export const DateOfBirthForm = (props: {
   return (
     <SettingsCard
       title="Date of Birth"
-      detail={savedDateOfBirth && format(savedDateOfBirth, 'MM/dd/yyyy')}
+      detail={dateOfBirthDb && format(dateOfBirthDb, 'MM/dd/yyyy')}
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
       onSubmit={handleSubmit(onSubmit)}
