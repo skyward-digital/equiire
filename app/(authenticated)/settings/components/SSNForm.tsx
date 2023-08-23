@@ -19,6 +19,7 @@ export const SSNForm = (props: {
 
   const [expanded, setExpanded] = useState(false);
   const [status, setStatus] = useState('idle');
+  const [ssn, setSsn] = useState(props.ssn);
 
   const onSubmit = async (data: any) => {
     // local api as we need to update on the client
@@ -35,12 +36,15 @@ export const SSNForm = (props: {
     } else {
       setExpanded(false);
     }
+
+    const json = await res.json();
+    setSsn(json.data.ssn);
   };
 
   return (
     <SettingsCard
       title="Social Security Number"
-      detail={props.ssn}
+      detail={ssn}
       placeholder="******"
       Icon={HashtagIcon}
       onSubmit={handleSubmit(onSubmit)}
