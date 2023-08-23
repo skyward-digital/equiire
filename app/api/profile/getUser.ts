@@ -1,6 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { authOptions, AuthSession } from '#/lib/auth';
+import { getServerSession } from '#/app/api/session';
 import type { User } from './user';
 
 // `server-only` guarantees any modules that import code in file
@@ -10,14 +9,16 @@ import type { User } from './user';
 import 'server-only';
 
 export async function getUser() {
-  const session = (await getServerSession(authOptions)) as AuthSession;
-  const { accessToken } = session.tokens;
+  const { accessToken } = await getServerSession();
 
   if (!accessToken) notFound();
 
-  const res = await fetch(
-    `${process.env.API_URL}/profile?access_token=${accessToken}`,
-  );
+  const res = await fetch(`${process.env.API_URL}/profile`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  });
 
   if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();

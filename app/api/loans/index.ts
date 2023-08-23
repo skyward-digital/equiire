@@ -1,9 +1,13 @@
-export { getLoans, getLoan, getLoanDoc } from './getLoans';
-export { getLoanTransactions } from './getLoanTransactions';
-export { updateLoanPaymentMethod } from './updateLoanPaymentMethod';
-export { getSignedLoanDoc } from './getSignedLoanDoc';
-export { setPaymentSubscription } from './setPaymentSubscription';
-export { setSignRequest } from './setSignRequest';
-export { updateLoan } from './updateLoan';
+// All loans
+export { getLoans } from './getLoans';
+export type { Loans } from './loans';
 
-export type { Loan, Loans } from './loans';
+// Single loan
+export { getLoan } from './[id]/getLoan';
+export { getLoanTransactions } from './[id]/getLoanTransactions';
+export { getSignedLoanDoc } from './[id]/getSignedLoanDoc';
+export { setPaymentSubscription } from './[id]/setPaymentSubscription';
+export { setSignRequest } from './[id]/setSignRequest';
+export { updateLoan } from './[id]/updateLoan';
+export { updateLoanPaymentMethod } from './[id]/updateLoanPaymentMethod';
+export type { Loan } from './[id]/loan';

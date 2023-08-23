@@ -1,6 +1,6 @@
-import { notFound, redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { getServerSession } from '#/app/api/session/';
-import type { Loan } from './loans';
+import type { Loan } from './loan';
 
 // `server-only` guarantees any modules that import code in file
 // will never run on the client. Even though this particular api
@@ -18,10 +18,11 @@ export async function updateLoanPaymentMethod({
   const { accessToken } = await getServerSession();
 
   const res = await fetch(
-    `${process.env.API_URL}/loans/${loanId}/update-payment-method?access_token=${accessToken}`,
+    `${process.env.API_URL}/loans/${loanId}/update-payment-method`,
     {
       method: 'PATCH',
       headers: {
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

@@ -1,7 +1,7 @@
 import { LoanStatusCardSmall } from './LoanStatusCardSmall';
 import { LoanStatusCardLarge } from './LoanStatusCardLarge';
 import { BadgeProps } from '#/ui/components/Badge';
-import { Loan } from '#/app/api/loans/loans';
+import { Loan } from '#/app/api/loans';
 
 type LoanStatusCardProps = {
   loan: Loan;
