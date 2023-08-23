@@ -34,6 +34,8 @@ import {
 import { Button } from '#/ui/components/Button';
 import { getUser } from '#/app/api/profile';
 import { User } from '#/app/api/profile/user';
+import { getCustomerFields } from '#/lib/getCustomerFields';
+import { getBusinessFields } from '#/lib/getBusinessFields';
 
 export const metadata: Metadata = {
   title: 'Settings',
@@ -48,6 +50,18 @@ export type CustomerFields = {
   address: User['address'];
 };
 
+export type BusinessFields = {
+  legalBusinessName: User['legalBusinessName'];
+  company: User['company'];
+  ein: User['ein'];
+  entityType: User['entityType'];
+  businessAddress: User['businessAddress'];
+  businessPhone: User['businessPhone'];
+  formationDate: User['formationDate'];
+  website: User['website'];
+  industry: User['industry'];
+};
+
 export default async function SettingsPage() {
   const [user, paymentPortal, paymentMethods] = await Promise.all([
     getUser(),
@@ -58,10 +72,9 @@ export default async function SettingsPage() {
   ]);
 
   const [defaultPayment, ...restPayments] = paymentMethods.docs;
-  const { fullLegalName, dateOfBirth, phone, ssn, address } = user;
-  // Todo: Need to clarify which address is personal address - address or residentialAddress
-  // at the moment we are using two addresses
-  const customerFields = { fullLegalName, dateOfBirth, phone, ssn, address };
+
+  const customerFields = getCustomerFields(user);
+  const businessFields = getBusinessFields(user);
 
   return (
     <>
@@ -99,15 +112,33 @@ export default async function SettingsPage() {
           <SSNForm ssn={user.ssn} customerFields={customerFields} />
         </Wrapper>
         <Wrapper id="company" title="Company Information">
-          <LegalBusinessNameForm legalBusinessName={user.legalBusinessName} />
+          <LegalBusinessNameForm
+            legalBusinessName={user.legalBusinessName}
+            businessFields={businessFields}
+          />
           <CompanyForm company={user.company} />
-          <EINForm ein={user.ein} />
-          <EntityTypeForm entityType={user.entityType} />
-          <BusinessAddressForm businessAddress={user.businessAddress} />
-          <BusinessPhoneForm businessPhone={user.businessPhone} />
-          <FormationDateForm formationDate={user.formationDate} />
-          <WebsiteForm website={user.website} />
-          <IndustryForm industry={user.industry} />
+          <EINForm ein={user.ein} businessFields={businessFields} />
+          <EntityTypeForm
+            entityType={user.entityType}
+            businessFields={businessFields}
+          />
+          <BusinessAddressForm
+            businessAddress={user.businessAddress}
+            businessFields={businessFields}
+          />
+          <BusinessPhoneForm
+            businessPhone={user.businessPhone}
+            businessFields={businessFields}
+          />
+          <FormationDateForm
+            formationDate={user.formationDate}
+            businessFields={businessFields}
+          />
+          <WebsiteForm website={user.website} businessFields={businessFields} />
+          <IndustryForm
+            industry={user.industry}
+            businessFields={businessFields}
+          />
         </Wrapper>
         <Wrapper
           id="payment"

@@ -8,6 +8,7 @@ import { SettingsCard } from '#/ui/components/SettingsCard';
 import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
+import { BusinessFields } from '#/app/(authenticated)/settings/page';
 
 const ENTITY_TYPES = [
   { label: 'Sole Trader', value: 'Sole Trader' },
@@ -22,7 +23,10 @@ const ENTITY_TYPES = [
   // todo: other
 ];
 
-export const EntityTypeForm = (props: { entityType: User['entityType'] }) => {
+export const EntityTypeForm = (props: {
+  entityType: User['entityType'];
+  businessFields: BusinessFields;
+}) => {
   const router = useRouter();
 
   const {
@@ -36,30 +40,31 @@ export const EntityTypeForm = (props: { entityType: User['entityType'] }) => {
   const [expanded, setExpanded] = useState(false);
   const [entityType, setEntityType] = useState(props.entityType);
 
-  //   const onSubmit = async (data: any) => {
-  //     // local api as we need to update on the client
-  //     const res = await fetch('/api/profile/name', {
-  //       method: 'PATCH',
-  //       body: JSON.stringify({
-  //         name: `${data.firstname} ${data.lastname}`,
-  //       }),
-  //     });
+  const onSubmit = async (data: any) => {
+    // local api as we need to update on the client
+    const res = await fetch('/api/profile/business', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        ...props.businessFields,
+        entityType: data.entityType,
+      }),
+    });
 
-  //     if (res.status === 200) {
-  //       setExpanded(false);
-  //     }
+    if (res.status === 200) {
+      setExpanded(false);
+    }
 
-  //     const json = await res.json();
+    const json = await res.json();
 
-  //     // update the state so it reflects the new data immediately
-  //     setName(json.data.name);
+    // update the state so it reflects the new data immediately
+    setEntityType(json.data.entityType);
 
-  //     // Update the session so it remembers the new data as the user navigates
-  //     updateSession({ user: json.data });
+    // Update the session so it remembers the new data as the user navigates
+    updateSession({ user: json.data });
 
-  //     // To ensure that areas where this data is reused updates too, like the header
-  //     router.refresh();
-  //   };
+    // To ensure that areas where this data is reused updates too, like the header
+    router.refresh();
+  };
 
   return (
     <SettingsCard
@@ -67,7 +72,7 @@ export const EntityTypeForm = (props: { entityType: User['entityType'] }) => {
       detail={entityType}
       placeholder="Corporation"
       Icon={BuildingOffice2Icon}
-      //onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
     >
@@ -79,7 +84,7 @@ export const EntityTypeForm = (props: { entityType: User['entityType'] }) => {
           Entity Type
         </Label>
         <Controller
-          name="entitytype"
+          name="entityType"
           control={control}
           defaultValue={entityType || 'Sole Trader'}
           render={({ field: { onChange, name, value } }) => (

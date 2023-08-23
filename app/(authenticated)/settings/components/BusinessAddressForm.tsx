@@ -9,12 +9,14 @@ import { Input } from '#/ui/components/Form';
 import { Select, SelectItem } from '#/ui/components/Select';
 import { SettingsCard } from '#/ui/components/SettingsCard';
 import { Label } from '#/ui/components/Label';
+import { BusinessFields } from '#/app/(authenticated)/settings/page';
 
 {
   /* TODO: Question - Should we implement an address lookup here? */
 }
 export const BusinessAddressForm = (props: {
   businessAddress: User['businessAddress'];
+  businessFields: BusinessFields;
 }) => {
   const {
     register,
@@ -42,34 +44,35 @@ export const BusinessAddressForm = (props: {
       value: state.abbreviation,
     }));
 
-  // const onSubmit = async (data: any) => {
-  //   // local api as we need to update on the client
-  //   const res = await fetch('/api/profile/address', {
-  //     method: 'PATCH',
-  //     body: JSON.stringify({
-  //       address: {
-  //         addressLine1: data.address1,
-  //         addressLine2: data.address2,
-  //         city: data.city,
-  //         state: data.state,
-  //         postalCode: data.zip,
-  //         country: 'US',
-  //       },
-  //     }),
-  //   });
+  const onSubmit = async (data: any) => {
+    // local api as we need to update on the client
+    const res = await fetch('/api/profile/business', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        ...props.businessFields,
+        businessAddress: {
+          addressLine1: data.address1,
+          addressLine2: data.address2,
+          city: data.city,
+          state: data.state,
+          postalCode: data.zip,
+          country: 'US',
+        },
+      }),
+    });
 
-  //   if (res.status === 200) {
-  //     setExpanded(false);
-  //   }
+    if (res.status === 200) {
+      setExpanded(false);
+    }
 
-  //   const json = await res.json();
+    const json = await res.json();
 
-  //   // update the state so it reflects the new data immediately
-  //   setAddress(json.data.address);
+    // update the state so it reflects the new data immediately
+    setBusinessAddress(json.data.businessAddress);
 
-  //   // Update the session so it remembers the new data as the user navigates
-  //   updateSession({ user: json.data });
-  // };
+    // Update the session so it remembers the new data as the user navigates
+    updateSession({ user: json.data });
+  };
 
   return (
     <SettingsCard
@@ -81,7 +84,7 @@ export const BusinessAddressForm = (props: {
       }
       placeholder="Acme Inc., 123 Main St, New York, NY 10001"
       Icon={MapPinIcon}
-      //onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
     >
