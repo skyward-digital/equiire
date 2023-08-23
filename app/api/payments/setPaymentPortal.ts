@@ -16,18 +16,16 @@ export async function setStripePaymentPortal({
 }) {
   const { accessToken } = await getServerSession();
 
-  const res = await fetch(
-    `${process.env.API_URL}/payments/portal-session?access_token=${accessToken}`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        returnUrl: `${getBaseUrl()}${returnUrl}?payment-updated=1`,
-      }),
+  const res = await fetch(`${process.env.API_URL}/payments/portal-session?`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify({
+      returnUrl: `${getBaseUrl()}${returnUrl}?payment-updated=1`,
+    }),
+  });
 
   if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();

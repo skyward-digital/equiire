@@ -9,10 +9,11 @@ export async function PATCH(request: Request) {
   //   const { accessToken } = await getServerSession();
   //   const { contact } = await request.json();
   //   const res = await fetch(
-  //     `${process.env.API_URL}/profile/contact?access_token=${accessToken}`,
+  //     `${process.env.API_URL}/profile/contact`,
   //     {
   //       method: 'PATCH',
   //       headers: {
+  //          Authorization: `Bearer ${accessToken}`,
   //         'Content-Type': 'application/json',
   //       },
   //       body: JSON.stringify({

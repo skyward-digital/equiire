@@ -7,18 +7,16 @@ export async function PATCH(request: Request) {
   const { accessToken } = await getServerSession();
   const { name } = await request.json();
 
-  const res = await fetch(
-    `${process.env.API_URL}/profile/name?access_token=${accessToken}`,
-    {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-      }),
+  const res = await fetch(`${process.env.API_URL}/profile/name`, {
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify({
+      name,
+    }),
+  });
 
   if (res.status === 401) redirect('/login');
   if (!res.ok) throw new Error("Failed to update user's name");

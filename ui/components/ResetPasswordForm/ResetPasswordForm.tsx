@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
-import { resetPassword } from '#/hooks/useAuth';
+import { resetPassword } from '#/app/api/auth';
 
 export function ResetPasswordForm({
   token,

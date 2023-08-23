@@ -8,16 +8,14 @@ export async function POST() {
 
   const { accessToken, refreshToken } = session.tokens;
 
-  const res = await fetch(
-    `${process.env.API_URL}/logout?access_token=${accessToken}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({ refreshToken }),
+  const res = await fetch(`${process.env.API_URL}/logout`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
     },
-  );
+    method: 'POST',
+    body: JSON.stringify({ refreshToken }),
+  });
 
   const data = await res.json();
 
