@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
 import { BusinessFields } from '#/app/(authenticated)/settings/page';
 
-export const EINForm = (props: {
+export const EinForm = (props: {
   ein: User['ein'];
   businessFields: BusinessFields;
 }) => {

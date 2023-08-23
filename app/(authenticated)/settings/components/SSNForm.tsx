@@ -7,7 +7,7 @@ import { SettingsCard } from '#/ui/components/SettingsCard';
 import { User } from '#/app/api/profile/user';
 import { CustomerFields } from '#/app/(authenticated)/settings/page';
 
-export const SSNForm = (props: {
+export const SsnForm = (props: {
   ssn: User['ssn'];
   customerFields: CustomerFields;
 }) => {

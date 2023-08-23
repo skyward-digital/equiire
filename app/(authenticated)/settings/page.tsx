@@ -17,9 +17,9 @@ import {
   PasswordForm,
   LegalNameForm,
   DateOfBirthForm,
-  SSNForm,
+  SsnForm,
   LegalBusinessNameForm,
-  EINForm,
+  EinForm,
   EntityTypeForm,
   BusinessAddressForm,
   BusinessPhoneForm,
@@ -109,7 +109,7 @@ export default async function SettingsPage() {
             customerFields={customerFields}
           />
           <PhoneForm phone={user.phone} />
-          <SSNForm ssn={user.ssn} customerFields={customerFields} />
+          <SsnForm ssn={user.ssn} customerFields={customerFields} />
         </Wrapper>
         <Wrapper id="company" title="Company Information">
           <LegalBusinessNameForm
@@ -117,7 +117,7 @@ export default async function SettingsPage() {
             businessFields={businessFields}
           />
           <CompanyForm company={user.company} />
-          <EINForm ein={user.ein} businessFields={businessFields} />
+          <EinForm ein={user.ein} businessFields={businessFields} />
           <EntityTypeForm
             entityType={user.entityType}
             businessFields={businessFields}
