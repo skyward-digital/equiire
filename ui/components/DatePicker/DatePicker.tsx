@@ -71,6 +71,7 @@ export function DatePicker({
                 if (!date) return;
                 setStringDate(date ? format(date, 'MM/dd/yyyy') : '');
                 onValueChange(date);
+                setErrorMessage('');
               }}
               disablePast={disablePast}
               defaultMonth={value}
