@@ -39,7 +39,7 @@ export async function PATCH(request: Request) {
           city,
           state,
           postalCode,
-          country: 'United States',
+          country: 'US',
         },
         phone,
         ssn,
