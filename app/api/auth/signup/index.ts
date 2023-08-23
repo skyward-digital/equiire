@@ -5,15 +5,15 @@ import { Loan } from '#/app/(login)/sign-up/SignUp';
 export const signup = async (data: {
   email: string;
   password: string;
-  addressLine1: string;
+  addressLine1?: string;
   addressLine2?: string;
-  city: string;
-  company: string;
+  city?: string;
+  company?: string;
   name: string;
-  postalCode: string;
-  state: string;
+  postalCode?: string;
+  state?: string;
   loan: Loan;
-  phone: string;
+  phone?: string;
 }) => {
   const {
     email,
@@ -36,7 +36,9 @@ export const signup = async (data: {
     !loan.amount ||
     !loan.length ||
     !loan.monthlyPayment ||
-    !loan.startDate
+    !loan.startDate ||
+    !loan.apr ||
+    !loan.creditCost
   ) {
     return { error: 'Missing or invalid loan details.' };
   }
@@ -63,6 +65,8 @@ export const signup = async (data: {
         length: parseInt(loan.length),
         monthlyPayment: parseInt(loan.monthlyPayment),
         startDate: formatISO(parse(loan.startDate, 'yyyy-MM-dd', new Date())),
+        apr: Number(loan.apr),
+        creditCost: parseInt(loan.creditCost),
       },
     }),
   });

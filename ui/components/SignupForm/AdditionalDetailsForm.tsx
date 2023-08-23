@@ -1,6 +1,7 @@
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import statesFullList from 'states-us';
+import { PencilIcon } from '@heroicons/react/24/outline';
 import { Input } from '#/ui/components/Form/Input';
 import { Button } from '#/ui/components/Button';
 import { Select, SelectItem } from '#/ui/components/Select';
@@ -34,7 +35,13 @@ export function AdditionalDetailsForm({
 
   const onSubmit = async (data: any) => {
     if (existingAccount) {
-      const [address, phone] = await Promise.all([
+      const [company, address, phone] = await Promise.all([
+        fetch('/api/profile/company', {
+          method: 'PATCH',
+          body: JSON.stringify({
+            company: data.company,
+          }),
+        }),
         fetch('/api/profile/address', {
           method: 'PATCH',
           body: JSON.stringify({
@@ -55,13 +62,18 @@ export function AdditionalDetailsForm({
         }),
       ]);
 
-      if (address.status === 200 && phone.status === 200) {
+      if (
+        company.status === 200 &&
+        address.status === 200 &&
+        phone.status === 200
+      ) {
         const json = await address.json();
 
         updateSession({
           user: {
             ...json.data,
             phone: data.phone,
+            company: data.company,
           },
         });
 
@@ -73,6 +85,8 @@ export function AdditionalDetailsForm({
             length: parseInt(loan.length),
             monthlyPayment: parseInt(loan.monthlyPayment),
             startDate: loan.startDate,
+            apr: Number(loan.apr),
+            creditCost: parseInt(loan.creditCost),
           }),
         });
 
@@ -95,6 +109,17 @@ export function AdditionalDetailsForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid max-w-2xl gap-6">
+      <Input
+        id="company"
+        type="text"
+        label="Company"
+        placeholder="Cool Company"
+        register={register}
+        value={formData?.company}
+        required="Company is required"
+        error={errors.company}
+        Icon={PencilIcon}
+      />
       <Input
         id="addressLine1"
         type="text"

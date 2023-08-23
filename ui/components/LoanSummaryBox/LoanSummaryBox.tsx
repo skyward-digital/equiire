@@ -8,7 +8,10 @@ import {
   BanknotesIcon,
   CalendarIcon,
 } from '@heroicons/react/24/outline';
-import { LoanDetails } from '#/app/(login)/loan-application/LoanApplication';
+import {
+  LOAN_VALUES,
+  LoanDetails,
+} from '#/app/(login)/loan-application/LoanApplication';
 import { Badge } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
 import { BadgeProps } from '#/ui/components/Badge';
@@ -37,9 +40,9 @@ export function LoanSummaryBox({
   const {
     type,
     amount,
+    repaymentPeriod,
     //terms,
-    //repaymentPeriod,
-    scheduledPayment,
+    //scheduledPayment,
     //interestType,
     startDate,
   } = loanDetails;
@@ -54,12 +57,11 @@ export function LoanSummaryBox({
       ? parseInt(scheduledPayment)
       : // we round up so they pay off all of the loan, this may need to be amended
         Math.ceil(parseInt(amount) / length); */
-  const length = 24;
-  const monthlyPayment = parseInt(scheduledPayment);
+  //const monthlyPayment = parseInt(scheduledPayment);
 
-  const apr = 11;
-  const totalRepayable = parseInt(amount) + parseInt(amount) * (apr / 100);
-  const creditCost = totalRepayable - parseInt(amount);
+  const length = repaymentPeriod;
+  const { monthlyPayment, apr, creditCost } = LOAN_VALUES[amount];
+  const totalRepayable = amount + amount * (apr / 100) + creditCost;
   const endDate = add(startDate, {
     months: length,
   });
@@ -86,7 +88,7 @@ export function LoanSummaryBox({
     <section
       className={clsx(
         className,
-        'grid rounded-lg bg-white dark:bg-black sm:dark:border sm:dark:border-gray-400 md:shadow-sm',
+        'mb-24 grid rounded-lg bg-white dark:bg-black sm:mb-0 sm:dark:border sm:dark:border-gray-400 md:shadow-sm',
         {
           'max-w-4xl px-6 pt-6 sm:px-0 sm:pt-0': size === 'lg',
           'max-w-lg px-14 py-14': size === 'sm',
@@ -120,7 +122,7 @@ export function LoanSummaryBox({
           <h3
             className={clsx('font-brand font-semibold tracking-tight ', {
               'text-brand text-2xl': size === 'lg',
-              'text-4xl text-gray-600': size === 'sm',
+              'text-4xl text-gray-600 dark:text-gray-300': size === 'sm',
             })}
           >
             Breakdown
@@ -137,7 +139,7 @@ export function LoanSummaryBox({
           {/* Loan Basic Details */}
           <SummaryBoxLine
             Icon={WalletIcon}
-            value={parseInt(amount).toLocaleString('en-US', {
+            value={amount.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
               maximumFractionDigits: 0,
@@ -166,15 +168,6 @@ export function LoanSummaryBox({
             APR
           </SummaryBoxLine>
           <SummaryBoxLine
-            value={totalRepayable.toLocaleString('en-US', {
-              style: 'currency',
-              currency: 'USD',
-            })}
-            Icon={BanknotesIcon}
-          >
-            Total Repayable
-          </SummaryBoxLine>
-          <SummaryBoxLine
             value={creditCost.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
@@ -183,6 +176,16 @@ export function LoanSummaryBox({
           >
             Credit Cost
           </SummaryBoxLine>
+          <SummaryBoxLine
+            value={totalRepayable.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'USD',
+            })}
+            Icon={BanknotesIcon}
+          >
+            Total Repayable
+          </SummaryBoxLine>
+
           {size === 'sm' && (
             <p className="text-brand text-sm font-semibold">
               Repay early at no additional cost
@@ -257,11 +260,8 @@ export function LoanSummaryBox({
                 length,
                 monthlyPayment,
                 startDate: format(startDate, 'yyyy-MM-dd'),
-                // we aren't passing these fields in when signing up, they are calculated automatically
-                /* interestType,
                 apr,
-                totalRepayable,
-                creditCost, */
+                creditCost,
               },
             }}
           >

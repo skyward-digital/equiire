@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getServerSession } from '#/app/api/session';
 import { LoanPastTransaction, LoanFutureTransaction } from '../loans';
 
@@ -23,10 +23,8 @@ export async function getLoanTransactions({ id }: { id: string }) {
 
   if (pastTransactionsResponse.status === 401) redirect('/login');
 
-  if (!pastTransactionsResponse.ok)
-    throw new Error('Error fetching past transactions');
-  if (!futureTransactionsResponse.ok)
-    throw new Error('Error fetching future transactions');
+  if (!pastTransactionsResponse.ok) notFound();
+  if (!futureTransactionsResponse.ok) notFound();
 
   const pastTransactionsJson = await pastTransactionsResponse.json();
   const futureTransactionsJson = await futureTransactionsResponse.json();

@@ -3,7 +3,15 @@ import { LoanStatusCardLarge } from './LoanStatusCardLarge';
 import { BadgeProps } from '#/ui/components/Badge';
 import { Loan } from '#/app/api/loans';
 
-export const LoanStatusCard = ({ loan }: { loan: Loan }) => {
+type LoanStatusCardProps = {
+  loan: Loan;
+  profileCompleted: boolean;
+};
+
+export const LoanStatusCard = ({
+  loan,
+  profileCompleted,
+}: LoanStatusCardProps) => {
   const {
     _id: id,
     amount: value,
@@ -14,7 +22,7 @@ export const LoanStatusCard = ({ loan }: { loan: Loan }) => {
 
   const steps = {
     loan: true,
-    account: true,
+    account: profileCompleted,
     payment: !!paymentMethod,
     signature: signatureCompleted,
   };

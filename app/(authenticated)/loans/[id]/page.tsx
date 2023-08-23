@@ -9,6 +9,8 @@ import { TransactionAccordion } from '#/ui/components/TransactionAccordion';
 import { TransactionCard } from '#/ui/components/TransactionCard';
 import { Divider } from '#/ui/components/Divider';
 import {
+  ArchiveBoxIcon,
+  ArrowTopRightOnSquareIcon,
   BanknotesIcon,
   BuildingLibraryIcon,
   CalendarDaysIcon,
@@ -34,6 +36,9 @@ import {
   setStripePaymentMethod,
   getStripePaymentMethods,
 } from '#/app/api/payments';
+import { getUser } from '#/app/api/profile';
+import Link from 'next/link';
+import { userProfileComplete } from '#/lib/userProfileComplete';
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
   return {
@@ -51,7 +56,7 @@ export default async function Page({
     [key: string]: string | null;
   };
 }) {
-  let [loan, transactions, setPaymentMethod, paymentMethods] =
+  let [loan, transactions, setPaymentMethod, paymentMethods, user] =
     await Promise.all([
       getLoan({ id: params.id }),
       await getLoanTransactions({ id: params.id }),
@@ -59,10 +64,13 @@ export default async function Page({
         returnUrl: `/loans/${params.id}?update-payment-method=true`,
       }),
       getStripePaymentMethods(),
+      getUser(),
     ]);
 
   const openStripePortal = searchParams['open-stripe-portal'];
   const updatePaymentMethod = searchParams['update-payment-method'];
+
+  const profileCompleted = userProfileComplete(user);
 
   // We are changing some of these variables after certain processes have finished
   let paymentStepCompleted = !!loan.paymentMethod;
@@ -90,7 +98,7 @@ export default async function Page({
     }
 
     // Subscribes the loan and updates loan status
-    if (paymentStepCompleted && loan.signatureCompleted) {
+    if (profileCompleted && paymentStepCompleted && loan.signatureCompleted) {
       // Does a final check for signed loan document
       const signedLoanDoc = await getSignedLoanDoc({ loanId: params.id });
 
@@ -118,10 +126,8 @@ export default async function Page({
     // @ts-ignore
   } = loan;
 
-  console.log(loan);
-
   const steps = {
-    account: true, // always true as a user cannot have a loan without an account
+    account: profileCompleted,
     loan: true, // always true as a user cannot view a loan without a loan
     payment: paymentStepCompleted,
     signature: loan.signatureCompleted,
@@ -291,6 +297,37 @@ export default async function Page({
 
           <Divider className="col-span-2" />
 
+          <LoanDetailRow
+            Icon={ArchiveBoxIcon}
+            label="End loan agreement early"
+            value={
+              <Link
+                href={`mailto:process@equiire.com?subject=Cancel Loan ${id}&body=${encodeURIComponent(`
+                Hi \n
+                I would like to cancel my loan agreement early \n
+                Loan Details:\n
+                Loan ID: ${id}\n
+                Principal: ${value.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  maximumFractionDigits: 0,
+                })}\n
+                Start date: ${new Date(startDate).toLocaleDateString('en-US', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}\n
+                `)}`}
+                className="flex items-center gap-2 hover:underline focus:underline"
+              >
+                process@equiire.com
+                <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+              </Link>
+            }
+          />
+
+          <Divider className="col-span-2" />
+
           <div className="flex flex-col items-start gap-2 sm:gap-4">
             <Button variant="secondary" size="sm" className="w-full sm:w-auto">
               <DocumentArrowDownIcon className="h-4 w-4" />
@@ -368,7 +405,7 @@ const LoanDetailRow = ({
 }: {
   label: string;
   Icon: any;
-  value: string | number;
+  value: React.ReactNode | string | number;
 }) => {
   return (
     <div className="flex justify-between text-xs text-gray-600 dark:text-gray-300 sm:text-sm">

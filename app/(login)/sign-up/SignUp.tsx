@@ -18,6 +18,8 @@ export interface Loan {
   length?: string | null;
   monthlyPayment?: string | null;
   startDate?: string | null;
+  apr?: string | null;
+  creditCost?: string | null;
 }
 
 export interface FormData {
@@ -74,6 +76,8 @@ export function SignUp({ user }: { user: any }) {
     length: searchParams?.get('length'),
     monthlyPayment: searchParams?.get('monthlyPayment'),
     startDate: searchParams?.get('startDate'),
+    apr: searchParams?.get('apr'),
+    creditCost: searchParams?.get('creditCost'),
   };
 
   if (formSubmitted) {
@@ -103,6 +107,7 @@ export function SignUp({ user }: { user: any }) {
       title="Complete your loan application"
       className="sm:mt-20"
       back={step !== 0 ? () => setStep(step - 1) : undefined}
+      skip={step == 1 ? () => setStep(step + 1) : undefined}
     >
       <ProgressSteps
         className="mb-10"
