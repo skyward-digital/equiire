@@ -61,7 +61,9 @@ export function LoanSummaryBox({
 
   const length = repaymentPeriod;
   const { monthlyPayment, apr, creditCost } = LOAN_VALUES[amount];
-  const totalRepayable = amount + amount * (apr / 100) + creditCost;
+  const totalWithFee = amount + creditCost;
+  // we add the fee before calculating interest
+  const totalRepayable = totalWithFee + totalWithFee * (apr / 100);
   const endDate = add(startDate, {
     months: length,
   });
