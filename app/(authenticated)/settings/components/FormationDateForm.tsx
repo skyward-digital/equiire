@@ -26,9 +26,13 @@ export const FormationDateForm = (props: {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [formationDate, setFormationDate] = useState(
+
+  // This is what is saved in the database and what we display in the detail of the settings card
+  const [savedFormationDate, setSavedFormationDate] = useState(
     props.formationDate ? new Date(props.formationDate) : undefined,
   );
+  // This is what we use in the form fields (ensures that the 'detail' doesn't update while the user changes the date)
+  const [formationDate, setFormationDate] = useState(savedFormationDate);
 
   const onSubmit = async (data: any) => {
     // local api as we need to update on the client
@@ -48,7 +52,7 @@ export const FormationDateForm = (props: {
     const json = await res.json();
 
     // update the state so it reflects the new data immediately
-    setFormationDate(new Date(json.data.formationDate));
+    setSavedFormationDate(new Date(json.data.formationDate));
 
     // Update the session so it remembers the new data as the user navigates
     updateSession({ user: json.data });
@@ -60,7 +64,7 @@ export const FormationDateForm = (props: {
   return (
     <SettingsCard
       title="Formation Date"
-      detail={formationDate && format(formationDate, 'MM/dd/yyyy')}
+      detail={savedFormationDate && format(savedFormationDate, 'MM/dd/yyyy')}
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
       onSubmit={handleSubmit(onSubmit)}
