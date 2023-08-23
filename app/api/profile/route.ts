@@ -1,15 +1,17 @@
-import { getServerSession } from '#/app/api/session';
+// import { getServerSession } from '#/app/api/session';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
-  const { accessToken } = await getServerSession();
+  // We can't rely on getServerSession here as this is used during the auth flow which means the serverSession might not be set yet
+  const searchParams = new URLSearchParams(request.url.split('?')[1]);
+  const accessToken = searchParams.get('access_token');
 
   if (!accessToken) return new Error('No access token provided');
 
   const res = await fetch(`${process.env.API_URL}/profile`, {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
     },
     method: 'GET',
   });

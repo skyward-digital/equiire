@@ -52,16 +52,14 @@ export async function POST(request: Request) {
   const { accessToken } = await getServerSession();
   const data = await request.json();
 
-  const res = await fetch(
-    `${process.env.API_URL}/loans?access_token=${accessToken}`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+  const res = await fetch(`${process.env.API_URL}/loans`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
     },
-  );
+    body: JSON.stringify(data),
+  });
 
   console.log(res);
 
