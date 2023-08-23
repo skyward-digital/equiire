@@ -7,9 +7,12 @@ import { SettingsCard } from '#/ui/components/SettingsCard';
 import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
+import { BusinessFields } from '#/app/(authenticated)/settings/page';
 
-//
-export const CompanyForm = (props: { company: User['company'] }) => {
+export const LegalBusinessNameForm = (props: {
+  legalBusinessName: User['legalBusinessName'];
+  businessFields: BusinessFields;
+}) => {
   const router = useRouter();
 
   const {
@@ -21,13 +24,18 @@ export const CompanyForm = (props: { company: User['company'] }) => {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [company, setCompany] = useState(props.company);
+  const [legalBusinessName, setLegalBusinessName] = useState(
+    props.legalBusinessName,
+  );
 
   const onSubmit = async (data: any) => {
     // local api as we need to update on the client
-    const res = await fetch('/api/profile/company', {
+    const res = await fetch('/api/profile/business', {
       method: 'PATCH',
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...props.businessFields,
+        legalBusinessName: data.legalBusinessName,
+      }),
     });
 
     if (res.status === 200) {
@@ -35,8 +43,10 @@ export const CompanyForm = (props: { company: User['company'] }) => {
     }
 
     const json = await res.json();
+
     // update the state so it reflects the new data immediately
-    setCompany(json.data.company);
+    setLegalBusinessName(json.data.legalBusinessName);
+
     // Update the session so it remembers the new data as the user navigates
     updateSession({ user: json.data });
 
@@ -46,22 +56,21 @@ export const CompanyForm = (props: { company: User['company'] }) => {
 
   return (
     <SettingsCard
-      title="Short Name"
-      detail={company}
-      placeholder="Acme Inc."
+      title="Legal Business Name"
+      detail={legalBusinessName}
+      placeholder="Acme Incorporated International LTD"
       Icon={BuildingOffice2Icon}
       onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
     >
       <Input
-        id="company"
-        label="Company Name"
-        value={company}
+        id="legalBusinessName"
+        label="Legal Business Name"
+        value={legalBusinessName}
         register={register}
-        required="Company is required"
-        error={errors.company}
-        autocomplete="organization"
+        required="Legal business name is required"
+        error={errors.legalBusinessName}
       />
     </SettingsCard>
   );

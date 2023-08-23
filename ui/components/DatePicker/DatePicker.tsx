@@ -12,6 +12,7 @@ export interface DatePickerProps extends React.HTMLAttributes<HTMLDivElement> {
   onValueChange: (value: Date) => void;
   defaultOpen?: boolean;
   disablePast?: boolean;
+  disableFuture?: boolean;
 }
 
 export function DatePicker({
@@ -19,6 +20,7 @@ export function DatePicker({
   defaultOpen,
   value,
   disablePast = false,
+  disableFuture = false,
   onValueChange,
 }: DatePickerProps) {
   return (
@@ -26,7 +28,10 @@ export function DatePicker({
       <PopoverPrimitive.Root defaultOpen={defaultOpen}>
         <PopoverPrimitive.Trigger asChild>
           <div className="relative">
-            <button className="shadow-xs focus:border-brand-400 dark:border-brand-secondary focus:ring-brand-100 relative inline-flex w-full  gap-x-2 rounded-lg border bg-white py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 focus:outline-none focus:ring dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-600">
+            <button
+              type="button"
+              className="shadow-xs focus:border-brand-400 dark:border-brand-secondary focus:ring-brand-100 relative inline-flex w-full  gap-x-2 rounded-lg border bg-white py-2 pl-10 pr-3 text-base text-gray-600 no-underline placeholder:text-gray-300 focus:outline-none focus:ring dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-600"
+            >
               {value ? format(value, 'MM/dd/yyyy') : 'Pick a date'}
             </button>
             <CalendarIcon className="absolute top-1/2 ml-3 h-5 w-5 -translate-y-1/2  text-gray-500 dark:text-gray-400" />
@@ -44,6 +49,7 @@ export function DatePicker({
                 }
               }}
               disablePast={disablePast}
+              disableFuture={disableFuture}
             />
           </PopoverPrimitive.Content>
         </PopoverPrimitive.Portal>

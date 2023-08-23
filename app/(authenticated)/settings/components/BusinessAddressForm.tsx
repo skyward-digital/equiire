@@ -9,11 +9,15 @@ import { Input } from '#/ui/components/Form';
 import { Select, SelectItem } from '#/ui/components/Select';
 import { SettingsCard } from '#/ui/components/SettingsCard';
 import { Label } from '#/ui/components/Label';
+import { BusinessFields } from '#/app/(authenticated)/settings/page';
 
 {
   /* TODO: Question - Should we implement an address lookup here? */
 }
-export const AddressForm = (props: { address: User['address'] }) => {
+export const BusinessAddressForm = (props: {
+  businessAddress: User['businessAddress'];
+  businessFields: BusinessFields;
+}) => {
   const {
     register,
     handleSubmit,
@@ -24,7 +28,14 @@ export const AddressForm = (props: { address: User['address'] }) => {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [address, setAddress] = useState(props.address);
+  const [businessAddress, setBusinessAddress] = useState(props.businessAddress);
+
+  const addressComplete = !!(
+    businessAddress?.addressLine1 &&
+    businessAddress?.city &&
+    businessAddress?.state &&
+    businessAddress?.postalCode
+  );
 
   const states = statesFullList
     .filter((state) => !state.territory)
@@ -35,10 +46,11 @@ export const AddressForm = (props: { address: User['address'] }) => {
 
   const onSubmit = async (data: any) => {
     // local api as we need to update on the client
-    const res = await fetch('/api/profile/address', {
+    const res = await fetch('/api/profile/business', {
       method: 'PATCH',
       body: JSON.stringify({
-        address: {
+        ...props.businessFields,
+        businessAddress: {
           addressLine1: data.address1,
           addressLine2: data.address2,
           city: data.city,
@@ -56,7 +68,7 @@ export const AddressForm = (props: { address: User['address'] }) => {
     const json = await res.json();
 
     // update the state so it reflects the new data immediately
-    setAddress(json.data.address);
+    setBusinessAddress(json.data.businessAddress);
 
     // Update the session so it remembers the new data as the user navigates
     updateSession({ user: json.data });
@@ -64,8 +76,12 @@ export const AddressForm = (props: { address: User['address'] }) => {
 
   return (
     <SettingsCard
-      title="Address"
-      detail={`${address.addressLine1}, ${address.city}, ${address.state} ${address.postalCode}`}
+      title="Business Address"
+      detail={
+        addressComplete
+          ? `${businessAddress?.addressLine1}, ${businessAddress?.city}, ${businessAddress?.state} ${businessAddress?.postalCode}`
+          : undefined
+      }
       placeholder="Acme Inc., 123 Main St, New York, NY 10001"
       Icon={MapPinIcon}
       onSubmit={handleSubmit(onSubmit)}
@@ -76,7 +92,7 @@ export const AddressForm = (props: { address: User['address'] }) => {
         id="address1"
         label="Address 1"
         placeholder="123 Main St"
-        value={address.addressLine1}
+        value={businessAddress?.addressLine1}
         register={register}
         required="Address is required"
         error={errors.address1}
@@ -87,7 +103,7 @@ export const AddressForm = (props: { address: User['address'] }) => {
         id="address2"
         label="Address 2"
         placeholder="Apt 1"
-        value={address.addressLine2}
+        value={businessAddress?.addressLine2}
         register={register}
         error={errors.address2}
         autocomplete="address-line2"
@@ -97,7 +113,7 @@ export const AddressForm = (props: { address: User['address'] }) => {
         id="city"
         label="City"
         placeholder="New York"
-        value={address.city}
+        value={businessAddress?.city}
         register={register}
         required="City is required"
         error={errors.city}
@@ -115,7 +131,7 @@ export const AddressForm = (props: { address: User['address'] }) => {
           <Controller
             name="state"
             control={control}
-            defaultValue={address.state || 'AL'}
+            defaultValue={businessAddress?.state || 'AL'}
             render={({ field: { onChange, name, value } }) => (
               <Select
                 id={name}
@@ -137,7 +153,7 @@ export const AddressForm = (props: { address: User['address'] }) => {
           id="zip"
           label="Zip"
           placeholder="10001"
-          value={address.postalCode}
+          value={businessAddress?.postalCode}
           register={register}
           required="Zip is required"
           size={5}

@@ -4,12 +4,15 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form';
 import { SettingsCard } from '#/ui/components/SettingsCard';
-import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
+import { BriefcaseIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
+import { BusinessFields } from '#/app/(authenticated)/settings/page';
 
-//
-export const CompanyForm = (props: { company: User['company'] }) => {
+export const IndustryForm = (props: {
+  industry: User['industry'];
+  businessFields: BusinessFields;
+}) => {
   const router = useRouter();
 
   const {
@@ -21,13 +24,16 @@ export const CompanyForm = (props: { company: User['company'] }) => {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [company, setCompany] = useState(props.company);
+  const [industry, setIndustry] = useState(props.industry);
 
   const onSubmit = async (data: any) => {
     // local api as we need to update on the client
-    const res = await fetch('/api/profile/company', {
+    const res = await fetch('/api/profile/business', {
       method: 'PATCH',
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...props.businessFields,
+        industry: data.industry,
+      }),
     });
 
     if (res.status === 200) {
@@ -35,8 +41,10 @@ export const CompanyForm = (props: { company: User['company'] }) => {
     }
 
     const json = await res.json();
+
     // update the state so it reflects the new data immediately
-    setCompany(json.data.company);
+    setIndustry(json.data.industry);
+
     // Update the session so it remembers the new data as the user navigates
     updateSession({ user: json.data });
 
@@ -46,22 +54,21 @@ export const CompanyForm = (props: { company: User['company'] }) => {
 
   return (
     <SettingsCard
-      title="Short Name"
-      detail={company}
-      placeholder="Acme Inc."
-      Icon={BuildingOffice2Icon}
+      title="Industry"
+      detail={industry}
+      placeholder="Agriculture"
+      Icon={BriefcaseIcon}
       onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
     >
       <Input
-        id="company"
-        label="Company Name"
-        value={company}
+        id="industry"
+        label="Industry"
+        value={industry}
         register={register}
-        required="Company is required"
-        error={errors.company}
-        autocomplete="organization"
+        required="Industry is required"
+        error={errors.industry}
       />
     </SettingsCard>
   );

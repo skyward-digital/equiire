@@ -54,7 +54,7 @@ export const signup = async (data: {
         city,
         state,
         postalCode,
-        country: 'United States',
+        country: 'US',
       },
       phone,
       company,

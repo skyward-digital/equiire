@@ -4,6 +4,7 @@ import { DayPicker } from 'react-day-picker';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   disablePast?: boolean;
+  disableFuture?: boolean;
 };
 
 function Calendar({
@@ -11,16 +12,25 @@ function Calendar({
   classNames,
   showOutsideDays = true,
   disablePast = false,
+  disableFuture = false,
   ...props
 }: CalendarProps) {
   // We pass the today prop in Storybook stories so that the calendar doesn't change every day
   const today = props.today ? props.today : new Date();
 
+  let disabled = undefined;
+  if (disablePast) {
+    disabled = { before: today };
+  }
+  if (disableFuture) {
+    disabled = { after: today };
+  }
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={className}
-      disabled={disablePast ? { before: today } : undefined}
+      disabled={disabled}
       classNames={{
         months:
           'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 text-gray-700 dark:text-white',

@@ -1,17 +1,17 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Input } from '#/ui/components/Form';
 import { SettingsCard } from '#/ui/components/SettingsCard';
-import { BuildingOffice2Icon } from '@heroicons/react/24/outline';
+import { PhoneIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
+import { BusinessFields } from '#/app/(authenticated)/settings/page';
 
-//
-export const CompanyForm = (props: { company: User['company'] }) => {
-  const router = useRouter();
-
+export const BusinessPhoneForm = (props: {
+  businessPhone: User['businessPhone'];
+  businessFields: BusinessFields;
+}) => {
   const {
     register,
     handleSubmit,
@@ -21,13 +21,16 @@ export const CompanyForm = (props: { company: User['company'] }) => {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [company, setCompany] = useState(props.company);
+  const [businessPhone, setBusinessPhone] = useState(props.businessPhone);
 
   const onSubmit = async (data: any) => {
     // local api as we need to update on the client
-    const res = await fetch('/api/profile/company', {
+    const res = await fetch('/api/profile/business', {
       method: 'PATCH',
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...props.businessFields,
+        businessPhone: data.businessPhone,
+      }),
     });
 
     if (res.status === 200) {
@@ -35,33 +38,37 @@ export const CompanyForm = (props: { company: User['company'] }) => {
     }
 
     const json = await res.json();
+
     // update the state so it reflects the new data immediately
-    setCompany(json.data.company);
+    setBusinessPhone(json.data.businessPhone);
+
     // Update the session so it remembers the new data as the user navigates
     updateSession({ user: json.data });
-
-    // To ensure that areas where this data is reused updates too, like the header
-    router.refresh();
   };
 
   return (
     <SettingsCard
-      title="Short Name"
-      detail={company}
-      placeholder="Acme Inc."
-      Icon={BuildingOffice2Icon}
+      title="Business Phone Number"
+      detail={businessPhone}
+      placeholder="+1 (555) 555-5555"
+      Icon={PhoneIcon}
       onSubmit={handleSubmit(onSubmit)}
       expanded={expanded}
       setExpanded={setExpanded}
     >
       <Input
-        id="company"
-        label="Company Name"
-        value={company}
+        id="businessPhone"
+        type="tel"
+        label="Phone Number"
+        placeholder="+1 (555) 555-5555"
+        value={businessPhone}
         register={register}
-        required="Company is required"
-        error={errors.company}
-        autocomplete="organization"
+        required="Phone number is required"
+        // pattern={{
+        //   value: /[0-9]{3}-[0-9]{3}-[0-9]{4}/,
+        //   message: 'Invalid phone number.',
+        // }}
+        error={errors.businessPhone}
       />
     </SettingsCard>
   );

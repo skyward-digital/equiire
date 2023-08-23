@@ -4,8 +4,8 @@ import {
   ShieldCheckIcon,
   DocumentTextIcon,
   BuildingLibraryIcon,
+  UserIcon,
 } from '#/lib/@heroicons/react/24/outline';
-import { getServerSession } from '#/app/api/session';
 import { TabHeading } from '#/ui/components/TabHeading';
 import { SettingsCardLink } from '#/ui/components/SettingsCard';
 import {
@@ -15,53 +15,131 @@ import {
   AddressForm,
   PhoneForm,
   PasswordForm,
+  LegalNameForm,
+  DateOfBirthForm,
+  SsnForm,
+  LegalBusinessNameForm,
+  EinForm,
+  EntityTypeForm,
+  BusinessAddressForm,
+  BusinessPhoneForm,
+  FormationDateForm,
+  WebsiteForm,
+  IndustryForm,
 } from './components';
 import {
   setStripePaymentPortal,
   getStripePaymentMethods,
 } from '#/app/api/payments';
 import { Button } from '#/ui/components/Button';
+import { getUser } from '#/app/api/profile';
+import { User } from '#/app/api/profile/user';
+import { getCustomerFields } from '#/lib/getCustomerFields';
+import { getBusinessFields } from '#/lib/getBusinessFields';
 
 export const metadata: Metadata = {
   title: 'Settings',
   description: 'Your account details and user information',
 };
 
+export type CustomerFields = {
+  fullLegalName: User['fullLegalName'];
+  dateOfBirth: User['dateOfBirth'];
+  phone: User['phone'];
+  ssn: User['ssn'];
+  address: User['address'];
+};
+
+export type BusinessFields = {
+  legalBusinessName: User['legalBusinessName'];
+  company: User['company'];
+  ein: User['ein'];
+  entityType: User['entityType'];
+  businessAddress: User['businessAddress'];
+  businessPhone: User['businessPhone'];
+  formationDate: User['formationDate'];
+  website: User['website'];
+  industry: User['industry'];
+};
+
 export default async function SettingsPage() {
-  const [session, paymentPortal, paymentMethods] = await Promise.all([
-    getServerSession(),
+  const [user, paymentPortal, paymentMethods] = await Promise.all([
+    getUser(),
     setStripePaymentPortal({
       returnUrl: `/settings`,
     }),
     getStripePaymentMethods(),
   ]);
 
-  const { user } = session;
   const [defaultPayment, ...restPayments] = paymentMethods.docs;
+
+  const customerFields = getCustomerFields(user);
+  const businessFields = getBusinessFields(user);
 
   return (
     <>
       <TabHeading
         links={[
-          { id: 'details', title: 'Company Details', Icon: DocumentTextIcon },
-          { id: 'security', title: 'Security', Icon: ShieldCheckIcon },
+          {
+            id: 'personal',
+            title: 'Personal Information',
+            Icon: UserIcon,
+          },
+          {
+            id: 'company',
+            title: 'Company Information',
+            Icon: DocumentTextIcon,
+          },
           { id: 'payment', title: 'Cards/Banks', Icon: CreditCardIcon },
         ]}
       />
 
       <div className="prose prose-sm dark:prose-invert mb-16 mt-4 max-w-none space-y-8">
-        <Wrapper id="details" title="Company Details">
-          <CompanyForm company={user.company} />
+        <Wrapper id="personal" title="Personal Information">
           <NameForm name={user.name} />
+          <LegalNameForm
+            fullLegalName={user.fullLegalName}
+            customerFields={customerFields}
+          />
           <EmailForm email={user.email} />
-          <AddressForm address={user.address} />
-          <PhoneForm phone={user.phone} />
-        </Wrapper>
-
-        <Wrapper id="security" title="Security">
           <PasswordForm />
+          <AddressForm address={user.address} />
+          <DateOfBirthForm
+            dateOfBirth={user.dateOfBirth}
+            customerFields={customerFields}
+          />
+          <PhoneForm phone={user.phone} />
+          <SsnForm ssn={user.ssn} customerFields={customerFields} />
         </Wrapper>
-
+        <Wrapper id="company" title="Company Information">
+          <LegalBusinessNameForm
+            legalBusinessName={user.legalBusinessName}
+            businessFields={businessFields}
+          />
+          <CompanyForm company={user.company} />
+          <EinForm ein={user.ein} businessFields={businessFields} />
+          <EntityTypeForm
+            entityType={user.entityType}
+            businessFields={businessFields}
+          />
+          <BusinessAddressForm
+            businessAddress={user.businessAddress}
+            businessFields={businessFields}
+          />
+          <BusinessPhoneForm
+            businessPhone={user.businessPhone}
+            businessFields={businessFields}
+          />
+          <FormationDateForm
+            formationDate={user.formationDate}
+            businessFields={businessFields}
+          />
+          <WebsiteForm website={user.website} businessFields={businessFields} />
+          <IndustryForm
+            industry={user.industry}
+            businessFields={businessFields}
+          />
+        </Wrapper>
         <Wrapper
           id="payment"
           title="Cards/Banks"
