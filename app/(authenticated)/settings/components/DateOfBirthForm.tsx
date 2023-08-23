@@ -10,6 +10,7 @@ import { User } from '#/app/api/profile/user';
 import { DatePicker } from '#/ui/components/DatePicker';
 import { Label } from '#/ui/components/Label';
 import { CustomerFields } from '#/app/(authenticated)/settings/page';
+import { getLocalAdjustedDate } from '#/lib/getLocalAdjustedDate';
 
 export const DateOfBirthForm = (props: {
   dateOfBirth: User['dateOfBirth'];
@@ -60,7 +61,9 @@ export const DateOfBirthForm = (props: {
   return (
     <SettingsCard
       title="Date of Birth"
-      detail={dateOfBirth && format(dateOfBirth, 'MM/dd/yyyy')}
+      detail={
+        dateOfBirth && format(getLocalAdjustedDate(dateOfBirth), 'MM/dd/yyyy')
+      }
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
       onSubmit={handleSubmit(onSubmit)}
