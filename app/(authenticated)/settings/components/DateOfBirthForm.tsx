@@ -36,7 +36,8 @@ export const DateOfBirthForm = (props: {
       method: 'PATCH',
       body: JSON.stringify({
         ...props.customerFields,
-        dateOfBirth: dateOfBirth,
+        // here we set to the state as we are using a date picker field that doesn't use register
+        dateOfBirth,
       }),
     });
 
