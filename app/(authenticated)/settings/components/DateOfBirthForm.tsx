@@ -19,7 +19,6 @@ export const DateOfBirthForm = (props: {
   const router = useRouter();
 
   const {
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -27,9 +26,12 @@ export const DateOfBirthForm = (props: {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [dateOfBirth, setDateOfBirth] = useState(
+  // This is what is saved in the database and what we display in the detail of the settings card
+  const [dateOfBirthDb, setDateOfBirthDb] = useState(
     props.dateOfBirth ? new Date(props.dateOfBirth) : undefined,
   );
+  // This is what we use in the form fields (ensures that the 'detail' doesn't update while the user changes the date)
+  const [dateOfBirth, setDateOfBirth] = useState(dateOfBirthDb);
 
   const onSubmit = async (data: any) => {
     // local api as we need to update on the client
@@ -50,7 +52,7 @@ export const DateOfBirthForm = (props: {
 
     console.log(json.data.dateOfBirth);
     // update the state so it reflects the new data immediately
-    setDateOfBirth(new Date(json.data.dateOfBirth));
+    setDateOfBirthDb(new Date(json.data.dateOfBirth));
 
     // Update the session so it remembers the new data as the user navigates
     updateSession({ user: json.data });
@@ -63,7 +65,8 @@ export const DateOfBirthForm = (props: {
     <SettingsCard
       title="Date of Birth"
       detail={
-        dateOfBirth && format(getLocalAdjustedDate(dateOfBirth), 'MM/dd/yyyy')
+        dateOfBirthDb &&
+        format(getLocalAdjustedDate(dateOfBirthDb), 'MM/dd/yyyy')
       }
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
@@ -82,6 +85,7 @@ export const DateOfBirthForm = (props: {
           id="dateofbirth"
           value={dateOfBirth}
           onValueChange={(value) => setDateOfBirth(value)}
+          disableFuture
         />
       </div>
     </SettingsCard>

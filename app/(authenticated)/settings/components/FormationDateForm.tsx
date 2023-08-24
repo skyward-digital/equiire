@@ -27,9 +27,13 @@ export const FormationDateForm = (props: {
   const { update: updateSession } = useSession();
 
   const [expanded, setExpanded] = useState(false);
-  const [formationDate, setFormationDate] = useState(
+
+  // This is what is saved in the database and what we display in the detail of the settings card
+  const [formationDateDb, setFormationDateDb] = useState(
     props.formationDate ? new Date(props.formationDate) : undefined,
   );
+  // This is what we use in the form fields (ensures that the 'detail' doesn't update while the user changes the date)
+  const [formationDate, setFormationDate] = useState(formationDateDb);
 
   const onSubmit = async (data: any) => {
     // local api as we need to update on the client
@@ -50,7 +54,7 @@ export const FormationDateForm = (props: {
     console.log(json.data.formationDate);
 
     // update the state so it reflects the new data immediately
-    setFormationDate(new Date(json.data.formationDate));
+    setFormationDateDb(new Date(json.data.formationDate));
 
     // Update the session so it remembers the new data as the user navigates
     updateSession({ user: json.data });
@@ -63,8 +67,8 @@ export const FormationDateForm = (props: {
     <SettingsCard
       title="Formation Date"
       detail={
-        formationDate &&
-        format(getLocalAdjustedDate(formationDate), 'MM/dd/yyyy')
+        formationDateDb &&
+        format(getLocalAdjustedDate(formationDateDb), 'MM/dd/yyyy')
       }
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
@@ -82,7 +86,7 @@ export const FormationDateForm = (props: {
         <DatePicker
           id="formationdate"
           value={formationDate}
-          onValueChange={setFormationDate}
+          onValueChange={(value) => setFormationDate(value)}
           disableFuture
         />
       </div>

@@ -61,7 +61,9 @@ export function LoanSummaryBox({
 
   const length = repaymentPeriod;
   const { monthlyPayment, apr, creditCost } = LOAN_VALUES[amount];
-  const totalRepayable = amount + amount * (apr / 100) + creditCost;
+  const totalWithFee = amount + creditCost;
+  // we add the fee before calculating interest
+  const totalRepayable = totalWithFee + totalWithFee * (apr / 100);
   const endDate = add(startDate, {
     months: length,
   });
@@ -195,8 +197,8 @@ export function LoanSummaryBox({
         {/* Loan start */}
         {size === 'lg' && (
           <div className="flex flex-1 flex-col gap-7">
-            <div className="flex items-center justify-between gap-5">
-              <h3 className="font-brand text-brand text-2xl font-semibold tracking-tight">
+            <div className="flex items-center justify-between">
+              <h3 className="font-brand text-brand flex-1 text-2xl font-semibold tracking-tight">
                 Loan Start
               </h3>
               <DatePicker
@@ -204,7 +206,7 @@ export function LoanSummaryBox({
                 onValueChange={(value) =>
                   setLoanDetails({ ...loanDetails, startDate: value })
                 }
-                className="grow"
+                className="flex-1"
                 disablePast
               />
             </div>
