@@ -198,7 +198,7 @@ export function LoanSummaryBox({
         {size === 'lg' && (
           <div className="flex flex-1 flex-col gap-7">
             <div className="flex items-center justify-between">
-              <h3 className="font-brand text-brand grow-1 text-2xl font-semibold tracking-tight">
+              <h3 className="font-brand text-brand grow text-2xl font-semibold tracking-tight">
                 Loan Start
               </h3>
               <DatePicker
@@ -206,7 +206,7 @@ export function LoanSummaryBox({
                 onValueChange={(value) =>
                   setLoanDetails({ ...loanDetails, startDate: value })
                 }
-                className="max-w-[200px]"
+                className="grow-0"
                 disablePast
               />
             </div>
