@@ -29,6 +29,7 @@ export async function setStripePaymentPortal({
 
   if (res.status === 401) redirect('/login');
   if (!res.ok) notFound();
+
   const paymentMethodSession = (await res.json()) as PaymentMethodSession;
 
   if (paymentMethodSession.created === 0) notFound();
