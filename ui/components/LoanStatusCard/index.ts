@@ -15,4 +15,5 @@ export type LoanStatusCardProps = {
     signature: boolean;
   };
   badgeStatus: BadgeProps['type'];
+  expiredLoan?: boolean;
 };

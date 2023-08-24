@@ -2,6 +2,7 @@ import { LoanStatusCardSmall } from './LoanStatusCardSmall';
 import { LoanStatusCardLarge } from './LoanStatusCardLarge';
 import { BadgeProps } from '#/ui/components/Badge';
 import { Loan } from '#/app/api/loans';
+import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
 
 type LoanStatusCardProps = {
   loan: Loan;
@@ -12,6 +13,13 @@ export const LoanStatusCard = ({
   loan,
   profileCompleted,
 }: LoanStatusCardProps) => {
+  // We use these dates when evaluating any date logic
+  const startDateWithoutTimezone = getDateWithoutTimezone(
+    new Date(loan.startDate),
+  );
+  const endDateWithoutTimezone = getDateWithoutTimezone(new Date(loan.endDate));
+  const todayWithoutTimezone = getDateWithoutTimezone(new Date());
+
   const {
     _id: id,
     amount: value,
@@ -41,13 +49,13 @@ export const LoanStatusCard = ({
     COMPLETED: undefined,
   }[loanStatus] as BadgeProps['type'];
 
-  const startDate = new Date(loan.startDate).toLocaleDateString('en-US', {
+  const startDate = startDateWithoutTimezone.toLocaleDateString('en-US', {
     month: 'long',
     year: 'numeric',
   });
 
   const endDate = loan.endDate
-    ? new Date(loan.endDate).toLocaleDateString('en-US', {
+    ? endDateWithoutTimezone.toLocaleDateString('en-US', {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
@@ -56,7 +64,7 @@ export const LoanStatusCard = ({
 
   if (
     status === 'completed' ||
-    (status === 'pending' && new Date(loan.startDate) < new Date())
+    (status === 'pending' && startDateWithoutTimezone < todayWithoutTimezone)
   )
     return (
       <LoanStatusCardSmall
@@ -66,6 +74,7 @@ export const LoanStatusCard = ({
         badgeStatus={badgeStatus}
         startDate={startDate}
         endDate={endDate}
+        expiredLoan={startDateWithoutTimezone < todayWithoutTimezone}
       />
     );
 

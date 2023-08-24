@@ -4,6 +4,7 @@ import { LoanStatusCard } from '#/ui/components/LoanStatusCard';
 import { getLoans } from '#/app/api/loans/getLoans';
 import { getUser } from '#/app/api/profile';
 import { userProfileComplete } from '#/lib/userProfileComplete';
+import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
 
 export const metadata: Metadata = {
   title: 'Loans',
@@ -16,14 +17,20 @@ export default async function Page() {
   const incompleteLoans = loans.docs.filter(
     (loan) =>
       loan.loanStatus === 'IN_PROGRESS' ||
-      (loan.loanStatus === 'PENDING' && new Date(loan.startDate) > new Date()),
+      // We show loans that are pending with a start date of today or later
+      (loan.loanStatus === 'PENDING' &&
+        getDateWithoutTimezone(new Date(loan.startDate)) >=
+          getDateWithoutTimezone(new Date())),
   );
 
   const completedLoans = loans.docs.filter(
     (loan) =>
       loan.loanStatus === 'COMPLETED' ||
       loan.loanStatus === 'REJECTED' ||
-      (loan.loanStatus === 'PENDING' && new Date(loan.startDate) < new Date()),
+      // Pending loans with a start date in the past appear in the "Completed" section as expired
+      (loan.loanStatus === 'PENDING' &&
+        getDateWithoutTimezone(new Date(loan.startDate)) <
+          getDateWithoutTimezone(new Date())),
   );
   const profileCompleted = userProfileComplete(user);
 
