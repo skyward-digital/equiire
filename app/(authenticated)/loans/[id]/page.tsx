@@ -39,6 +39,7 @@ import {
 import { getUser } from '#/app/api/profile';
 import Link from 'next/link';
 import { userProfileComplete } from '#/lib/userProfileComplete';
+import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
   return {
@@ -78,7 +79,8 @@ export default async function Page({
 
   // If the loan agreement date is in the past, it should fail gracefully
   const expiredLoan =
-    status === 'PENDING' && new Date(loan.startDate) < new Date();
+    getDateWithoutTimezone(new Date(loan.startDate)) <
+    getDateWithoutTimezone(new Date());
 
   // Completes the loan steps for pending loans
   if (status === 'PENDING' && !expiredLoan) {
