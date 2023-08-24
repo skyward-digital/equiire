@@ -10,7 +10,7 @@ import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
 import { BusinessFields } from '#/app/(authenticated)/settings/page';
-import { getLocalAdjustedDate } from '#/lib/getLocalAdjustedDate';
+import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
 
 export const FormationDateForm = (props: {
   formationDate: User['formationDate'];
@@ -67,7 +67,7 @@ export const FormationDateForm = (props: {
       title="Formation Date"
       detail={
         formationDateDb &&
-        format(getLocalAdjustedDate(formationDateDb), 'MM/dd/yyyy')
+        format(getDateWithoutTimezone(formationDateDb), 'MM/dd/yyyy')
       }
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}

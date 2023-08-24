@@ -10,7 +10,7 @@ import { User } from '#/app/api/profile/user';
 import { DatePicker } from '#/ui/components/DatePicker';
 import { Label } from '#/ui/components/Label';
 import { CustomerFields } from '#/app/(authenticated)/settings/page';
-import { getLocalAdjustedDate } from '#/lib/getLocalAdjustedDate';
+import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
 
 export const DateOfBirthForm = (props: {
   dateOfBirth: User['dateOfBirth'];
@@ -65,7 +65,7 @@ export const DateOfBirthForm = (props: {
       title="Date of Birth"
       detail={
         dateOfBirthDb &&
-        format(getLocalAdjustedDate(dateOfBirthDb), 'MM/dd/yyyy')
+        format(getDateWithoutTimezone(dateOfBirthDb), 'MM/dd/yyyy')
       }
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
