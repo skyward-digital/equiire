@@ -51,7 +51,6 @@ export const FormationDateForm = (props: {
     }
 
     const json = await res.json();
-    console.log(json.data.formationDate);
 
     // update the state so it reflects the new data immediately
     setFormationDateDb(new Date(json.data.formationDate));
