@@ -36,7 +36,7 @@ export const SettingsCard = ({
       className="dark:border-brand-secondary rounded-xl border border-gray-300 bg-white px-4 py-2 dark:bg-black"
     >
       {/* Title area */}
-      <div className="flex h-16 items-center justify-between gap-4">
+      <div className="h-18 flex max-w-xs items-center justify-between gap-4 sm:max-w-none md:h-16">
         <div className="flex items-center gap-4 text-gray-600 dark:text-gray-300">
           <Icon className="h-6 w-6" />
           <div className="not-prose flex flex-col">
