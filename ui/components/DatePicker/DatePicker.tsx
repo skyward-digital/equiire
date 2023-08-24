@@ -33,17 +33,28 @@ export function DatePicker({
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStringDate(e.target.value);
-    const parsedDate = getDateWithoutTimezone(new Date(e.target.value));
-    const today = getDateWithoutTimezone(new Date());
+
+    // We compare the date the user chooses with today's date without any time or timezone
+    const parsedDateWithoutTimezone = getDateWithoutTimezone(
+      new Date(e.target.value),
+    );
+    const todayWithoutTimezone = getDateWithoutTimezone(new Date());
+    const today = new Date();
 
     // If the date is invalid, set the date to today
-    if (parsedDate.toString() === 'Invalid Date') {
-      onValueChange(new Date());
-    } else if (disablePast && parsedDate < today) {
-      onValueChange(new Date());
+    if (parsedDateWithoutTimezone.toString() === 'Invalid Date') {
+      onValueChange(today);
+    } else if (
+      disablePast &&
+      parsedDateWithoutTimezone < todayWithoutTimezone
+    ) {
+      onValueChange(today);
       setErrorMessage('Date cannot be in the past');
-    } else if (disableFuture && parsedDate > today) {
-      onValueChange(new Date());
+    } else if (
+      disableFuture &&
+      parsedDateWithoutTimezone > todayWithoutTimezone
+    ) {
+      onValueChange(today);
       setErrorMessage('Date cannot be in the future');
     } else {
       setErrorMessage('');
