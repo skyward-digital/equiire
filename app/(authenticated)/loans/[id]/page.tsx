@@ -79,7 +79,7 @@ export default async function Page({
   let status = loan.loanStatus;
 
   // If the loan agreement date is in the past, it should fail gracefully
-  const expiredLoan = isExpiredLoan(loan);
+  const expiredLoan = status === 'PENDING' && isExpiredLoan(loan);
 
   // Completes the loan steps for pending loans
   if (status === 'PENDING' && !expiredLoan) {
