@@ -37,10 +37,8 @@ export function LoanCalculator({
   }[type];
 
   const loanTypeDescription = {
-    CREDIT_BUILDER:
-      'Consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu.',
-    STANDARD:
-      'Consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu.',
+    CREDIT_BUILDER: '',
+    STANDARD: '',
   }[type];
 
   const sliderGroupValues = {
