@@ -5,6 +5,8 @@ import clsx from 'clsx';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { format } from 'date-fns';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
+import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
+
 import { Calendar } from '#/ui/components/Calendar';
 
 export interface DatePickerProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -24,8 +26,9 @@ export function DatePicker({
   onValueChange,
 }: DatePickerProps) {
   const [stringDate, setStringDate] = useState(
-    value ? format(value, 'MM/dd/yyyy') : '',
+    value ? format(getDateWithoutTimezone(value), 'MM/dd/yyyy') : '',
   );
+
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {

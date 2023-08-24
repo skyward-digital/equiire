@@ -10,6 +10,7 @@ import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import { User } from '#/app/api/profile/user';
 import { BusinessFields } from '#/app/(authenticated)/settings/page';
+import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
 
 export const FormationDateForm = (props: {
   formationDate: User['formationDate'];
@@ -64,7 +65,10 @@ export const FormationDateForm = (props: {
   return (
     <SettingsCard
       title="Formation Date"
-      detail={formationDateDb && format(formationDateDb, 'MM/dd/yyyy')}
+      detail={
+        formationDateDb &&
+        format(getDateWithoutTimezone(formationDateDb), 'MM/dd/yyyy')
+      }
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
       onSubmit={handleSubmit(onSubmit)}

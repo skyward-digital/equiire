@@ -10,6 +10,7 @@ import { User } from '#/app/api/profile/user';
 import { DatePicker } from '#/ui/components/DatePicker';
 import { Label } from '#/ui/components/Label';
 import { CustomerFields } from '#/app/(authenticated)/settings/page';
+import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
 
 export const DateOfBirthForm = (props: {
   dateOfBirth: User['dateOfBirth'];
@@ -48,6 +49,7 @@ export const DateOfBirthForm = (props: {
     }
 
     const json = await res.json();
+
     // update the state so it reflects the new data immediately
     setDateOfBirthDb(new Date(json.data.dateOfBirth));
 
@@ -61,7 +63,10 @@ export const DateOfBirthForm = (props: {
   return (
     <SettingsCard
       title="Date of Birth"
-      detail={dateOfBirthDb && format(dateOfBirthDb, 'MM/dd/yyyy')}
+      detail={
+        dateOfBirthDb &&
+        format(getDateWithoutTimezone(dateOfBirthDb), 'MM/dd/yyyy')
+      }
       placeholder="01/01/1970"
       Icon={CalendarDaysIcon}
       onSubmit={handleSubmit(onSubmit)}
