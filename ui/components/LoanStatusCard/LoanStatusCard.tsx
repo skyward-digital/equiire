@@ -3,6 +3,7 @@ import { LoanStatusCardLarge } from './LoanStatusCardLarge';
 import { BadgeProps } from '#/ui/components/Badge';
 import { Loan } from '#/app/api/loans';
 import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
+import { isExpiredLoan } from '#/lib/isExpiredLoan';
 
 type LoanStatusCardProps = {
   loan: Loan;
@@ -18,7 +19,6 @@ export const LoanStatusCard = ({
     new Date(loan.startDate),
   );
   const endDateWithoutTimezone = getDateWithoutTimezone(new Date(loan.endDate));
-  const todayWithoutTimezone = getDateWithoutTimezone(new Date());
 
   const {
     _id: id,
@@ -62,10 +62,7 @@ export const LoanStatusCard = ({
       })
     : undefined;
 
-  if (
-    status === 'completed' ||
-    (status === 'pending' && startDateWithoutTimezone < todayWithoutTimezone)
-  )
+  if (status === 'completed' || (status === 'pending' && isExpiredLoan(loan)))
     return (
       <LoanStatusCardSmall
         id={id}
@@ -74,7 +71,7 @@ export const LoanStatusCard = ({
         badgeStatus={badgeStatus}
         startDate={startDate}
         endDate={endDate}
-        expiredLoan={startDateWithoutTimezone < todayWithoutTimezone}
+        expiredLoan={isExpiredLoan(loan)}
       />
     );
 

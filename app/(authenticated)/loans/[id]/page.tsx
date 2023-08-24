@@ -39,6 +39,7 @@ import {
 import { getUser } from '#/app/api/profile';
 import Link from 'next/link';
 import { userProfileComplete } from '#/lib/userProfileComplete';
+import { isExpiredLoan } from '#/lib/isExpiredLoan';
 import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
@@ -78,9 +79,7 @@ export default async function Page({
   let status = loan.loanStatus;
 
   // If the loan agreement date is in the past, it should fail gracefully
-  const expiredLoan =
-    getDateWithoutTimezone(new Date(loan.startDate)) <
-    getDateWithoutTimezone(new Date());
+  const expiredLoan = isExpiredLoan(loan);
 
   // Completes the loan steps for pending loans
   if (status === 'PENDING' && !expiredLoan) {
@@ -127,6 +126,9 @@ export default async function Page({
     length: loanLength,
     // @ts-ignore
   } = loan;
+
+  const startDateWithoutTimezone = getDateWithoutTimezone(new Date(startDate));
+  const endDateWithoutTimezone = getDateWithoutTimezone(new Date(endDate));
 
   const steps = {
     account: profileCompleted,
@@ -194,7 +196,7 @@ export default async function Page({
               <br />
               in{' '}
               <strong className="text-brand">
-                {new Date(startDate).toLocaleDateString('en-US', {
+                {startDateWithoutTimezone.toLocaleDateString('en-US', {
                   month: 'long',
                   year: 'numeric',
                 })}
@@ -277,7 +279,7 @@ export default async function Page({
           <LoanDetailRow
             Icon={CalendarIcon}
             label="First Repayment Date"
-            value={new Date(startDate).toLocaleDateString('en-US', {
+            value={startDateWithoutTimezone.toLocaleDateString('en-US', {
               day: 'numeric',
               month: 'long',
               year: 'numeric',
@@ -288,7 +290,7 @@ export default async function Page({
             label="Loan Deposited"
             value={
               endDate
-                ? new Date(endDate).toLocaleDateString('en-US', {
+                ? endDateWithoutTimezone.toLocaleDateString('en-US', {
                     day: 'numeric',
                     month: 'long',
                     year: 'numeric',
@@ -314,11 +316,14 @@ export default async function Page({
                   currency: 'USD',
                   maximumFractionDigits: 0,
                 })}\n
-                Start date: ${new Date(startDate).toLocaleDateString('en-US', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                })}\n
+                Start date: ${startDateWithoutTimezone.toLocaleDateString(
+                  'en-US',
+                  {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  },
+                )}\n
                 `)}`}
                 className="flex items-center gap-2 hover:underline focus:underline"
               >

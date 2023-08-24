@@ -4,7 +4,7 @@ import { LoanStatusCard } from '#/ui/components/LoanStatusCard';
 import { getLoans } from '#/app/api/loans/getLoans';
 import { getUser } from '#/app/api/profile/getUser';
 import { userProfileComplete } from '#/lib/userProfileComplete';
-import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
+import { isExpiredLoan } from '#/lib/isExpiredLoan';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -18,9 +18,7 @@ export default async function Page() {
     (loan) =>
       loan.loanStatus === 'IN_PROGRESS' ||
       // We show pending loans with a start date of today or later
-      (loan.loanStatus === 'PENDING' &&
-        getDateWithoutTimezone(new Date(loan.startDate)) >=
-          getDateWithoutTimezone(new Date())),
+      (loan.loanStatus === 'PENDING' && !isExpiredLoan(loan)),
   );
 
   const profileCompleted = userProfileComplete(user);
