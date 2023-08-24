@@ -33,17 +33,18 @@ export function DatePicker({
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStringDate(e.target.value);
-    const parsedDate = new Date(e.target.value);
+    const parsedDate = getDateWithoutTimezone(new Date(e.target.value));
+    const today = getDateWithoutTimezone(new Date());
 
     // If the date is invalid, set the date to today
     if (parsedDate.toString() === 'Invalid Date') {
       onValueChange(new Date());
-    } else if (disablePast && parsedDate < new Date()) {
+    } else if (disablePast && parsedDate < today) {
       onValueChange(new Date());
-      setErrorMessage('Date must be in the future');
-    } else if (disableFuture && parsedDate > new Date()) {
+      setErrorMessage('Date cannot be in the past');
+    } else if (disableFuture && parsedDate > today) {
       onValueChange(new Date());
-      setErrorMessage('Date must be in the past');
+      setErrorMessage('Date cannot be in the future');
     } else {
       setErrorMessage('');
       onValueChange(new Date(e.target.value));
@@ -51,39 +52,41 @@ export function DatePicker({
   };
 
   return (
-    <PopoverPrimitive.Root defaultOpen={defaultOpen}>
-      <div className={clsx('relative grid max-w-[250px]', className)}>
-        <input
-          value={stringDate}
-          maxLength={10}
-          className="shadow-xs focus:ring-brand-100 focus:border-brand-300 inline-flex w-full gap-x-2 rounded-lg border bg-white px-3 py-2 text-base text-gray-600 no-underline placeholder:text-gray-300 focus:outline-none focus:ring-4 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-600"
-          placeholder="MM/DD/YYYY"
-          onChange={handleTextChange}
-        ></input>
-        <PopoverPrimitive.Trigger asChild>
-          <button className="focus:ring-brand-100 focus:border-brand-300 absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 rounded-md focus:outline-none focus:ring">
-            <CalendarIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-          </button>
-        </PopoverPrimitive.Trigger>
-        <PopoverPrimitive.Portal>
-          <PopoverPrimitive.Content className="z-50 w-auto rounded-md border bg-white p-4 outline-none dark:bg-black">
-            <Calendar
-              mode="single"
-              selected={value}
-              onSelect={(date) => {
-                if (!date) return;
-                setStringDate(date ? format(date, 'MM/dd/yyyy') : '');
-                onValueChange(date);
-                setErrorMessage('');
-              }}
-              disablePast={disablePast}
-              defaultMonth={value}
-              disableFuture={disableFuture}
-            />
-          </PopoverPrimitive.Content>
-        </PopoverPrimitive.Portal>
-      </div>
+    <div className={clsx(className, 'max-w-[250px]')}>
+      <PopoverPrimitive.Root defaultOpen={defaultOpen}>
+        <div className={clsx('relative', className)}>
+          <input
+            value={stringDate}
+            maxLength={10}
+            className="shadow-xs focus:ring-brand-100 focus:border-brand-300 inline-flex w-full gap-x-2 rounded-lg border bg-white px-3 py-2 text-base text-gray-600 no-underline placeholder:text-gray-300 focus:outline-none focus:ring-4 dark:bg-black dark:text-gray-100 placeholder:dark:text-gray-600"
+            placeholder="MM/DD/YYYY"
+            onChange={handleTextChange}
+          ></input>
+          <PopoverPrimitive.Trigger asChild>
+            <button className="focus:ring-brand-100 focus:border-brand-300 absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 rounded-md focus:outline-none focus:ring">
+              <CalendarIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+            </button>
+          </PopoverPrimitive.Trigger>
+          <PopoverPrimitive.Portal>
+            <PopoverPrimitive.Content className="z-50 w-auto rounded-md border bg-white p-4 outline-none dark:bg-black">
+              <Calendar
+                mode="single"
+                selected={value}
+                onSelect={(date) => {
+                  if (!date) return;
+                  setStringDate(date ? format(date, 'MM/dd/yyyy') : '');
+                  onValueChange(date);
+                  setErrorMessage('');
+                }}
+                disablePast={disablePast}
+                defaultMonth={value}
+                disableFuture={disableFuture}
+              />
+            </PopoverPrimitive.Content>
+          </PopoverPrimitive.Portal>
+        </div>
+      </PopoverPrimitive.Root>
       <p className="text-error mt-2 text-sm">{errorMessage}</p>
-    </PopoverPrimitive.Root>
+    </div>
   );
 }
