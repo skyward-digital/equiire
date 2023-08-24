@@ -80,6 +80,35 @@ export function SignUp({ user }: { user: any }) {
     creditCost: searchParams?.get('creditCost'),
   };
 
+  const setLoanForExistingAccount = async () => {
+    const loanres = await fetch('/api/loans', {
+      method: 'POST',
+      body: JSON.stringify({
+        type: loan.type,
+        amount: loan.amount ? parseInt(loan.amount) : 0,
+        length: loan.length ? parseInt(loan.length) : 0,
+        monthlyPayment: loan.monthlyPayment ? parseInt(loan.monthlyPayment) : 0,
+        startDate: loan.startDate,
+        apr: Number(loan.apr),
+        creditCost: loan.creditCost ? parseInt(loan.creditCost) : 0,
+      }),
+    });
+    const response = await loanres.json();
+    console.log(response);
+    console.log(response.data);
+    if (loanres.status === 200) {
+      router.push(`/overview`);
+    }
+  };
+
+  let skip = undefined;
+  if (step == 1) {
+    skip = !existingAccount
+      ? setStep(step + 1)
+      : // the skip button should directly add a loan for existing clients
+        () => setLoanForExistingAccount();
+  }
+
   if (formSubmitted) {
     // What the user will see after submitting the sign up form (OTP form)
     return (
@@ -107,7 +136,7 @@ export function SignUp({ user }: { user: any }) {
       title="Complete your loan application"
       className="sm:mt-20"
       back={step !== 0 ? () => setStep(step - 1) : undefined}
-      skip={step == 1 ? () => setStep(step + 1) : undefined}
+      skip={skip}
     >
       <ProgressSteps
         className="mb-10"
@@ -125,6 +154,7 @@ export function SignUp({ user }: { user: any }) {
         setFormSubmitted={setFormSubmitted}
         existingAccount={existingAccount}
         updateSession={updateSession}
+        setLoanForExistingAccount={setLoanForExistingAccount}
       />
       {!existingAccount && (
         <p className="mt-10 text-center text-sm text-gray-600 dark:text-gray-300">
