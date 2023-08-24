@@ -206,7 +206,7 @@ export function LoanSummaryBox({
                 onValueChange={(value) =>
                   setLoanDetails({ ...loanDetails, startDate: value })
                 }
-                className="flex-1 "
+                className="flex-1"
                 disablePast
               />
             </div>
