@@ -26,8 +26,9 @@ export function DatePicker({
   onValueChange,
 }: DatePickerProps) {
   const [stringDate, setStringDate] = useState(
-    value ? format(value, 'MM/dd/yyyy') : '',
+    value ? format(getLocalAdjustedDate(value), 'MM/dd/yyyy') : '',
   );
+
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +69,7 @@ export function DatePicker({
           <PopoverPrimitive.Content className="z-50 w-auto rounded-md border bg-white p-4 outline-none dark:bg-black">
             <Calendar
               mode="single"
-              selected={value ? getLocalAdjustedDate(value) : undefined}
+              selected={value}
               onSelect={(date) => {
                 if (!date) return;
                 setStringDate(date ? format(date, 'MM/dd/yyyy') : '');
