@@ -29,7 +29,7 @@ export const signup = async (data: {
     phone,
   } = data;
 
-  let parsedLoan = {};
+  let parsedLoan = undefined;
 
   // It's possible for the user to sign up without loan details but if a loan is present then we should validate it
   if (loan) {
