@@ -6,6 +6,7 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { logout } from '#/app/api/auth';
 import { UserProfile } from '../Header/UserProfile';
 import { User } from '#/app/api/profile/user';
+import { Button } from '../Button';
 
 type SidebarProps = {
   segment?: string | null;
@@ -46,15 +47,25 @@ export function Sidebar({ user, isOpen, segment, close }: SidebarProps) {
               );
             })}
           </div>
-          <SidebarLink
-            item={{
-              name: 'Logout',
-              icon: ArrowLeftIcon,
-              slug: 'logout',
-            }}
-            close={close}
-            onClick={logout}
-          />
+          <div>
+            <Button
+              className="mb-4 w-full"
+              size="md"
+              variant="secondary"
+              href="/loan-application"
+            >
+              Create a new loan
+            </Button>
+            <SidebarLink
+              item={{
+                name: 'Logout',
+                icon: ArrowLeftIcon,
+                slug: 'logout',
+              }}
+              close={close}
+              onClick={logout}
+            />
+          </div>
         </nav>
         <UserProfile
           className="my-4 ml-8 block text-sm font-semibold text-gray-600 dark:text-gray-300 lg:hidden"
