@@ -29,18 +29,29 @@ export const signup = async (data: {
     phone,
   } = data;
 
-  // Check if the loan details are present and valid
-  if (
-    !loan ||
-    !loan.type ||
-    !loan.amount ||
-    !loan.length ||
-    !loan.monthlyPayment ||
-    !loan.startDate ||
-    !loan.apr ||
-    !loan.creditCost
-  ) {
-    return { error: 'Missing or invalid loan details.' };
+  let parsedLoan = {};
+
+  // It's possible for the user to sign up without loan details but if a loan is present then we should validate it
+  if (loan) {
+    // If all the required fields exist we should parse the loan
+    if (
+      loan.type &&
+      loan.amount &&
+      loan.length &&
+      loan.monthlyPayment &&
+      loan.startDate &&
+      loan.creditCost
+    ) {
+      parsedLoan = {
+        type: loan.type,
+        amount: parseInt(loan.amount),
+        length: parseInt(loan.length),
+        monthlyPayment: parseInt(loan.monthlyPayment),
+        startDate: formatISO(parse(loan.startDate, 'yyyy-MM-dd', new Date())),
+        apr: Number(loan.apr),
+        creditCost: parseInt(loan.creditCost),
+      };
+    }
   }
 
   const res = await fetch('/api/auth/signup', {
@@ -59,17 +70,10 @@ export const signup = async (data: {
       phone,
       company,
       password,
-      loan: {
-        type: loan.type,
-        amount: parseInt(loan.amount),
-        length: parseInt(loan.length),
-        monthlyPayment: parseInt(loan.monthlyPayment),
-        startDate: formatISO(parse(loan.startDate, 'yyyy-MM-dd', new Date())),
-        apr: Number(loan.apr),
-        creditCost: parseInt(loan.creditCost),
-      },
+      loan: parsedLoan,
     }),
   });
+
   if (res.ok) {
     return { error: null };
   } else {
