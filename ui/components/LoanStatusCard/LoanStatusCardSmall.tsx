@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Badge } from '#/ui/components/Badge';
-import { CheckIcon } from '@heroicons/react/24/outline';
 import { LoanStatusCardProps } from '.';
 
 export const LoanStatusCardSmall = ({
@@ -10,9 +9,8 @@ export const LoanStatusCardSmall = ({
   startDate,
   endDate,
   badgeStatus,
+  expiredLoan,
 }: LoanStatusCardProps) => {
-  const expiredLoan = new Date(startDate) < new Date();
-
   return (
     <div className="w-full rounded-xl border bg-white shadow-sm dark:border-gray-600 dark:bg-black">
       <div className="flex w-full flex-col justify-between gap-2 border-b px-4 py-4 dark:border-gray-600 sm:flex-row sm:gap-4 sm:px-8">
