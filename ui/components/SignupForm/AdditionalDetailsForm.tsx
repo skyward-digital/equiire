@@ -1,5 +1,4 @@
 import { Controller, useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 import statesFullList from 'states-us';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { Input } from '#/ui/components/Form/Input';
@@ -13,16 +12,16 @@ export function AdditionalDetailsForm({
   formData,
   setFormData,
   existingAccount,
-  loan,
   updateSession,
+  setLoanForExistingAccount,
 }: {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   formData: FormData;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
   setFormSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
   existingAccount?: boolean;
-  loan: any;
   updateSession: any;
+  setLoanForExistingAccount: any;
 }) {
   const {
     register,
@@ -31,7 +30,12 @@ export function AdditionalDetailsForm({
     control,
   } = useForm();
 
-  const router = useRouter();
+  const states = statesFullList
+    .filter((state) => !state.territory)
+    .map((state) => ({
+      label: state.name,
+      value: state.abbreviation,
+    }));
 
   const onSubmit = async (data: any) => {
     if (existingAccount) {
@@ -76,36 +80,14 @@ export function AdditionalDetailsForm({
             company: data.company,
           },
         });
-
-        const loanres = await fetch('/api/loans', {
-          method: 'POST',
-          body: JSON.stringify({
-            type: loan.type,
-            amount: parseInt(loan.amount),
-            length: parseInt(loan.length),
-            monthlyPayment: parseInt(loan.monthlyPayment),
-            startDate: loan.startDate,
-            apr: Number(loan.apr),
-            creditCost: parseInt(loan.creditCost),
-          }),
-        });
-
-        if (loanres.status === 200) {
-          router.push(`/overview`);
-        }
+        // Adds the loan
+        setLoanForExistingAccount();
       }
     } else {
       setFormData({ ...formData, ...data });
       setStep((step: number) => step + 1);
     }
   };
-
-  const states = statesFullList
-    .filter((state) => !state.territory)
-    .map((state) => ({
-      label: state.name,
-      value: state.abbreviation,
-    }));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid max-w-2xl gap-6">

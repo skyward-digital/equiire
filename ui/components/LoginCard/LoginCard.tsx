@@ -8,7 +8,7 @@ type LoginCardProps = {
   back?: string | (() => void);
   children: React.ReactNode;
   className?: string;
-  skip?: () => void;
+  skip?: any;
 };
 
 export function LoginCard({
