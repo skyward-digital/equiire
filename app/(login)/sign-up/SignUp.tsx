@@ -94,8 +94,7 @@ export function SignUp({ user }: { user: any }) {
       }),
     });
     const response = await loanres.json();
-    console.log(response);
-    console.log(response.data);
+
     if (loanres.status === 200) {
       router.push(`/overview`);
     }
@@ -104,7 +103,7 @@ export function SignUp({ user }: { user: any }) {
   let skip = undefined;
   if (step == 1) {
     skip = !existingAccount
-      ? setStep(step + 1)
+      ? () => setStep(step + 1)
       : // the skip button should directly add a loan for existing clients
         () => setLoanForExistingAccount();
   }
