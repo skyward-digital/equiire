@@ -94,7 +94,7 @@ export default async function SettingsPage() {
         ]}
       />
 
-      <div className="prose prose-sm dark:prose-invert mb-16 mt-4 max-w-none space-y-8">
+      <div className="prose prose-sm dark:prose-invert mb-16 mt-4 max-w-none space-y-8 px-3">
         <Wrapper id="personal" title="Personal Information">
           <NameForm name={user.name} />
           <LegalNameForm
