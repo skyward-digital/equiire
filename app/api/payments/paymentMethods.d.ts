@@ -9,13 +9,23 @@ export type PaymentMethods = {
   nextPage: number;
 };
 
-export type PaymentMethod = {
+export type PaymentMethod = CardPaymentMethod | BankPaymentMethod;
+
+type CardPaymentMethod = {
   id: string;
-  customer: string;
-  type: string;
+  type: 'card';
   paymentMethodInfo: {
     brand: string;
     last4: string;
     funding: string;
+  };
+};
+
+type BankPaymentMethod = {
+  id: string;
+  type: 'us_bank_account';
+  paymentMethodInfo: {
+    bankName: string;
+    accountType: string;
   };
 };

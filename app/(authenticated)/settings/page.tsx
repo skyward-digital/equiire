@@ -30,6 +30,7 @@ import {
 import {
   setStripePaymentPortal,
   getStripePaymentMethods,
+  PaymentMethod,
 } from '#/app/api/payments';
 import { Button } from '#/ui/components/Button';
 import { getUser } from '#/app/api/profile';
@@ -75,6 +76,20 @@ export default async function SettingsPage() {
 
   const customerFields = getCustomerFields(user);
   const businessFields = getBusinessFields(user);
+
+  const paymentMethodTitle = (paymentMethod: PaymentMethod) => {
+    return paymentMethod.type === 'us_bank_account'
+      ? paymentMethod.paymentMethodInfo.bankName
+      : `${paymentMethod.paymentMethodInfo.brand} ${
+          paymentMethod.paymentMethodInfo.funding === 'debit' ? '(debit)' : ''
+        }`;
+  };
+
+  const paymentMethodDetail = (paymentMethod: PaymentMethod) => {
+    return paymentMethod.type === 'us_bank_account'
+      ? '••••'
+      : `•••• •••• •••• ${paymentMethod.paymentMethodInfo.last4}`;
+  };
 
   return (
     <>
@@ -149,18 +164,12 @@ export default async function SettingsPage() {
           {defaultPayment && (
             <>
               <h3 className="mb-0 mt-4 text-base font-semibold text-gray-400">
-                Default Card
+                Default
               </h3>
 
               <SettingsCardLink
-                title={`${defaultPayment.paymentMethodInfo.brand} ${
-                  defaultPayment.paymentMethodInfo.funding === 'debit'
-                    ? '(debit)'
-                    : ''
-                }`}
-                detail={`${
-                  defaultPayment.type === 'card' ? '•••• •••• ••••' : '••••'
-                } ${defaultPayment.paymentMethodInfo.last4}`}
+                title={paymentMethodTitle(defaultPayment)}
+                detail={paymentMethodDetail(defaultPayment)}
                 placeholder="0123 4567 8910 1112"
                 Icon={
                   defaultPayment.type === 'card'
@@ -171,23 +180,24 @@ export default async function SettingsPage() {
               />
 
               <h3 className="mb-0 mt-4 text-base font-semibold text-gray-400">
-                Linked Cards
+                Linked Payment Methods
               </h3>
 
-              {restPayments.map(({ id, type, paymentMethodInfo: info }) => (
-                <SettingsCardLink
-                  key={id}
-                  title={`${info.brand} ${
-                    info.funding === 'debit' ? '(debit)' : ''
-                  }`}
-                  detail={`${type === 'card' ? '•••• •••• ••••' : '••••'} ${
-                    info.last4
-                  }`}
-                  placeholder="0123 4567 8910 1112"
-                  Icon={type === 'card' ? CreditCardIcon : BuildingLibraryIcon}
-                  link={paymentPortal?.url}
-                />
-              ))}
+              {restPayments.map((paymentMethod) => {
+                const { id, type } = paymentMethod;
+                return (
+                  <SettingsCardLink
+                    key={id}
+                    title={paymentMethodTitle(paymentMethod)}
+                    detail={paymentMethodDetail(paymentMethod)}
+                    placeholder="0123 4567 8910 1112"
+                    Icon={
+                      type === 'card' ? CreditCardIcon : BuildingLibraryIcon
+                    }
+                    link={paymentPortal?.url}
+                  />
+                );
+              })}
             </>
           )}
         </Wrapper>
