@@ -8,7 +8,13 @@ import { Button } from '#/ui/components/Button';
 import { login } from '#/app/api/auth';
 import { useState } from 'react';
 
-export function LoginForm({ className }: { className?: string }) {
+export function LoginForm({
+  className,
+  email,
+}: {
+  className?: string;
+  email: string | null;
+}) {
   const router = useRouter();
 
   const {
@@ -42,6 +48,7 @@ export function LoginForm({ className }: { className?: string }) {
         id="email"
         type="email"
         label="Email"
+        defaultValue={email}
         placeholder="youremail@example.com"
         register={register}
         required="Email is required"
