@@ -9,6 +9,8 @@ import { login } from '#/app/api/auth';
 import { useState } from 'react';
 
 export function LoginForm({ className }: { className?: string }) {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -19,9 +21,15 @@ export function LoginForm({ className }: { className?: string }) {
 
   const onSubmit = async (data: any) => {
     setError('');
+
     const { error } = await login(data);
+
     if (error) {
-      setError(error);
+      if (error.includes('User is not confirmed')) {
+        router.push(`/sign-up?resendEmail=${data.email}`);
+      } else {
+        setError(error);
+      }
     }
   };
 
