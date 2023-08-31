@@ -33,7 +33,7 @@ export default async function ConfirmEmail({
       <CheckCircleIcon className="mx-auto h-12 w-12 text-gray-400" />
 
       <div className="mt-3 text-center">
-        <Button href="/login" className="mt-10">
+        <Button href={`/login?email=${email}`} className="mt-10">
           Login
         </Button>
       </div>

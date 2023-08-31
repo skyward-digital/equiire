@@ -60,6 +60,7 @@ type InputProps = {
   hint?: string;
   Icon?: any;
   disabled?: boolean;
+  defaultValue?: any;
 };
 
 const iconMap = {
@@ -108,6 +109,7 @@ export const Input = ({
   hint,
   Icon,
   disabled,
+  defaultValue,
 }: InputProps) => {
   const [passwordShown, setPasswordShown] = useState(false);
   const inputType =
@@ -142,6 +144,7 @@ export const Input = ({
           type={inputType}
           placeholder={placeholder}
           size={size}
+          defaultValue={defaultValue}
           inputMode={inputMode}
           maxLength={maxLength}
           autoComplete={autocomplete}

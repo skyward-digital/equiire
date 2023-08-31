@@ -33,8 +33,12 @@ export interface FormData {
   state: string;
   phone: string;
 }
+type SignUpProps = {
+  user: any;
+  resendEmail: string | null;
+};
 
-export function SignUp({ user }: { user: any }) {
+export function SignUp({ user, resendEmail }: SignUpProps) {
   const router = useRouter();
   const { update: updateSession } = useSession();
   const [step, setStep] = useState(0);
@@ -108,7 +112,7 @@ export function SignUp({ user }: { user: any }) {
         () => setLoanForExistingAccount();
   }
 
-  if (formSubmitted) {
+  if (formSubmitted || resendEmail) {
     // What the user will see after submitting the sign up form (OTP form)
     return (
       <LoginCard
@@ -121,9 +125,10 @@ export function SignUp({ user }: { user: any }) {
         }}
       >
         <OtpForm
-          onSuccess={(otp) =>
-            router.push(`/confirm-email?email=${formData.email}&code=${otp}`)
-          }
+          onSuccess={(otp) => {
+            const email = resendEmail || formData.email;
+            router.push(`/confirm-email?email=${email}&code=${otp}`);
+          }}
         />
       </LoginCard>
     );

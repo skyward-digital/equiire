@@ -7,7 +7,14 @@ export const metadata: Metadata = {
   title: 'Login',
 };
 
-export default function Page() {
+export default function Page({
+  searchParams,
+}: {
+  searchParams: {
+    [key: string]: string | null;
+  };
+}) {
+  const email = searchParams['email'];
   return (
     <LoginCard
       title={
@@ -16,7 +23,7 @@ export default function Page() {
         </>
       }
     >
-      <LoginForm className="px-3" />
+      <LoginForm email={email} className="px-3" />
 
       <Logo className="mx-auto mt-16" width="288" height="74" />
     </LoginCard>
