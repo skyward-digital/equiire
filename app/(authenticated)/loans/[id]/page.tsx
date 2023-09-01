@@ -306,35 +306,8 @@ export default async function Page({
               End loan agreement early
             </p>
             <p>
-              <>
-                Send us an email to{' '}
-                <Link
-                  href={`mailto:process@equiire.com?subject=Cancel Loan ${id}&body=${encodeURIComponent(`
-                Hi \n
-                I would like to cancel my loan agreement early \n
-                Loan Details:\n
-                Loan ID: ${id}\n
-                Principal: ${value.toLocaleString('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                  maximumFractionDigits: 0,
-                })}\n
-                Start date: ${startDateWithoutTimezone.toLocaleDateString(
-                  'en-US',
-                  {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                  },
-                )}\n
-                `)}`}
-                  className="hover:text-brand focus:text-brand inline-flex items-center gap-2 underline"
-                >
-                  process@equiire.com
-                </Link>{' '}
-                with the subject 'Cancel Loan' and we'll get back to you as soon
-                as we can.
-              </>
+              Send us an email to process@equiire.com with the subject 'Cancel
+              Loan' and we'll get back to you as soon as we can.
             </p>
           </div>
 
