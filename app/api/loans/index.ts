@@ -3,11 +3,11 @@ export { getLoans } from './getLoans';
 export type { Loans } from './loans';
 
 // Single loan
-export { getLoan } from './[id]/getLoan';
-export { getLoanTransactions } from './[id]/getLoanTransactions';
-export { getSignedLoanDoc } from './[id]/getSignedLoanDoc';
-export { setPaymentSubscription } from './[id]/setPaymentSubscription';
-export { setSignRequest } from './[id]/setSignRequest';
-export { updateLoan } from './[id]/updateLoan';
-export { updateLoanPaymentMethod } from './[id]/updateLoanPaymentMethod';
-export type { Loan } from './[id]/loan';
+export { getLoan } from './loan/getLoan';
+export { getLoanTransactions } from './loan/getLoanTransactions';
+export { getSignedLoanDoc } from './loan/getSignedLoanDoc';
+export { setPaymentSubscription } from './loan/setPaymentSubscription';
+export { setSignRequest } from './loan/setSignRequest';
+export { updateLoan } from './loan/updateLoan';
+export { updateLoanPaymentMethod } from './loan/updateLoanPaymentMethod';
+export type { Loan } from './loan/loan';

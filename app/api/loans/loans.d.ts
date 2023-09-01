@@ -1,4 +1,4 @@
-import { Loan } from './[id]/loan';
+import { Loan } from './loan/loan';
 
 export type Loans = {
   docs: Loan[];
