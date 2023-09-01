@@ -1,7 +1,5 @@
-import { Metadata, ResolvingMetadata } from 'next';
 import { redirect } from 'next/navigation';
 import { Badge, BadgeProps } from '#/ui/components/Badge';
-import { Button } from '#/ui/components/Button';
 import { LoanSteps } from '#/ui/components/LoanSteps';
 import { ProgressCircle } from '#/ui/components/ProgressCircle';
 import { TabHeading } from '#/ui/components/TabHeading';
@@ -41,6 +39,7 @@ import Link from 'next/link';
 import { userProfileComplete } from '#/lib/userProfileComplete';
 import { isExpiredLoan } from '#/lib/isExpiredLoan';
 import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
+import { Button } from '#/ui/components/Button';
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
   return {
@@ -342,10 +341,17 @@ export default async function Page({
           <Divider className="col-span-2" />
 
           <div className="flex flex-col items-start gap-2 sm:gap-4">
-            <Button variant="secondary" size="sm" className="w-full sm:w-auto">
-              <DocumentArrowDownIcon className="h-4 w-4" />
-              Download Loan Agreement
-            </Button>
+            {loan.signatureCompleted ? (
+              <Button
+                href={`/api/loans/loan/download-signed-document?id=${id}`}
+                variant="secondary"
+                size="sm"
+                className="w-full sm:w-auto"
+              >
+                <DocumentArrowDownIcon className="h-4 w-4" />
+                Download Loan Agreement
+              </Button>
+            ) : null}
 
             {/* <Button variant="secondary" size="sm" className="w-full sm:w-auto">
                 <PencilIcon className="h-4 w-4" />

@@ -11,7 +11,7 @@ export interface ButtonBaseProps {
 }
 
 export interface ButtonLinkProps extends ButtonBaseProps, LinkProps {
-  children: string;
+  children: React.ReactNode | string;
   onClick?: never;
 }
 
