@@ -301,12 +301,16 @@ export default async function Page({
 
           <Divider className="col-span-2" />
 
-          <LoanDetailRow
-            Icon={ArchiveBoxIcon}
-            label="End loan agreement early"
-            value={
-              <Link
-                href={`mailto:process@equiire.com?subject=Cancel Loan ${id}&body=${encodeURIComponent(`
+          <div className="flex flex-col justify-between gap-2 text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
+            <p className="flex items-center gap-2 font-semibold capitalize">
+              <ArchiveBoxIcon className="h-4 w-4" />
+              End loan agreement early
+            </p>
+            <p>
+              <>
+                Send us an email to{' '}
+                <Link
+                  href={`mailto:process@equiire.com?subject=Cancel Loan ${id}&body=${encodeURIComponent(`
                 Hi \n
                 I would like to cancel my loan agreement early \n
                 Loan Details:\n
@@ -325,13 +329,15 @@ export default async function Page({
                   },
                 )}\n
                 `)}`}
-                className="flex items-center gap-2 hover:underline focus:underline"
-              >
-                process@equiire.com
-                <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-              </Link>
-            }
-          />
+                  className="hover:text-brand focus:text-brand inline-flex items-center gap-2 underline"
+                >
+                  process@equiire.com
+                </Link>{' '}
+                with the subject 'Cancel Loan' and we'll get back to you as soon
+                as we can.
+              </>
+            </p>
+          </div>
 
           <Divider className="col-span-2" />
 
@@ -415,12 +421,12 @@ const LoanDetailRow = ({
   value: React.ReactNode | string | number;
 }) => {
   return (
-    <div className="flex justify-between text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
+    <div className="flex justify-between gap-8 text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
       <p className="flex items-center gap-2 font-semibold capitalize">
         <Icon className="h-4 w-4" />
         {label}
       </p>
-      <p className="text-right">{value}</p>
+      <p>{value}</p>
     </div>
   );
 };
