@@ -7,7 +7,11 @@ import {
   UserIcon,
 } from '#/lib/@heroicons/react/24/outline';
 import { TabHeading } from '#/ui/components/TabHeading';
-import { SettingsCardLink } from '#/ui/components/SettingsCard';
+import {
+  SettingsCardLink,
+  paymentMethodTitle,
+  paymentMethodDetail,
+} from '#/ui/components/SettingsCard';
 import {
   CompanyForm,
   NameForm,
@@ -30,7 +34,6 @@ import {
 import {
   setStripePaymentPortal,
   getStripePaymentMethods,
-  PaymentMethod,
 } from '#/app/api/payments';
 import { Button } from '#/ui/components/Button';
 import { getUser } from '#/app/api/profile';
@@ -76,20 +79,6 @@ export default async function SettingsPage() {
 
   const customerFields = getCustomerFields(user);
   const businessFields = getBusinessFields(user);
-
-  const paymentMethodTitle = (paymentMethod: PaymentMethod) => {
-    return paymentMethod.type === 'us_bank_account'
-      ? paymentMethod.paymentMethodInfo.bankName
-      : `${paymentMethod.paymentMethodInfo.brand} ${
-          paymentMethod.paymentMethodInfo.funding === 'debit' ? '(debit)' : ''
-        }`;
-  };
-
-  const paymentMethodDetail = (paymentMethod: PaymentMethod) => {
-    return paymentMethod.type === 'us_bank_account'
-      ? '••••'
-      : `•••• •••• •••• ${paymentMethod.paymentMethodInfo.last4}`;
-  };
 
   return (
     <>

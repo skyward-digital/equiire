@@ -1,6 +1,7 @@
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { Badge } from '../Badge';
 import { Button } from '../Button';
+import { PaymentMethod } from '#/app/api/payments';
 
 type SettingsCardProps = {
   title: string;
@@ -139,4 +140,18 @@ export const SettingsCardLink = ({
       </div>
     </div>
   );
+};
+
+export const paymentMethodTitle = (paymentMethod: PaymentMethod) => {
+  return paymentMethod.type === 'us_bank_account'
+    ? paymentMethod.paymentMethodInfo.bankName
+    : `${paymentMethod.paymentMethodInfo.brand} ${
+        paymentMethod.paymentMethodInfo.funding === 'debit' ? '(debit)' : ''
+      }`;
+};
+
+export const paymentMethodDetail = (paymentMethod: PaymentMethod) => {
+  return paymentMethod.type === 'us_bank_account'
+    ? '••••'
+    : `•••• •••• •••• ${paymentMethod.paymentMethodInfo.last4}`;
 };

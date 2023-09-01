@@ -7,8 +7,13 @@ import { TransactionAccordion } from '#/ui/components/TransactionAccordion';
 import { TransactionCard } from '#/ui/components/TransactionCard';
 import { Divider } from '#/ui/components/Divider';
 import {
+  SettingsCardLink,
+  paymentMethodTitle,
+  paymentMethodDetail,
+} from '#/ui/components/SettingsCard';
+import {
   ArchiveBoxIcon,
-  ArrowTopRightOnSquareIcon,
+  CreditCardIcon,
   BanknotesIcon,
   BuildingLibraryIcon,
   CalendarDaysIcon,
@@ -18,7 +23,6 @@ import {
   CurrencyDollarIcon,
   DocumentArrowDownIcon,
   HashtagIcon,
-  PencilIcon,
   ReceiptPercentIcon,
   WalletIcon,
 } from '#/lib/@heroicons/react/24/outline';
@@ -28,10 +32,9 @@ import {
   updateLoanPaymentMethod,
   getSignedLoanDoc,
   setPaymentSubscription,
-  type Loan,
 } from '#/app/api/loans';
 import {
-  setStripePaymentMethod,
+  setStripePaymentPortal,
   getStripePaymentMethods,
 } from '#/app/api/payments';
 import { getUser } from '#/app/api/profile';
@@ -61,8 +64,8 @@ export default async function Page({
     await Promise.all([
       getLoan({ id: params.id }),
       await getLoanTransactions({ id: params.id }),
-      setStripePaymentMethod({
-        returnUrl: `/loans/${params.id}?update-payment-method=true`,
+      setStripePaymentPortal({
+        returnUrl: `/loans/${params.id}`,
       }),
       getStripePaymentMethods(),
       getUser(),
@@ -300,37 +303,63 @@ export default async function Page({
 
           <Divider className="col-span-2" />
 
+          <div className="flex flex-col justify-between gap-4 text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
+            <p className="flex items-center gap-2 font-semibold capitalize">
+              {paymentMethods.docs[0].type === 'card' ? (
+                <CreditCardIcon className="h-4 w-4" />
+              ) : (
+                <BuildingLibraryIcon className="h-4 w-4" />
+              )}
+              Payment Method
+            </p>
+            <SettingsCardLink
+              title={paymentMethodTitle(paymentMethods.docs[0])}
+              detail={paymentMethodDetail(paymentMethods.docs[0])}
+              placeholder="0123 4567 8910 1112"
+              Icon={
+                paymentMethods.docs[0].type === 'card'
+                  ? CreditCardIcon
+                  : BuildingLibraryIcon
+              }
+              link={setPaymentMethod?.url}
+            />
+          </div>
+
+          <Divider className="col-span-2" />
+
           <div className="flex flex-col justify-between gap-2 text-xs text-gray-600 dark:text-gray-300 sm:text-sm">
             <p className="flex items-center gap-2 font-semibold capitalize">
               <ArchiveBoxIcon className="h-4 w-4" />
               End loan agreement early
             </p>
             <p>
-              Send us an email to process@equiire.com with the subject 'Cancel
-              Loan' and we'll get back to you as soon as we can.
+              {`Send us an email to process@equiire.com with the subject 'Cancel
+              Loan' and we'll get back to you as soon as we can.`}
             </p>
           </div>
 
-          <Divider className="col-span-2" />
+          {loan.signatureCompleted ? (
+            <>
+              <Divider className="col-span-2" />
 
-          <div className="flex flex-col items-start gap-2 sm:gap-4">
-            {loan.signatureCompleted ? (
-              <Button
-                href={`/api/loans/loan/download-signed-document?id=${id}`}
-                variant="secondary"
-                size="sm"
-                className="w-full sm:w-auto"
-              >
-                <DocumentArrowDownIcon className="h-4 w-4" />
-                Download Loan Agreement
-              </Button>
-            ) : null}
+              <div className="flex flex-col items-start gap-2 sm:gap-4">
+                <Button
+                  href={`/api/loans/loan/download-signed-document?id=${id}`}
+                  variant="secondary"
+                  size="sm"
+                  className="w-full sm:w-auto"
+                >
+                  <DocumentArrowDownIcon className="h-4 w-4" />
+                  Download Loan Agreement
+                </Button>
 
-            {/* <Button variant="secondary" size="sm" className="w-full sm:w-auto">
+                {/* <Button variant="secondary" size="sm" className="w-full sm:w-auto">
                 <PencilIcon className="h-4 w-4" />
                 Add note
               </Button> */}
-          </div>
+              </div>
+            </>
+          ) : null}
         </div>
 
         {transactions.docs.length ? (

@@ -1,1 +1,6 @@
-export { SettingsCard, SettingsCardLink } from './SettingsCard';
+export {
+  SettingsCard,
+  SettingsCardLink,
+  paymentMethodTitle,
+  paymentMethodDetail,
+} from './SettingsCard';
