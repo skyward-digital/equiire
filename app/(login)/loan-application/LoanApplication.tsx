@@ -19,28 +19,28 @@ export interface LoanDetails {
 export const LOAN_VALUES = {
   1000: {
     creditCost: 100,
-    apr: 19.189,
-    monthlyPayment: 30,
+    apr: 22.58,
+    monthlyPayment: 35,
   },
   2500: {
     creditCost: 150,
-    apr: 19.189,
-    monthlyPayment: 75,
+    apr: 19.545,
+    monthlyPayment: 80,
   },
   5000: {
     creditCost: 200,
-    apr: 19.189,
+    apr: 16.981,
     monthlyPayment: 150,
   },
   10000: {
     creditCost: 300,
-    apr: 14.345,
+    apr: 12.74,
     monthlyPayment: 275,
   },
   15000: {
     creditCost: 400,
     apr: 11.264,
-    monthlyPayment: 275,
+    monthlyPayment: 400,
   },
   25000: {
     creditCost: 500,
