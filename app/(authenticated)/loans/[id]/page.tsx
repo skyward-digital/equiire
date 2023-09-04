@@ -29,7 +29,6 @@ import {
 import {
   getLoan,
   getLoanTransactions,
-  updateLoanPaymentMethod,
   getSignedLoanDoc,
   setPaymentSubscription,
 } from '#/app/api/loans';
@@ -38,7 +37,6 @@ import {
   getStripePaymentMethods,
 } from '#/app/api/payments';
 import { getUser } from '#/app/api/profile';
-import Link from 'next/link';
 import { userProfileComplete } from '#/lib/userProfileComplete';
 import { isExpiredLoan } from '#/lib/isExpiredLoan';
 import { getDateWithoutTimezone } from '#/lib/getDateWithoutTimezone';
@@ -72,12 +70,12 @@ export default async function Page({
     ]);
 
   const openStripePortal = searchParams['open-stripe-portal'];
-  const updatePaymentMethod = searchParams['update-payment-method'];
+  // const updatePaymentMethod = searchParams['update-payment-method'];
 
   const profileCompleted = userProfileComplete(user);
 
   // We are changing some of these variables after certain processes have finished
-  let paymentStepCompleted = !!loan.paymentMethod;
+  let paymentStepCompleted = paymentMethods.docs.length > 0;
   let status = loan.loanStatus;
 
   // If the loan agreement date is in the past, it should fail gracefully
@@ -89,16 +87,16 @@ export default async function Page({
       redirect(setPaymentMethod.url);
     }
 
-    if (updatePaymentMethod) {
-      if (paymentMethods.docs.length > 0) {
-        const updatedLoan = await updateLoanPaymentMethod({
-          loanId: params.id,
-          paymentMethodId: paymentMethods.docs[0].id,
-        });
-        // Confirms that the payment method was updated on the loan
-        paymentStepCompleted = !!updatedLoan.paymentMethod;
-      }
-    }
+    // if (updatePaymentMethod) {
+    //   if (paymentMethods.docs.length > 0) {
+    //     const updatedLoan = await updateLoanPaymentMethod({
+    //       loanId: params.id,
+    //       paymentMethodId: paymentMethods.docs[0].id,
+    //     });
+    //     // Confirms that the payment method was updated on the loan
+    //     paymentStepCompleted = !!updatedLoan.paymentMethod;
+    //   }
+    // }
 
     // Subscribes the loan and updates loan status
     if (profileCompleted && paymentStepCompleted && loan.signatureCompleted) {
