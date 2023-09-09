@@ -65,7 +65,7 @@ export default async function Page({
       getLoan({ id: params.id }),
       await getLoanTransactions({ id: params.id }),
       setStripePaymentPortal({
-        returnUrl: `/loans/${params.id}`,
+        returnUrl: `/loans/${params.id}?update-payment-method=true`,
       }),
       getStripePaymentMethods(),
       getUser(),

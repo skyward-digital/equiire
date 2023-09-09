@@ -37,7 +37,7 @@ export const LoanSteps = ({
       completed: steps.account,
     },
     payment: {
-      title: 'Add payment information',
+      title: 'Confirm payment information',
       href: paymentUrl || `loans/${loanId}?open-stripe-portal=true`,
       order: 3,
       completed: steps.payment,
