@@ -4,27 +4,34 @@ import { Label } from '#/ui/components/Label';
 import { SliderGroup } from '#/ui/components/SliderGroup';
 //import { Select, SelectItem } from '#/ui/components/Select';
 import { Button } from '#/ui/components/Button';
-import { LOAN_VALUES } from '#/app/(login)/loan-application/LoanApplication';
 
 export type LoanCalculatorProps = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   loanDetails: LoanDetails;
-  setLoanDetails: React.Dispatch<React.SetStateAction<LoanDetails>>;
+  setSelectedAmount: React.Dispatch<
+    React.SetStateAction<LoanDetails['amount']>
+  >;
 };
 
 export function LoanCalculator({
   setStep,
   loanDetails,
-  setLoanDetails,
+  setSelectedAmount,
 }: LoanCalculatorProps) {
   const {
     type,
     amount,
-    repaymentPeriod,
-    //scheduledPayment,
-    //terms,
-    //interestType,
+    fee,
+    length,
+    monthlyPayment,
+    apr,
+    totalRepayable,
+    creditCost,
+    startDate,
+    interestType,
   } = loanDetails;
+
+  console.log(loanDetails);
 
   const loanTypeTitle = {
     CREDIT_BUILDER: 'Credit Builder',
@@ -109,12 +116,12 @@ export function LoanCalculator({
               ]}
               id="loan-type"
               value={type}
-              onChange={(value) =>
-                setLoanDetails({
-                  ...loanDetails,
-                  type: value as 'CREDIT_BUILDER' | 'STANDARD',
-                })
-              }
+              onChange={(value) => null}
+              //   setLoanDetails({
+              //     ...loanDetails,
+              //     type: value as 'CREDIT_BUILDER' | 'STANDARD',
+              //   })
+              // }
               ariaLabel="Loan Type"
             />
           </div>
@@ -137,10 +144,7 @@ export function LoanCalculator({
           options={sliderGroupValues.amount.options}
           value={amount.toString()}
           onChange={(value) =>
-            setLoanDetails({
-              ...loanDetails,
-              amount: Number(value) as LoanDetails['amount'],
-            })
+            setSelectedAmount(Number(value) as LoanDetails['amount'])
           }
         />
       </div>
@@ -159,7 +163,7 @@ export function LoanCalculator({
             className="text-lg text-gray-600 dark:text-white"
             id="monthly-payment"
           >
-            {LOAN_VALUES[amount].monthlyPayment.toLocaleString('en-US', {
+            {monthlyPayment.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
               maximumFractionDigits: 0,
@@ -177,7 +181,7 @@ export function LoanCalculator({
             className="text-lg text-gray-600 dark:text-white"
             id="monthly-payment"
           >
-            {repaymentPeriod} Months
+            {length} Months
           </div>
         </div>
         {/* Loan terms user selection - to be used later */}
@@ -225,7 +229,7 @@ export function LoanCalculator({
               setLoanDetails({ ...loanDetails, repaymentPeriod: value })
             }
           />
-        )} 
+        )}
         {type === 'STANDARD' && (
           <div className="flex items-center justify-between ">
             <Label

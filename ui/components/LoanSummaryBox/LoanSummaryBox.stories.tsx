@@ -25,21 +25,25 @@ type Story = StoryObj<typeof LoanSummaryBox>;
 function StoryRender(
   props: Omit<LoanSummaryBoxProps, 'loanDetails' | 'setLoanDetails'>,
 ) {
-  const [loanDetails, setLoanDetails] = useState<LoanDetails>({
+  const loanDetails: LoanDetails = {
     type: 'CREDIT_BUILDER',
     amount: 10000,
-    repaymentPeriod: 48,
+    fee: 300,
+    length: 48,
+    monthlyPayment: 275,
+    interestType: 'FIXED',
+    apr: 12.74,
+    totalRepayable: 13200,
+    creditCost: 300,
     // static date so it doesn't change every time the story is loaded
     startDate: new Date(2023, 0, 24),
-    //terms: 'monthly',
-    //scheduledPayment: '500',
-    //interestType: 'FIXED',
-  });
+  };
+
   return (
     <LoanSummaryBox
       {...props}
       loanDetails={loanDetails}
-      setLoanDetails={setLoanDetails}
+      setStartDate={() => {}}
     />
   );
 }
