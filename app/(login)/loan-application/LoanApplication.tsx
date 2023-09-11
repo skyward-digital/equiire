@@ -1,5 +1,5 @@
 'use client';
-import { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect, useEffect } from 'react';
 import clsx from 'clsx';
 import { LoanCalculator } from '#/ui/components/LoanCalculator';
 import { LoanSummaryBox } from '#/ui/components/LoanSummaryBox';
@@ -8,136 +8,83 @@ import { LoanSummaryBox } from '#/ui/components/LoanSummaryBox';
 export interface LoanDetails {
   type: 'CREDIT_BUILDER' | 'STANDARD';
   amount: 1000 | 2500 | 5000 | 10000 | 15000 | 25000;
+  fee: number;
+  length: number;
+  monthlyPayment: number;
+  apr: number;
+  totalRepayable: number;
+  creditCost: number;
   startDate: Date;
-  repaymentPeriod: number;
-  //scheduledPayment: string;
-  //terms: string;
-  //repaymentPeriod: string;
-  //interestType: 'FIXED' | 'VARIABLE';
+  interestType: 'FIXED' | 'VARIABLE';
 }
-
-export const LOAN_VALUES = {
-  1000: {
-    creditCost: 100,
-    apr: 22.58,
-    monthlyPayment: 35,
-  },
-  2500: {
-    creditCost: 150,
-    apr: 19.545,
-    monthlyPayment: 80,
-  },
-  5000: {
-    creditCost: 200,
-    apr: 16.981,
-    monthlyPayment: 150,
-  },
-  10000: {
-    creditCost: 300,
-    apr: 12.74,
-    monthlyPayment: 275,
-  },
-  15000: {
-    creditCost: 400,
-    apr: 11.264,
-    monthlyPayment: 400,
-  },
-  25000: {
-    creditCost: 500,
-    apr: 10.265,
-    monthlyPayment: 650,
-  },
-};
 
 export function LoanApplication() {
   const [step, setStep] = useState(0);
-  const [loanDetails, setLoanDetails] = useState<LoanDetails>({
-    type: 'CREDIT_BUILDER',
-    amount: 10000,
-    startDate: new Date(),
-    repaymentPeriod: 48,
-    //scheduledPayment: '500',
-    //terms: 'monthly',
-    //interestType: 'FIXED',
-  });
-  // This will be needed again when the user can choose Loan Terms
-  // const { type, terms } = loanDetails;
-  // // I am using useLayoutEffect here to stop there being a flicker on the slider when changing the RadioGroup
-  // useLayoutEffect(() => {
-  //   if (type === 'CREDIT_BUILDER') {
-  //     setLoanDetails((loanDetails) => ({
-  //       ...loanDetails,
-  //       amount: '10000',
-  //       scheduledPayment: '500',
-  //       // wipes properties that are no longer visible to user
-  //       repaymentPeriod: '',
-  //       interestType: 'FIXED',
-  //     }));
-  //   } else if (type === 'STANDARD') {
-  //     setLoanDetails((loanDetails) => ({
-  //       ...loanDetails,
-  //       amount: '50000',
-  //       repaymentPeriod: '12',
-  //       interestType: 'FIXED',
-  //       // wipes properties that are no longer visible to user
-  //       scheduledPayment: '',
-  //     }));
-  //   }
-  // }, [type]);
+  const [selectedAmount, setSelectedAmount] = useState<
+    1000 | 2500 | 5000 | 10000 | 15000 | 25000
+  >(10000);
+  const [startDate, setStartDate] = useState<Date>(
+    new Date(new Date().setDate(new Date().getDate() + 1)), // tomorrow
+  ); // tomorrow;
 
-  // useLayoutEffect(() => {
-  //   if (terms === 'length') {
-  //     if (type === 'CREDIT_BUILDER') {
-  //       setLoanDetails((loanDetails) => ({
-  //         ...loanDetails,
-  //         repaymentPeriod: '24',
-  //         // wipes properties no longer visible to user
-  //         scheduledPayment: '',
-  //       }));
-  //     } else {
-  //       setLoanDetails((loanDetails) => ({
-  //         ...loanDetails,
-  //         repaymentPeriod: '12',
-  //         // wipes properties no longer visible to user
-  //         scheduledPayment: '',
-  //       }));
-  //     }
-  //   } else if (terms === 'monthly') {
-  //     if (type === 'CREDIT_BUILDER') {
-  //       setLoanDetails((loanDetails) => ({
-  //         ...loanDetails,
-  //         scheduledPayment: '500',
-  //         // wipes properties no longer visible to user
-  //         repaymentPeriod: '',
-  //       }));
-  //     } else {
-  //       setLoanDetails((loanDetails) => ({
-  //         ...loanDetails,
-  //         scheduledPayment: '5000',
-  //         // wipes properties no longer visible to user
-  //         repaymentPeriod: '',
-  //       }));
-  //     }
-  //   }
-  // }, [terms, type]);
+  const [loanDetails, setLoanDetails] = useState<LoanDetails>();
+
+  const getLoanDetails = async ({
+    amount,
+    // length,
+    startDate,
+  }: {
+    amount: 1000 | 2500 | 5000 | 10000 | 15000 | 25000;
+    // length: 48;
+    startDate: Date;
+  }) => {
+    const loanDetails = await fetch('/api/loans/calculateLoanDetails', {
+      method: 'POST',
+      body: JSON.stringify({
+        amount,
+        length: 48,
+      }),
+    });
+
+    const data = await loanDetails.json();
+
+    setLoanDetails({
+      ...data.data,
+      startDate,
+    });
+  };
+
+  useEffect(() => {
+    getLoanDetails({
+      amount: selectedAmount,
+      startDate,
+    });
+  }, [selectedAmount, startDate]);
 
   return (
     <div className="mx-auto flex flex-col justify-center sm:flex-row lg:gap-10">
-      {step === 0 && (
-        <LoanCalculator
-          setStep={setStep}
-          loanDetails={loanDetails}
-          setLoanDetails={setLoanDetails}
-        />
+      {loanDetails && (
+        <>
+          {step === 0 && (
+            <LoanCalculator
+              setStep={setStep}
+              loanDetails={loanDetails}
+              setSelectedAmount={setSelectedAmount}
+            />
+          )}
+          <LoanSummaryBox
+            size={step === 0 ? 'sm' : 'lg'}
+            loanDetails={loanDetails}
+            setStartDate={setStartDate}
+            step={step}
+            setStep={setStep}
+            className={clsx({
+              'hidden lg:grid': step === 0,
+              'w-full': step === 1,
+            })}
+          />
+        </>
       )}
-      <LoanSummaryBox
-        size={step === 0 ? 'sm' : 'lg'}
-        loanDetails={loanDetails}
-        setLoanDetails={setLoanDetails}
-        className={clsx({ 'hidden lg:grid': step === 0, 'w-full': step === 1 })}
-        step={step}
-        setStep={setStep}
-      />
     </div>
   );
 }

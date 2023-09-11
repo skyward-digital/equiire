@@ -8,10 +8,7 @@ import {
   BanknotesIcon,
   CalendarIcon,
 } from '@heroicons/react/24/outline';
-import {
-  LOAN_VALUES,
-  LoanDetails,
-} from '#/app/(login)/loan-application/LoanApplication';
+import { LoanDetails } from '#/app/(login)/loan-application/LoanApplication';
 import { Badge } from '#/ui/components/Badge';
 import { Button } from '#/ui/components/Button';
 import { BadgeProps } from '#/ui/components/Badge';
@@ -26,7 +23,7 @@ export type LoanSummaryBoxProps = {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
   loanDetails: LoanDetails;
-  setLoanDetails: React.Dispatch<React.SetStateAction<LoanDetails>>;
+  setStartDate: React.Dispatch<React.SetStateAction<Date>>;
 };
 
 export function LoanSummaryBox({
@@ -35,35 +32,21 @@ export function LoanSummaryBox({
   setStep,
   className,
   loanDetails,
-  setLoanDetails,
+  setStartDate,
 }: LoanSummaryBoxProps) {
   const {
     type,
     amount,
-    repaymentPeriod,
-    //terms,
-    //scheduledPayment,
-    //interestType,
+    fee,
+    length,
+    monthlyPayment,
+    apr,
+    totalRepayable,
+    creditCost,
     startDate,
+    interestType,
   } = loanDetails;
 
-  // These calculations are needed when the user can select the loan terms
-  /* const length =
-    terms === 'length'
-      ? parseInt(repaymentPeriod)
-      : parseInt(amount) / parseInt(scheduledPayment); 
-   const monthlyPayment =
-    terms === 'monthly'
-      ? parseInt(scheduledPayment)
-      : // we round up so they pay off all of the loan, this may need to be amended
-        Math.ceil(parseInt(amount) / length); */
-  //const monthlyPayment = parseInt(scheduledPayment);
-
-  const length = repaymentPeriod;
-  const { monthlyPayment, apr, creditCost } = LOAN_VALUES[amount];
-  const totalWithFee = amount + creditCost;
-  // we add the fee before calculating interest
-  const totalRepayable = totalWithFee + totalWithFee * (apr / 100);
   const endDate = add(startDate, {
     months: length,
   });
@@ -203,9 +186,7 @@ export function LoanSummaryBox({
               </h3>
               <DatePicker
                 value={startDate}
-                onValueChange={(value) =>
-                  setLoanDetails({ ...loanDetails, startDate: value })
-                }
+                onValueChange={(value) => setStartDate(value as Date)}
                 className="flex-1"
                 disablePast
               />
