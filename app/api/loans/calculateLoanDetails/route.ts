@@ -1,9 +1,7 @@
 import { NextResponse } from 'next/server';
 import { redirect } from 'next/navigation';
-import { getServerSession } from '#/app/api/session';
 
 export async function POST(request: Request) {
-  const { accessToken } = await getServerSession();
   const { amount, length } = await request.json();
 
   const res = await fetch(
@@ -11,7 +9,7 @@ export async function POST(request: Request) {
     {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        // Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
     },
